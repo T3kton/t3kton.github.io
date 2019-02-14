@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Give it a Try &mdash; t3kton 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="t3kton 1.0 documentation" href="../index.html" />
+    <link rel="up" title="Contractor" href="index.html" />
+    <link rel="next" title="Configuration Values" href="ConfigurationValues.html" />
+    <link rel="prev" title="Introduction to Contractor" href="Introduction.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="give-it-a-try">
+<h1>Give it a Try<a class="headerlink" href="#give-it-a-try" title="Permalink to this headline">¶</a></h1>
+<p><em>Warning</em>: Contractor is made to solve complex problems, for the most part it presents
+a must less complex interface to you.  That being said, there is a bit of a hurdle
+to get it up and running, depending on what you are trying to automate.  So, buckle
+in, this is going to be a lot of fun.</p>
+<p>This demo will result in a VM in a private /24 network that can create and destroy
+other VMs in that network.  You can use either VCenter or VirtualBox.  After the
+Contractor VM is up and running, you can install more blueprints and plugins to do
+docker or other foundations.  The requirement for the private network comes primarally from
+the setupWizzard&#8217;s default configuration, if you feel comfortable with modifying
+the setupWizzard and the Apache Configurations, you can use blueprints and plugins
+for hosted providers such as AWS and Azure.</p>
+<p>NOTE: setupWizzard is going to re-write some bind config files, so don&#8217;t edit them
+until after the install is complete.</p>
+<div class="section" id="installing">
+<h2>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
+<p>Create an Ubuntu Xenial VM, name it <cite>contractor</cite>, set the fqdn to <cite>contractor.site1.local</cite>
+Ideally it should be in a /24 network.  Ip addresses offsets from 2 to 20 will be
+set as reserved (so that contractor will not auto asign them) and offsets 21 - 29
+will be used for a dynamic DHCP pool. Offset 1 is assumed to te be the gateway.
+All these values can be adjusted either in the setupWizzard file before it is run,
+or after it setup, you can use the API/UI to edit these values.
+The DNS setver will be set for the contractor VM, and bind on the contractor vm will
+be set to forward to the DNS server that was origionally configured on the VM.</p>
+<p>The default when installing from package is to use postgres for the database.
+sqlite is also supported, and the prefered way for developmnet.  You can edit the
+<cite>/etc/contractor/master.conf</cite> just before the <cite>manage.py migrate</cite> command to
+enable the sqlite option if desired, make sure to skip the postgres setup.  Keep
+in mind that sqlite option requires making the database writeable by <cite>www-data.www-data</cite>.</p>
+<div class="section" id="from-source">
+<h3>From Source<a class="headerlink" href="#from-source" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><a class="reference internal" href="TryIt_source.html"><em>Install From Source</em></a></div></blockquote>
+</div>
+<div class="section" id="from-packages">
+<h3>From Packages<a class="headerlink" href="#from-packages" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><a class="reference internal" href="TryIt_packaged.html"><em>Install From Prebuilt Packages</em></a></div></blockquote>
+</div>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>Install Postgres:</p>
+<div class="highlight-python"><div class="highlight"><pre>apt install -y postgresql-client postgresql-9.5
+</pre></div>
+</div>
+<p>Create the postgres db:</p>
+<div class="highlight-python"><div class="highlight"><pre>su postgres -c &quot;echo \&quot;CREATE ROLE contractor WITH PASSWORD &#39;contractor&#39; NOSUPERUSER NOCREATEDB NOCREATEROLE LOGIN;\&quot; | psql&quot;
+su postgres -c &quot;createdb -O contractor contractor&quot;
+</pre></div>
+</div>
+<p>the ubuntu toml package is to old:</p>
+<div class="highlight-python"><div class="highlight"><pre>apt install -y python3-pip
+pip3 install toml --upgrade
+</pre></div>
+</div>
+<p>Now to create the db:</p>
+<div class="highlight-python"><div class="highlight"><pre>/usr/lib/contractor/util/manage.py migrate
+</pre></div>
+</div>
+<p>Install base os config:</p>
+<div class="highlight-python"><div class="highlight"><pre>respkg -i contractor-os-base_0.0.respkg
+respkg -i contractor-ubuntu-base_0.0.respkg
+</pre></div>
+</div>
+<p>Now to enable plugins:</p>
+<div class="highlight-python"><div class="highlight"><pre>respkg -i contractor-plugins-manual_0.0.respkg
+</pre></div>
+</div>
+<p>if you are using vcenter:</p>
+<div class="highlight-python"><div class="highlight"><pre>respkg -i contractor-plugins-vcenter_0.0.respkg
+</pre></div>
+</div>
+<p>if you are using virtualbox:</p>
+<div class="highlight-python"><div class="highlight"><pre>respkg -i contractor-plugins-virtualbox_0.0.respkg
+</pre></div>
+</div>
+<p>do manual plugin again so it can cross link to the other plugins:</p>
+<div class="highlight-python"><div class="highlight"><pre>respkg -i contractor-plugins-manual_0.0.respkg
+</pre></div>
+</div>
+<p>Now to setup some base info, and configure bind:</p>
+<div class="highlight-python"><div class="highlight"><pre>/usr/lib/contractor/setup/setupWizzard
+</pre></div>
+</div>
+<p>Restart bind with new zones:</p>
+<div class="highlight-python"><div class="highlight"><pre>service bind9 restart
+</pre></div>
+</div>
+<p>This VM needs to use the contractor generated dns, so edit
+/etc/network/interfaces to set the dns server to 127.0.0.1
+then, reload networking configuration:</p>
+<div class="highlight-python"><div class="highlight"><pre>systemctl restart networking
+</pre></div>
+</div>
+<p>Now to disable the extra apache site:</p>
+<div class="highlight-python"><div class="highlight"><pre>a2dissite 000-default
+service apache2 reload
+</pre></div>
+</div>
+<p>you might want to tweek /etc/apache2/sites-available/contractor.conf</p>
+<p>yon now take a look at the contractor ui at <a class="reference external" href="http:/">http:/</a>/&lt;contractor ip&gt;</p>
+<p>now we will install subcontractor:</p>
+<div class="highlight-python"><div class="highlight"><pre>dpkg -i subcontractor_0*.deb subcontractor-plugins_0*.deb
+apt install -f
+apt install tftpd-hpa
+respkg -i contractor-ipxe_0.0.respkg
+</pre></div>
+</div>
+<p>now edit /etc/subcontractor.conf
+enable the modules you want to use, remove the &#8216;;&#8217; and set the 0 to a 1.
+The 1 means one task for that plugin at a time, if you want things to go faster,
+you can try 2 or 4.  Depending on the plugin, the resources of your vm, etc.</p>
+<p>edit /etc/subcontractor.conf in the dhcpd section, make sure interface and tftp_server
+are correct, tftp_server should be the ip of the vm</p>
+<p>now start up subcontractor:</p>
+<div class="highlight-python"><div class="highlight"><pre>systemctl start subcontractor
+systemctl start dhcpd
+</pre></div>
+</div>
+<p>make sure it&#8217;s running:</p>
+<div class="highlight-python"><div class="highlight"><pre>systemctl status subcontractor
+systemctl status dhcpd
+</pre></div>
+</div>
+<p>optional, edit /etc/default/tftpd-hpa and add &#8216;-v &#8216; to TFTP_OPTIONS.  This will
+cause tfptd to log transfers to syslog.  This can be helpfull in troubleshooting
+boot problems. Make sure to run <cite>service tftpd-hpa restart</cite> to reload.</p>
+<p>to service static resources (such as the OS installers) you will need to setup
+a static web server.  First create the directory:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">static</span>
+</pre></div>
+</div>
+<p>now create /etc/apache2/sites-available/static.conf with the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;VirtualHost *:80&gt;
+  ServerName static
+  ServerAlias static.&lt;domain&gt;
+
+  DocumentRoot /var/www/static
+
+  LogFormat &quot;%a %t %D \&quot;%r\&quot; %&gt;s %I %O \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot; %X&quot; static_log
+  ErrorLog ${APACHE_LOG_DIR}/static_error.log
+  CustomLog ${APACHE_LOG_DIR}/static_access.log static_log
+&lt;/VirtualHost&gt;
+</pre></div>
+</div>
+<p>now enable the site:</p>
+<div class="highlight-python"><div class="highlight"><pre>a2ensite static
+service apache2 reload
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Give it a Try</a><ul>
+<li><a class="reference internal" href="#installing">Installing</a><ul>
+<li><a class="reference internal" href="#from-source">From Source</a></li>
+<li><a class="reference internal" href="#from-packages">From Packages</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setup">Setup</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Contractor</a><ul>
+      <li>Previous: <a href="Introduction.html" title="previous chapter">Introduction to Contractor</a></li>
+      <li>Next: <a href="ConfigurationValues.html" title="next chapter">Configuration Values</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Peter Howe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

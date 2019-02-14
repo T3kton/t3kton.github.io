@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Install From Prebuilt Packages &mdash; t3kton 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="t3kton 1.0 documentation" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="install-from-prebuilt-packages">
+<h1>Install From Prebuilt Packages<a class="headerlink" href="#install-from-prebuilt-packages" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="building-packages">
+<h2>Building Packages<a class="headerlink" href="#building-packages" title="Permalink to this headline">¶</a></h2>
+<p>NOTE: To build the packages, you will need a temporary Ubuntu Xenial install, you can
+use the target contractor VM if you don&#8217;t mind a little extra stuff laying arround.</p>
+<p>install the required build tools, the PPA has a few required packages for building
+and installing:</p>
+<div class="highlight-python"><div class="highlight"><pre>add-apt-repository ppa:pnhowe/t3kton
+apt update
+apt install -y git respkg build-essential dpkg-dev debhelper python3-dev python3-setuptools nodejs npm nodejs-legacy liblzma-dev
+</pre></div>
+</div>
+<p>Create an empty directory, and cd into it</p>
+<p>first clone the contractor and related projects:</p>
+<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/T3kton/contractor.git
+git clone https://github.com/T3kton/contractor_plugins.git
+git clone https://github.com/T3kton/subcontractor.git
+git clone https://github.com/T3kton/subcontractor_plugins.git
+git clone https://github.com/T3kton/resources.git
+</pre></div>
+</div>
+<p>now to build Contractor, first we need to get the node requirements for the UI, and fix a bug with react-toolbox:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd contractor
+cd ui &amp;&amp; npm install &amp;&amp; cd ..
+sed s/&quot;export Ripple from &#39;.\/ripple&#39;;&quot;/&quot;export { default as Ripple } from &#39;.\/ripple&#39;;&quot;/ -i ui/node_modules/react-toolbox/components/index.js
+sed s/&quot;export Tooltip from &#39;.\/tooltip&#39;;&quot;/&quot;export { default as Tooltip } from &#39;.\/tooltip&#39;;&quot;/ -i ui/node_modules/react-toolbox/components/index.js
+</pre></div>
+</div>
+<p>now build the packages:</p>
+<div class="highlight-python"><div class="highlight"><pre>make dpkg
+make respkg
+mv *.respkg ..
+cd ..
+</pre></div>
+</div>
+<p>now to build the others:</p>
+<div class="highlight-python"><div class="highlight"><pre>for i in subcontractor contractor_plugins subcontractor_plugins; do cd $i &amp;&amp; make dpkg &amp;&amp; cd ..; done
+</pre></div>
+</div>
+<p>and build the resources, the make in the resources can take a while, you may want
+to add <cite>-j4</cite> (replace the 4 with the number of compile process to parralaize):</p>
+<div class="highlight-python"><div class="highlight"><pre>cd contractor_plugins
+make respkg
+mv *.respkg ..
+cd ../resources
+make respkg
+mv *.respkg ..
+cd ..
+</pre></div>
+</div>
+<p>copy the .deb and .respkg files from the build server to the target contractor vm.</p>
+<p>on the target contractor vm setup repos and install some required tools:</p>
+<div class="highlight-python"><div class="highlight"><pre>add-apt-repository ppa:pnhowe/t3kton
+apt update
+apt install -y bind9 postgresql-9.5
+</pre></div>
+</div>
+<p>Install Packages:</p>
+<div class="highlight-python"><div class="highlight"><pre>dpkg -i contractor_*.deb contractor-plugins_*.deb
+apt install -f
+</pre></div>
+</div>
+</div>
+<div class="section" id="installing-from-pre-built-packages">
+<h2>Installing from pre-built packages<a class="headerlink" href="#installing-from-pre-built-packages" title="Permalink to this headline">¶</a></h2>
+<p>Setup the PPA which has the built packages:</p>
+<div class="highlight-python"><div class="highlight"><pre>add-apt-repository ppa:pnhowe/t3kton
+apt update
+apt install -y respkg contractor contractor_plugins subcontractor subcontractor_plugins
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Install From Prebuilt Packages</a><ul>
+<li><a class="reference internal" href="#building-packages">Building Packages</a></li>
+<li><a class="reference internal" href="#installing-from-pre-built-packages">Installing from pre-built packages</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Peter Howe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

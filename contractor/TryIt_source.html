@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Install From Source &mdash; t3kton 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="t3kton 1.0 documentation" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="install-from-source">
+<h1>Install From Source<a class="headerlink" href="#install-from-source" title="Permalink to this headline">¶</a></h1>
+<p>Building requires running on a Ubuntu Xenial machine.</p>
+<p>install the required build tools, the PPA has a few required packages for building
+and installing:</p>
+<div class="highlight-python"><div class="highlight"><pre>add-apt-repository ppa:pnhowe/t3kton
+apt update
+apt install -y git respkg build-essential python3-dev python3-setuptools nodejs npm nodejs-legacy liblzma-dev python3-django apache2 libapache2-mod-wsgi-py3 python3-werkzeug python3-psycopg2 python3-cinp python3-toml python3-jinja2
+</pre></div>
+</div>
+<p>Create an empty directory, and cd into it</p>
+<p>first clone the contractor and related projects:</p>
+<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/T3kton/contractor.git
+git clone https://github.com/T3kton/contractor_plugins.git
+git clone https://github.com/T3kton/subcontractor.git
+git clone https://github.com/T3kton/subcontractor_plugins.git
+git clone https://github.com/T3kton/resources.git
+</pre></div>
+</div>
+<p>now to build Contractor, first we need to get the node requirements for the UI, and fix a bug with react-toolbox:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd contractor
+cd ui &amp;&amp; npm install
+sed s/&quot;export Ripple from &#39;.\/ripple&#39;;&quot;/&quot;export { default as Ripple } from &#39;.\/ripple&#39;;&quot;/ -i ui/node_modules/react-toolbox/components/index.js
+sed s/&quot;export Tooltip from &#39;.\/tooltip&#39;;&quot;/&quot;export { default as Tooltip } from &#39;.\/tooltip&#39;;&quot;/ -i ui/node_modules/react-toolbox/components/index.js
+cd ..
+</pre></div>
+</div>
+<p>and build the resources, the make in the resources can take a while, you may want to replace the 2 of the <cite>-j2</cite> with the number of cores you are using:</p>
+<div class="highlight-python"><div class="highlight"><pre>for i in contractor contractor_plugins resources; do cd $i &amp;&amp; make -j2 respkg &amp;&amp; mv *.respkg .. &amp;&amp; cd ..; done
+</pre></div>
+</div>
+<p>now to install the python, NOTE the Makefile will call &#8216;./setup.py install&#8217; for you:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd contractor
+DESTDIR=/ make install
+cp debian/cron.d /etc/cron.d/contractor
+cp /etc/contractor/master.conf.sample /etc/contractor/master.conf
+ln -sf /etc/contractor/master.conf /usr/lib/python3/dist-packages/contractor/settings.py
+mkdir -p /etc/bind/contractor/zones
+mkdir -p /var/lib/contractor
+a2ensite contractor.conf
+a2enmod wsgi
+cd ..
+cd contractor_plugins
+DESTDIR=/ make install
+cd ..
+cd subcontractor
+DESTDIR=/ make install
+cp debian/dhcpd.service /lib/systemd/system/
+cp debian/subcontractor.service /lib/systemd/system/
+systemctl enable dhcpd
+systemctl enable subcontractor
+cd ..
+cd subcontractor_plugins
+DESTDIR=/ make install
+cd ..
+
+systemctl daemon-reload
+systemctl restart cron
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Peter Howe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
