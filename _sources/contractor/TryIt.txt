@@ -23,14 +23,14 @@ Installing
 Create an Ubuntu Xenial VM, name it `contractor`, set the fqdn to `contractor.site1.local`
 Ideally it should be in a /24 network.  Ip addresses offsets from 2 to 20 will be
 set as reserved (so that Contractor will not auto asign them) and offsets 21 - 29
-will be used for a dynamic DHCP pool. Offset 1 is assumed to te be the gateway.
+will be used for a dynamic DHCP pool. Offset 1 is assumed to be the gateway.
 All these values can be adjusted either in the setupWizzard file before it is run,
 or after it is setup, you can use the API/UI to edit these values.
 The DNS server will be set for the contractor VM, and bind on the contractor vm will
 be set to forward to the DNS server that was originally configured on the VM.
 
 The default when installing from package is to use postgres for the database.
-sqlite is also supported, and the prefered way for developmnet.  You can edit the
+sqlite is also supported, and the prefered way for development.  You can edit the
 `/etc/contractor/master.conf` just before the `manage.py migrate` command to
 enable the sqlite option if desired, make sure to skip the postgres setup.  Keep
 in mind that sqlite option requires making the database writeable by `www-data.www-data`.
@@ -120,7 +120,7 @@ now we will setup subcontractor::
 
 now edit /etc/subcontractor.conf
 enable the modules you want to use, remove the ';' and set the 0 to a 1.
-The 1 means one task for that plugin at a time.  If you want things to go faster,
+The 1 means one task for that plugin at a time. If you want things to go faster,
 you can try 2 or 4 depending on the plugin, the resources of your vm, etc.
 
 edit `/etc/subcontractor.conf` in the dhcpd section, make sure interface and tftp_server
