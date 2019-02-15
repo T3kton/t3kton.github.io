@@ -24,6 +24,9 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="t3kton 1.0 documentation" href="../index.html" />
+    <link rel="up" title="Contractor" href="index.html" />
+    <link rel="next" title="Modules" href="Modules.html" />
+    <link rel="prev" title="Configuration Values" href="ConfigurationValues.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -38,60 +41,60 @@
             
   <div class="section" id="ip-addresses">
 <h1>Ip Addresses<a class="headerlink" href="#ip-addresses" title="Permalink to this headline">¶</a></h1>
-<p>Ip Address come in a few flavors, there is a BaseAddress class which all Ip Addresses
+<p>Ip Addresses come in a few flavors, there is a BaseAddress class which all Ip Addresses
 belong to that defines an Ip Address as an Offset in an AddressBlock.  The flavors
-of BaseAddress are <strong>Address</strong> - an Address that can belond to <strong>Networked</strong>.
-<strong>ReservedAddress</strong> - an Address that is reserved by something outside Contractors
+of BaseAddress are <strong>Address</strong> - an Address that can belong to <strong>Networked</strong>.
+<strong>ReservedAddress</strong> - an Address that is reserved by something outside Contractor&#8217;s
 scope.  And <strong>DynamicAddress</strong> - an Address that belongs to a DHCP group.</p>
-<p>An <strong>AddressBlock</strong> is defined by it&#8217;s network and prefix.  And can optionally
-hold a gateway offset.  No two AddressBlocks can overlap.  A AddressBlock is
+<p>An <strong>AddressBlock</strong> is defined by its network and prefix and can optionally
+hold a gateway offset.  No two AddressBlocks can overlap.  An AddressBlock is
 also tied to a Site.</p>
-<p><strong>Address</strong> can belong to anything that is <strong>Networked</strong>, Structures are Networked,
+<p><strong>Address</strong> can belong to anything that is <strong>Networked</strong>. Structures are Networked,
 as well as some Foundations like the IPMIFoundation.  An Address enforces that the
 Site the Networked belongs to is the same as the AddressBlock the Address Belongs to,
-thereby simplifying mahangment, helping to assure that the address will work.  Sites
+thereby simplifying management, helping to assure that the address will work.  Sites
 can also hold network configuration information (such as DNS servers and DNS
 search zones) which can be Site specfic.  Address also adds optional vLAN value, as
 well as an optional sub-interface value.  In some cases (such as with containers),
-a Structure dosen&#8217;t have it&#8217;s own IpAddress, but relys on it&#8217;s host IpAddress.  In
+a Structure doesn&#8217;t have it&#8217;s own IpAddress, but relies on its host IpAddress.  In
 these cases, Address can be configured to point to another Address.  Address also
 has a binary value is_primary, which defines which of all the potential Addresses
 this Networked device is to be used as it&#8217;s primary DNS name, as well as the Address
-to use when refering to it.  NOTE: the site is not checked through the pointer
+to use when referring to it.  NOTE: the site is not checked through the pointer
 field, this way the host and the hosted can belond to diferent sites, make sure
 your site and network configuration works for this.</p>
 <p><strong>ReservedAddress</strong> adds a single field which is a description of the reason
 the Address has been reserved.</p>
 <p><strong>DynamicAddress</strong> adds a PXE value which is used to PXE boot what ever device
-get&#8217;s this lease and want&#8217;s to PXE boot, this is optional.</p>
-<p>Releated to Addresses is the <strong>NetworkInterface</strong>.  A NetworkInterface is a named
+gets this lease and wants to PXE boot.  This is optional.</p>
+<p>Related to Addresses is the <strong>NetworkInterface</strong>.  A NetworkInterface is a named
 connection between a Networked and a set of IpAddressed.  A NetworkInterface has a
 flag is_provisioning which indicates which interface should be used for communication
-during provisioning.  During provisioning only the primary ip on the privisioning
-interface is used.  Not until the final Structure(ie: Operating System) is installed
+during provisioning.  During provisioning only the primary IP on the provisioning
+interface is used.  Not until the final Structure(i.e., Operating System) is installed
 and configured will the other interfaces and Ip Addresses be used.  NetworkInterface
 has three flavors, <strong>RealNetworkInterface</strong>, <strong>AbstractNetworkInterface</strong>, and
-<strong>AggragatedNetworkInterface</strong>.</p>
-<p><strong>RealNetworkInterface</strong> is to identify physicall ports, (or in case of things like
-Blades/VMs, Real as far as the OS/BIOS is concerend).  This type requires a MAC address
+<strong>AggregatedNetworkInterface</strong>.</p>
+<p><strong>RealNetworkInterface</strong> is to identify physical ports, (or in case of things like
+Blades/VMs, Real as far as the OS/BIOS is concerned).  This type requires a MAC address
 and is PXE bootable.</p>
 <p><strong>AbstractNetworkInterface</strong> is for interfaces that do not &#8220;physically&#8221; exist, like
 internal bridge interfaces, or loop back interfaces.</p>
-<p><strong>AggragatedNetworkInterface</strong> is for grouping multiple NetworkInterfaces togeather
+<p><strong>AggregatedNetworkInterface</strong> is for grouping multiple NetworkInterfaces together
 into a single AbstractNetworkInterface.  This is for things such as Port Channels,
 Bonded Interfaces, LACP, etc.  One interface is designated as the master interface.
-When the finaly Structure is not installed and configured, this is the interface
+When the final Structure is not installed and configured, this is the interface
 that is used.  There is also a list of the other interfaces that are grouped
-in.  As well as a Key/Value field to store configuration information (such as
+in as well as a Key/Value field to store configuration information (such as
 the bonding mode).</p>
-<p>NOTE: All networking information is combined togeather and added to the Configuration
+<p>NOTE: All networking information is combined together and added to the Configuration
 Information of the Structure/Foundation as a whole.</p>
-<p>NOTE2: Techinically speaking other than dedicated NetworkInterfaces, Such as the IPMI
-port on the IPMIFoundation, Foundationes do not have Ip Addresses.  Thus most Physicall
-Foundations will barrow the Address information of the Structure that they are configured
+<p>NOTE2: Technically speaking other than dedicated NetworkInterfaces, such as the IPMI
+port on the IPMIFoundation, Foundations do not have Ip Addresses.  Thus most Physical
+Foundations will borrow the Address information of the Structure that they are configured
 with to do tasks of the Foundation Jobs.  Without a Structure, Foundation Jobs that
-require an Address can not be done. (This is something that will hopfully change
-in the future by barrowing from a dynamic poll, but for now a Structure is required)</p>
+require an Address can not be done. (This is something that will hopefully change
+in the future by borrowing from a dynamic pool, but for now a Structure is required.)</p>
 </div>
 
 
@@ -103,6 +106,10 @@ in the future by barrowing from a dynamic poll, but for now a Structure is requi
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Contractor</a><ul>
+      <li>Previous: <a href="ConfigurationValues.html" title="previous chapter">Configuration Values</a></li>
+      <li>Next: <a href="Modules.html" title="next chapter">Modules</a></li>
+  </ul></li>
   </ul></li>
 </ul>
 </div>
