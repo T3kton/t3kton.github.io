@@ -101,24 +101,25 @@ pip3 install toml --upgrade
 </pre></div>
 </div>
 <p>Install base os config:</p>
-<div class="highlight-python"><div class="highlight"><pre>respkg -i contractor-os-base_0.0.respkg
-respkg -i contractor-ubuntu-base_0.0.respkg
+<div class="highlight-python"><div class="highlight"><pre>respkg -i contractor-os-base_0.1.respkg
+respkg -i contractor-ubuntu-base_0.1.respkg
 </pre></div>
 </div>
-<p>Now to enable plugins:</p>
-<div class="highlight-python"><div class="highlight"><pre>respkg -i contractor-plugins-manual_0.0.respkg
+<p>Now to enable plugins.
+We use manual for misc stuff that is either pre-configured or handled by something else:</p>
+<div class="highlight-python"><div class="highlight"><pre>respkg -i contractor-plugins-manual_0.1.respkg
 </pre></div>
 </div>
 <p>if you are using vcenter:</p>
-<div class="highlight-python"><div class="highlight"><pre>respkg -i contractor-plugins-vcenter_0.0.respkg
+<div class="highlight-python"><div class="highlight"><pre>respkg -i contractor-plugins-vcenter_0.1.respkg
 </pre></div>
 </div>
 <p>if you are using virtualbox:</p>
-<div class="highlight-python"><div class="highlight"><pre>respkg -i contractor-plugins-virtualbox_0.0.respkg
+<div class="highlight-python"><div class="highlight"><pre>respkg -i contractor-plugins-virtualbox_0.1.respkg
 </pre></div>
 </div>
 <p>do manual plugin again so it can cross link to the other plugins:</p>
-<div class="highlight-python"><div class="highlight"><pre>respkg -i contractor-plugins-manual_0.0.respkg
+<div class="highlight-python"><div class="highlight"><pre>respkg -i contractor-plugins-manual_0.1.respkg
 </pre></div>
 </div>
 <p>Now to setup some base info, and configure bind:</p>
@@ -126,34 +127,32 @@ respkg -i contractor-ubuntu-base_0.0.respkg
 </pre></div>
 </div>
 <p>Restart bind with new zones:</p>
-<div class="highlight-python"><div class="highlight"><pre>service bind9 restart
+<div class="highlight-python"><div class="highlight"><pre>systemctl bind9 restart
 </pre></div>
 </div>
 <p>This VM needs to use the contractor generated dns, so edit
-/etc/network/interfaces to set the dns server to 127.0.0.1
+<cite>/etc/network/interfaces</cite> to set the dns server to 127.0.0.1
 then, reload networking configuration:</p>
 <div class="highlight-python"><div class="highlight"><pre>systemctl restart networking
 </pre></div>
 </div>
 <p>Now to disable the extra apache site:</p>
 <div class="highlight-python"><div class="highlight"><pre>a2dissite 000-default
-service apache2 reload
+systemctl restart apache2
 </pre></div>
 </div>
-<p>you might want to tweek /etc/apache2/sites-available/contractor.conf</p>
-<p>yon now take a look at the contractor ui at <a class="reference external" href="http:/">http:/</a>/&lt;contractor ip&gt;</p>
-<p>now we will install subcontractor:</p>
-<div class="highlight-python"><div class="highlight"><pre>dpkg -i subcontractor_0*.deb subcontractor-plugins_0*.deb
-apt install -f
-apt install tftpd-hpa
-respkg -i contractor-ipxe_0.0.respkg
+<p>you might want to tweek <cite>/etc/apache2/sites-available/contractor.conf</cite></p>
+<p>now take a look at the contractor ui at <a class="reference external" href="http:/">http:/</a>/&lt;contractor ip&gt;</p>
+<p>now we will setup subcontractor:</p>
+<div class="highlight-python"><div class="highlight"><pre>apt install tftpd-hpa
+respkg -i contractor-ipxe_0.1.respkg
 </pre></div>
 </div>
 <p>now edit /etc/subcontractor.conf
 enable the modules you want to use, remove the &#8216;;&#8217; and set the 0 to a 1.
 The 1 means one task for that plugin at a time, if you want things to go faster,
 you can try 2 or 4.  Depending on the plugin, the resources of your vm, etc.</p>
-<p>edit /etc/subcontractor.conf in the dhcpd section, make sure interface and tftp_server
+<p>edit <cite>/etc/subcontractor.conf</cite> in the dhcpd section, make sure interface and tftp_server
 are correct, tftp_server should be the ip of the vm</p>
 <p>now start up subcontractor:</p>
 <div class="highlight-python"><div class="highlight"><pre>systemctl start subcontractor
@@ -165,15 +164,15 @@ systemctl start dhcpd
 systemctl status dhcpd
 </pre></div>
 </div>
-<p>optional, edit /etc/default/tftpd-hpa and add &#8216;-v &#8216; to TFTP_OPTIONS.  This will
+<p>optional, edit <cite>/etc/default/tftpd-hpa</cite> and add &#8216;-v &#8216; to TFTP_OPTIONS.  This will
 cause tfptd to log transfers to syslog.  This can be helpfull in troubleshooting
-boot problems. Make sure to run <cite>service tftpd-hpa restart</cite> to reload.</p>
+boot problems. Make sure to run <cite>systemctl restart tftpd-hpa</cite> to reload.</p>
 <p>to service static resources (such as the OS installers) you will need to setup
 a static web server.  First create the directory:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">static</span>
 </pre></div>
 </div>
-<p>now create /etc/apache2/sites-available/static.conf with the following:</p>
+<p>now create <cite>/etc/apache2/sites-available/static.conf</cite> with the following:</p>
 <div class="highlight-python"><div class="highlight"><pre>&lt;VirtualHost *:80&gt;
   ServerName static
   ServerAlias static.&lt;domain&gt;
@@ -188,7 +187,7 @@ a static web server.  First create the directory:</p>
 </div>
 <p>now enable the site:</p>
 <div class="highlight-python"><div class="highlight"><pre>a2ensite static
-service apache2 reload
+systemctl restart apache2
 </pre></div>
 </div>
 </div>

@@ -63,40 +63,29 @@ git clone https://github.com/T3kton/resources.git
 cd ui &amp;&amp; npm install &amp;&amp; cd ..
 sed s/&quot;export Ripple from &#39;.\/ripple&#39;;&quot;/&quot;export { default as Ripple } from &#39;.\/ripple&#39;;&quot;/ -i ui/node_modules/react-toolbox/components/index.js
 sed s/&quot;export Tooltip from &#39;.\/tooltip&#39;;&quot;/&quot;export { default as Tooltip } from &#39;.\/tooltip&#39;;&quot;/ -i ui/node_modules/react-toolbox/components/index.js
-</pre></div>
-</div>
-<p>now build the packages:</p>
-<div class="highlight-python"><div class="highlight"><pre>make dpkg
-make respkg
-mv *.respkg ..
 cd ..
 </pre></div>
 </div>
-<p>now to build the others:</p>
-<div class="highlight-python"><div class="highlight"><pre>for i in subcontractor contractor_plugins subcontractor_plugins; do cd $i &amp;&amp; make dpkg &amp;&amp; cd ..; done
+<p>now to build the packages:</p>
+<div class="highlight-python"><div class="highlight"><pre>for i in contractor subcontractor contractor_plugins subcontractor_plugins; do cd $i &amp;&amp; make dpkg &amp;&amp; cd ..; done
 </pre></div>
 </div>
-<p>and build the resources, the make in the resources can take a while, you may want
-to add <cite>-j4</cite> (replace the 4 with the number of compile process to parralaize):</p>
-<div class="highlight-python"><div class="highlight"><pre>cd contractor_plugins
-make respkg
-mv *.respkg ..
-cd ../resources
-make respkg
-mv *.respkg ..
-cd ..
+<p>and build the resources, the make in the resources can take a while, you may want to replace the 2 of the <cite>-j2</cite> with the number of cores you are using:</p>
+<div class="highlight-python"><div class="highlight"><pre>for i in contractor_plugins resources; do cd $i &amp;&amp; make -j2 respkg &amp;&amp; mv *.respkg .. &amp;&amp; cd ..; done
 </pre></div>
 </div>
 <p>copy the .deb and .respkg files from the build server to the target contractor vm.</p>
 <p>on the target contractor vm setup repos and install some required tools:</p>
 <div class="highlight-python"><div class="highlight"><pre>add-apt-repository ppa:pnhowe/t3kton
 apt update
-apt install -y bind9 postgresql-9.5
+apt install -y bind9 bind9utils postgresql-9.5
 </pre></div>
 </div>
 <p>Install Packages:</p>
-<div class="highlight-python"><div class="highlight"><pre>dpkg -i contractor_*.deb contractor-plugins_*.deb
+<div class="highlight-python"><div class="highlight"><pre>dpkg -i contractor_*.deb contractor-plugins_*.deb  subcontractor_*.deb subcontractor-plugins_*.deb
 apt install -f
+systemctl stop dhcpd
+systemctl stop subcontractor
 </pre></div>
 </div>
 </div>
@@ -106,6 +95,14 @@ apt install -f
 <div class="highlight-python"><div class="highlight"><pre>add-apt-repository ppa:pnhowe/t3kton
 apt update
 apt install -y respkg contractor contractor_plugins subcontractor subcontractor_plugins
+systemctl stop dhcpd
+systemctl stop subcontractor
+</pre></div>
+</div>
+<p>The resource packages are nothosted publically so you will need to build them:</p>
+<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/T3kton/resources.git
+git clone https://github.com/T3kton/contractor_plugins.git
+for i in contractor_plugins resources; do cd $i &amp;&amp; make -j2 respkg &amp;&amp; mv *.respkg .. &amp;&amp; cd ..; done
 </pre></div>
 </div>
 </div>
