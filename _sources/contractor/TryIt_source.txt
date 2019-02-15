@@ -3,7 +3,7 @@ Install From Source
 
 Building requires running on a Ubuntu Xenial machine.
 
-install the required build tools, the PPA has a few required packages for building
+Install the required build tools, the PPA has a few required packages for building
 and installing::
 
   add-apt-repository ppa:pnhowe/t3kton
@@ -12,7 +12,7 @@ and installing::
 
 Create an empty directory, and cd into it
 
-first clone the contractor and related projects::
+First clone the contractor and related projects::
 
   git clone https://github.com/T3kton/contractor.git
   git clone https://github.com/T3kton/contractor_plugins.git
@@ -20,7 +20,7 @@ first clone the contractor and related projects::
   git clone https://github.com/T3kton/subcontractor_plugins.git
   git clone https://github.com/T3kton/resources.git
 
-now to build Contractor, first we need to get the node requirements for the UI, and fix a bug with react-toolbox::
+Now to build Contractor, first we need to get the node requirements for the UI, and fix a bug with react-toolbox::
 
   cd contractor
   cd ui && npm install
@@ -28,11 +28,11 @@ now to build Contractor, first we need to get the node requirements for the UI, 
   sed s/"export Tooltip from '.\/tooltip';"/"export { default as Tooltip } from '.\/tooltip';"/ -i ui/node_modules/react-toolbox/components/index.js
   cd ..
 
-and build the resources, the make in the resources can take a while, you may want to replace the 2 of the `-j2` with the number of cores you are using::
+and build the resources. The make in the resources can take a while, you may want to replace the 2 of the `-j2` with the number of cores you are using::
 
   for i in contractor contractor_plugins resources; do cd $i && make -j2 respkg && mv *.respkg .. && cd ..; done
 
-now to install the python, NOTE the Makefile will call './setup.py install' for you::
+Now to install the python, NOTE the Makefile will call './setup.py install' for you::
 
   cd contractor
   DESTDIR=/ make install
