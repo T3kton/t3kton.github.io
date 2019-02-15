@@ -153,24 +153,6 @@ be notified on Creation/Destruction events or even hardware events, thus allowin
 a service able to ask for a harddrive replacment to wait until it is able
 to take that harddrive out of service nicely.</p>
 </div>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>After installing the python source, you need to setup the database.  First setup
-the DATABASE section of the settings.py file.  See
-<a class="reference external" href="https://docs.djangoproject.com/en/1.8/ref/settings/#databases">https://docs.djangoproject.com/en/1.8/ref/settings/#databases</a> for documentation
-on database setup.  The settings.py file is preconfigured to use sqlite and store
-the database in parent directory of the settings.py file.  After the database
-connection is setup, create the the database:</p>
-<div class="highlight-python"><div class="highlight"><pre>cd /usr/lib/contractor/util
-./manage.py migrate
-</pre></div>
-</div>
-<p>to start the API server:</p>
-<div class="highlight-python"><div class="highlight"><pre>cd /usr/lib/contractor/api_server
-./api_server.py
-</pre></div>
-</div>
-</div>
 </div>
 
 
@@ -186,7 +168,6 @@ connection is setup, create the the database:</p>
 <li><a class="reference internal" href="#id1">Contractor</a><ul>
 <li><a class="reference internal" href="#overview">Overview</a></li>
 <li><a class="reference internal" href="#future">Future</a></li>
-<li><a class="reference internal" href="#installation">Installation</a></li>
 </ul>
 </li>
 </ul>

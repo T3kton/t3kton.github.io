@@ -58,12 +58,12 @@ until after the install is complete.</p>
 <h2>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
 <p>Create an Ubuntu Xenial VM, name it <cite>contractor</cite>, set the fqdn to <cite>contractor.site1.local</cite>
 Ideally it should be in a /24 network.  Ip addresses offsets from 2 to 20 will be
-set as reserved (so that contractor will not auto asign them) and offsets 21 - 29
+set as reserved (so that Contractor will not auto asign them) and offsets 21 - 29
 will be used for a dynamic DHCP pool. Offset 1 is assumed to te be the gateway.
 All these values can be adjusted either in the setupWizzard file before it is run,
-or after it setup, you can use the API/UI to edit these values.
-The DNS setver will be set for the contractor VM, and bind on the contractor vm will
-be set to forward to the DNS server that was origionally configured on the VM.</p>
+or after it is setup, you can use the API/UI to edit these values.
+The DNS server will be set for the contractor VM, and bind on the contractor vm will
+be set to forward to the DNS server that was originally configured on the VM.</p>
 <p>The default when installing from package is to use postgres for the database.
 sqlite is also supported, and the prefered way for developmnet.  You can edit the
 <cite>/etc/contractor/master.conf</cite> just before the <cite>manage.py migrate</cite> command to
@@ -141,7 +141,7 @@ then, reload networking configuration:</p>
 systemctl restart apache2
 </pre></div>
 </div>
-<p>you might want to tweek <cite>/etc/apache2/sites-available/contractor.conf</cite></p>
+<p>You might want to tweek <cite>/etc/apache2/sites-available/contractor.conf</cite></p>
 <p>now take a look at the contractor ui at <a class="reference external" href="http:/">http:/</a>/&lt;contractor ip&gt;</p>
 <p>now we will setup subcontractor:</p>
 <div class="highlight-python"><div class="highlight"><pre>apt install tftpd-hpa
@@ -150,8 +150,8 @@ respkg -i contractor-ipxe_0.1.respkg
 </div>
 <p>now edit /etc/subcontractor.conf
 enable the modules you want to use, remove the &#8216;;&#8217; and set the 0 to a 1.
-The 1 means one task for that plugin at a time, if you want things to go faster,
-you can try 2 or 4.  Depending on the plugin, the resources of your vm, etc.</p>
+The 1 means one task for that plugin at a time.  If you want things to go faster,
+you can try 2 or 4 depending on the plugin, the resources of your vm, etc.</p>
 <p>edit <cite>/etc/subcontractor.conf</cite> in the dhcpd section, make sure interface and tftp_server
 are correct, tftp_server should be the ip of the vm</p>
 <p>now start up subcontractor:</p>
@@ -165,7 +165,7 @@ systemctl status dhcpd
 </pre></div>
 </div>
 <p>optional, edit <cite>/etc/default/tftpd-hpa</cite> and add &#8216;-v &#8216; to TFTP_OPTIONS.  This will
-cause tfptd to log transfers to syslog.  This can be helpfull in troubleshooting
+cause tfptd to log transfers to syslog.  This can be helpful in troubleshooting
 boot problems. Make sure to run <cite>systemctl restart tftpd-hpa</cite> to reload.</p>
 <p>to service static resources (such as the OS installers) you will need to setup
 a static web server.  First create the directory:</p>

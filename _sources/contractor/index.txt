@@ -87,22 +87,3 @@ resource is not connected.  Contractor will also have webhooks so that services 
 be notified on Creation/Destruction events or even hardware events, thus allowing
 a service able to ask for a harddrive replacment to wait until it is able
 to take that harddrive out of service nicely.
-
-
-Installation
-------------
-
-After installing the python source, you need to setup the database.  First setup
-the DATABASE section of the settings.py file.  See
-https://docs.djangoproject.com/en/1.8/ref/settings/#databases for documentation
-on database setup.  The settings.py file is preconfigured to use sqlite and store
-the database in parent directory of the settings.py file.  After the database
-connection is setup, create the the database::
-
-  cd /usr/lib/contractor/util
-  ./manage.py migrate
-
-to start the API server::
-
-  cd /usr/lib/contractor/api_server
-  ./api_server.py
