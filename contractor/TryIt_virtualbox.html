@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>VirtualBox Setup &mdash; t3kton 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="t3kton 1.0 documentation" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="virtualbox-setup">
+<h1>VirtualBox Setup<a class="headerlink" href="#virtualbox-setup" title="Permalink to this headline">¶</a></h1>
+<p>You will first need to shutdown the contractor VM.</p>
+<p>Bring up the <cite>VirtualBox Manager</cite>, under <cite>File</cite> select <cite>Host Network Manager</cite>.
+Click <cite>Create</cite>.  Select the newly created network and click the <cite>Propterties</cite> button.
+Change the Ipv4 Address to <cite>10.0.0.1</cite>.  Make sure the DHCP Server is disabled.
+Now close the <cite>Host Network Manager</cite>.</p>
+<p>Now select the VM that has contractor in it, and click the <cite>Settings</cite> button.
+Select <cite>Network</cite>, then <cite>Adapter 2</cite>.  Select <cite>Enable Network Adapter</cite>, by the
+<cite>Attached To</cite> select <cite>Host-only Adapter</cite> and by <cite>Name</cite> pick the name of the
+network just created in <cite>Host Network Manager</cite>.  Click &#8216;Ok&#8217;.</p>
+<p>Power the VM back up.</p>
+<p>configure the new interface with the ip address <cite>10.0.0.10</cite>.</p>
+<p>In the <cite>/etc/subcontractor.conf</cite> file under the <cite>dhcpd</cite> section, set
+the <cite>listen_interface</cite> to the name of the newly created interface, and also set the
+<cite>listen_address</cite> to <cite>10.0.0.10</cite>.</p>
+<p>If you are using some other ip addresses, the dhcp section will need to refelect
+thoes changes.  The setupWizzard should detected the ip address ranage you are
+using and loaded that into the contractor database.</p>
+<p>you will need to install the virtualbox python bindings either use:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo pip3 install pyvbox
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-python"><div class="highlight"><pre>apt install python3-pyvbox
+</pre></div>
+</div>
+<p>Now we need to start the VirtualBox Web Service so subcontractor can talk to it.
+If you specified an Ipv4 address other than 10.0.0.1 when setting up the Host
+Network you update this command to refelect that change.  On the machine you are
+running virtualbox run (if you are using linux):</p>
+<div class="highlight-python"><div class="highlight"><pre>vboxwebsrv -H 10.0.0.1
+</pre></div>
+</div>
+<p>windows:</p>
+<blockquote>
+<div>vboxwebsrv.exe -H 10.0.0.1</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Peter Howe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
