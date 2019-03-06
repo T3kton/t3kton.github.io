@@ -6,6 +6,7 @@ You will first need to shutdown the contractor VM.
 Bring up the `VirtualBox Manager`, under `File` select `Host Network Manager`.
 Click `Create`.  Select the newly created network and click the `Propterties` button.
 Change the Ipv4 Address to `10.0.0.1`.  Make sure the DHCP Server is disabled.
+Take note of the name, if it is the only network there it will be named `vboxnet0`.
 Now close the `Host Network Manager`.
 
 Now select the VM that has contractor in it, and click the `Settings` button.
@@ -20,13 +21,15 @@ configure the new interface with the ip address `10.0.0.10`.
 In the `/etc/subcontractor.conf` file under the `dhcpd` section, set
 the `listen_interface` to the name of the newly created interface.
 
-you will need to install the virtualbox python bindings either use::
+Normally vboxwebservice will expect the username and password of the user you
+are using to run virtualbox.  If you want to disable auth so you do not need
+to put your password in the virtualbox config, run this::
 
-  sudo pip3 install pyvbox
+  vboxmanage setproperty websrvauthlibrary null
 
-or::
+windows::
 
-  apt install python3-pyvbox
+  vboxmanage.exe setproperty websrvauthlibrary null
 
 Now we need to start the VirtualBox Web Service so subcontractor can talk to it.
 If you specified an Ipv4 address other than 10.0.0.1 when setting up the Host

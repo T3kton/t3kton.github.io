@@ -150,10 +150,14 @@ Now to create the db::
 
   /usr/lib/contractor/util/manage.py migrate
 
+Install the iputils functions, this contains the port check function contractor
+will use to verify the OS has booted::
+
+  sudo respkg -i contractor-plugins-iputils_0.1.respkg
+
 Install base os config::
 
   sudo respkg -i contractor-os-base_0.1.respkg
-  sudo respkg -i contractor-ubuntu-base_0.1.respkg
 
 Now to enable plugins.
 We use manual for misc stuff that is either pre-configured or handled by something else::
@@ -174,7 +178,14 @@ do manual plugin again so it can cross link to the other plugins::
 
 Now to setup some base info, and configure bind::
 
-  sudo /usr/lib/contractor/setup/setupWizzard --no-ip-reservation --dns-server=10.0.0.10
+  sudo /usr/lib/contractor/setup/setupWizzard --no-ip-reservation --dns-server=10.0.0.10 --proxy-server=http://10.0.0.10:3128/
+
+It is safe to ignore the message::
+
+  rndc: connect failed: 127.0.0.1#953: connection refused
+  WARNING: "rndc reload" failed
+
+Bind (the DNS server) is not running yet, it will be started later.
 
 And now to create a user for us to login as for the API calls::
 
@@ -197,22 +208,31 @@ we will be using curl, make sure it is installed::
 First we will define some Environment values so we don't have to keep tying redundant info
 the Contractor server, this is assuming you will be running these commands from
 the contractor VM, if you are running these steps from someplace else, update the
-ip address to the ip address of the contractor vm::
+ip address to the ip address of the contractor vm.  Replace `< address block name >`
+with the name of the network created in vcenter (ie: internal) or virtual box
+(ie: vboxnet0)::
 
   export COPS=( --header "CInP-Version: 0.9" --header "Content-Type: application/json" )
   export SITE="/api/v1/Site/Site:site1:"
   export CHOST="http://127.0.0.1"
+  export ADRBLK="< address block name >"
 
-now we need to login::
+now we need to login, replace `< username >` and `< password >` with the username and
+password you specified API user (the createsuperuser step)::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CALL $CHOST/api/v1/Auth/User\(login\)
-  { "username": "root", "password": "root" }
+  { "username": "< username >", "password": "< password >" }
   EOF
 
-which will return a auth token, save that to our headers::
+which will output something like::
 
-  COPS+=( --header "Auth-Id: root")
-  COPS+=( --header "Auth-Token: < put auth token from login here>" )
+  "k4of9zewijvze0gf72ylb6p6zxv4srol"
+
+which will return a auth token, save that to our headers, replace `< username >`
+with the API username, and `< auth token >` with the result of the last command::
+
+  COPS+=( --header "Auth-Id: < username >")
+  COPS+=( --header "Auth-Token: < auth token >" )
 
 Let's make sure our login is working::
 
@@ -220,7 +240,7 @@ Let's make sure our login is working::
   {}
   EOF
 
-that should output::
+that should output your username, for example::
 
   "root"
 
@@ -235,17 +255,39 @@ of the primary interface and loaded it into the database named 'main'.
 We need to create another address block for the internal network::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/AddressBlock
-  { "site": "$SITE", "name": "internal", "subnet": "10.0.0.1", "gateway_offset": 1, "prefix": "24" }
+  { "site": "$SITE", "name": "$ADRBLK", "subnet": "10.0.0.1", "gateway_offset": null, "prefix": "24" }
   EOF
 
 which should output something like::
 
-  {"gateway_offset": 1, "_max_address": "10.0.0.255", "size": "254", "created": "2019-02-23T14:15:06.830987+00:00", "isIpV4": "True", "netmask": "255.255.255.0", "site": "/api/v1/Site/Site:site1:", "gateway": "10.0.0.1", "prefix": 24, "name": "internal", "subnet": "10.0.0.0", "updated": "2019-02-23T14:15:06.830966+00:00"}
+  {"gateway_offset": null, "_max_address": "10.0.0.255", "size": "254", "created": "2019-02-23T14:15:06.830987+00:00", "isIpV4": "True", "netmask": "255.255.255.0", "site": "/api/v1/Site/Site:site1:", "gateway": null, "prefix": 24, "name": "internal", "subnet": "10.0.0.0", "updated": "2019-02-23T14:15:06.830966+00:00"}
 
-Now to add the internal ip of the contractor host::
+Now to add the internal ip of the contractor host, first set the address on eth0
+to non-primary, we want the internal ip to be primary::
+
+  cat << EOF | curl "${COPS[@]}" --data @- -X UPDATE $CHOST/api/v1/Utilities/Address:1:
+  { "is_primary": false }
+  EOF
+
+result::
+
+  {"netmask": "255.255.255.0", "offset": 126, "updated": "2019-03-05T03:16:00.142926+00:00", "prefix": "24", "pointer": null, "networked": "/api/v1/Utilities/Networked:1:", "vlan": 0, "ip_address": "192.168.13.126", "is_primary": false, "interface_name": "eth0", "address_block": "/api/v1/Utilities/AddressBlock:main:", "created": "2019-03-05T02:45:12.304186+00:00", "gateway": "192.168.13.1", "sub_interface": null, "type": "Address", "network": "192.168.13.0"}
+
+create an interface eth1 for the ip to belong to (this represents the new interface
+we created on the internal network)::
+
+  cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
+  { "foundation": "/api/v1/Building/Foundation:contractor:", "name": "eth1", "physical_location": "eth1", "is_provisioning": false }
+  EOF
+
+result::
+
+  {"is_provisioning": false, "foundation": "/api/v1/Building/Foundation:contractor:", "name": "eth1", "updated": "2019-03-05T03:18:13.581612+00:00", "mac": null, "created": "2019-03-05T03:18:13.581678+00:00", "pxe": null, "physical_location": "eth1"}
+
+finally the ip it's self::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/Address
-  { "networked": "/api/v1/Utilities/Networked:1:", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "interface_name": "eth1", "offset": 10 }
+  { "networked": "/api/v1/Utilities/Networked:1:", "address_block": "/api/v1/Utilities/AddressBlock:$ADRBLK:", "interface_name": "eth1", "offset": 10, "is_primary": true }
   EOF
 
 result::
@@ -256,7 +298,7 @@ now to reserve some ip addresses so they do not get auto assigned::
 
   for OFFSET in 2 3 4 5 6 7 8 9 11 12 13 14 15 16 17 18 19 20; do
   cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/ReservedAddress
-  { "address_block": "/api/v1/Utilities/AddressBlock:internal:", "offset": "$OFFSET", "reason": "Network Reserved" }
+  { "address_block": "/api/v1/Utilities/AddressBlock:$ADRBLK:", "offset": "$OFFSET", "reason": "Network Reserved" }
   EOF
   done
 
@@ -288,11 +330,25 @@ Restart bind with new zones::
 
   sudo systemctl restart bind9
 
+Now to force a re-gen of the DNS files::
+
+  /usr/lib/contractor/cron/genDNS
+
 This VM needs to use the contractor generated dns, so edit
 `/etc/network/interfaces` to set the dns server to 127.0.0.1
 then, reload networking configuration::
 
   sudo systemctl restart networking
+
+now if you ping contractor you should get the internal ip (10.0.0.10)::
+
+  ping static -c2
+
+result::
+
+  PING eth1.contractor.site1.local (10.0.0.10) 56(84) bytes of data.
+  64 bytes from contractor.site1.local (10.0.0.10): icmp_seq=1 ttl=64 time=0.031 ms
+  64 bytes from contractor.site1.local (10.0.0.10): icmp_seq=2 ttl=64 time=0.063 ms
 
 now take a look at the contractor ui at http://<contractor ip>, (this ip is the ip
 you assigned to the first interface)
@@ -307,10 +363,14 @@ install tfptd (used for PXE booting) and the PXE booting agent::
 
 now edit `/etc/subcontractor.conf`
 enable the modules you want to use, remove the ';' and set the 0 to a 1.
-The 1 means one task for that plugin at a time.  If you want things to go faster,
-you can try 2 or 4 depending on the plugin, the resources of your vm, etc. In the
-dhcpd section, make sure interface and tftp_server are correct, tftp_server
-should be the ip of the vm on the new internal interface.
+The 1 means one task for that plugin at a time.  If you want to be able to process
+more targets at the same time, you can try 2 or 4 depending on the plugin, the
+resources of your vm, etc.  You may also want to change the `poll_delay` to 5, this
+will cause subcontractor to ask for more tasks every 5 seconds instead of the default
+20.  If we were setting up a system that would be processing a lot of tasks, we would
+want to slow this down to reduce the overhead on contractor. In the dhcpd section,
+make sure interface and tftp_server are correct, tftp_server should be the ip of
+the vm on the new internal interface.
 
 now start up subcontractor::
 
@@ -339,6 +399,16 @@ virtualbox/vcenter/esx host, first creating the foundation::
 which should output something like::
 
   {"state": "planned", "id_map": null, "located_at": null, "class_list": "['Metal', 'VM', 'Container', 'Switch', 'Manual']", "blueprint": "/api/v1/BluePrint/FoundationBluePrint:manual-foundation-base:", "created": "2019-02-23T16:48:53.818982+00:00", "built_at": null, "locator": "host", "updated": "2019-02-23T16:48:53.818962+00:00", "site": "/api/v1/Site/Site:site1:", "type": "Manual"}
+
+create the interface::
+
+  cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
+  { "foundation": "/api/v1/Building/Foundation:host:", "name": "eth0", "physical_location": "eth0", "is_provisioning": true }
+  EOF
+
+which should output something like::
+
+  {"created": "2019-03-06T04:13:47.808962+00:00", "pxe": null, "name": "eth0", "physical_location": "eth0", "is_provisioning": true, "updated": "2019-03-06T04:13:47.808940+00:00", "mac": null, "foundation": "/api/v1/Building/Foundation:host:"}
 
 Now to create the structure::
 
@@ -370,30 +440,17 @@ again.  There curently isn't a API endpoint to manipluate the state of targets,
 so we will use a command line utility, this command needs to be run on the
 contractor VM. replace `<structure id>` with the id from the previous step::
 
+  /usr/lib/contractor/util/boss -f host --built
   /usr/lib/contractor/util/boss -s <structure id> --built
 
 which will output something like this::
 
+  Working with "ManualFoundation host"
+  No Job to Delete
+  ManualFoundation host now set to built.
   Working with "Structure #2(host) of "manual-structure-base" in "site1""
   No Job to Delete
   Structure #2(host) of "manual-structure-base" in "site1" now set to built.
-
-now to set the ip address, this is the ip address of virtualbox or vcenter/esx host.
-This ip will be used by subcontractor to manipluate vms, and will need to be
-routeable from the contractor vm, this assumes that address is in the address space
-of the contractor vm, specifically the network that setupWizzard created, change
-`< offset >` to the offset of the host's ip in that network.  If the ip
-address of the host is 192.168.0.52 the setupWizzard assumed you were in a /24
-so the offset is `52`, replace structure id with the id from the structure creation
-step::
-
-  cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/Address
-  { "networked": "/api/v1/Utilities/Networked:< structure id >:", "address_block": "/api/v1/Utilities/AddressBlock:main:", "interface_name": "eth0", "offset": < offset >, "is_primary": true }
-  EOF
-
-which should output something like::
-
-  {"netmask": "255.255.255.0", "updated": "2019-02-23T18:51:53.521628+00:00", "type": "Address", "prefix": "24", "vlan": 0, "ip_address": "192.168.13.22", "interface_name": "eth0", "network": "192.168.13.0", "sub_interface": null, "address_block": "/api/v1/Utilities/AddressBlock:main:", "is_primary": false, "offset": 22, "pointer": null, "gateway": "192.168.13.1", "created": "2019-02-23T18:51:53.521652+00:00", "networked": "/api/v1/Utilities/Networked:2:"}
 
 Now to define the foundation blueprint and create the complex.
 
@@ -436,6 +493,23 @@ should return something like::
 
   {"created": "2019-02-24T00:02:06.164123+00:00", "complex": "/api/v1/Building/Complex:demovcenter:", "structure": "/api/v1/Building/Structure:2:", "updated": "2019-02-24T00:02:06.164082+00:00"}
 
+now to set the ip address of the vcenter/esx host. This ip will be used by
+subcontractor to manipluate vms, and will need to be routeable from the
+contractor vm, this assumes that address is in the address space
+of the contractor vm, specifically the network that setupWizzard created, change
+`< offset >` to the offset of the host's ip in that network.  If the ip
+address of the host is 192.168.0.52 the setupWizzard assumed you were in a /24
+so the offset is `52`, replace structure id with the id from the structure creation
+step::
+
+  cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/Address
+  { "networked": "/api/v1/Utilities/Networked:< structure id >:", "address_block": "/api/v1/Utilities/AddressBlock:main:", "interface_name": "eth0", "offset": < offset >, "is_primary": true }
+  EOF
+
+which should output something like::
+
+  {"netmask": "255.255.255.0", "updated": "2019-02-23T18:51:53.521628+00:00", "type": "Address", "prefix": "24", "vlan": 0, "ip_address": "192.168.13.22", "interface_name": "eth0", "network": "192.168.13.0", "sub_interface": null, "address_block": "/api/v1/Utilities/AddressBlock:main:", "is_primary": false, "offset": 22, "pointer": null, "gateway": "192.168.13.1", "created": "2019-02-23T18:51:53.521652+00:00", "networked": "/api/v1/Utilities/Networked:2:"}
+
 VirtualBox
 ~~~~~~~~~~
 
@@ -445,15 +519,18 @@ Environment setup::
   export FMDL="/api/v1/VirtualBox/VirtualBoxFoundation"
   export FDATA=', "virtualbox_host": "/api/v1/VirtualBox/VirtualBoxComplex:demovbox:"'
 
-First create the VirtualBox Complex::
+First create the VirtualBox Complex, replace the `< username >` and `< password >`
+with either your username and password for the machine with vbox running on it,
+or if you ran the vboxmanage command to disable the auth library, you can leave
+the username and password a few random alpha letters::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/VirtualBox/VirtualBoxComplex
-  { "site": "$SITE", "name": "demovbox", "description": "Demo VirtualBox Host/Complex" }
+  { "site": "$SITE", "name": "demovbox", "virtualbox_username": "< username >", "virtualbox_password": "< password >", "description": "Demo VirtualBox Host/Complex" }
   EOF
 
 should output something like::
 
-  {"state": "planned", "description": "Demo VirtualBox Host/Complex", "name": "demovbox", "type": "VirtualBox", "members": [], "built_percentage": 90, "created": "2019-02-20T04:52:30.070436+00:00", "site": "/api/v1/Site/Site:site1:", "updated": "2019-02-20T04:52:30.070407+00:00"}
+  {"description": "Demo VirtualBox Host/Complex", "updated": "2019-03-05T03:29:33.401162+00:00", "site": "/api/v1/Site/Site:site1:", "built_percentage": 90, "virtualbox_password": "asdf", "name": "demovbox", "virtualbox_username": "asdf", "state": "planned", "created": "2019-03-05T03:29:33.401328+00:00", "members": [], "type": "VirtualBox"}
 
 Now we add the structure host we manually created as a member of the complex,
 replace `< structure id >` with the id from the manul host structure from above::
@@ -466,10 +543,27 @@ should output something like::
 
   {"complex": "/api/v1/Building/Complex:demovbox:", "structure": "/api/v1/Building/Structure:2:", "created": "2019-02-20T04:55:31.730431+00:00", "updated": "2019-02-20T04:55:31.730357+00:00"}
 
+now to set the ip address, this is the ip address of virtualbox the host.
+This is the same ip that we passed to vboxwebsrv, which is offset 1 of the internal
+network we created::
+
+  cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/Address
+  { "networked": "/api/v1/Utilities/Networked:< structure id >:", "address_block": "/api/v1/Utilities/AddressBlock:$ADRBLK:", "interface_name": "eth0", "offset": 1, "is_primary": true }
+  EOF
+
+which should output something like::
+
+  {"netmask": "255.255.255.0", "updated": "2019-02-23T18:51:53.521628+00:00", "type": "Address", "prefix": "24", "vlan": 0, "ip_address": "192.168.13.22", "interface_name": "eth0", "network": "192.168.13.0", "sub_interface": null, "address_block": "/api/v1/Utilities/AddressBlock:main:", "is_primary": false, "offset": 22, "pointer": null, "gateway": "192.168.13.1", "created": "2019-02-23T18:51:53.521652+00:00", "networked": "/api/v1/Utilities/Networked:2:"}
+
+
 Contractor is now running, now let's configure it to make a VM.
 
-Creating a VM
--------------
+Creating a VM (Ubuntu)
+----------------------
+
+First we need to load the ubuntu blueprints::
+
+  sudo respkg -i contractor-ubuntu-base_0.1.respkg
 
 Now we create the Foundation of the VM to be created::
 
@@ -481,7 +575,7 @@ output::
 
   {"state": "planned", "site": "/api/v1/Site/Site:site1:", "type": "VirtualBox", "id_map": "", "virtualbox_host": "/api/v1/VirtualBox/VirtualBoxComplex:demovbox:", "blueprint": "/api/v1/BluePrint/FoundationBluePrint:virtualbox-vm-base:", "built_at": null, "locator": "tesvm01", "located_at": null, "updated": "2019-02-20T04:58:52.855473+00:00", "created": "2019-02-20T04:58:52.855507+00:00", "class_list": "['VM', 'VirtualBox']", "virtualbox_uuid": null}
 
-create interface::
+create the interface::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
   { "foundation": "/api/v1/Building/Foundation:testvm01:", "name": "eth0", "physical_location": "eth0", "is_provisioning": true }
@@ -501,7 +595,7 @@ once again take node of the structure id.  Now we assign and ip address, we will
 let contractor pick, we are going to use the helper method `nextAddress`.  Replace
 `< structure id >` with the structure id from the previous call::
 
-  cat << EOF | curl "${COPS[@]}" --data @- -X CALL "$CHOST/api/v1/Utilities/AddressBlock:internal:(nextAddress)"
+  cat << EOF | curl "${COPS[@]}" --data @- -X CALL "$CHOST/api/v1/Utilities/AddressBlock:$ADRBLK:(nextAddress)"
   { "structure": "/api/v1/Building/Structure:< structure id >:", "interface_name": "eth0", "is_primary": true }
   EOF
 
@@ -515,3 +609,76 @@ in a web browser if you don't have it open allready, go to the `Job Log` should 
 entry saying that the foundation build has started.  Goto the `Jobs` should see a Foundation
 or Structure Job there.  The Foundation Job won't last long.  In the top right of the
 page is a refresh and auto refresh buttons.
+
+After the Foundation job completes, a Structure job will auto start, after it completes
+your VM should be up and sshable, however the default for ubuntu is to disallow sshing
+as root, but we can show the ssh service is listening::
+
+  nc -vz testvm01 22
+
+should output something like::
+
+  Connection to testvm01 22 port [tcp/ssh] succeeded!
+
+If you pull up the console, the default root password is "root".
+
+After you have verified that it is there, logout of the test vm and kick off a
+job to delete it and re-build it.
+
+  /usr/lib/contractor/util/boss -f testvm01 --do-destroy
+
+We set the structure to auto-build, so after it get's done with the remove job, it will
+create it again.
+
+Creating a VM (CentOS)
+----------------------
+
+Ok, let's create a centos VM now, is't all the same as the ubuntu VM except the
+blueprint we choose.
+
+Load the centos Blueprints::
+
+  sudo respkg -i contractor-centos-base_0.1.respkg
+
+Foundation::
+
+  cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/$FMDL
+  { "site": "$SITE", "locator": "testvm02", "blueprint": "$FBP" $FDATA }
+  EOF
+
+output::
+
+  {"state": "planned", "site": "/api/v1/Site/Site:site1:", "type": "VirtualBox", "id_map": "", "virtualbox_host": "/api/v1/VirtualBox/VirtualBoxComplex:demovbox:", "blueprint": "/api/v1/BluePrint/FoundationBluePrint:virtualbox-vm-base:", "built_at": null, "locator": "tesvm01", "located_at": null, "updated": "2019-02-20T04:58:52.855473+00:00", "created": "2019-02-20T04:58:52.855507+00:00", "class_list": "['VM', 'VirtualBox']", "virtualbox_uuid": null}
+
+create the interface::
+
+  cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
+  { "foundation": "/api/v1/Building/Foundation:testvm02:", "name": "eth0", "physical_location": "eth0", "is_provisioning": true }
+  EOF
+
+output::
+
+  {"pxe": null, "name": "eth0", "is_provisioning": true, "physical_location": "eth0", "updated": "2019-02-25T14:28:36.245466+00:00", "mac": null, "foundation": "/api/v1/Building/Foundation:testvm02:", "created": "2019-02-25T14:28:36.245500+00:00"}
+
+Now we will create a VM with the CentOS7 blueprint::
+
+  cat << EOF | curl -i "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Building/Structure
+  { "site": "$SITE", "foundation": "/api/v1/Building/Foundation:testvm02:", "hostname": "testvm02", "blueprint": "/api/v1/BluePrint/StructureBluePrint:centos-7-base:", "auto_build": true }
+  EOF
+
+and assign the ip address, make sure to use the structure id from the testvm02 structure::
+
+  cat << EOF | curl "${COPS[@]}" --data @- -X CALL "$CHOST/api/v1/Utilities/AddressBlock:$ADRBLK:(nextAddress)"
+  { "structure": "/api/v1/Building/Structure:< structure id >:", "interface_name": "eth0", "is_primary": true }
+  EOF
+
+output::
+
+  "/api/v1/Utilities/Address:30:"
+
+Again the jobs should be running to create the CentOS VM.  When it is done, ssh in.
+
+  ssh root@testvm02
+
+go a head and play arround with it for a bit.  make sure to try deconfiguring both
+VMs at the same time so you can see Contractor do more than one thing at a time.
