@@ -41,7 +41,9 @@
 <p>For the puropses of this demo, VCenter it&#8217;s self is not required.  All you will
 need is a standalone ESX server.  To prevent Contractor from DHCPing your other
 systems, you will want to create a private network to build contractor&#8217;s targets in.
-This demo assumes it will be <cite>10.0.0.1/24</cite>.</p>
+This demo assumes it will be <cite>10.0.0.1/24</cite>.  For our example name it &#8220;internal&#8221;,
+if you choose to name it something else, make sure that change is reflected in the
+name of the address block that will be created later.</p>
 <p>After you create the network/port group, add a second interface to the contractor VM on this
 new network, and assign the ip <cite>10.0.0.10</cite> to that interface.</p>
 <p>In the <cite>/etc/subcontractor.conf</cite> file under the <cite>dhcpd</cite> section, set

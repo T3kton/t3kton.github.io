@@ -60,3 +60,5 @@ Now to install the python code, NOTE the Makefile will call './setup.py install'
   cd ..
   sudo systemctl daemon-reload
   sudo systemctl restart cron
+  sudo systemctl enable subcontractor
+  sudo systemctl enable dhcpd

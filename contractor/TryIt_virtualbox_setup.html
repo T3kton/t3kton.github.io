@@ -42,6 +42,7 @@
 <p>Bring up the <cite>VirtualBox Manager</cite>, under <cite>File</cite> select <cite>Host Network Manager</cite>.
 Click <cite>Create</cite>.  Select the newly created network and click the <cite>Propterties</cite> button.
 Change the Ipv4 Address to <cite>10.0.0.1</cite>.  Make sure the DHCP Server is disabled.
+Take note of the name, if it is the only network there it will be named <cite>vboxnet0</cite>.
 Now close the <cite>Host Network Manager</cite>.</p>
 <p>Now select the VM that has contractor in it, and click the <cite>Settings</cite> button.
 Select <cite>Network</cite>, then <cite>Adapter 2</cite>.  Select <cite>Enable Network Adapter</cite>, by the
@@ -51,12 +52,14 @@ network just created in <cite>Host Network Manager</cite>.  Click &#8216;Ok&#821
 <p>configure the new interface with the ip address <cite>10.0.0.10</cite>.</p>
 <p>In the <cite>/etc/subcontractor.conf</cite> file under the <cite>dhcpd</cite> section, set
 the <cite>listen_interface</cite> to the name of the newly created interface.</p>
-<p>you will need to install the virtualbox python bindings either use:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo pip3 install pyvbox
+<p>Normally vboxwebservice will expect the username and password of the user you
+are using to run virtualbox.  If you want to disable auth so you do not need
+to put your password in the virtualbox config, run this:</p>
+<div class="highlight-python"><div class="highlight"><pre>vboxmanage setproperty websrvauthlibrary null
 </pre></div>
 </div>
-<p>or:</p>
-<div class="highlight-python"><div class="highlight"><pre>apt install python3-pyvbox
+<p>windows:</p>
+<div class="highlight-python"><div class="highlight"><pre>vboxmanage.exe setproperty websrvauthlibrary null
 </pre></div>
 </div>
 <p>Now we need to start the VirtualBox Web Service so subcontractor can talk to it.
