@@ -110,11 +110,20 @@ sudo su postgres -c &quot;createdb -O contractor contractor&quot;
 sudo pip3 install toml --upgrade
 </pre></div>
 </div>
+<p>if you are using the virtualbox plugin, you will need zeep:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo pip3 install zeep
+</pre></div>
+</div>
+<p>for vcenter/esx install pyvmomi:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo pip3 install pyvmomi
+</pre></div>
+</div>
 </div>
 <div class="section" id="configure-apache">
 <h3>Configure Apache<a class="headerlink" href="#configure-apache" title="Permalink to this headline">¶</a></h3>
 <p>We will need a HTTP site to serve up static resources, as well as a Proxy server
-to bridge from the issloated network.</p>
+to bridge from the issloated network.  This proxy server will also cache, that will
+make things install faster the second time.</p>
 <p>First create the directory for the static resources:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">static</span>
 </pre></div>
@@ -372,9 +381,8 @@ then, reload networking configuration:</p>
 <p>now take a look at the contractor ui at <a class="reference external" href="http:/">http:/</a>/&lt;contractor ip&gt;, (this ip is the ip
 you assigned to the first interface)</p>
 </div>
-</div>
 <div class="section" id="subcontractor">
-<h2>Subcontractor<a class="headerlink" href="#subcontractor" title="Permalink to this headline">¶</a></h2>
+<h3>Subcontractor<a class="headerlink" href="#subcontractor" title="Permalink to this headline">¶</a></h3>
 <p>install tfptd (used for PXE booting) and the PXE booting agent:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo apt install -y tftpd-hpa
 sudo respkg -i contractor-ipxe_0.1.respkg
@@ -405,7 +413,7 @@ cause tfptd to log transfers to syslog.  This can be helpful in troubleshooting
 boot problems. Make sure to run <cite>systemctl restart tftpd-hpa</cite> to reload.</p>
 </div>
 <div class="section" id="setting-up-vm-host">
-<h2>Setting up VM Host<a class="headerlink" href="#setting-up-vm-host" title="Permalink to this headline">¶</a></h2>
+<h3>Setting up VM Host<a class="headerlink" href="#setting-up-vm-host" title="Permalink to this headline">¶</a></h3>
 <p>First we need to make a pre-built entry on a manual foundation to represent the
 virtualbox/vcenter/esx host, first creating the foundation:</p>
 <div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Manual/ManualFoundation
@@ -469,6 +477,7 @@ Structure #2(host) of &quot;manual-structure-base&quot; in &quot;site1&quot; now
 </pre></div>
 </div>
 <p>Now to define the foundation blueprint and create the complex.</p>
+</div>
 <div class="section" id="vcenter">
 <h3>VCenter<a class="headerlink" href="#vcenter" title="Permalink to this headline">¶</a></h3>
 <p>Environment setup:</p>
@@ -633,9 +642,10 @@ as root, but we can show the ssh service is listening:</p>
 </div>
 <p>If you pull up the console, the default root password is &#8220;root&#8221;.</p>
 <p>After you have verified that it is there, logout of the test vm and kick off a
-job to delete it and re-build it.</p>
-<blockquote>
-<div>/usr/lib/contractor/util/boss -f testvm01 &#8211;do-destroy</div></blockquote>
+job to delete it and re-build it:</p>
+<div class="highlight-python"><div class="highlight"><pre>/usr/lib/contractor/util/boss -f testvm01 --do-destroy
+</pre></div>
+</div>
 <p>We set the structure to auto-build, so after it get&#8217;s done with the remove job, it will
 create it again.</p>
 </div>
@@ -683,11 +693,37 @@ EOF
 <div class="highlight-python"><div class="highlight"><pre><span class="s2">&quot;/api/v1/Utilities/Address:30:&quot;</span>
 </pre></div>
 </div>
-<p>Again the jobs should be running to create the CentOS VM.  When it is done, ssh in.</p>
-<blockquote>
-<div>ssh <a class="reference external" href="mailto:root&#37;&#52;&#48;testvm02">root<span>&#64;</span>testvm02</a></div></blockquote>
+<p>Again the jobs should be running to create the CentOS VM.  When it is done, ssh in:</p>
+<div class="highlight-python"><div class="highlight"><pre>ssh root@testvm02
+</pre></div>
+</div>
 <p>go a head and play arround with it for a bit.  make sure to try deconfiguring both
 VMs at the same time so you can see Contractor do more than one thing at a time.</p>
+</div>
+<div class="section" id="removing-the-vms">
+<h2>Removing the VMs<a class="headerlink" href="#removing-the-vms" title="Permalink to this headline">¶</a></h2>
+<p>Deleting the VMs once again uses the boss command, it is possible to do it via
+the HTTP interface, however it takes a few more steps.  Before we used the <a href="#id1"><span class="problematic" id="id2">``</span></a>&#8211;do-destroy`
+option, this tells contractor to remove the vms, and with the auth-configure
+flag, it turns arround and re-builds them.  The option <cite>&#8211;do-pre-delete</cite> is simmaler
+but it disables the auto-configure so contractor dosen&#8217;t automatically start building
+it again.  First to delete the structure:</p>
+<div class="highlight-python"><div class="highlight"><pre>/usr/lib/contractor/util/boss -s &lt;structure id&gt; --do-pre-delete
+</pre></div>
+</div>
+<p>when the sturcture job completes:</p>
+<div class="highlight-python"><div class="highlight"><pre>/usr/lib/contractor/util/boss -s &lt;structure id&gt; --do-delete
+</pre></div>
+</div>
+<p>and the same pattern for the foundation, the locator is the vmname ie <cite>testvm01</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre>/usr/lib/contractor/util/boss -f &lt;locator&gt; --do-pre-delete
+</pre></div>
+</div>
+<p>and when that job completes run:</p>
+<div class="highlight-python"><div class="highlight"><pre>/usr/lib/contractor/util/boss -f &lt;locator&gt; --do-delete
+</pre></div>
+</div>
+<p>Now the VM is no longer in virtualbox/vcenter nor contractor.</p>
 </div>
 </div>
 
@@ -714,16 +750,15 @@ VMs at the same time so you can see Contractor do more than one thing at a time.
 <li><a class="reference internal" href="#environment-setup">Environment Setup</a></li>
 <li><a class="reference internal" href="#network-configuration">Network Configuration</a></li>
 <li><a class="reference internal" href="#starting-dns">Starting DNS</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#subcontractor">Subcontractor</a></li>
-<li><a class="reference internal" href="#setting-up-vm-host">Setting up VM Host</a><ul>
+<li><a class="reference internal" href="#setting-up-vm-host">Setting up VM Host</a></li>
 <li><a class="reference internal" href="#vcenter">VCenter</a></li>
 <li><a class="reference internal" href="#virtualbox">VirtualBox</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#creating-a-vm-ubuntu">Creating a VM (Ubuntu)</a></li>
 <li><a class="reference internal" href="#creating-a-vm-centos">Creating a VM (CentOS)</a></li>
+<li><a class="reference internal" href="#removing-the-vms">Removing the VMs</a></li>
 </ul>
 </li>
 </ul>

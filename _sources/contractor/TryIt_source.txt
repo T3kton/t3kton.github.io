@@ -29,7 +29,7 @@ Now to build Contractor, first we need to get the node requirements for the UI, 
   sed s/"export Tooltip from '.\/tooltip';"/"export { default as Tooltip } from '.\/tooltip';"/ -i node_modules/react-toolbox/components/index.js
   cd ../..
 
-and build the resources.  The make in the resources can take a while, you may want to replace the 2 of the `-j2` with the number of cores you are using::
+and build the resources.  The make in the resources can take a while::
 
   for i in contractor_plugins resources; do cd $i && make -j2 respkg && mv *.respkg .. && cd ..; done
 
