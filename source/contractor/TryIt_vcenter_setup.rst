@@ -13,11 +13,3 @@ new network, and assign the ip `10.0.0.10` to that interface.
 
 In the `/etc/subcontractor.conf` file under the `dhcpd` section, set
 the `listen_interface` to the name of the newly created interface.
-
-you will need to install the virtualbox python bindings either use::
-
-  sudo pip3 install pyvmomi
-
-or::
-
-  apt install python3-pyvmomi

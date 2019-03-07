@@ -85,11 +85,20 @@ the ubuntu toml package is to old, update with::
   sudo apt install -y python3-pip
   sudo pip3 install toml --upgrade
 
+if you are using the virtualbox plugin, you will need zeep::
+
+  sudo pip3 install zeep
+
+for vcenter/esx install pyvmomi::
+
+  sudo pip3 install pyvmomi
+
 Configure Apache
 ~~~~~~~~~~~~~~~~
 
 We will need a HTTP site to serve up static resources, as well as a Proxy server
-to bridge from the issloated network.
+to bridge from the issloated network.  This proxy server will also cache, that will
+make things install faster the second time.
 
 First create the directory for the static resources::
 
@@ -354,7 +363,7 @@ now take a look at the contractor ui at http://<contractor ip>, (this ip is the 
 you assigned to the first interface)
 
 Subcontractor
--------------
+~~~~~~~~~~~~~
 
 install tfptd (used for PXE booting) and the PXE booting agent::
 
@@ -387,7 +396,7 @@ cause tfptd to log transfers to syslog.  This can be helpful in troubleshooting
 boot problems. Make sure to run `systemctl restart tftpd-hpa` to reload.
 
 Setting up VM Host
-------------------
+~~~~~~~~~~~~~~~~~~
 
 First we need to make a pre-built entry on a manual foundation to represent the
 virtualbox/vcenter/esx host, first creating the foundation::
@@ -623,7 +632,7 @@ should output something like::
 If you pull up the console, the default root password is "root".
 
 After you have verified that it is there, logout of the test vm and kick off a
-job to delete it and re-build it.
+job to delete it and re-build it::
 
   /usr/lib/contractor/util/boss -f testvm01 --do-destroy
 
@@ -676,9 +685,36 @@ output::
 
   "/api/v1/Utilities/Address:30:"
 
-Again the jobs should be running to create the CentOS VM.  When it is done, ssh in.
+Again the jobs should be running to create the CentOS VM.  When it is done, ssh in::
 
   ssh root@testvm02
 
 go a head and play arround with it for a bit.  make sure to try deconfiguring both
 VMs at the same time so you can see Contractor do more than one thing at a time.
+
+
+Removing the VMs
+----------------
+
+Deleting the VMs once again uses the boss command, it is possible to do it via
+the HTTP interface, however it takes a few more steps.  Before we used the ``--do-destroy`
+option, this tells contractor to remove the vms, and with the auth-configure
+flag, it turns arround and re-builds them.  The option `--do-pre-delete` is simmaler
+but it disables the auto-configure so contractor dosen't automatically start building
+it again.  First to delete the structure::
+
+  /usr/lib/contractor/util/boss -s <structure id> --do-pre-delete
+
+when the sturcture job completes::
+
+  /usr/lib/contractor/util/boss -s <structure id> --do-delete
+
+and the same pattern for the foundation, the locator is the vmname ie `testvm01`::
+
+  /usr/lib/contractor/util/boss -f <locator> --do-pre-delete
+
+and when that job completes run::
+
+  /usr/lib/contractor/util/boss -f <locator> --do-delete
+
+Now the VM is no longer in virtualbox/vcenter nor contractor.
