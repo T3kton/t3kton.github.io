@@ -62,11 +62,6 @@ All these values can be adjusted either in the setupWizzard file before it is ru
 or after it is setup, you can use the API/UI to edit these values.
 The DNS server will be set for the contractor VM, and bind on the contractor vm will
 be set to forward to the DNS server that was originally configured on the VM.</p>
-<p>The default when installing from package is to use postgres for the database.
-sqlite is also supported, and the prefered way for development.  You can edit the
-<cite>/etc/contractor/master.conf</cite> just before the <cite>manage.py migrate</cite> command to
-enable the sqlite option if desired, make sure to skip the postgres setup.  Keep
-in mind that sqlite option requires making the database writeable by <cite>www-data.www-data</cite>.</p>
 <div class="section" id="from-source">
 <h3>From Source<a class="headerlink" href="#from-source" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="TryIt_source.html"><em>From Source</em></a></p>
@@ -237,13 +232,13 @@ http requests to contractor.</p>
 <p>First we will define some Environment values so we don&#8217;t have to keep tying redundant info
 the Contractor server, this is assuming you will be running these commands from
 the contractor VM, if you are running these steps from someplace else, update the
-ip address to the ip address of the contractor vm.  Replace <cite>&lt; address block name &gt;</cite>
+ip address to the ip address of the contractor vm.  Replace <cite>&lt; network name &gt;</cite>
 with the name of the network created in vcenter (ie: internal) or virtual box
 (ie: vboxnet0):</p>
 <div class="highlight-python"><div class="highlight"><pre>export COPS=( --header &quot;CInP-Version: 0.9&quot; --header &quot;Content-Type: application/json&quot; )
 export SITE=&quot;/api/v1/Site/Site:site1:&quot;
 export CHOST=&quot;http://127.0.0.1&quot;
-export ADRBLK=&quot;&lt; address block name &gt;&quot;
+export ADRBLK=&quot;&lt; network name &gt;&quot;
 </pre></div>
 </div>
 <p>now we need to login, replace <cite>&lt; username &gt;</cite> and <cite>&lt; password &gt;</cite> with the username and
@@ -499,7 +494,7 @@ EOF
 </pre></div>
 </div>
 <p>should return something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;built_percentage&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T23:51:33.613222+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;vcenter_host&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Structure:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;vcenter_password&quot;</span><span class="p">:</span> <span class="s2">&quot;vmware123!!&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T23:51:33.613199+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;vcenter_cluster&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;demovcenter&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Demo VCenter/ESX Host/Complex&quot;</span><span class="p">,</span> <span class="s2">&quot;vcenter_datacenter&quot;</span><span class="p">:</span> <span class="s2">&quot;ha-datacenter&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;VCenter&quot;</span><span class="p">,</span> <span class="s2">&quot;members&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;vcenter_username&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">}</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;built_percentage&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T23:51:33.613222+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;vcenter_host&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Structure:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;vcenter_password&quot;</span><span class="p">:</span> <span class="s2">&quot;vmware&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T23:51:33.613199+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;vcenter_cluster&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;demovcenter&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Demo VCenter/ESX Host/Complex&quot;</span><span class="p">,</span> <span class="s2">&quot;vcenter_datacenter&quot;</span><span class="p">:</span> <span class="s2">&quot;ha-datacenter&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;VCenter&quot;</span><span class="p">,</span> <span class="s2">&quot;members&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;vcenter_username&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>Techinically if you are using VCenter, you should create another manual structure
@@ -580,9 +575,8 @@ EOF
 </div>
 <p>Contractor is now running, now let&#8217;s configure it to make a VM.</p>
 </div>
-</div>
 <div class="section" id="creating-a-vm-ubuntu">
-<h2>Creating a VM (Ubuntu)<a class="headerlink" href="#creating-a-vm-ubuntu" title="Permalink to this headline">¶</a></h2>
+<h3>Creating a VM (Ubuntu)<a class="headerlink" href="#creating-a-vm-ubuntu" title="Permalink to this headline">¶</a></h3>
 <p>First we need to load the ubuntu blueprints:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo respkg -i contractor-ubuntu-base_0.1.respkg
 </pre></div>
@@ -650,7 +644,7 @@ job to delete it and re-build it:</p>
 create it again.</p>
 </div>
 <div class="section" id="creating-a-vm-centos">
-<h2>Creating a VM (CentOS)<a class="headerlink" href="#creating-a-vm-centos" title="Permalink to this headline">¶</a></h2>
+<h3>Creating a VM (CentOS)<a class="headerlink" href="#creating-a-vm-centos" title="Permalink to this headline">¶</a></h3>
 <p>Ok, let&#8217;s create a centos VM now, is&#8217;t all the same as the ubuntu VM except the
 blueprint we choose.</p>
 <p>Load the centos Blueprints:</p>
@@ -683,6 +677,22 @@ EOF
 EOF
 </pre></div>
 </div>
+<p>output:</p>
+<div class="highlight-python"><div class="highlight"><pre>HTTP/1.1 201 CREATED
+Date: Mon, 11 Mar 2019 13:45:58 GMT
+Server: Apache/2.4.18 (Ubuntu)
+Cache-Control: no-cache
+Verb: CREATE
+Cinp-Version: 0.9
+Object-Id: /api/v1/Building/Structure:4:
+Access-Control-Expose-Headers: Method, Type, Cinp-Version, Count, Position, Total, Multi-Object, Object-Id, Id-Only
+Access-Control-Allow-Origin: *
+Content-Length: 413
+Content-Type: application/json;charset=utf-8
+
+{&quot;hostname&quot;: &quot;testvm02&quot;, &quot;created&quot;: &quot;2019-03-11T13:45:58.963923+00:00&quot;, &quot;config_values&quot;: null, &quot;auto_build&quot;: true, &quot;config_uuid&quot;: &quot;d8821d29-f884-4c2d-af63-7d0292b2ce41&quot;, &quot;updated&quot;: &quot;2019-03-11T13:45:58.963901+00:00&quot;, &quot;blueprint&quot;: &quot;/api/v1/BluePrint/StructureBluePrint:centos-7-base:&quot;, &quot;site&quot;: &quot;/api/v1/Site/Site:site1:&quot;, &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:testvm02:&quot;, &quot;built_at&quot;: null, &quot;state&quot;: &quot;planned&quot;}
+</pre></div>
+</div>
 <p>and assign the ip address, make sure to use the structure id from the testvm02 structure:</p>
 <div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CALL &quot;$CHOST/api/v1/Utilities/AddressBlock:$ADRBLK:(nextAddress)&quot;
 { &quot;structure&quot;: &quot;/api/v1/Building/Structure:&lt; structure id &gt;:&quot;, &quot;interface_name&quot;: &quot;eth0&quot;, &quot;is_primary&quot;: true }
@@ -700,8 +710,82 @@ EOF
 <p>go a head and play arround with it for a bit.  make sure to try deconfiguring both
 VMs at the same time so you can see Contractor do more than one thing at a time.</p>
 </div>
+<div class="section" id="accessing-configuration-information">
+<h3>Accessing Configuration Information<a class="headerlink" href="#accessing-configuration-information" title="Permalink to this headline">¶</a></h3>
+<p>Contractor provides three configuration urls for a target.  The first two depend on
+what the target is set to PXE boot to, the thrid is all the configuraiton information
+for that target in JSON format.</p>
+<p>ssh into one of the VMs, this will show what it is like from testvm02:</p>
+<div class="highlight-python"><div class="highlight"><pre>ssh root@testvm02
+</pre></div>
+</div>
+<p>First the pxe script, this script is downloaded and run but the iPXE boot loader
+that the target VM was told to download from the dhcp server.:</p>
+<div class="highlight-python"><div class="highlight"><pre>curl http://contractor/config/boot_script/
+</pre></div>
+</div>
+<p>which will output:</p>
+<div class="highlight-python"><div class="highlight"><pre>#!ipxe
+
+echo Booting form Primary Boot Disk
+sanboot --no-describe --drive 0x80 || echo Primary Boot Disk is not Bootable
+</pre></div>
+</div>
+<p>The VM is curent set to the <cite>normal-boot</cite> pxe.  That script tells it to boot to the
+first harddrive.</p>
+<p>Next the pxe_template:</p>
+<div class="highlight-python"><div class="highlight"><pre>curl http://contractor/config/pxe_template/
+</pre></div>
+</div>
+<p>output:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c1"># Normal Boot</span>
+</pre></div>
+</div>
+<p>once again, with this VM having been set to <cite>normal-boot</cite>, the pxe template is
+just a comment at the top.  The pxe_template is stored as a Jinja2 template that
+is combined with the configuration information and served out to the target.
+This is the URL that is used for the Kickstart and/or Pressed files for the CentOS
+and Debian installers.  The source for the centos and ubuntu boot_scripts and
+pxe_templates are at <a class="reference external" href="https://github.com/T3kton/resources/blob/master/os-bases/centos/usr/lib/contractor/resources/centos.toml">https://github.com/T3kton/resources/blob/master/os-bases/centos/usr/lib/contractor/resources/centos.toml</a>
+and <a class="reference external" href="https://github.com/T3kton/resources/blob/master/os-bases/ubuntu/usr/lib/contractor/resources/ubuntu.toml">https://github.com/T3kton/resources/blob/master/os-bases/ubuntu/usr/lib/contractor/resources/ubuntu.toml</a>
+thoes are then packaged during when you built the resources, and installed to
+/usr/lib/contractor/resource/ when the resource package was installed.</p>
+<p>The thrid url is:</p>
+<div class="highlight-python"><div class="highlight"><pre>curl http://contractor/config/config/
+</pre></div>
+</div>
+<p>output:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;installer_pxe&quot;</span><span class="p">:</span> <span class="s2">&quot;centos-7&quot;</span><span class="p">,</span> <span class="s2">&quot;__pxe_template_location&quot;</span><span class="p">:</span> <span class="s2">&quot;http://contractor/config/pxe_template/&quot;</span><span class="p">,</span> <span class="s2">&quot;_structure_config_uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;118e0e44-457e-47df-b8c0-d157d5dde1b4&quot;</span><span class="p">,</span> <span class="s2">&quot;mirror_server&quot;</span><span class="p">:</span> <span class="s2">&quot;mirror.centos.org&quot;</span><span class="p">,</span> <span class="s2">&quot;_blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;centos-7-base&quot;</span><span class="p">,</span> <span class="s2">&quot;__timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-11T14:32:27.909856+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;_foundation_state&quot;</span><span class="p">:</span> <span class="s2">&quot;built&quot;</span><span class="p">,</span> <span class="s2">&quot;domain_name&quot;</span><span class="p">:</span> <span class="s2">&quot;site1.local&quot;</span><span class="p">,</span> <span class="s2">&quot;dns_search&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;site1.local&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">],</span> <span class="s2">&quot;_structure_state&quot;</span><span class="p">:</span> <span class="s2">&quot;built&quot;</span><span class="p">,</span> <span class="s2">&quot;__pxe_location&quot;</span><span class="p">:</span> <span class="s2">&quot;http://static/pxe/&quot;</span><span class="p">,</span> <span class="s2">&quot;distro&quot;</span><span class="p">:</span> <span class="s2">&quot;centos&quot;</span><span class="p">,</span> <span class="s2">&quot;_hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;testvm02&quot;</span><span class="p">,</span> <span class="s2">&quot;_foundation_class_list&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;VM&quot;</span><span class="p">,</span> <span class="s2">&quot;VCenter&quot;</span><span class="p">],</span> <span class="s2">&quot;dns_servers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;10.0.0.10&quot;</span><span class="p">],</span> <span class="s2">&quot;memory_size&quot;</span><span class="p">:</span> <span class="mi">2048</span><span class="p">,</span> <span class="s2">&quot;_foundation_type&quot;</span><span class="p">:</span> <span class="s2">&quot;VCenter&quot;</span><span class="p">,</span> <span class="s2">&quot;_provisioning_interface&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;_vcenter_host&quot;</span><span class="p">:</span> <span class="s2">&quot;demovcenter&quot;</span><span class="p">,</span> <span class="s2">&quot;_interface_map&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;eth0&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="s2">&quot;00:50:56:03:1e:6d&quot;</span><span class="p">,</span> <span class="s2">&quot;address_list&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;vlan&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.123&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;primary&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;sub_interface&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;tagged&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;auto&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">}]}},</span> <span class="s2">&quot;_foundation_locator&quot;</span><span class="p">:</span> <span class="s2">&quot;testvm02&quot;</span><span class="p">,</span> <span class="s2">&quot;_vcenter_uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;52545577-0025-e8d7-1915-bd64585f47c1&quot;</span><span class="p">,</span> <span class="s2">&quot;_vcenter_cluster&quot;</span><span class="p">:</span> <span class="s2">&quot;localhost.&quot;</span><span class="p">,</span> <span class="s2">&quot;_site&quot;</span><span class="p">:</span> <span class="s2">&quot;site1&quot;</span><span class="p">,</span> <span class="s2">&quot;ntp_servers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ntp.ubuntu.com&quot;</span><span class="p">],</span> <span class="s2">&quot;distro_version&quot;</span><span class="p">:</span> <span class="s2">&quot;7&quot;</span><span class="p">,</span> <span class="s2">&quot;_fqdn&quot;</span><span class="p">:</span> <span class="s2">&quot;testvm02.site1.local&quot;</span><span class="p">,</span> <span class="s2">&quot;mirror_proxy&quot;</span><span class="p">:</span> <span class="s2">&quot;http://10.0.0.10:3128/&quot;</span><span class="p">,</span> <span class="s2">&quot;_foundation_interface_list&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="s2">&quot;00:50:56:03:1e:6d&quot;</span><span class="p">,</span> <span class="s2">&quot;address_list&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;vlan&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.123&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;primary&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;sub_interface&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;tagged&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;auto&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">}]}],</span> <span class="s2">&quot;__contractor_host&quot;</span><span class="p">:</span> <span class="s2">&quot;http://contractor/&quot;</span><span class="p">,</span> <span class="s2">&quot;_foundation_id&quot;</span><span class="p">:</span> <span class="s2">&quot;testvm02&quot;</span><span class="p">,</span> <span class="s2">&quot;vcenter_guest_id&quot;</span><span class="p">:</span> <span class="s2">&quot;rhel7_64Guest&quot;</span><span class="p">,</span> <span class="s2">&quot;swap_size&quot;</span><span class="p">:</span> <span class="mi">512</span><span class="p">,</span> <span class="s2">&quot;_structure_id&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;__last_modified&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-11T14:01:18.090983+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;_provisioning_interface_mac&quot;</span><span class="p">:</span> <span class="s2">&quot;00:50:56:03:1e:6d&quot;</span><span class="p">,</span> <span class="s2">&quot;_vcenter_datacenter&quot;</span><span class="p">:</span> <span class="s2">&quot;ha-datacenter&quot;</span><span class="p">,</span> <span class="s2">&quot;virtualbox_guest_type&quot;</span><span class="p">:</span> <span class="s2">&quot;RedHat_64&quot;</span><span class="p">,</span> <span class="s2">&quot;root_pass&quot;</span><span class="p">:</span> <span class="s2">&quot;$6$rootroot$oLo.loyMV45VA7/0sKV5JH/xBAXiq/igL4hQrGz3yd9XUavmC82tZm1lxW2N.5eLxQUlqp53wXKRzifZApP0/1&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>This url can be used by what ever scripts/CMS as a source of configuration
+intormation.  See the documentation at <a class="reference internal" href="ConfigurationValues.html"><em>Configuration Values</em></a> for more
+information on how these values are compiled.  One value to point out here is
+<cite>_structure_config_uuid</cite>, this value is set when the sturcture record is created
+or when the structure is destroyed.  This way if there is a stale copy of the
+structure (old VM stapshot, or a VM that didn&#8217;t get cleaned up properly, etc)
+comes online, it (or some other monitoring system) can detect that it is now
+longer curent and take action.</p>
+<p>Contractor uses the source ip address of this URL requests to determine which
+target&#8217;s information to return.  You can also use the structure id, foundation
+locator or config uuid, to tell contractor which configuration to return.</p>
+<p>by config uuid:</p>
+<div class="highlight-python"><div class="highlight"><pre>curl http://contractor/config/config/c/118e0e44-457e-47df-b8c0-d157d5dde1b4
+</pre></div>
+</div>
+<p>by structure id:</p>
+<div class="highlight-python"><div class="highlight"><pre>curl http://contractor/config/config/s/4
+</pre></div>
+</div>
+<p>by foundation locator:</p>
+<div class="highlight-python"><div class="highlight"><pre>curl http://contractor/config/config/f/testvm02
+</pre></div>
+</div>
+<p>one way for a target to detect if it is stil good and in cases when the ip address
+might change, is to request it&#8217;s config by the uuid.</p>
+</div>
 <div class="section" id="removing-the-vms">
-<h2>Removing the VMs<a class="headerlink" href="#removing-the-vms" title="Permalink to this headline">¶</a></h2>
+<h3>Removing the VMs<a class="headerlink" href="#removing-the-vms" title="Permalink to this headline">¶</a></h3>
 <p>Deleting the VMs once again uses the boss command, it is possible to do it via
 the HTTP interface, however it takes a few more steps.  Before we used the <a href="#id1"><span class="problematic" id="id2">``</span></a>&#8211;do-destroy`
 option, this tells contractor to remove the vms, and with the auth-configure
@@ -724,6 +808,7 @@ it again.  First to delete the structure:</p>
 </pre></div>
 </div>
 <p>Now the VM is no longer in virtualbox/vcenter nor contractor.</p>
+</div>
 </div>
 </div>
 
@@ -754,11 +839,12 @@ it again.  First to delete the structure:</p>
 <li><a class="reference internal" href="#setting-up-vm-host">Setting up VM Host</a></li>
 <li><a class="reference internal" href="#vcenter">VCenter</a></li>
 <li><a class="reference internal" href="#virtualbox">VirtualBox</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#creating-a-vm-ubuntu">Creating a VM (Ubuntu)</a></li>
 <li><a class="reference internal" href="#creating-a-vm-centos">Creating a VM (CentOS)</a></li>
+<li><a class="reference internal" href="#accessing-configuration-information">Accessing Configuration Information</a></li>
 <li><a class="reference internal" href="#removing-the-vms">Removing the VMs</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
