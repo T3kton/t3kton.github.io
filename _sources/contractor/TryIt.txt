@@ -156,7 +156,7 @@ Now to create the db::
 Install the iputils functions, this contains the port check function contractor
 will use to verify the OS has booted::
 
-  sudo respkg -i contractor-plugins-iputils_0.1.respkg
+  sudo respkg -i contractor-plugins-iputils_0.3.1.respkg
 
 Install base os config::
 
@@ -165,19 +165,19 @@ Install base os config::
 Now to enable plugins.
 We use manual for misc stuff that is either pre-configured or handled by something else::
 
-  sudo respkg -i contractor-plugins-manual_0.1.respkg
+  sudo respkg -i contractor-plugins-manual_0.3.1.respkg
 
 if you are using esx/vcenter::
 
-  sudo respkg -i contractor-plugins-vcenter_0.1.respkg
+  sudo respkg -i contractor-plugins-vcenter_0.3.1.respkg
 
 if you are using virtualbox::
 
-  sudo respkg -i contractor-plugins-virtualbox_0.1.respkg
+  sudo respkg -i contractor-plugins-virtualbox_0.3.1.respkg
 
 do manual plugin again so it can cross link to the other plugins::
 
-  sudo respkg -i contractor-plugins-manual_0.1.respkg
+  sudo respkg -i contractor-plugins-manual_0.3.1.respkg
 
 Now to setup some base info, and configure bind::
 

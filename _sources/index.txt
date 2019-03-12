@@ -8,6 +8,11 @@ Contents:
 
   contractor/index
 
+Source/Github
+=============
+
+https://github.com/T3kton
+
 Indices and tables
 ==================
 
