@@ -13,5 +13,6 @@ Then checkout the master branch and commit::
 
   git checkout master
   make copy
+  git add .
   git commit -m 'updated documentation' -a
   git push origin master
