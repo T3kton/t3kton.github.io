@@ -1,3 +1,14 @@
+#
+all: help
+
+
+autodoc:
+	cinp-autodoc -d "Contractor API" -f source/contractor/API.rst http://localhost:8888/api/v1/
+
+.PHONY: all autodoc
+
+## After this point is mostly a standard Sphinx Makefile ##
+
 # Makefile for Sphinx documentation
 #
 

@@ -13,6 +13,7 @@ Contents:
   Modules
   Plugins
   Resources
+  API
 
 
 Indices and tables
