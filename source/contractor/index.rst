@@ -11,6 +11,8 @@ Contents:
   ConfigurationValues
   IpAddresses
   Modules
+  Plugins
+  Resources
 
 
 Indices and tables

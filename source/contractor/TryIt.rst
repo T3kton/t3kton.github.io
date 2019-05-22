@@ -160,7 +160,7 @@ will use to verify the OS has booted::
 
 Install base os config::
 
-  sudo respkg -i contractor-os-base_0.1.respkg
+  sudo respkg -i contractor-os-base_0.3.respkg
 
 Now to enable plugins.
 We use manual for misc stuff that is either pre-configured or handled by something else::
@@ -362,7 +362,7 @@ Subcontractor
 install tfptd (used for PXE booting) and the PXE booting agent::
 
   sudo apt install -y tftpd-hpa
-  sudo respkg -i contractor-ipxe_0.1.respkg
+  sudo respkg -i contractor-ipxe_0.3.respkg
 
 now edit `/etc/subcontractor.conf`
 enable the modules you want to use, remove the ';' and set the 0 to a 1.
@@ -464,7 +464,7 @@ Environment setup::
 
   export FBP="/api/v1/BluePrint/FoundationBluePrint:vcenter-vm-base:"
   export FMDL="/api/v1/VCenter/VCenterFoundation"
-  export FDATA=', "vcenter_host": "/api/v1/VCenter/VCenterComplex:demovcenter:"'
+  export FDATA=', "vcenter_complex": "/api/v1/VCenter/VCenterComplex:demovcenter:"'
 
 First create the VirtualBox Complex, replace `< datacenter >` with the name of
 the VCenter datacenter to put the VMs in, if using ESX directly put 'ha-datacenter',
@@ -482,6 +482,7 @@ should return something like::
 
   {"built_percentage": 90, "state": "planned", "site": "/api/v1/Site/Site:site1:", "created": "2019-02-23T23:51:33.613222+00:00", "vcenter_host": "/api/v1/Building/Structure:2:", "vcenter_password": "vmware", "updated": "2019-02-23T23:51:33.613199+00:00", "vcenter_cluster": null, "name": "demovcenter", "description": "Demo VCenter/ESX Host/Complex", "vcenter_datacenter": "ha-datacenter", "type": "VCenter", "members": [], "vcenter_username": "root"}
 
+--- clip? ---
 Techinically if you are using VCenter, you should create another manual structure
 so Contractor knows the hosts of the VCenter cluster, however, for the sake of
 simplicity, we will just add the ESX Host/VCenter cluster we just added as the host
@@ -495,6 +496,8 @@ the id of the manual structure  we have been using so far::
 should return something like::
 
   {"created": "2019-02-24T00:02:06.164123+00:00", "complex": "/api/v1/Building/Complex:demovcenter:", "structure": "/api/v1/Building/Structure:2:", "updated": "2019-02-24T00:02:06.164082+00:00"}
+
+--- clip? ---
 
 now to set the ip address of the vcenter/esx host. This ip will be used by
 subcontractor to manipluate vms, and will need to be routeable from the
@@ -520,7 +523,7 @@ Environment setup::
 
   export FBP="/api/v1/BluePrint/FoundationBluePrint:virtualbox-vm-base:"
   export FMDL="/api/v1/VirtualBox/VirtualBoxFoundation"
-  export FDATA=', "virtualbox_host": "/api/v1/VirtualBox/VirtualBoxComplex:demovbox:"'
+  export FDATA=', "virtualbox_complex": "/api/v1/VirtualBox/VirtualBoxComplex:demovbox:"'
 
 First create the VirtualBox Complex, replace the `< username >` and `< password >`
 with either your username and password for the machine with vbox running on it,
@@ -566,7 +569,7 @@ Creating a VM (Ubuntu)
 
 First we need to load the ubuntu blueprints::
 
-  sudo respkg -i contractor-ubuntu-base_0.1.respkg
+  sudo respkg -i contractor-ubuntu-base_0.3.respkg
 
 Now we create the Foundation of the VM to be created::
 
@@ -576,7 +579,7 @@ Now we create the Foundation of the VM to be created::
 
 output::
 
-  {"state": "planned", "site": "/api/v1/Site/Site:site1:", "type": "VirtualBox", "id_map": "", "virtualbox_host": "/api/v1/VirtualBox/VirtualBoxComplex:demovbox:", "blueprint": "/api/v1/BluePrint/FoundationBluePrint:virtualbox-vm-base:", "built_at": null, "locator": "tesvm01", "located_at": null, "updated": "2019-02-20T04:58:52.855473+00:00", "created": "2019-02-20T04:58:52.855507+00:00", "class_list": "['VM', 'VirtualBox']", "virtualbox_uuid": null}
+  {"state": "planned", "site": "/api/v1/Site/Site:site1:", "type": "VirtualBox", "id_map": "", "virtualbox_complex": "/api/v1/VirtualBox/VirtualBoxComplex:demovbox:", "blueprint": "/api/v1/BluePrint/FoundationBluePrint:virtualbox-vm-base:", "built_at": null, "locator": "tesvm01", "located_at": null, "updated": "2019-02-20T04:58:52.855473+00:00", "created": "2019-02-20T04:58:52.855507+00:00", "class_list": "['VM', 'VirtualBox']", "virtualbox_uuid": null}
 
 create the interface::
 
@@ -641,7 +644,7 @@ blueprint we choose.
 
 Load the centos Blueprints::
 
-  sudo respkg -i contractor-centos-base_0.1.respkg
+  sudo respkg -i contractor-centos-base_0.3.respkg
 
 Foundation::
 
@@ -651,7 +654,7 @@ Foundation::
 
 output::
 
-  {"state": "planned", "site": "/api/v1/Site/Site:site1:", "type": "VirtualBox", "id_map": "", "virtualbox_host": "/api/v1/VirtualBox/VirtualBoxComplex:demovbox:", "blueprint": "/api/v1/BluePrint/FoundationBluePrint:virtualbox-vm-base:", "built_at": null, "locator": "tesvm01", "located_at": null, "updated": "2019-02-20T04:58:52.855473+00:00", "created": "2019-02-20T04:58:52.855507+00:00", "class_list": "['VM', 'VirtualBox']", "virtualbox_uuid": null}
+  {"state": "planned", "site": "/api/v1/Site/Site:site1:", "type": "VirtualBox", "id_map": "", "virtualbox_complex": "/api/v1/VirtualBox/VirtualBoxComplex:demovbox:", "blueprint": "/api/v1/BluePrint/FoundationBluePrint:virtualbox-vm-base:", "built_at": null, "locator": "tesvm01", "located_at": null, "updated": "2019-02-20T04:58:52.855473+00:00", "created": "2019-02-20T04:58:52.855507+00:00", "class_list": "['VM', 'VirtualBox']", "virtualbox_uuid": null}
 
 create the interface::
 
@@ -752,7 +755,7 @@ The thrid url is::
 
 output::
 
-  {"installer_pxe": "centos-7", "__pxe_template_location": "http://contractor/config/pxe_template/", "_structure_config_uuid": "118e0e44-457e-47df-b8c0-d157d5dde1b4", "mirror_server": "mirror.centos.org", "_blueprint": "centos-7-base", "__timestamp": "2019-03-11T14:32:27.909856+00:00", "_foundation_state": "built", "domain_name": "site1.local", "dns_search": ["site1.local", "local"], "_structure_state": "built", "__pxe_location": "http://static/pxe/", "distro": "centos", "_hostname": "testvm02", "_foundation_class_list": ["VM", "VCenter"], "dns_servers": ["10.0.0.10"], "memory_size": 2048, "_foundation_type": "VCenter", "_provisioning_interface": "eth0", "_vcenter_host": "demovcenter", "_interface_map": {"eth0": {"physical_location": "eth0", "name": "eth0", "mac": "00:50:56:03:1e:6d", "address_list": [{"vlan": null, "address": "10.0.0.123", "prefix": 24, "netmask": "255.255.255.0", "primary": true, "sub_interface": null, "network": "10.0.0.0", "tagged": false, "gateway": null, "auto": true, "mtu": 1500}]}}, "_foundation_locator": "testvm02", "_vcenter_uuid": "52545577-0025-e8d7-1915-bd64585f47c1", "_vcenter_cluster": "localhost.", "_site": "site1", "ntp_servers": ["ntp.ubuntu.com"], "distro_version": "7", "_fqdn": "testvm02.site1.local", "mirror_proxy": "http://10.0.0.10:3128/", "_foundation_interface_list": [{"physical_location": "eth0", "name": "eth0", "mac": "00:50:56:03:1e:6d", "address_list": [{"vlan": null, "address": "10.0.0.123", "prefix": 24, "netmask": "255.255.255.0", "primary": true, "sub_interface": null, "network": "10.0.0.0", "tagged": false, "gateway": null, "auto": true, "mtu": 1500}]}], "__contractor_host": "http://contractor/", "_foundation_id": "testvm02", "vcenter_guest_id": "rhel7_64Guest", "swap_size": 512, "_structure_id": 4, "__last_modified": "2019-03-11T14:01:18.090983+00:00", "_provisioning_interface_mac": "00:50:56:03:1e:6d", "_vcenter_datacenter": "ha-datacenter", "virtualbox_guest_type": "RedHat_64", "root_pass": "$6$rootroot$oLo.loyMV45VA7/0sKV5JH/xBAXiq/igL4hQrGz3yd9XUavmC82tZm1lxW2N.5eLxQUlqp53wXKRzifZApP0/1"}
+  {"installer_pxe": "centos-7", "__pxe_template_location": "http://contractor/config/pxe_template/", "_structure_config_uuid": "118e0e44-457e-47df-b8c0-d157d5dde1b4", "mirror_server": "mirror.centos.org", "_blueprint": "centos-7-base", "__timestamp": "2019-03-11T14:32:27.909856+00:00", "_foundation_state": "built", "domain_name": "site1.local", "dns_search": ["site1.local", "local"], "_structure_state": "built", "__pxe_location": "http://static/pxe/", "distro": "centos", "_hostname": "testvm02", "_foundation_class_list": ["VM", "VCenter"], "dns_servers": ["10.0.0.10"], "memory_size": 2048, "_foundation_type": "VCenter", "_provisioning_interface": "eth0", "_vcenter_complex": "demovcenter", "_interface_map": {"eth0": {"physical_location": "eth0", "name": "eth0", "mac": "00:50:56:03:1e:6d", "address_list": [{"vlan": null, "address": "10.0.0.123", "prefix": 24, "netmask": "255.255.255.0", "primary": true, "sub_interface": null, "network": "10.0.0.0", "tagged": false, "gateway": null, "auto": true, "mtu": 1500}]}}, "_foundation_locator": "testvm02", "_vcenter_uuid": "52545577-0025-e8d7-1915-bd64585f47c1", "_vcenter_cluster": "localhost.", "_site": "site1", "ntp_servers": ["ntp.ubuntu.com"], "distro_version": "7", "_fqdn": "testvm02.site1.local", "mirror_proxy": "http://10.0.0.10:3128/", "_foundation_interface_list": [{"physical_location": "eth0", "name": "eth0", "mac": "00:50:56:03:1e:6d", "address_list": [{"vlan": null, "address": "10.0.0.123", "prefix": 24, "netmask": "255.255.255.0", "primary": true, "sub_interface": null, "network": "10.0.0.0", "tagged": false, "gateway": null, "auto": true, "mtu": 1500}]}], "__contractor_host": "http://contractor/", "_foundation_id": "testvm02", "vcenter_guest_id": "rhel7_64Guest", "swap_size": 512, "_structure_id": 4, "__last_modified": "2019-03-11T14:01:18.090983+00:00", "_provisioning_interface_mac": "00:50:56:03:1e:6d", "_vcenter_datacenter": "ha-datacenter", "virtualbox_guest_type": "RedHat_64", "root_pass": "$6$rootroot$oLo.loyMV45VA7/0sKV5JH/xBAXiq/igL4hQrGz3yd9XUavmC82tZm1lxW2N.5eLxQUlqp53wXKRzifZApP0/1"}
 
 This url can be used by what ever scripts/CMS as a source of configuration
 intormation.  See the documentation at :doc:`ConfigurationValues` for more
