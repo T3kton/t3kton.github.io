@@ -9,7 +9,7 @@ and installing::
   sudo apt install -y software-properties-common
   sudo add-apt-repository -y ppa:pnhowe/t3kton
   sudo apt update
-  sudo apt install -y git respkg build-essential python3-dev python3-setuptools nodejs npm nodejs-legacy liblzma-dev genisoimage python3-django apache2 libapache2-mod-wsgi-py3 python3-werkzeug python3-psycopg2 python3-cinp python3-toml python3-jinja2 bind9 bind9utils python3-dhcplib
+  sudo apt install -y git respkg build-essential python3-dev python3-setuptools nodejs npm nodejs-legacy liblzma-dev xorriso python3-django apache2 libapache2-mod-wsgi-py3 python3-werkzeug python3-psycopg2 python3-cinp python3-toml python3-jinja2 bind9 bind9utils python3-dhcplib
 
 Create an empty directory, and cd into it
 

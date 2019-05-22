@@ -3,7 +3,7 @@ Configuration Values
 
 Config value key names must match the regex::
 
-  ^[<>\-~]?([a-zA-Z0-9]+:)?[a-zA-Z0-9][a-zA-Z0-9_\-]*$
+  ^[<>\-~]?[a-zA-Z0-9][a-zA-Z0-9_\-]*(:[a-zA-Z0-9]+)?$
 
 If the first character is: (also processed in this order)
 
@@ -13,8 +13,9 @@ If the first character is: (also processed in this order)
   :>: append to the value so far
   :~: mask/remove value so far, (NOTE: value is ignored)
 
-If `[a-zA-Z0-9]+:` is present, the value key/value is only applied if the pre ':'
-matches the classes indicated by the foundation.  This is the **_foundation_class_list**
+If `:[a-zA-Z0-9]+` is present, the value key/value is only applied if the class
+(the part that comes after the ':') matches the classes indicated by the
+foundation.  This is the **_foundation_class_list**.
 
 Global and Config Attributes
 ----------------------------
@@ -278,5 +279,5 @@ design would be to add dns servers to Site 1 and Site 2 and prepend those to the
 dns server list.  Also if we want another global dns search zone to come after
 'myservice.com', we can add it to the list at the top, and once again it will
 propagate for us.  If there is a site that you do not want to inherit the
-top level dns_search, you would omit the **{** from the name, and the value will
+top level dns_search, you would omit the **<** from the name, and the value will
 overwrite instead of pre-pend.

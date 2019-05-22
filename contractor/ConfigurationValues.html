@@ -42,7 +42,7 @@
   <div class="section" id="configuration-values">
 <h1>Configuration Values<a class="headerlink" href="#configuration-values" title="Permalink to this headline">¶</a></h1>
 <p>Config value key names must match the regex:</p>
-<div class="highlight-python"><div class="highlight"><pre>^[&lt;&gt;\-~]?([a-zA-Z0-9]+:)?[a-zA-Z0-9][a-zA-Z0-9_\-]*$
+<div class="highlight-python"><div class="highlight"><pre>^[&lt;&gt;\-~]?[a-zA-Z0-9][a-zA-Z0-9_\-]*(:[a-zA-Z0-9]+)?$
 </pre></div>
 </div>
 <p>If the first character is: (also processed in this order)</p>
@@ -64,8 +64,9 @@
 </tbody>
 </table>
 </div></blockquote>
-<p>If <cite>[a-zA-Z0-9]+:</cite> is present, the value key/value is only applied if the pre &#8216;:&#8217;
-matches the classes indicated by the foundation.  This is the <strong>_foundation_class_list</strong></p>
+<p>If <cite>:[a-zA-Z0-9]+</cite> is present, the value key/value is only applied if the class
+(the part that comes after the &#8216;:&#8217;) matches the classes indicated by the
+foundation.  This is the <strong>_foundation_class_list</strong>.</p>
 <div class="section" id="global-and-config-attributes">
 <h2>Global and Config Attributes<a class="headerlink" href="#global-and-config-attributes" title="Permalink to this headline">¶</a></h2>
 <p>To help indicate Attributes and to keep them from getting overwritten by config values
@@ -309,7 +310,7 @@ design would be to add dns servers to Site 1 and Site 2 and prepend those to the
 dns server list.  Also if we want another global dns search zone to come after
 &#8216;myservice.com&#8217;, we can add it to the list at the top, and once again it will
 propagate for us.  If there is a site that you do not want to inherit the
-top level dns_search, you would omit the <strong>{</strong> from the name, and the value will
+top level dns_search, you would omit the <strong>&lt;</strong> from the name, and the value will
 overwrite instead of pre-pend.</p>
 </div>
 </div>
