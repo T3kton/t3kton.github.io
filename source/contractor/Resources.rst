@@ -98,6 +98,9 @@ Same as centos-6
 Utility
 -------
 
+Utility
+~~~~~~~
+
 Structure BluePrints
 ^^^^^^^^^^^^^^^^^^^^
 
