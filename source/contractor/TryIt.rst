@@ -20,7 +20,7 @@ until after the install is complete.
 Installing
 ----------
 
-Create an Ubuntu Xenial VM, name it `contractor`, set the fqdn to `contractor.site1.local`
+Create an Ubuntu Xenial VM, name it `contractor`, set the fqdn to `contractor.site1.test`
 Ideally it should be in a /24 network.  Offset 1 is assumed to be the gateway.
 All these values can be adjusted either in the setupWizzard file before it is run,
 or after it is setup, you can use the API/UI to edit these values.
@@ -58,7 +58,7 @@ Install Requred Services
 
 Install Postgres::
 
-  sudo apt install -y postgresql-client postgresql-9.5
+  sudo apt install -y postgresql-client postgresql-9.5 mongodb-server
 
 Create the postgres db::
 
@@ -74,10 +74,10 @@ this is from the `su` command, thoes messages can be ignored
 Update Packages
 ~~~~~~~~~~~~~~~
 
-the ubuntu toml package is to old, update with::
+the ubuntu toml and jinja2 packages are to old, update with::
 
   sudo apt install -y python3-pip
-  sudo pip3 install toml --upgrade
+  sudo pip3 install toml jinja2 --upgrade
 
 if you are using the virtualbox plugin, you will need zeep::
 
@@ -103,7 +103,7 @@ now create the proxy site `/etc/apache2/sites-available/proxy.conf` with the fol
   Listen 3128
   <VirtualHost *:3128>
     ServerName proxy
-    ServerAlias proxy.site1.local
+    ServerAlias proxy.site1.test
 
     DocumentRoot /var/www/static
 
@@ -116,15 +116,15 @@ now create the proxy site `/etc/apache2/sites-available/proxy.conf` with the fol
     CacheEnable disk http://
     CacheEnable disk https://
 
-    NoProxy static static.site1.local
-    NoProxy contractor contractor.site1.local
+    NoProxy static static.site1.test
+    NoProxy contractor contractor.site1.test
   </VirtualHost>
 
 now create the static site `/etc/apache2/sites-available/static.conf` with the following::
 
   <VirtualHost *:80>
     ServerName static
-    ServerAlias static.site1.local
+    ServerAlias static.site1.test
 
     DocumentRoot /var/www/static
 
@@ -134,7 +134,7 @@ now create the static site `/etc/apache2/sites-available/static.conf` with the f
   </VirtualHost>
 
 Modify `/etc/apache2/sites-available/contractor.conf` and enable the ServerAlias
-line, and change the `<domain>` to `site1.local`
+line, and change the `<domain>` to `site1.test`
 
 Now enable the proxy and static site, disable the default site, and reload the
 apache configuration::
@@ -156,28 +156,28 @@ Now to create the db::
 Install the iputils functions, this contains the port check function contractor
 will use to verify the OS has booted::
 
-  sudo respkg -i contractor-plugins-iputils_0.3.1.respkg
+  sudo respkg -i contractor-plugins-iputils_0.4.0.respkg
 
 Install base os config::
 
-  sudo respkg -i contractor-os-base_0.3.respkg
+  sudo respkg -i contractor-os-base_0.4.respkg
 
 Now to enable plugins.
 We use manual for misc stuff that is either pre-configured or handled by something else::
 
-  sudo respkg -i contractor-plugins-manual_0.3.1.respkg
+  sudo respkg -i contractor-plugins-manual_0.4.0.respkg
 
 if you are using esx/vcenter::
 
-  sudo respkg -i contractor-plugins-vcenter_0.3.1.respkg
+  sudo respkg -i contractor-plugins-vcenter_0.4.0.respkg
 
 if you are using virtualbox::
 
-  sudo respkg -i contractor-plugins-virtualbox_0.3.1.respkg
+  sudo respkg -i contractor-plugins-virtualbox_0.4.0.respkg
 
 do manual plugin again so it can cross link to the other plugins::
 
-  sudo respkg -i contractor-plugins-manual_0.3.1.respkg
+  sudo respkg -i contractor-plugins-manual_0.4.0.respkg
 
 Now to setup some base info, and configure bind::
 
@@ -211,14 +211,11 @@ we will be using curl, make sure it is installed::
 First we will define some Environment values so we don't have to keep tying redundant info
 the Contractor server, this is assuming you will be running these commands from
 the contractor VM, if you are running these steps from someplace else, update the
-ip address to the ip address of the contractor vm.  Replace `< network name >`
-with the name of the network created in vcenter (ie: internal) or virtual box
-(ie: vboxnet0)::
+ip address to the ip address of the contractor vm.::
 
   export COPS=( --header "CInP-Version: 0.9" --header "Content-Type: application/json" )
   export SITE="/api/v1/Site/Site:site1:"
   export CHOST="http://127.0.0.1"
-  export ADRBLK="< network name >"
 
 now we need to login, replace `< username >` and `< password >` with the username and
 password you specified API user (the createsuperuser step)::
@@ -255,15 +252,36 @@ the contractor VM and has flagged it as pre-built.  It has also created
 a site called `site1` and some base DNS configuration. It also took the network
 of the primary interface and loaded it into the database named 'main'.
 
-We need to create another address block for the internal network::
+We need to create another address block for the internal network.  Replace
+`< network name >` with the name of the network created in vcenter (ie: internal)
+or virtual box (ie: vboxnet0)::
 
-  cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/AddressBlock
-  { "site": "$SITE", "name": "$ADRBLK", "subnet": "10.0.0.1", "gateway_offset": null, "prefix": "24" }
+  cat << EOF | curl -i "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/AddressBlock
+  { "site": "$SITE", "name": "<network name>", "subnet": "10.0.0.1", "gateway_offset": null, "prefix": "24" }
   EOF
 
 which should output something like::
 
-  {"gateway_offset": null, "_max_address": "10.0.0.255", "size": "254", "created": "2019-02-23T14:15:06.830987+00:00", "isIpV4": "True", "netmask": "255.255.255.0", "site": "/api/v1/Site/Site:site1:", "gateway": null, "prefix": 24, "name": "internal", "subnet": "10.0.0.0", "updated": "2019-02-23T14:15:06.830966+00:00"}
+  HTTP/1.1 201 CREATED
+  Date: Thu, 23 May 2019 23:42:17 GMT
+  Server: Apache/2.4.18 (Ubuntu)
+  Verb: CREATE
+  Access-Control-Allow-Origin: *
+  Cinp-Version: 0.9
+  Access-Control-Expose-Headers: Method, Type, Cinp-Version, Count, Position, Total, Multi-Object, Object-Id, Id-Only
+  Cache-Control: no-cache
+  Object-Id: /api/v1/Utilities/AddressBlock:2:
+  Content-Length: 318
+  Content-Type: application/json;charset=utf-8
+
+  {"name": "vboxnet0", "size": "254", "_max_address": "10.0.0.255", "gateway_offset": null, "updated": "2019-05-23T23:42:17.180084+00:00", "site": "/api/v1/Site/Site:site1:", "netmask": "255.255.255.0", "subnet": "10.0.0.0", "created": "2019-05-23T23:42:17.180121+00:00", "gateway": null, "isIpV4": "True", "prefix": 24}
+
+look for the header Object-Id: /api/v1/Building/AddressBlock:2:, the number between
+the `:` may be something else.  Set another environment variable to the Id value,
+replace the `< id >` to match the nuber in the Object-Id above::
+
+  export ADRBLK="/api/v1/Utilities/AddressBlock:< id >:"
+
 
 Now to add the internal ip of the contractor host, first set the address on eth0
 to non-primary, we want the internal ip to be primary::
@@ -290,7 +308,7 @@ result::
 finally the ip it's self::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/Address
-  { "networked": "/api/v1/Utilities/Networked:1:", "address_block": "/api/v1/Utilities/AddressBlock:$ADRBLK:", "interface_name": "eth1", "offset": 10, "is_primary": true }
+  { "networked": "/api/v1/Utilities/Networked:1:", "address_block": "$ADRBLK", "interface_name": "eth1", "offset": 10, "is_primary": true }
   EOF
 
 result::
@@ -301,7 +319,7 @@ now to reserve some ip addresses so they do not get auto assigned::
 
   for OFFSET in 2 3 4 5 6 7 8 9 11 12 13 14 15 16 17 18 19 20; do
   cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/ReservedAddress
-  { "address_block": "/api/v1/Utilities/AddressBlock:$ADRBLK:", "offset": "$OFFSET", "reason": "Network Reserved" }
+  { "address_block": "$ADRBLK", "offset": "$OFFSET", "reason": "Network Reserved" }
   EOF
   done
 
@@ -349,9 +367,9 @@ now if you ping contractor you should get the internal ip (10.0.0.10)::
 
 result::
 
-  PING eth1.contractor.site1.local (10.0.0.10) 56(84) bytes of data.
-  64 bytes from contractor.site1.local (10.0.0.10): icmp_seq=1 ttl=64 time=0.031 ms
-  64 bytes from contractor.site1.local (10.0.0.10): icmp_seq=2 ttl=64 time=0.063 ms
+  PING eth1.contractor.site1.test (10.0.0.10) 56(84) bytes of data.
+  64 bytes from contractor.site1.test (10.0.0.10): icmp_seq=1 ttl=64 time=0.031 ms
+  64 bytes from contractor.site1.test (10.0.0.10): icmp_seq=2 ttl=64 time=0.063 ms
 
 now take a look at the contractor ui at http://<contractor ip>, (this ip is the ip
 you assigned to the first interface)
@@ -362,7 +380,7 @@ Subcontractor
 install tfptd (used for PXE booting) and the PXE booting agent::
 
   sudo apt install -y tftpd-hpa
-  sudo respkg -i contractor-ipxe_0.3.respkg
+  sudo respkg -i contractor-ipxe_0.4.respkg
 
 now edit `/etc/subcontractor.conf`
 enable the modules you want to use, remove the ';' and set the 0 to a 1.
@@ -416,7 +434,7 @@ which should output something like::
 Now to create the structure::
 
   cat << EOF | curl -i "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Building/Structure
-  { "site": "$SITE", "foundation": "/api/v1/Building/Foundation:host:", "hostname": "host", "blueprint": "/api/v1/BluePrint/StructureBluePrint:manual-structure-base:", "auto_build": false }
+  { "site": "$SITE", "foundation": "/api/v1/Building/Foundation:host:", "hostname": "host", "blueprint": "/api/v1/BluePrint/StructureBluePrint:manual-structure-base:" }
   EOF
 
 which should output something like::
@@ -433,7 +451,7 @@ which should output something like::
   Content-Length: 412
   Content-Type: application/json;charset=utf-8
 
-  {"config_uuid": "349c8a47-e123-4234-91de-c387a440ffa5", "auto_build": false, "hostname": "host", "created": "2019-02-23T16:49:20.064258+00:00", "state": "planned", "blueprint": "/api/v1/BluePrint/StructureBluePrint:manual-structure-base:", "built_at": null, "foundation": "/api/v1/Building/Foundation:host:", "config_values": {}, "updated": "2019-02-23T16:49:20.064239+00:00", "site": "/api/v1/Site/Site:site1:"}
+  {"config_uuid": "349c8a47-e123-4234-91de-c387a440ffa5", "hostname": "host", "created": "2019-02-23T16:49:20.064258+00:00", "state": "planned", "blueprint": "/api/v1/BluePrint/StructureBluePrint:manual-structure-base:", "built_at": null, "foundation": "/api/v1/Building/Foundation:host:", "config_values": {}, "updated": "2019-02-23T16:49:20.064239+00:00", "site": "/api/v1/Site/Site:site1:"}
 
 look for the header `Object-Id: /api/v1/Building/Structure:2:`, take note of the
 sturcture id (the number between the `:`, in this case 2).
@@ -482,8 +500,7 @@ should return something like::
 
   {"built_percentage": 90, "state": "planned", "site": "/api/v1/Site/Site:site1:", "created": "2019-02-23T23:51:33.613222+00:00", "vcenter_host": "/api/v1/Building/Structure:2:", "vcenter_password": "vmware", "updated": "2019-02-23T23:51:33.613199+00:00", "vcenter_cluster": null, "name": "demovcenter", "description": "Demo VCenter/ESX Host/Complex", "vcenter_datacenter": "ha-datacenter", "type": "VCenter", "members": [], "vcenter_username": "root"}
 
---- clip? ---
-Techinically if you are using VCenter, you should create another manual structure
+Techinically if you are using VCenter, you should create another structure
 so Contractor knows the hosts of the VCenter cluster, however, for the sake of
 simplicity, we will just add the ESX Host/VCenter cluster we just added as the host
 of the VCenterCluster as it's only member,  once again the `< structure id >` is
@@ -496,8 +513,6 @@ the id of the manual structure  we have been using so far::
 should return something like::
 
   {"created": "2019-02-24T00:02:06.164123+00:00", "complex": "/api/v1/Building/Complex:demovcenter:", "structure": "/api/v1/Building/Structure:2:", "updated": "2019-02-24T00:02:06.164082+00:00"}
-
---- clip? ---
 
 now to set the ip address of the vcenter/esx host. This ip will be used by
 subcontractor to manipluate vms, and will need to be routeable from the
@@ -554,13 +569,12 @@ This is the same ip that we passed to vboxwebsrv, which is offset 1 of the inter
 network we created::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/Address
-  { "networked": "/api/v1/Utilities/Networked:< structure id >:", "address_block": "/api/v1/Utilities/AddressBlock:$ADRBLK:", "interface_name": "eth0", "offset": 1, "is_primary": true }
+  { "networked": "/api/v1/Utilities/Networked:< structure id >:", "address_block": "$ADRBLK", "interface_name": "eth0", "offset": 1, "is_primary": true }
   EOF
 
 which should output something like::
 
   {"netmask": "255.255.255.0", "updated": "2019-02-23T18:51:53.521628+00:00", "type": "Address", "prefix": "24", "vlan": 0, "ip_address": "192.168.13.22", "interface_name": "eth0", "network": "192.168.13.0", "sub_interface": null, "address_block": "/api/v1/Utilities/AddressBlock:main:", "is_primary": false, "offset": 22, "pointer": null, "gateway": "192.168.13.1", "created": "2019-02-23T18:51:53.521652+00:00", "networked": "/api/v1/Utilities/Networked:2:"}
-
 
 Contractor is now running, now let's configure it to make a VM.
 
@@ -569,7 +583,7 @@ Creating a VM (Ubuntu)
 
 First we need to load the ubuntu blueprints::
 
-  sudo respkg -i contractor-ubuntu-base_0.3.respkg
+  sudo respkg -i contractor-ubuntu-base_0.4.respkg
 
 Now we create the Foundation of the VM to be created::
 
@@ -594,14 +608,14 @@ output::
 Now we will create a VM with the Ubuntu Bionic blueprint::
 
   cat << EOF | curl -i "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Building/Structure
-  { "site": "$SITE", "foundation": "/api/v1/Building/Foundation:testvm01:", "hostname": "testvm01", "blueprint": "/api/v1/BluePrint/StructureBluePrint:ubuntu-bionic-base:", "auto_build": true }
+  { "site": "$SITE", "foundation": "/api/v1/Building/Foundation:testvm01:", "hostname": "testvm01", "blueprint": "/api/v1/BluePrint/StructureBluePrint:ubuntu-bionic-base:" }
   EOF
 
 once again take node of the structure id.  Now we assign and ip address, we will
 let contractor pick, we are going to use the helper method `nextAddress`.  Replace
 `< structure id >` with the structure id from the previous call::
 
-  cat << EOF | curl "${COPS[@]}" --data @- -X CALL "$CHOST/api/v1/Utilities/AddressBlock:$ADRBLK:(nextAddress)"
+  cat << EOF | curl "${COPS[@]}" --data @- -X CALL "${CHOST}${ADRBLK}(nextAddress)"
   { "structure": "/api/v1/Building/Structure:< structure id >:", "interface_name": "eth0", "is_primary": true }
   EOF
 
@@ -609,8 +623,13 @@ output::
 
   "/api/v1/Utilities/Address:30:"
 
+Contractor will not auto-start the create (nor destroy) jobs.  So we need to add two
+jobs, one to create the Foundation and one to create the Structure::
 
-Ok, we have a VM in the database, now to see it get built.  Pull up the `http://<contractor ip>`
+  curl "${COPS[@]}" -X CALL "${CHOST}/api/v1/Building/Foundation:testvm01:(doCreate)"
+  curl "${COPS[@]}" -X CALL "${CHOST}/api/v1/Building/Structure:< structure id >:(doCreate)"
+
+Now to see it get built.  Pull up the `http://<contractor ip>`
 in a web browser if you don't have it open allready, go to the `Job Log` should see an
 entry saying that the foundation build has started.  Goto the `Jobs` should see a Foundation
 or Structure Job there.  The Foundation Job won't last long.  In the top right of the
@@ -644,7 +663,7 @@ blueprint we choose.
 
 Load the centos Blueprints::
 
-  sudo respkg -i contractor-centos-base_0.3.respkg
+  sudo respkg -i contractor-centos-base_0.4.respkg
 
 Foundation::
 
@@ -669,7 +688,7 @@ output::
 Now we will create a VM with the CentOS7 blueprint::
 
   cat << EOF | curl -i "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Building/Structure
-  { "site": "$SITE", "foundation": "/api/v1/Building/Foundation:testvm02:", "hostname": "testvm02", "blueprint": "/api/v1/BluePrint/StructureBluePrint:centos-7-base:", "auto_build": true }
+  { "site": "$SITE", "foundation": "/api/v1/Building/Foundation:testvm02:", "hostname": "testvm02", "blueprint": "/api/v1/BluePrint/StructureBluePrint:centos-7-base:" }
   EOF
 
 output::
@@ -686,17 +705,22 @@ output::
   Content-Length: 413
   Content-Type: application/json;charset=utf-8
 
-  {"hostname": "testvm02", "created": "2019-03-11T13:45:58.963923+00:00", "config_values": null, "auto_build": true, "config_uuid": "d8821d29-f884-4c2d-af63-7d0292b2ce41", "updated": "2019-03-11T13:45:58.963901+00:00", "blueprint": "/api/v1/BluePrint/StructureBluePrint:centos-7-base:", "site": "/api/v1/Site/Site:site1:", "foundation": "/api/v1/Building/Foundation:testvm02:", "built_at": null, "state": "planned"}
+  {"hostname": "testvm02", "created": "2019-03-11T13:45:58.963923+00:00", "config_values": null, "config_uuid": "d8821d29-f884-4c2d-af63-7d0292b2ce41", "updated": "2019-03-11T13:45:58.963901+00:00", "blueprint": "/api/v1/BluePrint/StructureBluePrint:centos-7-base:", "site": "/api/v1/Site/Site:site1:", "foundation": "/api/v1/Building/Foundation:testvm02:", "built_at": null, "state": "planned"}
 
 and assign the ip address, make sure to use the structure id from the testvm02 structure::
 
-  cat << EOF | curl "${COPS[@]}" --data @- -X CALL "$CHOST/api/v1/Utilities/AddressBlock:$ADRBLK:(nextAddress)"
+  cat << EOF | curl "${COPS[@]}" --data @- -X CALL "${CHOST}${ADRBLK}(nextAddress)"
   { "structure": "/api/v1/Building/Structure:< structure id >:", "interface_name": "eth0", "is_primary": true }
   EOF
 
 output::
 
   "/api/v1/Utilities/Address:30:"
+
+Once again create the create jobs::
+
+  curl "${COPS[@]}" -X CALL "${CHOST}/api/v1/Building/Foundation:testvm02:(doCreate)"
+  curl "${COPS[@]}" -X CALL "${CHOST}/api/v1/Building/Structure:< structure id >:(doCreate)"
 
 Again the jobs should be running to create the CentOS VM.  When it is done, ssh in::
 
@@ -755,7 +779,7 @@ The thrid url is::
 
 output::
 
-  {"installer_pxe": "centos-7", "__pxe_template_location": "http://contractor/config/pxe_template/", "_structure_config_uuid": "118e0e44-457e-47df-b8c0-d157d5dde1b4", "mirror_server": "mirror.centos.org", "_blueprint": "centos-7-base", "__timestamp": "2019-03-11T14:32:27.909856+00:00", "_foundation_state": "built", "domain_name": "site1.local", "dns_search": ["site1.local", "local"], "_structure_state": "built", "__pxe_location": "http://static/pxe/", "distro": "centos", "_hostname": "testvm02", "_foundation_class_list": ["VM", "VCenter"], "dns_servers": ["10.0.0.10"], "memory_size": 2048, "_foundation_type": "VCenter", "_provisioning_interface": "eth0", "_vcenter_complex": "demovcenter", "_interface_map": {"eth0": {"physical_location": "eth0", "name": "eth0", "mac": "00:50:56:03:1e:6d", "address_list": [{"vlan": null, "address": "10.0.0.123", "prefix": 24, "netmask": "255.255.255.0", "primary": true, "sub_interface": null, "network": "10.0.0.0", "tagged": false, "gateway": null, "auto": true, "mtu": 1500}]}}, "_foundation_locator": "testvm02", "_vcenter_uuid": "52545577-0025-e8d7-1915-bd64585f47c1", "_vcenter_cluster": "localhost.", "_site": "site1", "ntp_servers": ["ntp.ubuntu.com"], "distro_version": "7", "_fqdn": "testvm02.site1.local", "mirror_proxy": "http://10.0.0.10:3128/", "_foundation_interface_list": [{"physical_location": "eth0", "name": "eth0", "mac": "00:50:56:03:1e:6d", "address_list": [{"vlan": null, "address": "10.0.0.123", "prefix": 24, "netmask": "255.255.255.0", "primary": true, "sub_interface": null, "network": "10.0.0.0", "tagged": false, "gateway": null, "auto": true, "mtu": 1500}]}], "__contractor_host": "http://contractor/", "_foundation_id": "testvm02", "vcenter_guest_id": "rhel7_64Guest", "swap_size": 512, "_structure_id": 4, "__last_modified": "2019-03-11T14:01:18.090983+00:00", "_provisioning_interface_mac": "00:50:56:03:1e:6d", "_vcenter_datacenter": "ha-datacenter", "virtualbox_guest_type": "RedHat_64", "root_pass": "$6$rootroot$oLo.loyMV45VA7/0sKV5JH/xBAXiq/igL4hQrGz3yd9XUavmC82tZm1lxW2N.5eLxQUlqp53wXKRzifZApP0/1"}
+  {"installer_pxe": "centos-7", "__pxe_template_location": "http://contractor/config/pxe_template/", "_structure_config_uuid": "118e0e44-457e-47df-b8c0-d157d5dde1b4", "mirror_server": "mirror.centos.org", "_blueprint": "centos-7-base", "__timestamp": "2019-03-11T14:32:27.909856+00:00", "_foundation_state": "built", "domain_name": "site1.test", "dns_search": ["site1.test", "test"], "_structure_state": "built", "__pxe_location": "http://static/pxe/", "distro": "centos", "_hostname": "testvm02", "_foundation_class_list": ["VM", "VCenter"], "dns_servers": ["10.0.0.10"], "memory_size": 2048, "_foundation_type": "VCenter", "_provisioning_interface": "eth0", "_vcenter_complex": "demovcenter", "_interface_map": {"eth0": {"physical_location": "eth0", "name": "eth0", "mac": "00:50:56:03:1e:6d", "address_list": [{"vlan": null, "address": "10.0.0.123", "prefix": 24, "netmask": "255.255.255.0", "primary": true, "sub_interface": null, "network": "10.0.0.0", "tagged": false, "gateway": null, "auto": true, "mtu": 1500}]}}, "_foundation_locator": "testvm02", "_vcenter_uuid": "52545577-0025-e8d7-1915-bd64585f47c1", "_vcenter_cluster": "localhost.", "_site": "site1", "ntp_servers": ["ntp.ubuntu.com"], "distro_version": "7", "_fqdn": "testvm02.site1.test", "mirror_proxy": "http://10.0.0.10:3128/", "_foundation_interface_list": [{"physical_location": "eth0", "name": "eth0", "mac": "00:50:56:03:1e:6d", "address_list": [{"vlan": null, "address": "10.0.0.123", "prefix": 24, "netmask": "255.255.255.0", "primary": true, "sub_interface": null, "network": "10.0.0.0", "tagged": false, "gateway": null, "auto": true, "mtu": 1500}]}], "__contractor_host": "http://contractor/", "_foundation_id": "testvm02", "vcenter_guest_id": "rhel7_64Guest", "swap_size": 512, "_structure_id": 4, "__last_modified": "2019-03-11T14:01:18.090983+00:00", "_provisioning_interface_mac": "00:50:56:03:1e:6d", "_vcenter_datacenter": "ha-datacenter", "virtualbox_guest_type": "RedHat_64", "root_pass": "$6$rootroot$oLo.loyMV45VA7/0sKV5JH/xBAXiq/igL4hQrGz3yd9XUavmC82tZm1lxW2N.5eLxQUlqp53wXKRzifZApP0/1"}
 
 This url can be used by what ever scripts/CMS as a source of configuration
 intormation.  See the documentation at :doc:`ConfigurationValues` for more
@@ -788,25 +812,31 @@ might change, is to request it's config by the uuid.
 Removing the VMs
 ~~~~~~~~~~~~~~~~
 
-Deleting the VMs once again uses the boss command, it is possible to do it via
-the HTTP interface, however it takes a few more steps.  Before we used the ``--do-destroy`
-option, this tells contractor to remove the vms, and with the auth-configure
-flag, it turns arround and re-builds them.  The option `--do-pre-delete` is simmaler
-but it disables the auto-configure so contractor dosen't automatically start building
-it again.  First to delete the structure::
+We can either Delete the VMs with the `boss` command::
 
-  /usr/lib/contractor/util/boss -s <structure id> --do-pre-delete
+  /usr/lib/contractor/util/boss -s <structure id> --do-destroy --wait
+  /usr/lib/contractor/util/boss -f <locator> --do-destroy --wait
+  /usr/lib/contractor/util/boss -s <structure id> --delete
+  /usr/lib/contractor/util/boss -f <locator> --delete
 
-when the sturcture job completes::
+or via the API::
 
-  /usr/lib/contractor/util/boss -s <structure id> --do-delete
+  curl "${COPS[@]}" -X CALL "${CHOST}/api/v1/Building/Structure:< structure id >:(doDestroy)"
 
-and the same pattern for the foundation, the locator is the vmname ie `testvm01`::
+wait for that job to complete, then::
 
-  /usr/lib/contractor/util/boss -f <locator> --do-pre-delete
+  curl "${COPS[@]}" -X CALL "${CHOST}/api/v1/Building/Foundation:< locator >:(doDestroy)"
 
-and when that job completes run::
+wait for that job to complete, and finally::
 
-  /usr/lib/contractor/util/boss -f <locator> --do-delete
+  curl "${COPS[@]}" -X DELETE "${CHOST}/api/v1/Building/Structure:< structure id >:"
+  curl "${COPS[@]}" -X DELETE "${CHOST}/api/v1/Building/Foundation:< locator >:"
 
 Now the VM is no longer in virtualbox/vcenter nor contractor.
+
+The `boss` command can also trigger jobs, and set the status of foundations and
+structures.  See::
+
+  /usr/lib/contractor/util/boss --help
+
+for more info.
