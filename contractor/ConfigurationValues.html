@@ -92,13 +92,13 @@ dns_zone: &#39;site1.myservice.com&#39;
 </pre></div>
 </div>
 <p>Jinja filters can be used:</p>
-<div class="highlight-python"><div class="highlight"><pre>dns_search: [ &#39;site1.{{ root_zone|default(\&#39;local\&#39;) }}&#39;, &#39;{{ root_zone|default(\&#39;local\&#39;) }}&#39; ]
-dns_zone: &#39;site1.{{ root_zone|default(\&#39;local\&#39;) }}&#39;
+<div class="highlight-python"><div class="highlight"><pre>dns_search: [ &#39;site1.{{ root_zone|default(\&#39;.test\&#39;) }}&#39;, &#39;{{ root_zone|default(\&#39;.test\&#39;) }}&#39; ]
+dns_zone: &#39;site1.{{ root_zone|default(\&#39;.test\&#39;) }}&#39;
 </pre></div>
 </div>
 <p>Becomes:</p>
-<div class="highlight-python"><div class="highlight"><pre>dns_search: [ &#39;site1.local&#39;, &#39;local&#39; ]
-dns_zone: &#39;site1.local&#39;
+<div class="highlight-python"><div class="highlight"><pre>dns_search: [ &#39;site1..test&#39;, &#39;.test&#39; ]
+dns_zone: &#39;site1..test&#39;
 </pre></div>
 </div>
 <p>NOTE:  There is not sorting nor predictable order, be careful when embeding/referencing,

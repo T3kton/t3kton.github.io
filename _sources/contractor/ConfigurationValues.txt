@@ -48,13 +48,13 @@ Becomes::
 
 Jinja filters can be used::
 
-  dns_search: [ 'site1.{{ root_zone|default(\'local\') }}', '{{ root_zone|default(\'local\') }}' ]
-  dns_zone: 'site1.{{ root_zone|default(\'local\') }}'
+  dns_search: [ 'site1.{{ root_zone|default(\'.test\') }}', '{{ root_zone|default(\'.test\') }}' ]
+  dns_zone: 'site1.{{ root_zone|default(\'.test\') }}'
 
 Becomes::
 
-  dns_search: [ 'site1.local', 'local' ]
-  dns_zone: 'site1.local'
+  dns_search: [ 'site1..test', '.test' ]
+  dns_zone: 'site1..test'
 
 NOTE:  There is not sorting nor predictable order, be careful when embeding/referencing,
 you may get random results.  A second (or more) evaluation round can be forced by escaping
