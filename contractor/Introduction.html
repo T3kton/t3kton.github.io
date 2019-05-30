@@ -129,7 +129,7 @@ some other global DNS search zone, we add it to the top and it automatically pro
 down.  You could also set &#8220;Release&#8221;=&#8221;Prod&#8221; in &#8220;Datacenter West&#8221; and then create a
 &#8220;Cluster Test&#8221; and override the &#8220;Release&#8221; to the value &#8220;Test&#8221;.  You could also do
 A-B testing, etc.</p>
-<p>Any Item can make an http request to Contractor and Contractor will reply with a JSON
+<p>Any Item can make an HTTP request to Contractor and Contractor will reply with a JSON
 encoded reply with that item&#8217;s combined configuration values.</p>
 <p>This is all fun and all, but not really useful.  Let&#8217;s change things up a bit and
 install ESX on the baremetal and put a few Web servers on ESX.</p>
@@ -240,11 +240,11 @@ complex.  The Members of the Complex can even belong to another site.</p>
 <p>Complexes also cause Contractor to build the Web Server Structure/Foundations
 after the ESX Structure/Foundations are done.  Also the example would look pretty
 much the same for a Docker/OpenStack/etc Complex.</p>
-<div class="section" id="side-track-to-the-manefesto">
-<h2>Side Track to the Manefesto<a class="headerlink" href="#side-track-to-the-manefesto" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="side-track-to-the-manifesto">
+<h2>Side Track to the Manifesto<a class="headerlink" href="#side-track-to-the-manifesto" title="Permalink to this headline">¶</a></h2>
 <p>At this point you are probably wondering how having all these Foundation types
 is simplifying deployments.  By separating the configuration of the &#8220;Hosted&#8221; and
-the &#8220;Host&#8221; we can effectively divide up the job of configuraing the sytem.  (Do
+the &#8220;Host&#8221; we can effectively divide up the job of configuring the system.  (Do
 I get to drop the DevOps Buzzword now?)  As a Developer/Engineer configures their
 code, they embody that in a Structure.  They can package that configuration
 information along with their code/designs and that configuration can also
@@ -254,10 +254,10 @@ that some Foundations require different considerations, however a well designed
 Structure Configuration can work for Containers (and the like) as well as
 OS installers (Baremetal/VM/Blade/AWS, etc.)  Now when the Operations people need to
 turn it up to 11 (or 12) they just pick the location to deploy and no matter if
-it is hosted on prem in VMs, or deployed to AWS for some peak load handling,
+it is hosted on premise in VMs, or deployed to AWS for some peak load handling,
 Operations can scale as needed, to whatever.</p>
 <p>Also by allowing every thing, no matter the platform, to be tracked in the same
-place, you now have a single source of truth for your monitoring sytem to rely on.
+place, you now have a single source of truth for your monitoring system to rely on.
 You don&#8217;t have to worry about parts of your Micro Services failing to auto-register.
 And, you know exactly what is deployed where; useful when hardware needs to be
 swapped out.</p>
@@ -268,17 +268,15 @@ to do so.</p>
 <p>You are also free from vendor lock in.  If a new Cloud provider comes along, they
 don&#8217;t need to have an AWS like API to use them, just a Foundation subclass
 provider that talks to that Cloud provider&#8217;s API and you are set.  Same if
-a new class of hardware comes along (ARM servers anyone ;-) ) or a new way of
-approaching hosting (the next thing after containers).  You can truly be
-&#8220;serverless&#8221; (I know another buzzword, meaning your deployments are agnostic
-as to the technology they are being deployed on).  And you don&#8217;t have to try to
+a new class of hardware comes along (ARM servers anyone?) or a new way of
+approaching hosting (the next thing after containers).  And you don&#8217;t have to try to
 fit all your use cases into one silver bullet.  You can have a nice auto-scaling
 Container Cloud/Swarm with your micro services right next to standard VMs running
 the databases and object storage.  All with one &#8220;pane of glass&#8221;</p>
 <p>Ok, back to business, buzzword dropping disabled...</p>
 </div>
 <div class="section" id="back-to-business">
-<h2>Back to business<a class="headerlink" href="#back-to-business" title="Permalink to this headline">¶</a></h2>
+<h2>Back to Business<a class="headerlink" href="#back-to-business" title="Permalink to this headline">¶</a></h2>
 <p>One final piece of the deployment puzzle, the <strong>Dependency</strong>.  This is to make sure
 your deployments happen in order.  For example, you can&#8217;t install any OSes until
 the Switch is provisioned.  Also you may have to allocate space on an NFS mount
@@ -299,7 +297,7 @@ Structure/Foundation.</p>
 <div class="section" id="other">
 <h2>Other<a class="headerlink" href="#other" title="Permalink to this headline">¶</a></h2>
 <p>There are other Classes/Components in Contractor, but they are mostly for dealing
-with Configure/Destroy/Misc Jobs (the Forman module).  As well as keeping track
+with Configure/Destroy/Misc Jobs (the Foreman module).  As well as keeping track
 of Ip Addresses and other &#8220;Utilities&#8221;.  Those are documented elsewhere.</p>
 </div>
 </div>
@@ -313,8 +311,8 @@ of Ip Addresses and other &#8220;Utilities&#8221;.  Those are documented elsewhe
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Introduction to Contractor</a><ul>
-<li><a class="reference internal" href="#side-track-to-the-manefesto">Side Track to the Manefesto</a></li>
-<li><a class="reference internal" href="#back-to-business">Back to business</a></li>
+<li><a class="reference internal" href="#side-track-to-the-manifesto">Side Track to the Manifesto</a></li>
+<li><a class="reference internal" href="#back-to-business">Back to Business</a></li>
 <li><a class="reference internal" href="#blueprints">BluePrints</a></li>
 <li><a class="reference internal" href="#other">Other</a></li>
 </ul>

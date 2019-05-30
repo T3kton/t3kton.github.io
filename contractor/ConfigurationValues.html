@@ -45,7 +45,7 @@
 <div class="highlight-python"><div class="highlight"><pre>^[&lt;&gt;\-~]?[a-zA-Z0-9][a-zA-Z0-9_\-]*(:[a-zA-Z0-9]+)?$
 </pre></div>
 </div>
-<p>If the first character is: (also processed in this order)</p>
+<p>If the first character is: (processed in this order)</p>
 <blockquote>
 <div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -59,7 +59,7 @@
 </tr>
 <tr class="field-even field"><th class="field-name">&gt;:</th><td class="field-body">append to the value so far</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">~:</th><td class="field-body">mask/remove value so far, (NOTE: value is ignored)</td>
+<tr class="field-odd field"><th class="field-name">~:</th><td class="field-body">mask out/hide value so far, (NOTE: value is ignored)</td>
 </tr>
 </tbody>
 </table>
@@ -76,7 +76,7 @@ rules, as they are set internally.  They are also not affected by config classes
 </div>
 <div class="section" id="value-merging">
 <h2>Value Merging<a class="headerlink" href="#value-merging" title="Permalink to this headline">¶</a></h2>
-<p>Configvalues are merged using Jinja2. They are merged together as a final step
+<p>Config values are merged using Jinja2. They are merged together as a final step
 before outputting and before merging with a PXE or Boot template.</p>
 <p>For documentation on Jina2 see <a class="reference external" href="http://jinja.pocoo.org/">http://jinja.pocoo.org/</a></p>
 <p>For example:</p>

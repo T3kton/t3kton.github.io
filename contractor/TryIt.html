@@ -42,23 +42,23 @@
   <div class="section" id="give-it-a-try">
 <h1>Give it a Try<a class="headerlink" href="#give-it-a-try" title="Permalink to this headline">¶</a></h1>
 <p><em>Warning</em>: Contractor is made to solve complex problems, for the most part it presents
-a must less complex interface to you.  That being said, there is a bit of a hurdle
+a much less complex interface to you.  That being said, there is a bit of a hurdle
 to get it up and running, depending on what you are trying to automate.  So, buckle
 in, this is going to be a lot of fun.</p>
 <p>This demo will result in a VM in a private /24 network that can create and destroy
 other VMs in that network.  You can use either VCenter or VirtualBox.  After the
 Contractor VM is up and running, you can install more blueprints and plugins to do
 docker or other foundations.  The requirement for the private network comes primarally from
-the setupWizzard&#8217;s default configuration, if you feel comfortable with modifying
-the setupWizzard and the Apache Configurations, you can use blueprints and plugins
+the setupWizard&#8217;s default configuration, if you feel comfortable with modifying
+the setupWizard and the Apache Configurations, you can use blueprints and plugins
 for hosted providers such as AWS and Azure.</p>
-<p>NOTE: setupWizzard is going to re-write some bind config files, so don&#8217;t edit them
+<p>NOTE: setupWizard is going to re-write some bind config files, so don&#8217;t edit them
 until after the install is complete.</p>
 <div class="section" id="installing">
 <h2>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
 <p>Create an Ubuntu Xenial VM, name it <cite>contractor</cite>, set the fqdn to <cite>contractor.site1.test</cite>
 Ideally it should be in a /24 network.  Offset 1 is assumed to be the gateway.
-All these values can be adjusted either in the setupWizzard file before it is run,
+All these values can be adjusted either in the setupWizard file before it is run,
 or after it is setup, you can use the API/UI to edit these values.
 The DNS server will be set for the contractor VM, and bind on the contractor vm will
 be set to forward to the DNS server that was originally configured on the VM.</p>
@@ -81,8 +81,8 @@ some other Infrastructure related tasks that need to be done.</p>
 <p><a class="reference internal" href="TryIt_vcenter_setup.html"><em>Vcenter/ESX Setup</em></a></p>
 <p><a class="reference internal" href="TryIt_virtualbox_setup.html"><em>VirtualBox Setup</em></a></p>
 </div>
-<div class="section" id="install-requred-services">
-<h3>Install Requred Services<a class="headerlink" href="#install-requred-services" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="install-required-services">
+<h3>Install Required Services<a class="headerlink" href="#install-required-services" title="Permalink to this headline">¶</a></h3>
 <p>Install Postgres:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo apt install -y postgresql-client postgresql-9.5 mongodb-server
 </pre></div>
@@ -92,7 +92,7 @@ some other Infrastructure related tasks that need to be done.</p>
 sudo su postgres -c &quot;createdb -O contractor contractor&quot;
 </pre></div>
 </div>
-<p>NOTE, for thoes two command you will see:</p>
+<p>NOTE, for those two commands you may see:</p>
 <div class="highlight-python"><div class="highlight"><pre>could not change directory to &quot;/root&quot;: Permission denied
 </pre></div>
 </div>
@@ -100,7 +100,7 @@ sudo su postgres -c &quot;createdb -O contractor contractor&quot;
 </div>
 <div class="section" id="update-packages">
 <h3>Update Packages<a class="headerlink" href="#update-packages" title="Permalink to this headline">¶</a></h3>
-<p>the ubuntu toml and jinja2 packages are to old, update with:</p>
+<p>The Ubuntu toml and jinja2 packages are too old, update with:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo apt install -y python3-pip
 sudo pip3 install toml jinja2 --upgrade
 </pre></div>
@@ -117,10 +117,10 @@ sudo pip3 install toml jinja2 --upgrade
 <div class="section" id="configure-apache">
 <h3>Configure Apache<a class="headerlink" href="#configure-apache" title="Permalink to this headline">¶</a></h3>
 <p>We will need a HTTP site to serve up static resources, as well as a Proxy server
-to bridge from the issloated network.  This proxy server will also cache, that will
+to bridge from the isolated network.  This proxy server will also cache, that will
 make things install faster the second time.</p>
 <p>First create the directory for the static resources:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">static</span>
+<div class="highlight-python"><div class="highlight"><pre>sudo mkdir -p /var/www/static
 </pre></div>
 </div>
 <p>now create the proxy site <cite>/etc/apache2/sites-available/proxy.conf</cite> with the following:</p>
@@ -204,7 +204,7 @@ We use manual for misc stuff that is either pre-configured or handled by somethi
 </pre></div>
 </div>
 <p>Now to setup some base info, and configure bind:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo /usr/lib/contractor/setup/setupWizzard --no-ip-reservation --dns-server=10.0.0.10 --proxy-server=http://10.0.0.10:3128/
+<div class="highlight-python"><div class="highlight"><pre>sudo /usr/lib/contractor/setup/setupWizard --no-ip-reservation --dns-server=10.0.0.10 --proxy-server=http://10.0.0.10:3128/
 </pre></div>
 </div>
 <p>It is safe to ignore the message:</p>
@@ -230,14 +230,18 @@ http requests to contractor.</p>
 </pre></div>
 </div>
 <p>First we will define some Environment values so we don&#8217;t have to keep tying redundant info
-the Contractor server, this is assuming you will be running these commands from
+the Contractor server.  This is assuming you will be running these commands from
 the contractor VM, if you are running these steps from someplace else, update the
-ip address to the ip address of the contractor vm.:</p>
+ip address to the ip address of the contractor vm:</p>
 <div class="highlight-python"><div class="highlight"><pre>export COPS=( --header &quot;CInP-Version: 0.9&quot; --header &quot;Content-Type: application/json&quot; )
 export SITE=&quot;/api/v1/Site/Site:site1:&quot;
 export CHOST=&quot;http://127.0.0.1&quot;
 </pre></div>
 </div>
+<p>COPS is defining some curl options, in this case some headers that are required
+by CInP(see <a class="reference external" href="https://github.com/cinp/">https://github.com/cinp/</a>) which is used by Contractor for it&#8217;s API.
+SITE defines the uri of the site we are going to use, and CHOST is the URL to the
+Contractor server.</p>
 <p>now we need to login, replace <cite>&lt; username &gt;</cite> and <cite>&lt; password &gt;</cite> with the username and
 password you specified API user (the createsuperuser step):</p>
 <div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CALL $CHOST/api/v1/Auth/User\(login\)
@@ -255,7 +259,8 @@ with the API username, and <cite>&lt; auth token &gt;</cite> with the result of 
 COPS+=( --header &quot;Auth-Token: &lt; auth token &gt;&quot; )
 </pre></div>
 </div>
-<p>Let&#8217;s make sure our login is working:</p>
+<p>This is adding more headers to our curl options, from here on our curl operations
+are authenticated.  Let&#8217;s make sure our login is working:</p>
 <div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CALL $CHOST/api/v1/Auth/User\(whoami\)
 {}
 EOF
@@ -268,7 +273,7 @@ EOF
 </div>
 <div class="section" id="network-configuration">
 <h3>Network Configuration<a class="headerlink" href="#network-configuration" title="Permalink to this headline">¶</a></h3>
-<p>The setupWizzard has pre-loaded the database with a stand in host to represent
+<p>The setupWizard has pre-loaded the database with a stand in host to represent
 the contractor VM and has flagged it as pre-built.  It has also created
 a site called <cite>site1</cite> and some base DNS configuration. It also took the network
 of the primary interface and loaded it into the database named &#8216;main&#8217;.</p>
@@ -298,10 +303,13 @@ Content-Type: application/json;charset=utf-8
 </div>
 <p>look for the header Object-Id: /api/v1/Building/AddressBlock:2:, the number between
 the <cite>:</cite> may be something else.  Set another environment variable to the Id value,
-replace the <cite>&lt; id &gt;</cite> to match the nuber in the Object-Id above:</p>
+replace the <cite>&lt; id &gt;</cite> to match the number in the Object-Id above:</p>
 <div class="highlight-python"><div class="highlight"><pre>export ADRBLK=&quot;/api/v1/Utilities/AddressBlock:&lt; id &gt;:&quot;
 </pre></div>
 </div>
+<p>NOTE: the subnet you specify when creating the AddressBlock will be rounded up
+to the top of the subnet.  In this case we could of specified any ip from
+10.0.0.0 - 10.0.0.255 would result in the same subnet.</p>
 <p>Now to add the internal ip of the contractor host, first set the address on eth0
 to non-primary, we want the internal ip to be primary:</p>
 <div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X UPDATE $CHOST/api/v1/Utilities/Address:1:
@@ -371,7 +379,7 @@ done
 </pre></div>
 </div>
 <p>Now to force a re-gen of the DNS files:</p>
-<div class="highlight-python"><div class="highlight"><pre>/usr/lib/contractor/cron/genDNS
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sudo</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">cron</span><span class="o">/</span><span class="n">genDNS</span>
 </pre></div>
 </div>
 <p>This VM needs to use the contractor generated dns, so edit
@@ -531,9 +539,9 @@ EOF
 <p>now to set the ip address of the vcenter/esx host. This ip will be used by
 subcontractor to manipluate vms, and will need to be routeable from the
 contractor vm, this assumes that address is in the address space
-of the contractor vm, specifically the network that setupWizzard created, change
+of the contractor vm, specifically the network that setupWizard created, change
 <cite>&lt; offset &gt;</cite> to the offset of the host&#8217;s ip in that network.  If the ip
-address of the host is 192.168.0.52 the setupWizzard assumed you were in a /24
+address of the host is 192.168.0.52 the setupWizard assumed you were in a /24
 so the offset is <cite>52</cite>, replace structure id with the id from the structure creation
 step:</p>
 <div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/Address
@@ -735,13 +743,13 @@ curl &quot;${COPS[@]}&quot; -X CALL &quot;${CHOST}/api/v1/Building/Structure:&lt
 <div class="highlight-python"><div class="highlight"><pre>ssh root@testvm02
 </pre></div>
 </div>
-<p>go a head and play arround with it for a bit.  make sure to try deconfiguring both
+<p>go a head and play around with it for a bit.  Make sure to try deconfiguring both
 VMs at the same time so you can see Contractor do more than one thing at a time.</p>
 </div>
 <div class="section" id="accessing-configuration-information">
 <h3>Accessing Configuration Information<a class="headerlink" href="#accessing-configuration-information" title="Permalink to this headline">¶</a></h3>
 <p>Contractor provides three configuration urls for a target.  The first two depend on
-what the target is set to PXE boot to, the thrid is all the configuraiton information
+what the target is set to PXE boot to, the third is all the configuration information
 for that target in JSON format.</p>
 <p>ssh into one of the VMs, this will show what it is like from testvm02:</p>
 <div class="highlight-python"><div class="highlight"><pre>ssh root@testvm02
@@ -759,7 +767,7 @@ echo Booting form Primary Boot Disk
 sanboot --no-describe --drive 0x80 || echo Primary Boot Disk is not Bootable
 </pre></div>
 </div>
-<p>The VM is curent set to the <cite>normal-boot</cite> pxe.  That script tells it to boot to the
+<p>The VM is current set to the <cite>normal-boot</cite> pxe.  That script tells it to boot to the
 first harddrive.</p>
 <p>Next the pxe_template:</p>
 <div class="highlight-python"><div class="highlight"><pre>curl http://contractor/config/pxe_template/
@@ -773,12 +781,12 @@ first harddrive.</p>
 just a comment at the top.  The pxe_template is stored as a Jinja2 template that
 is combined with the configuration information and served out to the target.
 This is the URL that is used for the Kickstart and/or Pressed files for the CentOS
-and Debian installers.  The source for the centos and ubuntu boot_scripts and
+and Debian installers.  The source for the CentOS and Ubuntu boot_scripts and
 pxe_templates are at <a class="reference external" href="https://github.com/T3kton/resources/blob/master/os-bases/centos/usr/lib/contractor/resources/centos.toml">https://github.com/T3kton/resources/blob/master/os-bases/centos/usr/lib/contractor/resources/centos.toml</a>
 and <a class="reference external" href="https://github.com/T3kton/resources/blob/master/os-bases/ubuntu/usr/lib/contractor/resources/ubuntu.toml">https://github.com/T3kton/resources/blob/master/os-bases/ubuntu/usr/lib/contractor/resources/ubuntu.toml</a>
-thoes are then packaged during when you built the resources, and installed to
+those are then packaged during when you built the resources, and installed to
 /usr/lib/contractor/resource/ when the resource package was installed.</p>
-<p>The thrid url is:</p>
+<p>The third url is:</p>
 <div class="highlight-python"><div class="highlight"><pre>curl http://contractor/config/config/
 </pre></div>
 </div>
@@ -787,16 +795,16 @@ thoes are then packaged during when you built the resources, and installed to
 </pre></div>
 </div>
 <p>This url can be used by what ever scripts/CMS as a source of configuration
-intormation.  See the documentation at <a class="reference internal" href="ConfigurationValues.html"><em>Configuration Values</em></a> for more
+information.  See the documentation at <a class="reference internal" href="ConfigurationValues.html"><em>Configuration Values</em></a> for more
 information on how these values are compiled.  One value to point out here is
-<cite>_structure_config_uuid</cite>, this value is set when the sturcture record is created
+<cite>_structure_config_uuid</cite>, this value is set when the structure record is created
 or when the structure is destroyed.  This way if there is a stale copy of the
-structure (old VM stapshot, or a VM that didn&#8217;t get cleaned up properly, etc)
-comes online, it (or some other monitoring system) can detect that it is now
-longer curent and take action.</p>
+structure (old VM snapshot, or a VM that didn&#8217;t get cleaned up properly, etc)
+comes on-line, it (or some other monitoring system) can detect that it is no
+longer current and take action.</p>
 <p>Contractor uses the source ip address of this URL requests to determine which
 target&#8217;s information to return.  You can also use the structure id, foundation
-locator or config uuid, to tell contractor which configuration to return.</p>
+locater or config uuid, to tell contractor which configuration to return.</p>
 <p>by config uuid:</p>
 <div class="highlight-python"><div class="highlight"><pre>curl http://contractor/config/config/c/118e0e44-457e-47df-b8c0-d157d5dde1b4
 </pre></div>
@@ -809,7 +817,7 @@ locator or config uuid, to tell contractor which configuration to return.</p>
 <div class="highlight-python"><div class="highlight"><pre>curl http://contractor/config/config/f/testvm02
 </pre></div>
 </div>
-<p>one way for a target to detect if it is stil good and in cases when the ip address
+<p>one way for a target to detect if it is slit good and in cases when the ip address
 might change, is to request it&#8217;s config by the uuid.</p>
 </div>
 <div class="section" id="removing-the-vms">
@@ -861,7 +869,7 @@ structures.  See:</p>
 </li>
 <li><a class="reference internal" href="#setup">Setup</a><ul>
 <li><a class="reference internal" href="#set-up-infrastructure">Set up Infrastructure</a></li>
-<li><a class="reference internal" href="#install-requred-services">Install Requred Services</a></li>
+<li><a class="reference internal" href="#install-required-services">Install Required Services</a></li>
 <li><a class="reference internal" href="#update-packages">Update Packages</a></li>
 <li><a class="reference internal" href="#configure-apache">Configure Apache</a></li>
 <li><a class="reference internal" href="#setup-the-database">Setup the database</a></li>

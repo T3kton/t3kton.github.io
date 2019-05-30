@@ -5,13 +5,13 @@ Config value key names must match the regex::
 
   ^[<>\-~]?[a-zA-Z0-9][a-zA-Z0-9_\-]*(:[a-zA-Z0-9]+)?$
 
-If the first character is: (also processed in this order)
+If the first character is: (processed in this order)
 
   :-: remove from the value so far
   :<nothing>: overlay/replace value so far with new value
   :<: prepend to the value so far (same affect as append on dict/maps)
   :>: append to the value so far
-  :~: mask/remove value so far, (NOTE: value is ignored)
+  :~: mask out/hide value so far, (NOTE: value is ignored)
 
 If `:[a-zA-Z0-9]+` is present, the value key/value is only applied if the class
 (the part that comes after the ':') matches the classes indicated by the
@@ -29,7 +29,7 @@ rules, as they are set internally.  They are also not affected by config classes
 Value Merging
 -------------
 
-Configvalues are merged using Jinja2. They are merged together as a final step
+Config values are merged using Jinja2. They are merged together as a final step
 before outputting and before merging with a PXE or Boot template.
 
 For documentation on Jina2 see http://jinja.pocoo.org/

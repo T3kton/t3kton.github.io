@@ -2,7 +2,7 @@ Give it a Try
 ==============
 
 *Warning*: Contractor is made to solve complex problems, for the most part it presents
-a must less complex interface to you.  That being said, there is a bit of a hurdle
+a much less complex interface to you.  That being said, there is a bit of a hurdle
 to get it up and running, depending on what you are trying to automate.  So, buckle
 in, this is going to be a lot of fun.
 
@@ -10,11 +10,11 @@ This demo will result in a VM in a private /24 network that can create and destr
 other VMs in that network.  You can use either VCenter or VirtualBox.  After the
 Contractor VM is up and running, you can install more blueprints and plugins to do
 docker or other foundations.  The requirement for the private network comes primarally from
-the setupWizzard's default configuration, if you feel comfortable with modifying
-the setupWizzard and the Apache Configurations, you can use blueprints and plugins
+the setupWizard's default configuration, if you feel comfortable with modifying
+the setupWizard and the Apache Configurations, you can use blueprints and plugins
 for hosted providers such as AWS and Azure.
 
-NOTE: setupWizzard is going to re-write some bind config files, so don't edit them
+NOTE: setupWizard is going to re-write some bind config files, so don't edit them
 until after the install is complete.
 
 Installing
@@ -22,7 +22,7 @@ Installing
 
 Create an Ubuntu Xenial VM, name it `contractor`, set the fqdn to `contractor.site1.test`
 Ideally it should be in a /24 network.  Offset 1 is assumed to be the gateway.
-All these values can be adjusted either in the setupWizzard file before it is run,
+All these values can be adjusted either in the setupWizard file before it is run,
 or after it is setup, you can use the API/UI to edit these values.
 The DNS server will be set for the contractor VM, and bind on the contractor vm will
 be set to forward to the DNS server that was originally configured on the VM.
@@ -53,8 +53,8 @@ some other Infrastructure related tasks that need to be done.
 
 :doc:`TryIt_virtualbox_setup`
 
-Install Requred Services
-~~~~~~~~~~~~~~~~~~~~~~~~
+Install Required Services
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Install Postgres::
 
@@ -65,7 +65,7 @@ Create the postgres db::
   sudo su postgres -c "echo \"CREATE ROLE contractor WITH PASSWORD 'contractor' NOSUPERUSER NOCREATEDB NOCREATEROLE LOGIN;\" | psql"
   sudo su postgres -c "createdb -O contractor contractor"
 
-NOTE, for thoes two command you will see::
+NOTE, for those two commands you may see::
 
   could not change directory to "/root": Permission denied
 
@@ -74,7 +74,7 @@ this is from the `su` command, thoes messages can be ignored
 Update Packages
 ~~~~~~~~~~~~~~~
 
-the ubuntu toml and jinja2 packages are to old, update with::
+The Ubuntu toml and jinja2 packages are too old, update with::
 
   sudo apt install -y python3-pip
   sudo pip3 install toml jinja2 --upgrade
@@ -91,12 +91,12 @@ Configure Apache
 ~~~~~~~~~~~~~~~~
 
 We will need a HTTP site to serve up static resources, as well as a Proxy server
-to bridge from the issloated network.  This proxy server will also cache, that will
+to bridge from the isolated network.  This proxy server will also cache, that will
 make things install faster the second time.
 
 First create the directory for the static resources::
 
-    mkdir -p /var/www/static
+    sudo mkdir -p /var/www/static
 
 now create the proxy site `/etc/apache2/sites-available/proxy.conf` with the following::
 
@@ -181,7 +181,7 @@ do manual plugin again so it can cross link to the other plugins::
 
 Now to setup some base info, and configure bind::
 
-  sudo /usr/lib/contractor/setup/setupWizzard --no-ip-reservation --dns-server=10.0.0.10 --proxy-server=http://10.0.0.10:3128/
+  sudo /usr/lib/contractor/setup/setupWizard --no-ip-reservation --dns-server=10.0.0.10 --proxy-server=http://10.0.0.10:3128/
 
 It is safe to ignore the message::
 
@@ -209,13 +209,18 @@ we will be using curl, make sure it is installed::
   sudo apt install -y curl
 
 First we will define some Environment values so we don't have to keep tying redundant info
-the Contractor server, this is assuming you will be running these commands from
+the Contractor server.  This is assuming you will be running these commands from
 the contractor VM, if you are running these steps from someplace else, update the
-ip address to the ip address of the contractor vm.::
+ip address to the ip address of the contractor vm::
 
   export COPS=( --header "CInP-Version: 0.9" --header "Content-Type: application/json" )
   export SITE="/api/v1/Site/Site:site1:"
   export CHOST="http://127.0.0.1"
+
+COPS is defining some curl options, in this case some headers that are required
+by CInP(see https://github.com/cinp/) which is used by Contractor for it's API.
+SITE defines the uri of the site we are going to use, and CHOST is the URL to the
+Contractor server.
 
 now we need to login, replace `< username >` and `< password >` with the username and
 password you specified API user (the createsuperuser step)::
@@ -234,7 +239,8 @@ with the API username, and `< auth token >` with the result of the last command:
   COPS+=( --header "Auth-Id: < username >")
   COPS+=( --header "Auth-Token: < auth token >" )
 
-Let's make sure our login is working::
+This is adding more headers to our curl options, from here on our curl operations
+are authenticated.  Let's make sure our login is working::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CALL $CHOST/api/v1/Auth/User\(whoami\)
   {}
@@ -247,7 +253,7 @@ that should output your username, for example::
 Network Configuration
 ~~~~~~~~~~~~~~~~~~~~~
 
-The setupWizzard has pre-loaded the database with a stand in host to represent
+The setupWizard has pre-loaded the database with a stand in host to represent
 the contractor VM and has flagged it as pre-built.  It has also created
 a site called `site1` and some base DNS configuration. It also took the network
 of the primary interface and loaded it into the database named 'main'.
@@ -278,10 +284,13 @@ which should output something like::
 
 look for the header Object-Id: /api/v1/Building/AddressBlock:2:, the number between
 the `:` may be something else.  Set another environment variable to the Id value,
-replace the `< id >` to match the nuber in the Object-Id above::
+replace the `< id >` to match the number in the Object-Id above::
 
   export ADRBLK="/api/v1/Utilities/AddressBlock:< id >:"
 
+NOTE: the subnet you specify when creating the AddressBlock will be rounded up
+to the top of the subnet.  In this case we could of specified any ip from
+10.0.0.0 - 10.0.0.255 would result in the same subnet.
 
 Now to add the internal ip of the contractor host, first set the address on eth0
 to non-primary, we want the internal ip to be primary::
@@ -353,7 +362,7 @@ Restart bind with new zones::
 
 Now to force a re-gen of the DNS files::
 
-  /usr/lib/contractor/cron/genDNS
+  sudo /usr/lib/contractor/cron/genDNS
 
 This VM needs to use the contractor generated dns, so edit
 `/etc/network/interfaces` to set the dns server to 127.0.0.1
@@ -517,9 +526,9 @@ should return something like::
 now to set the ip address of the vcenter/esx host. This ip will be used by
 subcontractor to manipluate vms, and will need to be routeable from the
 contractor vm, this assumes that address is in the address space
-of the contractor vm, specifically the network that setupWizzard created, change
+of the contractor vm, specifically the network that setupWizard created, change
 `< offset >` to the offset of the host's ip in that network.  If the ip
-address of the host is 192.168.0.52 the setupWizzard assumed you were in a /24
+address of the host is 192.168.0.52 the setupWizard assumed you were in a /24
 so the offset is `52`, replace structure id with the id from the structure creation
 step::
 
@@ -726,14 +735,14 @@ Again the jobs should be running to create the CentOS VM.  When it is done, ssh 
 
   ssh root@testvm02
 
-go a head and play arround with it for a bit.  make sure to try deconfiguring both
+go a head and play around with it for a bit.  Make sure to try deconfiguring both
 VMs at the same time so you can see Contractor do more than one thing at a time.
 
 Accessing Configuration Information
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Contractor provides three configuration urls for a target.  The first two depend on
-what the target is set to PXE boot to, the thrid is all the configuraiton information
+what the target is set to PXE boot to, the third is all the configuration information
 for that target in JSON format.
 
 ssh into one of the VMs, this will show what it is like from testvm02::
@@ -752,7 +761,7 @@ which will output::
   echo Booting form Primary Boot Disk
   sanboot --no-describe --drive 0x80 || echo Primary Boot Disk is not Bootable
 
-The VM is curent set to the `normal-boot` pxe.  That script tells it to boot to the
+The VM is current set to the `normal-boot` pxe.  That script tells it to boot to the
 first harddrive.
 
 Next the pxe_template::
@@ -767,13 +776,13 @@ once again, with this VM having been set to `normal-boot`, the pxe template is
 just a comment at the top.  The pxe_template is stored as a Jinja2 template that
 is combined with the configuration information and served out to the target.
 This is the URL that is used for the Kickstart and/or Pressed files for the CentOS
-and Debian installers.  The source for the centos and ubuntu boot_scripts and
+and Debian installers.  The source for the CentOS and Ubuntu boot_scripts and
 pxe_templates are at https://github.com/T3kton/resources/blob/master/os-bases/centos/usr/lib/contractor/resources/centos.toml
 and https://github.com/T3kton/resources/blob/master/os-bases/ubuntu/usr/lib/contractor/resources/ubuntu.toml
-thoes are then packaged during when you built the resources, and installed to
+those are then packaged during when you built the resources, and installed to
 /usr/lib/contractor/resource/ when the resource package was installed.
 
-The thrid url is::
+The third url is::
 
   curl http://contractor/config/config/
 
@@ -782,17 +791,17 @@ output::
   {"installer_pxe": "centos-7", "__pxe_template_location": "http://contractor/config/pxe_template/", "_structure_config_uuid": "118e0e44-457e-47df-b8c0-d157d5dde1b4", "mirror_server": "mirror.centos.org", "_blueprint": "centos-7-base", "__timestamp": "2019-03-11T14:32:27.909856+00:00", "_foundation_state": "built", "domain_name": "site1.test", "dns_search": ["site1.test", "test"], "_structure_state": "built", "__pxe_location": "http://static/pxe/", "distro": "centos", "_hostname": "testvm02", "_foundation_class_list": ["VM", "VCenter"], "dns_servers": ["10.0.0.10"], "memory_size": 2048, "_foundation_type": "VCenter", "_provisioning_interface": "eth0", "_vcenter_complex": "demovcenter", "_interface_map": {"eth0": {"physical_location": "eth0", "name": "eth0", "mac": "00:50:56:03:1e:6d", "address_list": [{"vlan": null, "address": "10.0.0.123", "prefix": 24, "netmask": "255.255.255.0", "primary": true, "sub_interface": null, "network": "10.0.0.0", "tagged": false, "gateway": null, "auto": true, "mtu": 1500}]}}, "_foundation_locator": "testvm02", "_vcenter_uuid": "52545577-0025-e8d7-1915-bd64585f47c1", "_vcenter_cluster": "localhost.", "_site": "site1", "ntp_servers": ["ntp.ubuntu.com"], "distro_version": "7", "_fqdn": "testvm02.site1.test", "mirror_proxy": "http://10.0.0.10:3128/", "_foundation_interface_list": [{"physical_location": "eth0", "name": "eth0", "mac": "00:50:56:03:1e:6d", "address_list": [{"vlan": null, "address": "10.0.0.123", "prefix": 24, "netmask": "255.255.255.0", "primary": true, "sub_interface": null, "network": "10.0.0.0", "tagged": false, "gateway": null, "auto": true, "mtu": 1500}]}], "__contractor_host": "http://contractor/", "_foundation_id": "testvm02", "vcenter_guest_id": "rhel7_64Guest", "swap_size": 512, "_structure_id": 4, "__last_modified": "2019-03-11T14:01:18.090983+00:00", "_provisioning_interface_mac": "00:50:56:03:1e:6d", "_vcenter_datacenter": "ha-datacenter", "virtualbox_guest_type": "RedHat_64", "root_pass": "$6$rootroot$oLo.loyMV45VA7/0sKV5JH/xBAXiq/igL4hQrGz3yd9XUavmC82tZm1lxW2N.5eLxQUlqp53wXKRzifZApP0/1"}
 
 This url can be used by what ever scripts/CMS as a source of configuration
-intormation.  See the documentation at :doc:`ConfigurationValues` for more
+information.  See the documentation at :doc:`ConfigurationValues` for more
 information on how these values are compiled.  One value to point out here is
-`_structure_config_uuid`, this value is set when the sturcture record is created
+`_structure_config_uuid`, this value is set when the structure record is created
 or when the structure is destroyed.  This way if there is a stale copy of the
-structure (old VM stapshot, or a VM that didn't get cleaned up properly, etc)
-comes online, it (or some other monitoring system) can detect that it is now
-longer curent and take action.
+structure (old VM snapshot, or a VM that didn't get cleaned up properly, etc)
+comes on-line, it (or some other monitoring system) can detect that it is no
+longer current and take action.
 
 Contractor uses the source ip address of this URL requests to determine which
 target's information to return.  You can also use the structure id, foundation
-locator or config uuid, to tell contractor which configuration to return.
+locater or config uuid, to tell contractor which configuration to return.
 
 by config uuid::
 
@@ -806,7 +815,7 @@ by foundation locator::
 
   curl http://contractor/config/config/f/testvm02
 
-one way for a target to detect if it is stil good and in cases when the ip address
+one way for a target to detect if it is slit good and in cases when the ip address
 might change, is to request it's config by the uuid.
 
 Removing the VMs
