@@ -99,7 +99,7 @@ down.  You could also set "Release"="Prod" in "Datacenter West" and then create 
 "Cluster Test" and override the "Release" to the value "Test".  You could also do
 A-B testing, etc.
 
-Any Item can make an http request to Contractor and Contractor will reply with a JSON
+Any Item can make an HTTP request to Contractor and Contractor will reply with a JSON
 encoded reply with that item's combined configuration values.
 
 This is all fun and all, but not really useful.  Let's change things up a bit and
@@ -216,12 +216,12 @@ Complexes also cause Contractor to build the Web Server Structure/Foundations
 after the ESX Structure/Foundations are done.  Also the example would look pretty
 much the same for a Docker/OpenStack/etc Complex.
 
-Side Track to the Manefesto
+Side Track to the Manifesto
 ---------------------------
 
 At this point you are probably wondering how having all these Foundation types
 is simplifying deployments.  By separating the configuration of the "Hosted" and
-the "Host" we can effectively divide up the job of configuraing the sytem.  (Do
+the "Host" we can effectively divide up the job of configuring the system.  (Do
 I get to drop the DevOps Buzzword now?)  As a Developer/Engineer configures their
 code, they embody that in a Structure.  They can package that configuration
 information along with their code/designs and that configuration can also
@@ -231,11 +231,11 @@ that some Foundations require different considerations, however a well designed
 Structure Configuration can work for Containers (and the like) as well as
 OS installers (Baremetal/VM/Blade/AWS, etc.)  Now when the Operations people need to
 turn it up to 11 (or 12) they just pick the location to deploy and no matter if
-it is hosted on prem in VMs, or deployed to AWS for some peak load handling,
+it is hosted on premise in VMs, or deployed to AWS for some peak load handling,
 Operations can scale as needed, to whatever.
 
 Also by allowing every thing, no matter the platform, to be tracked in the same
-place, you now have a single source of truth for your monitoring sytem to rely on.
+place, you now have a single source of truth for your monitoring system to rely on.
 You don't have to worry about parts of your Micro Services failing to auto-register.
 And, you know exactly what is deployed where; useful when hardware needs to be
 swapped out.
@@ -249,17 +249,15 @@ Not only can you unify your provisioning tools, but also the auto-scaling tools.
 You are also free from vendor lock in.  If a new Cloud provider comes along, they
 don't need to have an AWS like API to use them, just a Foundation subclass
 provider that talks to that Cloud provider's API and you are set.  Same if
-a new class of hardware comes along (ARM servers anyone ;-) ) or a new way of
-approaching hosting (the next thing after containers).  You can truly be
-"serverless" (I know another buzzword, meaning your deployments are agnostic
-as to the technology they are being deployed on).  And you don't have to try to
+a new class of hardware comes along (ARM servers anyone?) or a new way of
+approaching hosting (the next thing after containers).  And you don't have to try to
 fit all your use cases into one silver bullet.  You can have a nice auto-scaling
 Container Cloud/Swarm with your micro services right next to standard VMs running
 the databases and object storage.  All with one "pane of glass"
 
 Ok, back to business, buzzword dropping disabled...
 
-Back to business
+Back to Business
 ----------------
 
 One final piece of the deployment puzzle, the **Dependency**.  This is to make sure
@@ -285,5 +283,5 @@ Other
 -----
 
 There are other Classes/Components in Contractor, but they are mostly for dealing
-with Configure/Destroy/Misc Jobs (the Forman module).  As well as keeping track
+with Configure/Destroy/Misc Jobs (the Foreman module).  As well as keeping track
 of Ip Addresses and other "Utilities".  Those are documented elsewhere.

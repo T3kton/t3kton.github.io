@@ -11,7 +11,7 @@ Setup the PPA which has the built packages::
   apt update
   apt install -y git build-essential respkg contractor contractor-plugins subcontractor subcontractor-plugins liblzma-dev xorriso
 
-The resource packages are not hosted publically so you will need to build them::
+The resource packages are not hosted publicly so you will need to build them::
 
   git clone https://github.com/T3kton/resources.git
   git clone https://github.com/T3kton/contractor_plugins.git
