@@ -1,6 +1,46 @@
 Ip Addresses
 ============
 
+Overview
+--------
+
+Ip Addresses are grouped together in named networks called `AddressBlocks`.  The
+name of the AddressBlock is used in places like the VCenter Plug-in to know the name
+of the Switch to connect to.  Ip Addresses inside the AddressBlock is identified
+by the offset inside that network.  The AddressBlock stores the subnet and prefix
+of the network.  There is an optional offset for the gateway of the network.  The
+Subnet and Prefix operate like standard CIDR ( https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing )
+mechanics.  If the subnet and/or prefix of the AddressBlock is changed, all Ip Addresses
+connected to that AddressBlock will update to follow.
+
+NOTE: When setting the subnet of an AddressBlock, Contractor will round to the top
+of the Subnet, so setting the subnet to 10.0.0.10 or 10.0.0.0 (assuming the prefix
+is small enough to include .0 and .10 in the same subnet) will result in the
+same value of 10.0.0.0.
+
+Examples
+--------
+
++---------------------+---------------------+------------------------+-------------------------+
+| AddressBlock Subnet | AddressBlock Prefix | Ip Address at offset 1 | Ip Address at offset 20 |
++=====================+=====================+========================+=========================+
+| 10.0.0.0            | 21                  | 10.0.0.1               | 10.0.0.20               |
++---------------------+---------------------+------------------------+-------------------------+
+| 192.168.23.0        | 24                  | 192.168.23.1           | 192.168.23.20           |
++---------------------+---------------------+------------------------+-------------------------+
+| 169.254.57.127      | 23                  | 168.254.57.128         | 168.154.57.147          |
++---------------------+---------------------+------------------------+-------------------------+
+| 2001:db8::          | 96                  | 2001:db8::1            | 2001:db8::20            |
++---------------------+---------------------+------------------------+-------------------------+
+| 2001::1000          | 120                 | 2001::1001             | 2001::1020              |
++---------------------+---------------------+------------------------+-------------------------+
+
+You can calculate the subnet of an Ip Address by subtracting the subnet from the Ip Address
+For example 23.33.10.30 in the subnet 23.33.10.0/24 is 30.
+
+Details from under the hood
+---------------------------
+
 Ip Addresses come in a few flavors, there is a BaseAddress class which all Ip Addresses
 belong to that defines an Ip Address as an Offset in an AddressBlock.  The flavors
 of BaseAddress are **Address** - an Address that can belong to **Networked**.
@@ -8,8 +48,8 @@ of BaseAddress are **Address** - an Address that can belong to **Networked**.
 scope.  And **DynamicAddress** - an Address that belongs to a DHCP group.
 
 An **AddressBlock** is defined by its network and prefix and can optionally
-hold a gateway offset.  No two AddressBlocks can overlap.  An AddressBlock is
-also tied to a Site.
+hold a gateway offset.  No two AddressBlocks in the same site can overlap.  An
+AddressBlock is also tied to a Site.
 
 **Address** can belong to anything that is **Networked**. Structures are Networked,
 as well as some Foundations like the IPMIFoundation.  An Address enforces that the
