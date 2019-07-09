@@ -41,14 +41,78 @@
             
   <div class="section" id="ip-addresses">
 <h1>Ip Addresses<a class="headerlink" href="#ip-addresses" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Ip Addresses are grouped together in named networks called <cite>AddressBlocks</cite>.  The
+name of the AddressBlock is used in places like the VCenter Plug-in to know the name
+of the Switch to connect to.  Ip Addresses inside the AddressBlock is identified
+by the offset inside that network.  The AddressBlock stores the subnet and prefix
+of the network.  There is an optional offset for the gateway of the network.  The
+Subnet and Prefix operate like standard CIDR ( <a class="reference external" href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing</a> )
+mechanics.  If the subnet and/or prefix of the AddressBlock is changed, all Ip Addresses
+connected to that AddressBlock will update to follow.</p>
+<p>NOTE: When setting the subnet of an AddressBlock, Contractor will round to the top
+of the Subnet, so setting the subnet to 10.0.0.10 or 10.0.0.0 (assuming the prefix
+is small enough to include .0 and .10 in the same subnet) will result in the
+same value of 10.0.0.0.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="23%" />
+<col width="26%" />
+<col width="27%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">AddressBlock Subnet</th>
+<th class="head">AddressBlock Prefix</th>
+<th class="head">Ip Address at offset 1</th>
+<th class="head">Ip Address at offset 20</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>10.0.0.0</td>
+<td>21</td>
+<td>10.0.0.1</td>
+<td>10.0.0.20</td>
+</tr>
+<tr class="row-odd"><td>192.168.23.0</td>
+<td>24</td>
+<td>192.168.23.1</td>
+<td>192.168.23.20</td>
+</tr>
+<tr class="row-even"><td>169.254.57.127</td>
+<td>23</td>
+<td>168.254.57.128</td>
+<td>168.154.57.147</td>
+</tr>
+<tr class="row-odd"><td>2001:db8:</td>
+<td>96</td>
+<td>2001:db8::1</td>
+<td>2001:db8::20</td>
+</tr>
+<tr class="row-even"><td>2001::1000</td>
+<td>120</td>
+<td>2001::1001</td>
+<td>2001::1020</td>
+</tr>
+</tbody>
+</table>
+<p>You can calculate the subnet of an Ip Address by subtracting the subnet from the Ip Address
+For example 23.33.10.30 in the subnet 23.33.10.0/24 is 30.</p>
+</div>
+<div class="section" id="details-from-under-the-hood">
+<h2>Details from under the hood<a class="headerlink" href="#details-from-under-the-hood" title="Permalink to this headline">¶</a></h2>
 <p>Ip Addresses come in a few flavors, there is a BaseAddress class which all Ip Addresses
 belong to that defines an Ip Address as an Offset in an AddressBlock.  The flavors
 of BaseAddress are <strong>Address</strong> - an Address that can belong to <strong>Networked</strong>.
 <strong>ReservedAddress</strong> - an Address that is reserved by something outside Contractor&#8217;s
 scope.  And <strong>DynamicAddress</strong> - an Address that belongs to a DHCP group.</p>
 <p>An <strong>AddressBlock</strong> is defined by its network and prefix and can optionally
-hold a gateway offset.  No two AddressBlocks can overlap.  An AddressBlock is
-also tied to a Site.</p>
+hold a gateway offset.  No two AddressBlocks in the same site can overlap.  An
+AddressBlock is also tied to a Site.</p>
 <p><strong>Address</strong> can belong to anything that is <strong>Networked</strong>. Structures are Networked,
 as well as some Foundations like the IPMIFoundation.  An Address enforces that the
 Site the Networked belongs to is the same as the AddressBlock the Address Belongs to,
@@ -96,13 +160,24 @@ with to do tasks of the Foundation Jobs.  Without a Structure, Foundation Jobs t
 require an Address can not be done. (This is something that will hopefully change
 in the future by borrowing from a dynamic pool, but for now a Structure is required.)</p>
 </div>
+</div>
 
 
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Ip Addresses</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#details-from-under-the-hood">Details from under the hood</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>

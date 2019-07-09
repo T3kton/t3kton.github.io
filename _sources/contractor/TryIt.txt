@@ -17,6 +17,9 @@ for hosted providers such as AWS and Azure.
 NOTE: setupWizard is going to re-write some bind config files, so don't edit them
 until after the install is complete.
 
+If you are not failure with how Contractor handles Networking, you will probably
+want to take a look at the overview on :doc:`IpAddresses`.
+
 Installing
 ----------
 
@@ -301,7 +304,7 @@ to non-primary, we want the internal ip to be primary::
 
 result::
 
-  {"netmask": "255.255.255.0", "offset": 126, "updated": "2019-03-05T03:16:00.142926+00:00", "prefix": "24", "pointer": null, "networked": "/api/v1/Utilities/Networked:1:", "vlan": 0, "ip_address": "192.168.13.126", "is_primary": false, "interface_name": "eth0", "address_block": "/api/v1/Utilities/AddressBlock:main:", "created": "2019-03-05T02:45:12.304186+00:00", "gateway": "192.168.13.1", "sub_interface": null, "type": "Address", "network": "192.168.13.0"}
+  {"netmask": "255.255.255.0", "offset": 126, "updated": "2019-03-05T03:16:00.142926+00:00", "prefix": "24", "pointer": null, "networked": "/api/v1/Utilities/Networked:1:", "vlan": 0, "ip_address": "192.168.13.126", "is_primary": false, "interface_name": "eth0", "address_block": "/api/v1/Utilities/AddressBlock:2:", "created": "2019-03-05T02:45:12.304186+00:00", "gateway": "192.168.13.1", "sub_interface": null, "type": "Address", "network": "192.168.13.0"}
 
 create an interface eth1 for the ip to belong to (this represents the new interface
 we created on the internal network)::
@@ -322,7 +325,7 @@ finally the ip it's self::
 
 result::
 
-  {"netmask": "255.255.255.0", "ip_address": "10.0.0.10", "created": "2019-02-23T16:20:56.567650+00:00", "pointer": null, "vlan": 0, "networked": "/api/v1/Utilities/Networked:1:", "network": "10.0.0.0", "is_primary": false, "type": "Address", "interface_name": "eth1", "offset": 10, "address_block": "/api/v1/Utilities/AddressBlock:internal:", "gateway": "10.0.0.1", "sub_interface": null, "updated": "2019-02-23T16:20:56.567606+00:00", "prefix": "24"}
+  {"netmask": "255.255.255.0", "ip_address": "10.0.0.10", "created": "2019-02-23T16:20:56.567650+00:00", "pointer": null, "vlan": 0, "networked": "/api/v1/Utilities/Networked:1:", "network": "10.0.0.0", "is_primary": false, "type": "Address", "interface_name": "eth1", "offset": 10, "address_block": "/api/v1/Utilities/AddressBlock:2:", "gateway": "10.0.0.1", "sub_interface": null, "updated": "2019-02-23T16:20:56.567606+00:00", "prefix": "24"}
 
 now to reserve some ip addresses so they do not get auto assigned::
 
@@ -334,24 +337,24 @@ now to reserve some ip addresses so they do not get auto assigned::
 
 result::
 
-  {"ip_address": "10.0.0.2", "offset": 2, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.312992+00:00", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "updated": "2019-02-23T16:34:54.312941+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.3", "offset": 3, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.327090+00:00", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "updated": "2019-02-23T16:34:54.327065+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.4", "offset": 4, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.339957+00:00", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "updated": "2019-02-23T16:34:54.339924+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.5", "offset": 5, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.352559+00:00", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "updated": "2019-02-23T16:34:54.352535+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.6", "offset": 6, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.365187+00:00", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "updated": "2019-02-23T16:34:54.365162+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.7", "offset": 7, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.378354+00:00", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "updated": "2019-02-23T16:34:54.378327+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.8", "offset": 8, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.390835+00:00", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "updated": "2019-02-23T16:34:54.390812+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.9", "offset": 9, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.404003+00:00", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "updated": "2019-02-23T16:34:54.403980+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.11", "offset": 11, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.416552+00:00", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "updated": "2019-02-23T16:34:54.416528+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.12", "offset": 12, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.429354+00:00", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "updated": "2019-02-23T16:34:54.429332+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.13", "offset": 13, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.442067+00:00", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "updated": "2019-02-23T16:34:54.442043+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.14", "offset": 14, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.455041+00:00", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "updated": "2019-02-23T16:34:54.455018+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.15", "offset": 15, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.467245+00:00", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "updated": "2019-02-23T16:34:54.467222+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.16", "offset": 16, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.479525+00:00", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "updated": "2019-02-23T16:34:54.479503+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.17", "offset": 17, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.492109+00:00", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "updated": "2019-02-23T16:34:54.492083+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.18", "offset": 18, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.504386+00:00", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "updated": "2019-02-23T16:34:54.504363+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.19", "offset": 19, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.517128+00:00", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "updated": "2019-02-23T16:34:54.517105+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.20", "offset": 20, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.529458+00:00", "address_block": "/api/v1/Utilities/AddressBlock:internal:", "updated": "2019-02-23T16:34:54.529435+00:00", "type": "ReservedAddress"}
+  {"ip_address": "10.0.0.2", "offset": 2, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.312992+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.312941+00:00", "type": "ReservedAddress"}
+  {"ip_address": "10.0.0.3", "offset": 3, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.327090+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.327065+00:00", "type": "ReservedAddress"}
+  {"ip_address": "10.0.0.4", "offset": 4, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.339957+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.339924+00:00", "type": "ReservedAddress"}
+  {"ip_address": "10.0.0.5", "offset": 5, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.352559+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.352535+00:00", "type": "ReservedAddress"}
+  {"ip_address": "10.0.0.6", "offset": 6, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.365187+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.365162+00:00", "type": "ReservedAddress"}
+  {"ip_address": "10.0.0.7", "offset": 7, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.378354+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.378327+00:00", "type": "ReservedAddress"}
+  {"ip_address": "10.0.0.8", "offset": 8, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.390835+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.390812+00:00", "type": "ReservedAddress"}
+  {"ip_address": "10.0.0.9", "offset": 9, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.404003+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.403980+00:00", "type": "ReservedAddress"}
+  {"ip_address": "10.0.0.11", "offset": 11, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.416552+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.416528+00:00", "type": "ReservedAddress"}
+  {"ip_address": "10.0.0.12", "offset": 12, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.429354+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.429332+00:00", "type": "ReservedAddress"}
+  {"ip_address": "10.0.0.13", "offset": 13, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.442067+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.442043+00:00", "type": "ReservedAddress"}
+  {"ip_address": "10.0.0.14", "offset": 14, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.455041+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.455018+00:00", "type": "ReservedAddress"}
+  {"ip_address": "10.0.0.15", "offset": 15, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.467245+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.467222+00:00", "type": "ReservedAddress"}
+  {"ip_address": "10.0.0.16", "offset": 16, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.479525+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.479503+00:00", "type": "ReservedAddress"}
+  {"ip_address": "10.0.0.17", "offset": 17, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.492109+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.492083+00:00", "type": "ReservedAddress"}
+  {"ip_address": "10.0.0.18", "offset": 18, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.504386+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.504363+00:00", "type": "ReservedAddress"}
+  {"ip_address": "10.0.0.19", "offset": 19, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.517128+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.517105+00:00", "type": "ReservedAddress"}
+  {"ip_address": "10.0.0.20", "offset": 20, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.529458+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.529435+00:00", "type": "ReservedAddress"}
 
 Starting DNS
 ~~~~~~~~~~~~
@@ -493,7 +496,7 @@ Environment setup::
   export FMDL="/api/v1/VCenter/VCenterFoundation"
   export FDATA=', "vcenter_complex": "/api/v1/VCenter/VCenterComplex:demovcenter:"'
 
-First create the VirtualBox Complex, replace `< datacenter >` with the name of
+First create the VCenterBox Complex, replace `< datacenter >` with the name of
 the VCenter datacenter to put the VMs in, if using ESX directly put 'ha-datacenter',
 replace `< cluster >` with the name of the cluster to put the vms in, if using
 ESX put the hostname of the ESX server, if it's still default it will be 'localhost.'.
@@ -509,7 +512,7 @@ should return something like::
 
   {"built_percentage": 90, "state": "planned", "site": "/api/v1/Site/Site:site1:", "created": "2019-02-23T23:51:33.613222+00:00", "vcenter_host": "/api/v1/Building/Structure:2:", "vcenter_password": "vmware", "updated": "2019-02-23T23:51:33.613199+00:00", "vcenter_cluster": null, "name": "demovcenter", "description": "Demo VCenter/ESX Host/Complex", "vcenter_datacenter": "ha-datacenter", "type": "VCenter", "members": [], "vcenter_username": "root"}
 
-Techinically if you are using VCenter, you should create another structure
+Technically if you are using VCenter, you should create another structure
 so Contractor knows the hosts of the VCenter cluster, however, for the sake of
 simplicity, we will just add the ESX Host/VCenter cluster we just added as the host
 of the VCenterCluster as it's only member,  once again the `< structure id >` is
@@ -524,21 +527,23 @@ should return something like::
   {"created": "2019-02-24T00:02:06.164123+00:00", "complex": "/api/v1/Building/Complex:demovcenter:", "structure": "/api/v1/Building/Structure:2:", "updated": "2019-02-24T00:02:06.164082+00:00"}
 
 now to set the ip address of the vcenter/esx host. This ip will be used by
-subcontractor to manipluate vms, and will need to be routeable from the
-contractor vm, this assumes that address is in the address space
-of the contractor vm, specifically the network that setupWizard created, change
-`< offset >` to the offset of the host's ip in that network.  If the ip
-address of the host is 192.168.0.52 the setupWizard assumed you were in a /24
-so the offset is `52`, replace structure id with the id from the structure creation
-step::
+subcontractor to communicate with VCenter to manipulate vms, and will need to be
+route-able from the contractor vm (where subcontractor is installed), this assumes
+that address is in the address space of the contractor vm, specifically the network
+that setupWizard created, Which should be attached to AddressBlock 1.  Change `< offset >`
+to the offset of the VCenter/ESX host, if the VCenter/ESX host is not in the same
+network that the contractor was created in, (and thus the same network that was
+setup bu the setup wizzard), you will need to create another AddressBlock and update
+the following call to use that AddressBlock in the following.  Replace structure id
+with the id from the structure creation step::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/Address
-  { "networked": "/api/v1/Utilities/Networked:< structure id >:", "address_block": "/api/v1/Utilities/AddressBlock:main:", "interface_name": "eth0", "offset": < offset >, "is_primary": true }
+  { "networked": "/api/v1/Utilities/Networked:< structure id >:", "address_block": "/api/v1/Utilities/AddressBlock:1:", "interface_name": "eth0", "offset": < offset >, "is_primary": true }
   EOF
 
 which should output something like::
 
-  {"netmask": "255.255.255.0", "updated": "2019-02-23T18:51:53.521628+00:00", "type": "Address", "prefix": "24", "vlan": 0, "ip_address": "192.168.13.22", "interface_name": "eth0", "network": "192.168.13.0", "sub_interface": null, "address_block": "/api/v1/Utilities/AddressBlock:main:", "is_primary": false, "offset": 22, "pointer": null, "gateway": "192.168.13.1", "created": "2019-02-23T18:51:53.521652+00:00", "networked": "/api/v1/Utilities/Networked:2:"}
+  {"netmask": "255.255.255.0", "updated": "2019-02-23T18:51:53.521628+00:00", "type": "Address", "prefix": "24", "vlan": 0, "ip_address": "192.168.13.22", "interface_name": "eth0", "network": "192.168.13.0", "sub_interface": null, "address_block": "/api/v1/Utilities/AddressBlock:1:", "is_primary": false, "offset": 22, "pointer": null, "gateway": "192.168.13.1", "created": "2019-02-23T18:51:53.521652+00:00", "networked": "/api/v1/Utilities/Networked:2:"}
 
 VirtualBox
 ~~~~~~~~~~
@@ -578,12 +583,12 @@ This is the same ip that we passed to vboxwebsrv, which is offset 1 of the inter
 network we created::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/Address
-  { "networked": "/api/v1/Utilities/Networked:< structure id >:", "address_block": "$ADRBLK", "interface_name": "eth0", "offset": 1, "is_primary": true }
+  { "networked": "/api/v1/Utilities/Networked:< structure id >:", "address_block": "/api/v1/Utilities/AddressBlock:1:", "interface_name": "eth0", "offset": 1, "is_primary": true }
   EOF
 
 which should output something like::
 
-  {"netmask": "255.255.255.0", "updated": "2019-02-23T18:51:53.521628+00:00", "type": "Address", "prefix": "24", "vlan": 0, "ip_address": "192.168.13.22", "interface_name": "eth0", "network": "192.168.13.0", "sub_interface": null, "address_block": "/api/v1/Utilities/AddressBlock:main:", "is_primary": false, "offset": 22, "pointer": null, "gateway": "192.168.13.1", "created": "2019-02-23T18:51:53.521652+00:00", "networked": "/api/v1/Utilities/Networked:2:"}
+  {"netmask": "255.255.255.0", "updated": "2019-02-23T18:51:53.521628+00:00", "type": "Address", "prefix": "24", "vlan": 0, "ip_address": "192.168.13.22", "interface_name": "eth0", "network": "192.168.13.0", "sub_interface": null, "address_block": "/api/v1/Utilities/AddressBlock:1:", "is_primary": false, "offset": 22, "pointer": null, "gateway": "192.168.13.1", "created": "2019-02-23T18:51:53.521652+00:00", "networked": "/api/v1/Utilities/Networked:2:"}
 
 Contractor is now running, now let's configure it to make a VM.
 
