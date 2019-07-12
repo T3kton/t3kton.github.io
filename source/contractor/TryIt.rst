@@ -20,6 +20,7 @@ until after the install is complete.
 If you are not failure with how Contractor handles Networking, you will probably
 want to take a look at the overview on :doc:`IpAddresses`.
 
+
 Installing
 ----------
 
@@ -216,7 +217,7 @@ the Contractor server.  This is assuming you will be running these commands from
 the contractor VM, if you are running these steps from someplace else, update the
 ip address to the ip address of the contractor vm::
 
-  export COPS=( --header "CInP-Version: 0.9" --header "Content-Type: application/json" )
+  export COPS=( --noproxy --header "CInP-Version: 0.9" --header "Content-Type: application/json" )
   export SITE="/api/v1/Site/Site:site1:"
   export CHOST="http://127.0.0.1"
 
@@ -368,8 +369,16 @@ Now to force a re-gen of the DNS files::
   sudo /usr/lib/contractor/cron/genDNS
 
 This VM needs to use the contractor generated dns, so edit
-`/etc/network/interfaces` to set the dns server to 127.0.0.1
-then, reload networking configuration::
+`/etc/network/interfaces` to set the dns server to "127.0.0.1", and set the dns
+search to "site1.test site1". For example::
+
+  auto ensXXX
+  iface ensXXX inet static
+    ...
+    dns-nameservers 127.0.0.1
+    dns-search site1.test site1
+
+then reload networking configuration::
 
   sudo systemctl restart networking
 
@@ -402,7 +411,7 @@ resources of your vm, etc.  You may also want to change the `poll_delay` to 5, t
 will cause subcontractor to ask for more tasks every 5 seconds instead of the default
 20.  If we were setting up a system that would be processing a lot of tasks, we would
 want to slow this down to reduce the overhead on contractor. In the dhcpd section,
-make sure interface and tftp_server are correct, tftp_server should be the ip of
+make sure `listen_interface` and `tftp_server` are correct, `tftp_server` should be the ip of
 the vm on the new internal interface.
 
 now start up subcontractor::
