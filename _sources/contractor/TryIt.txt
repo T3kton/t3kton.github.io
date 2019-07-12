@@ -122,9 +122,13 @@ now create the proxy site `/etc/apache2/sites-available/proxy.conf` with the fol
 
     NoProxy static static.site1.test
     NoProxy contractor contractor.site1.test
+
+    # ProxyRemote * http://<up stream proxy>:3128/
   </VirtualHost>
 
-now create the static site `/etc/apache2/sites-available/static.conf` with the following::
+NOTE: if you need to relay through an upstream proxy to have access to the ubuntu
+and centos mirrors, enable the `ProxyRemote` line and update it with the upstream proxy.
+Now create the static site `/etc/apache2/sites-available/static.conf` with the following::
 
   <VirtualHost *:80>
     ServerName static
@@ -217,7 +221,7 @@ the Contractor server.  This is assuming you will be running these commands from
 the contractor VM, if you are running these steps from someplace else, update the
 ip address to the ip address of the contractor vm::
 
-  export COPS=( --noproxy --header "CInP-Version: 0.9" --header "Content-Type: application/json" )
+  export COPS=( --noproxy \* --header "CInP-Version: 0.9" --header "Content-Type: application/json" )
   export SITE="/api/v1/Site/Site:site1:"
   export CHOST="http://127.0.0.1"
 
