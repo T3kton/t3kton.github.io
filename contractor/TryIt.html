@@ -235,7 +235,7 @@ http requests to contractor.</p>
 the Contractor server.  This is assuming you will be running these commands from
 the contractor VM, if you are running these steps from someplace else, update the
 ip address to the ip address of the contractor vm:</p>
-<div class="highlight-python"><div class="highlight"><pre>export COPS=( --header &quot;CInP-Version: 0.9&quot; --header &quot;Content-Type: application/json&quot; )
+<div class="highlight-python"><div class="highlight"><pre>export COPS=( --noproxy --header &quot;CInP-Version: 0.9&quot; --header &quot;Content-Type: application/json&quot; )
 export SITE=&quot;/api/v1/Site/Site:site1:&quot;
 export CHOST=&quot;http://127.0.0.1&quot;
 </pre></div>
@@ -385,8 +385,16 @@ done
 </pre></div>
 </div>
 <p>This VM needs to use the contractor generated dns, so edit
-<cite>/etc/network/interfaces</cite> to set the dns server to 127.0.0.1
-then, reload networking configuration:</p>
+<cite>/etc/network/interfaces</cite> to set the dns server to &#8220;127.0.0.1&#8221;, and set the dns
+search to &#8220;site1.test site1&#8221;. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>auto ensXXX
+iface ensXXX inet static
+  ...
+  dns-nameservers 127.0.0.1
+  dns-search site1.test site1
+</pre></div>
+</div>
+<p>then reload networking configuration:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo systemctl restart networking
 </pre></div>
 </div>
@@ -418,7 +426,7 @@ resources of your vm, etc.  You may also want to change the <cite>poll_delay</ci
 will cause subcontractor to ask for more tasks every 5 seconds instead of the default
 20.  If we were setting up a system that would be processing a lot of tasks, we would
 want to slow this down to reduce the overhead on contractor. In the dhcpd section,
-make sure interface and tftp_server are correct, tftp_server should be the ip of
+make sure <cite>listen_interface</cite> and <cite>tftp_server</cite> are correct, <cite>tftp_server</cite> should be the ip of
 the vm on the new internal interface.</p>
 <p>now start up subcontractor:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo systemctl start subcontractor
