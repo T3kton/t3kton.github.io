@@ -13,3 +13,18 @@ new network, and assign the ip `10.0.0.10` to that interface.
 
 In the `/etc/subcontractor.conf` file under the `dhcpd` section, set
 the `listen_interface` to the name of the newly created interface.
+
+VCenter GuestIDs
+================
+
+By default, the resources blueprint for CentOS Assume you are using VCenter 6.7
+or newer.  If you are using and older version of VCenter you will need to::
+
+  cd resources
+  make oldvcenter
+  make respkg
+  mv *.respkg ..
+  cd ..
+
+Otherwise your VCenter/ESX will give you an `invalidProperty = 'configSpec.guestId'`
+error when you build CentOS VMs.
