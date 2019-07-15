@@ -49,13 +49,33 @@ new network, and assign the ip <cite>10.0.0.10</cite> to that interface.</p>
 <p>In the <cite>/etc/subcontractor.conf</cite> file under the <cite>dhcpd</cite> section, set
 the <cite>listen_interface</cite> to the name of the newly created interface.</p>
 </div>
+<div class="section" id="vcenter-guestids">
+<h1>VCenter GuestIDs<a class="headerlink" href="#vcenter-guestids" title="Permalink to this headline">¶</a></h1>
+<p>By default, the resources blueprint for CentOS Assume you are using VCenter 6.7
+or newer.  If you are using and older version of VCenter you will need to:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd resources
+make oldvcenter
+make respkg
+mv *.respkg ..
+cd ..
+</pre></div>
+</div>
+<p>Otherwise your VCenter/ESX will give you an <cite>invalidProperty = &#8216;configSpec.guestId&#8217;</cite>
+error when you build CentOS VMs.</p>
+</div>
 
 
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Vcenter/ESX Setup</a></li>
+<li><a class="reference internal" href="#vcenter-guestids">VCenter GuestIDs</a></li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
