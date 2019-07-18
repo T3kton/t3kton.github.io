@@ -311,7 +311,7 @@ result::
 
   {"netmask": "255.255.255.0", "offset": 126, "updated": "2019-03-05T03:16:00.142926+00:00", "prefix": "24", "pointer": null, "networked": "/api/v1/Utilities/Networked:1:", "vlan": 0, "ip_address": "192.168.13.126", "is_primary": false, "interface_name": "eth0", "address_block": "/api/v1/Utilities/AddressBlock:2:", "created": "2019-03-05T02:45:12.304186+00:00", "gateway": "192.168.13.1", "sub_interface": null, "type": "Address", "network": "192.168.13.0"}
 
-create an interface eth1 for the ip to belong to (this represents the new interface
+create an interface `eth1` for the ip to belong to (this represents the new interface
 we created on the internal network)::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
@@ -643,7 +643,7 @@ let contractor pick, we are going to use the helper method `nextAddress`.  Repla
 `< structure id >` with the structure id from the previous call::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CALL "${CHOST}${ADRBLK}(nextAddress)"
-  { "structure": "/api/v1/Building/Structure:< structure id >:", "interface_name": "eth0", "is_primary": true }
+  { "networked": "/api/v1/Building/Structure:< structure id >:", "interface_name": "eth0", "is_primary": true }
   EOF
 
 output::
@@ -737,7 +737,7 @@ output::
 and assign the ip address, make sure to use the structure id from the testvm02 structure::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CALL "${CHOST}${ADRBLK}(nextAddress)"
-  { "structure": "/api/v1/Building/Structure:< structure id >:", "interface_name": "eth0", "is_primary": true }
+  { "networked": "/api/v1/Building/Structure:< structure id >:", "interface_name": "eth0", "is_primary": true }
   EOF
 
 output::
