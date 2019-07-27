@@ -44,14 +44,16 @@
 <p>The Goal of Contractor is to provide a Universal Interface/API to Automate
 Management, Provisioning, Deploying, and Configuration of Resource.</p>
 <p>Contractor uses building terms (for the most part) to try to avoid name
-colisions with various platforms and systems.</p>
+collisions with various platforms and systems.</p>
+<div class="section" id="foundations-and-structures">
+<h2>Foundations and Structures<a class="headerlink" href="#foundations-and-structures" title="Permalink to this headline">¶</a></h2>
 <p>First two terms are <strong>Foundation</strong> and <strong>Structure</strong>.  A Foundation is something
 to build on, a Structure is the thing you want to build.  Say we want to
 build a Web Server.  Our Structure is a set of configuration values and scripts
 required to build that web server, i.e., Install Ubuntu LTS 18.04 and install and
-Configure Apache (more on thoes details in .....).  The Foundation is what we
-want to install that on, i.e., a VM, Container, Blade Server, Baremetal Server,
-Rasbery PI, ECS, GCD, etc...  Not all Foundations are going to be compatible
+Configure Apache (more on those details in .....).  The Foundation is what we
+want to install that on, i.e., a VM, Container, Blade Server, Bare-metal Server,
+Raspberry PI, ECS, GCD, etc...  Not all Foundations are going to be compatible
 with all Structures, however a well defined Structure can be installed on most
 of them.</p>
 <p>So far we have this:</p>
@@ -69,6 +71,9 @@ of them.</p>
 +-----------------------------+
 </pre></div>
 </div>
+</div>
+<div class="section" id="sites">
+<h2>Sites<a class="headerlink" href="#sites" title="Permalink to this headline">¶</a></h2>
 <p>The next term is <strong>Site</strong>.  A site is a Logical grouping of things.  Let&#8217;s put
 our Web Server in a Site called &#8220;Cluster 1&#8221;</p>
 <div class="highlight-python"><div class="highlight"><pre>+-------------------------------------+
@@ -91,7 +96,7 @@ our Web Server in a Site called &#8220;Cluster 1&#8221;</p>
 </pre></div>
 </div>
 <p>Each Item we have used so far contains configuration values.  These are Key
-Value pairs that can be overlayed.  In this case Contractor will take the
+Value pairs that can be overlay-ed.  In this case Contractor will take the
 configuration values of &#8220;Cluster 1&#8221; then overlay them with &#8220;Foundation&#8221; and
 the &#8220;Structure&#8221;.</p>
 <p>Sites can be be put into other Sites.  For example we have Clusters 1, 2, and 3
@@ -132,12 +137,15 @@ A-B testing, etc.</p>
 <p>Any Item can make an HTTP request to Contractor and Contractor will reply with a JSON
 encoded reply with that item&#8217;s combined configuration values.</p>
 <p>This is all fun and all, but not really useful.  Let&#8217;s change things up a bit and
-install ESX on the baremetal and put a few Web servers on ESX.</p>
+install ESX on the bare-metal and put a few Web servers on ESX.</p>
 <p>Before we do that we need to dig into Foundations a little more. The <strong>Foundation</strong>
 class is meant as a root class for specific target handlers to work against.</p>
-<p>We are going to use the <strong>IPMIFoundation</strong> to handle the baremetal machines on which
+<p>We are going to use the <strong>IPMIFoundation</strong> to handle the bare-metal machines on which
 we are installing ESX on, and <strong>VCenterFoundation</strong> to handle the vms on the
 ESX/VCenter.</p>
+</div>
+<div class="section" id="complexes">
+<h2>Complexes<a class="headerlink" href="#complexes" title="Permalink to this headline">¶</a></h2>
 <p>Note: we are going to omit Cluster 2 and 3 for now, they are clones of Cluster 1:</p>
 <div class="highlight-python"><div class="highlight"><pre>+-----------------------------------------------------------------------------+
 | Datacenter West                                                             |
@@ -240,6 +248,7 @@ complex.  The Members of the Complex can even belong to another site.</p>
 <p>Complexes also cause Contractor to build the Web Server Structure/Foundations
 after the ESX Structure/Foundations are done.  Also the example would look pretty
 much the same for a Docker/OpenStack/etc Complex.</p>
+</div>
 <div class="section" id="side-track-to-the-manifesto">
 <h2>Side Track to the Manifesto<a class="headerlink" href="#side-track-to-the-manifesto" title="Permalink to this headline">¶</a></h2>
 <p>At this point you are probably wondering how having all these Foundation types
@@ -252,10 +261,10 @@ be tested and verified via CICD and similar work flows.  This way the very
 same configuration information is for all stages of deployment.  It is true
 that some Foundations require different considerations, however a well designed
 Structure Configuration can work for Containers (and the like) as well as
-OS installers (Baremetal/VM/Blade/AWS, etc.)  Now when the Operations people need to
-turn it up to 11 (or 12) they just pick the location to deploy and no matter if
-it is hosted on premise in VMs, or deployed to AWS for some peak load handling,
-Operations can scale as needed, to whatever.</p>
+OS installers (Baremetal/VM/Blade/AWS/Container, etc.)  Now when the Operations
+people need to turn it up to 11 (or 12) they just pick the location to deploy
+and no matter if it is hosted on premise in VMs, or deployed to AWS for some
+peak load handling, Operations can scale as needed, to whatever.</p>
 <p>Also by allowing every thing, no matter the platform, to be tracked in the same
 place, you now have a single source of truth for your monitoring system to rely on.
 You don&#8217;t have to worry about parts of your Micro Services failing to auto-register.
@@ -275,8 +284,8 @@ Container Cloud/Swarm with your micro services right next to standard VMs runnin
 the databases and object storage.  All with one &#8220;pane of glass&#8221;</p>
 <p>Ok, back to business, buzzword dropping disabled...</p>
 </div>
-<div class="section" id="back-to-business">
-<h2>Back to Business<a class="headerlink" href="#back-to-business" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
 <p>One final piece of the deployment puzzle, the <strong>Dependency</strong>.  This is to make sure
 your deployments happen in order.  For example, you can&#8217;t install any OSes until
 the Switch is provisioned.  Also you may have to allocate space on an NFS mount
@@ -288,17 +297,35 @@ to Depend on a Structure being built, and/or a job being run on a Structure.</p>
 <p>Now that we have talked about the parts, we need to talk about how those things
 are confugred and that is handled by <strong>BluePrint</strong>, specifically the
 <strong>FoundationBluePrint</strong> and the <strong>StructureBluePrint</strong>.  A Blueprint also holds
-cocnfiguration values, as well as links to scripts which are executed when the
+configuration values, as well as links to scripts which are executed when the
 Structure/Foundation that blueprint is for is configured, destroyed, or had a named
 script run on it.  The BluePrint is the thing that Engineering and Operations
 build to embody the process and configuration information of Creating the
 Structure/Foundation.</p>
+<p>A <strong>BluePrint</strong> can have multiple parents, this is useful for centralizing
+configuration information.</p>
+<p>A Blueprint must have (or one through it&#8217;s parents) two <strong>Scripts</strong>.  A
+&#8220;create&#8221; and a &#8220;destroy&#8221; script.  I can also have other named scripts
+for other tasks.  These scripts are written in <strong>tscript</strong> (see <a class="reference internal" href="tscript.html"><em>tscript</em></a>).</p>
+<p>Taking our example from above, the blueprint for the webserver would look something
+like (see :doc:ConfigurationValues for info on the configuration values):</p>
+<div class="highlight-python"><div class="highlight"><pre>[ structure.webserver ]
+  description = &#39;My Serbserver&#39;
+  parents = [ &#39;ubuntu-bionic-base&#39; ]
+[ structure.webserver.config_values ]
+  &#39;&gt;package_list&#39; = [ &#39;apache&#39;, &#39;myapp&#39; ]
+</pre></div>
+</div>
+<p>It would inherit the create/destroy scripts from <cite>linux-installer</cite>, which is an
+ancestor to <cite>ubuntu-bionic-base</cite> which is defined in <a class="reference external" href="https://github.com/T3kton/resources/blob/master/os-bases/ubuntu/usr/lib/contractor/resources/ubuntu.toml">https://github.com/T3kton/resources/blob/master/os-bases/ubuntu/usr/lib/contractor/resources/ubuntu.toml</a>.
+<cite>linux-installer</cite> is defined here <a class="reference external" href="https://github.com/T3kton/resources/blob/master/os-bases/os_base/usr/lib/contractor/resources/base_os.toml">https://github.com/T3kton/resources/blob/master/os-bases/os_base/usr/lib/contractor/resources/base_os.toml</a>.</p>
 </div>
 <div class="section" id="other">
 <h2>Other<a class="headerlink" href="#other" title="Permalink to this headline">¶</a></h2>
 <p>There are other Classes/Components in Contractor, but they are mostly for dealing
-with Configure/Destroy/Misc Jobs (the Foreman module).  As well as keeping track
-of Ip Addresses and other &#8220;Utilities&#8221;.  Those are documented elsewhere.</p>
+with Configure/Destroy/Misc Jobs (the Foreman module), or managing DNS Zones (Directory module).
+As well as keeping track of Ip Addresses and other &#8220;Utilities&#8221; in the Utilities module.
+Those are documented elsewhere.</p>
 </div>
 </div>
 
@@ -311,8 +338,11 @@ of Ip Addresses and other &#8220;Utilities&#8221;.  Those are documented elsewhe
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Introduction to Contractor</a><ul>
+<li><a class="reference internal" href="#foundations-and-structures">Foundations and Structures</a></li>
+<li><a class="reference internal" href="#sites">Sites</a></li>
+<li><a class="reference internal" href="#complexes">Complexes</a></li>
 <li><a class="reference internal" href="#side-track-to-the-manifesto">Side Track to the Manifesto</a></li>
-<li><a class="reference internal" href="#back-to-business">Back to Business</a></li>
+<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li><a class="reference internal" href="#blueprints">BluePrints</a></li>
 <li><a class="reference internal" href="#other">Other</a></li>
 </ul>

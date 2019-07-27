@@ -5,15 +5,18 @@ The Goal of Contractor is to provide a Universal Interface/API to Automate
 Management, Provisioning, Deploying, and Configuration of Resource.
 
 Contractor uses building terms (for the most part) to try to avoid name
-colisions with various platforms and systems.
+collisions with various platforms and systems.
+
+Foundations and Structures
+--------------------------
 
 First two terms are **Foundation** and **Structure**.  A Foundation is something
 to build on, a Structure is the thing you want to build.  Say we want to
 build a Web Server.  Our Structure is a set of configuration values and scripts
 required to build that web server, i.e., Install Ubuntu LTS 18.04 and install and
-Configure Apache (more on thoes details in .....).  The Foundation is what we
-want to install that on, i.e., a VM, Container, Blade Server, Baremetal Server,
-Rasbery PI, ECS, GCD, etc...  Not all Foundations are going to be compatible
+Configure Apache (more on those details in .....).  The Foundation is what we
+want to install that on, i.e., a VM, Container, Blade Server, Bare-metal Server,
+Raspberry PI, ECS, GCD, etc...  Not all Foundations are going to be compatible
 with all Structures, however a well defined Structure can be installed on most
 of them.
 
@@ -32,6 +35,9 @@ So far we have this::
   |                             |
   +-----------------------------+
 
+
+Sites
+-----
 
 The next term is **Site**.  A site is a Logical grouping of things.  Let's put
 our Web Server in a Site called "Cluster 1"
@@ -57,7 +63,7 @@ our Web Server in a Site called "Cluster 1"
   +-------------------------------------+
 
 Each Item we have used so far contains configuration values.  These are Key
-Value pairs that can be overlayed.  In this case Contractor will take the
+Value pairs that can be overlay-ed.  In this case Contractor will take the
 configuration values of "Cluster 1" then overlay them with "Foundation" and
 the "Structure".
 
@@ -103,14 +109,17 @@ Any Item can make an HTTP request to Contractor and Contractor will reply with a
 encoded reply with that item's combined configuration values.
 
 This is all fun and all, but not really useful.  Let's change things up a bit and
-install ESX on the baremetal and put a few Web servers on ESX.
+install ESX on the bare-metal and put a few Web servers on ESX.
 
 Before we do that we need to dig into Foundations a little more. The **Foundation**
 class is meant as a root class for specific target handlers to work against.
 
-We are going to use the **IPMIFoundation** to handle the baremetal machines on which
+We are going to use the **IPMIFoundation** to handle the bare-metal machines on which
 we are installing ESX on, and **VCenterFoundation** to handle the vms on the
 ESX/VCenter.
+
+Complexes
+---------
 
 Note: we are going to omit Cluster 2 and 3 for now, they are clones of Cluster 1::
 
@@ -229,10 +238,10 @@ be tested and verified via CICD and similar work flows.  This way the very
 same configuration information is for all stages of deployment.  It is true
 that some Foundations require different considerations, however a well designed
 Structure Configuration can work for Containers (and the like) as well as
-OS installers (Baremetal/VM/Blade/AWS, etc.)  Now when the Operations people need to
-turn it up to 11 (or 12) they just pick the location to deploy and no matter if
-it is hosted on premise in VMs, or deployed to AWS for some peak load handling,
-Operations can scale as needed, to whatever.
+OS installers (Baremetal/VM/Blade/AWS/Container, etc.)  Now when the Operations
+people need to turn it up to 11 (or 12) they just pick the location to deploy
+and no matter if it is hosted on premise in VMs, or deployed to AWS for some
+peak load handling, Operations can scale as needed, to whatever.
 
 Also by allowing every thing, no matter the platform, to be tracked in the same
 place, you now have a single source of truth for your monitoring system to rely on.
@@ -257,8 +266,8 @@ the databases and object storage.  All with one "pane of glass"
 
 Ok, back to business, buzzword dropping disabled...
 
-Back to Business
-----------------
+Dependencies
+------------
 
 One final piece of the deployment puzzle, the **Dependency**.  This is to make sure
 your deployments happen in order.  For example, you can't install any OSes until
@@ -273,15 +282,38 @@ BluePrints
 Now that we have talked about the parts, we need to talk about how those things
 are confugred and that is handled by **BluePrint**, specifically the
 **FoundationBluePrint** and the **StructureBluePrint**.  A Blueprint also holds
-cocnfiguration values, as well as links to scripts which are executed when the
+configuration values, as well as links to scripts which are executed when the
 Structure/Foundation that blueprint is for is configured, destroyed, or had a named
 script run on it.  The BluePrint is the thing that Engineering and Operations
 build to embody the process and configuration information of Creating the
 Structure/Foundation.
 
+A **BluePrint** can have multiple parents, this is useful for centralizing
+configuration information.
+
+A Blueprint must have (or one through it's parents) two **Scripts**.  A
+"create" and a "destroy" script.  I can also have other named scripts
+for other tasks.  These scripts are written in **tscript** (see :doc:`tscript`).
+
+Taking our example from above, the blueprint for the webserver would look something
+like (see :doc:ConfigurationValues for info on the configuration values)::
+
+
+  [ structure.webserver ]
+    description = 'My Serbserver'
+    parents = [ 'ubuntu-bionic-base' ]
+  [ structure.webserver.config_values ]
+    '>package_list' = [ 'apache', 'myapp' ]
+
+It would inherit the create/destroy scripts from `linux-installer`, which is an
+ancestor to `ubuntu-bionic-base` which is defined in https://github.com/T3kton/resources/blob/master/os-bases/ubuntu/usr/lib/contractor/resources/ubuntu.toml.
+`linux-installer` is defined here https://github.com/T3kton/resources/blob/master/os-bases/os_base/usr/lib/contractor/resources/base_os.toml.
+
+
 Other
 -----
 
 There are other Classes/Components in Contractor, but they are mostly for dealing
-with Configure/Destroy/Misc Jobs (the Foreman module).  As well as keeping track
-of Ip Addresses and other "Utilities".  Those are documented elsewhere.
+with Configure/Destroy/Misc Jobs (the Foreman module), or managing DNS Zones (Directory module).
+As well as keeping track of Ip Addresses and other "Utilities" in the Utilities module.
+Those are documented elsewhere.

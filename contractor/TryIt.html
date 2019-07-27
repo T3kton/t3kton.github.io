@@ -327,7 +327,7 @@ EOF
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">126</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-05T03:16:00.142926+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;pointer&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;networked&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Networked:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;vlan&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.13.126&quot;</span><span class="p">,</span> <span class="s2">&quot;is_primary&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;interface_name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-05T02:45:12.304186+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.13.1&quot;</span><span class="p">,</span> <span class="s2">&quot;sub_interface&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Address&quot;</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.13.0&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>create an interface eth1 for the ip to belong to (this represents the new interface
+<p>create an interface <cite>eth1</cite> for the ip to belong to (this represents the new interface
 we created on the internal network):</p>
 <div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
 { &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:contractor:&quot;, &quot;name&quot;: &quot;eth1&quot;, &quot;physical_location&quot;: &quot;eth1&quot;, &quot;is_provisioning&quot;: false }
@@ -652,7 +652,7 @@ EOF
 let contractor pick, we are going to use the helper method <cite>nextAddress</cite>.  Replace
 <cite>&lt; structure id &gt;</cite> with the structure id from the previous call:</p>
 <div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CALL &quot;${CHOST}${ADRBLK}(nextAddress)&quot;
-{ &quot;structure&quot;: &quot;/api/v1/Building/Structure:&lt; structure id &gt;:&quot;, &quot;interface_name&quot;: &quot;eth0&quot;, &quot;is_primary&quot;: true }
+{ &quot;networked&quot;: &quot;/api/v1/Building/Structure:&lt; structure id &gt;:&quot;, &quot;interface_name&quot;: &quot;eth0&quot;, &quot;is_primary&quot;: true }
 EOF
 </pre></div>
 </div>
@@ -742,7 +742,7 @@ Content-Type: application/json;charset=utf-8
 </div>
 <p>and assign the ip address, make sure to use the structure id from the testvm02 structure:</p>
 <div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CALL &quot;${CHOST}${ADRBLK}(nextAddress)&quot;
-{ &quot;structure&quot;: &quot;/api/v1/Building/Structure:&lt; structure id &gt;:&quot;, &quot;interface_name&quot;: &quot;eth0&quot;, &quot;is_primary&quot;: true }
+{ &quot;networked&quot;: &quot;/api/v1/Building/Structure:&lt; structure id &gt;:&quot;, &quot;interface_name&quot;: &quot;eth0&quot;, &quot;is_primary&quot;: true }
 EOF
 </pre></div>
 </div>

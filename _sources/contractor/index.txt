@@ -11,6 +11,7 @@ Contents:
   ConfigurationValues
   IpAddresses
   Modules
+  tscript
   Plugins
   Resources
   API
