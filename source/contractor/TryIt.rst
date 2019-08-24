@@ -96,7 +96,9 @@ Configure Apache
 
 We will need a HTTP site to serve up static resources, as well as a Proxy server
 to bridge from the isolated network.  This proxy server will also cache, that will
-make things install faster the second time.
+make things install faster the second time.  We are using Apache to Proxy with for
+this example, however you can use any proxy you would like, just update the proxy
+information when calling `setupWizard` later.
 
 First create the directory for the static resources::
 
