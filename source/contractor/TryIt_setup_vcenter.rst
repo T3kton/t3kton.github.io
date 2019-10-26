@@ -1,7 +1,7 @@
 Vcenter/ESX Setup
 =================
 
-For the puropses of this demo, VCenter it's self is not required.  All you will
+For the purposes of this demo, VCenter it's self is not required.  All you will
 need is a standalone ESX server.  To prevent Contractor from DHCPing your other
 systems, you will want to create a private network to build contractor's targets in.
 This demo assumes it will be `10.0.0.1/24`.  For our example name it "internal",
@@ -28,3 +28,5 @@ or newer.  If you are using and older version of VCenter you will need to::
 
 Otherwise your VCenter/ESX will give you an `invalidProperty = 'configSpec.guestId'`
 error when you build CentOS VMs.
+
+return to :ref:`contractor/TryIt:setup`

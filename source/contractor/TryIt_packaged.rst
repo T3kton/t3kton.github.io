@@ -1,6 +1,9 @@
 Prebuilt Packages
 =================
 
+NOTE:  This is is a bit old, try from source.  When we have a place to host auto-built packages better figured
+out, this will be usefull again.
+
 .. Installing from pre-built packages
 .. ----------------------------------
 
@@ -71,3 +74,5 @@ The resource packages are not hosted publicly so you will need to build them::
 ..   apt install -f
 ..   systemctl stop dhcpd
 ..   systemctl stop subcontractor
+
+return to :ref:`contractor/TryIt:installing`

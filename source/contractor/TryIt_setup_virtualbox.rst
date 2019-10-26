@@ -41,3 +41,5 @@ running virtualbox run (if you are using linux)::
 windows::
 
   vboxwebsrv.exe -H 10.0.0.1
+
+return to :ref:`contractor/TryIt:setup`
