@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Setting up VM Host &#8212; t3kton 1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="setting-up-vm-host">
+<h1>Setting up VM Host<a class="headerlink" href="#setting-up-vm-host" title="Permalink to this headline">¶</a></h1>
+<p>First we need to make a pre-built entry on a manual foundation to represent the
+virtualbox/vcenter/esx host, first creating the foundation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Manual/ManualFoundation
+{ &quot;site&quot;: &quot;$SITE&quot;, &quot;locator&quot;: &quot;host&quot;, &quot;blueprint&quot;: &quot;/api/v1/BluePrint/FoundationBluePrint:manual-foundation-base:&quot; }
+EOF
+</pre></div>
+</div>
+<p>result:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;id_map&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;located_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;class_list&quot;</span><span class="p">:</span> <span class="s2">&quot;[&#39;Metal&#39;, &#39;VM&#39;, &#39;Container&#39;, &#39;Switch&#39;, &#39;Manual&#39;]&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:manual-foundation-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T16:48:53.818982+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;locator&quot;</span><span class="p">:</span> <span class="s2">&quot;host&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T16:48:53.818962+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Manual&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>create the interface:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
+{ &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:host:&quot;, &quot;name&quot;: &quot;eth0&quot;, &quot;physical_location&quot;: &quot;eth0&quot;, &quot;network&quot;: &quot;$NETWORK&quot;, &quot;is_provisioning&quot;: true }
+EOF
+</pre></div>
+</div>
+<p>result:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:host:&quot;</span><span class="p">,</span> <span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;link_name&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Network:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;is_provisioning&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-24T21:14:47.994825+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-24T21:14:47.994854+00:00&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Now to create the structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/Structure
+{ &quot;site&quot;: &quot;$SITE&quot;, &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:host:&quot;, &quot;hostname&quot;: &quot;host&quot;, &quot;blueprint&quot;: &quot;/api/v1/BluePrint/StructureBluePrint:manual-structure-base:&quot; }
+EOF
+</pre></div>
+</div>
+<p>result:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;config_uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;349c8a47-e123-4234-91de-c387a440ffa5&quot;</span><span class="p">,</span> <span class="s2">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;host&quot;</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/StructureBluePrint:manual-structure-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:host:&quot;</span><span class="p">,</span> <span class="s2">&quot;config_values&quot;</span><span class="p">:</span> <span class="p">{},</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T16:49:20.064258+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T16:49:20.064239+00:00&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Take note of the new structures id.  You might want to write it done somewhere,
+we will be using it a few times.</p>
+<p>now we need to tell contractor it is allready built so it dosen’t try to build it
+again.  There curently isn’t a API endpoint to manipluate the state of targets,
+so we will use a command line utility, this command needs to be run on the
+contractor VM. replace <cite>&lt; structure id &gt;</cite> with the id from the previous step:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">util</span><span class="o">/</span><span class="n">boss</span> <span class="o">-</span><span class="n">f</span> <span class="n">host</span> <span class="o">--</span><span class="n">built</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">util</span><span class="o">/</span><span class="n">boss</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span> <span class="n">structure</span> <span class="nb">id</span> <span class="o">&gt;</span> <span class="o">--</span><span class="n">built</span>
+</pre></div>
+</div>
+<p>which will output something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Working</span> <span class="k">with</span> <span class="s2">&quot;ManualFoundation host&quot;</span>
+<span class="n">No</span> <span class="n">Job</span> <span class="n">to</span> <span class="n">Delete</span>
+<span class="n">ManualFoundation</span> <span class="n">host</span> <span class="n">now</span> <span class="nb">set</span> <span class="n">to</span> <span class="n">built</span><span class="o">.</span>
+<span class="n">Working</span> <span class="k">with</span> <span class="s2">&quot;Structure #2(host) of &quot;</span><span class="n">manual</span><span class="o">-</span><span class="n">structure</span><span class="o">-</span><span class="n">base</span><span class="s2">&quot; in &quot;</span><span class="n">site1</span><span class="s2">&quot;&quot;</span>
+<span class="n">No</span> <span class="n">Job</span> <span class="n">to</span> <span class="n">Delete</span>
+<span class="n">Structure</span> <span class="c1">#2(host) of &quot;manual-structure-base&quot; in &quot;site1&quot; now set to built.</span>
+</pre></div>
+</div>
+<p>Now to define the foundation blueprint and create the complex.</p>
+</div>
+<div class="section" id="vcenter">
+<h1>VCenter<a class="headerlink" href="#vcenter" title="Permalink to this headline">¶</a></h1>
+<p>Environment setup:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">FBP</span><span class="o">=</span><span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:vcenter-vm-base:&quot;</span>
+<span class="n">export</span> <span class="n">FMDL</span><span class="o">=</span><span class="s2">&quot;/api/v1/VCenter/VCenterFoundation&quot;</span>
+<span class="n">export</span> <span class="n">FDATA</span><span class="o">=</span><span class="s1">&#39;, &quot;vcenter_complex&quot;: &quot;/api/v1/VCenter/VCenterComplex:demovcenter:&quot;&#39;</span>
+</pre></div>
+</div>
+<p>First create the VCenterBox Complex, replace <cite>&lt; datacenter &gt;</cite> with the name of
+the VCenter datacenter to put the VMs in, if using ESX directly put ‘ha-datacenter’,
+replace <cite>&lt; cluster &gt;</cite> with the name of the cluster to put the vms in, if using
+ESX put the fqdn of the ESX server (if you only specified a hostname it will be
+&lt;hostname&gt; + ‘.’ ), if it’s still default it will be ‘localhost.’.
+Replace <cite>&lt; structure id &gt;</cite>
+with the strudture id from the host creation above, <cite>&lt; username &gt;</cite> and <cite>&lt; password &gt;</cite>
+replace with the ESX/VCenter username and password:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/VCenter/VCenterComplex
+{ &quot;site&quot;: &quot;$SITE&quot;, &quot;name&quot;: &quot;demovcenter&quot;, &quot;description&quot;: &quot;Demo VCenter/ESX Host/Complex&quot;, &quot;vcenter_datacenter&quot;: &quot;&lt; datacenter &gt;&quot;, &quot;vcenter_cluster&quot;: &quot;&lt; cluster &gt;&quot;, &quot;vcenter_host&quot;: &quot;/api/v1/Building/Structure:&lt; structure id&gt;:&quot;, &quot;vcenter_username&quot;: &quot;&lt; username &gt;&quot;, &quot;vcenter_password&quot;: &quot;&lt; password &gt;&quot; }
+EOF
+</pre></div>
+</div>
+<p>result:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;built_percentage&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T23:51:33.613222+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;vcenter_host&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Structure:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;vcenter_password&quot;</span><span class="p">:</span> <span class="s2">&quot;vmware&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T23:51:33.613199+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;vcenter_cluster&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;demovcenter&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Demo VCenter/ESX Host/Complex&quot;</span><span class="p">,</span> <span class="s2">&quot;vcenter_datacenter&quot;</span><span class="p">:</span> <span class="s2">&quot;ha-datacenter&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;VCenter&quot;</span><span class="p">,</span> <span class="s2">&quot;members&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;vcenter_username&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Technically if you are using VCenter, you should create another structure
+so Contractor knows the hosts of the VCenter cluster, however, for the sake of
+simplicity, we will just add the ESX Host/VCenter cluster we just added as the host
+of the VCenterCluster as it’s only member,  once again the <cite>&lt; structure id &gt;</cite> is
+the id of the manual structure  we have been using so far:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/ComplexStructure
+{ &quot;complex&quot;: &quot;/api/v1/Building/Complex:demovcenter:&quot;, &quot;structure&quot;: &quot;/api/v1/Building/Structure:&lt; structure id&gt;:&quot; }
+EOF
+</pre></div>
+</div>
+<p>result:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-24T00:02:06.164123+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;complex&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Complex:demovcenter:&quot;</span><span class="p">,</span> <span class="s2">&quot;structure&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Structure:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-24T00:02:06.164082+00:00&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>now to set the ip address of the vcenter/esx host. This ip will be used by
+subcontractor to communicate with VCenter to manipulate vms, and will need to be
+route-able from the contractor vm (where subcontractor is installed), this assumes
+that address is in the address space of the contractor vm, specifically the network
+that setupWizard created, Which should be attached to AddressBlock 1.  Change <cite>&lt; offset &gt;</cite>
+to the offset of the VCenter/ESX host, if the VCenter/ESX host is not in the same
+network that the contractor was created in, (and thus the same network that was
+setup bu the setup wizzard), you will need to create another AddressBlock and update
+the following call to use that AddressBlock in the following.  Replace structure id
+with the id from the structure creation step:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/Address
+{ &quot;networked&quot;: &quot;/api/v1/Utilities/Networked:&lt; structure id &gt;:&quot;, &quot;address_block&quot;: &quot;/api/v1/Utilities/AddressBlock:1:&quot;, &quot;interface_name&quot;: &quot;eth0&quot;, &quot;offset&quot;: &lt; offset &gt;, &quot;is_primary&quot;: true }
+EOF
+</pre></div>
+</div>
+<p>result:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T18:51:53.521628+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Address&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.13.22&quot;</span><span class="p">,</span> <span class="s2">&quot;interface_name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.13.0&quot;</span><span class="p">,</span> <span class="s2">&quot;sub_interface&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;is_primary&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span> <span class="s2">&quot;pointer&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.13.1&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T18:51:53.521652+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;networked&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Networked:2:&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="virtualbox">
+<h1>VirtualBox<a class="headerlink" href="#virtualbox" title="Permalink to this headline">¶</a></h1>
+<p>Environment setup:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">FBP</span><span class="o">=</span><span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:virtualbox-vm-base:&quot;</span>
+<span class="n">export</span> <span class="n">FMDL</span><span class="o">=</span><span class="s2">&quot;/api/v1/VirtualBox/VirtualBoxFoundation&quot;</span>
+<span class="n">export</span> <span class="n">FDATA</span><span class="o">=</span><span class="s1">&#39;, &quot;virtualbox_complex&quot;: &quot;/api/v1/VirtualBox/VirtualBoxComplex:demovbox:&quot;&#39;</span>
+</pre></div>
+</div>
+<p>First create the VirtualBox Complex, replace the <cite>&lt; username &gt;</cite> and <cite>&lt; password &gt;</cite>
+with either your username and password for the machine with vbox running on it,
+or if you ran the vboxmanage command to disable the auth library, you can leave
+the username and password a few random alpha letters:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/VirtualBox/VirtualBoxComplex
+{ &quot;site&quot;: &quot;$SITE&quot;, &quot;name&quot;: &quot;demovbox&quot;, &quot;virtualbox_username&quot;: &quot;&lt; username &gt;&quot;, &quot;virtualbox_password&quot;: &quot;&lt; password &gt;&quot;, &quot;description&quot;: &quot;Demo VirtualBox Host/Complex&quot; }
+EOF
+</pre></div>
+</div>
+<p>result:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Demo VirtualBox Host/Complex&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-05T03:29:33.401162+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;built_percentage&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span> <span class="s2">&quot;virtualbox_password&quot;</span><span class="p">:</span> <span class="s2">&quot;asdf&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;demovbox&quot;</span><span class="p">,</span> <span class="s2">&quot;virtualbox_username&quot;</span><span class="p">:</span> <span class="s2">&quot;asdf&quot;</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-05T03:29:33.401328+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;members&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;VirtualBox&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Now we add the structure host we manually created as a member of the complex,
+replace <cite>&lt; structure id &gt;</cite> with the id from the manul host structure from above:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/ComplexStructure
+{ &quot;complex&quot;: &quot;/api/v1/Building/Complex:demovbox:&quot;, &quot;structure&quot;: &quot;/api/v1/Building/Structure:&lt; structure id&gt;:&quot; }
+EOF
+</pre></div>
+</div>
+<p>result:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;complex&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Complex:demovbox:&quot;</span><span class="p">,</span> <span class="s2">&quot;structure&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Structure:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-20T04:55:31.730431+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-20T04:55:31.730357+00:00&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>now to set the ip address, this is the ip address of virtualbox the host.
+This is the same ip that we passed to vboxwebsrv, which is offset 1 of the internal
+network we created, once again replace <cite>&lt; structure id &gt;</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/Address
+{ &quot;networked&quot;: &quot;/api/v1/Utilities/Networked:&lt; structure id &gt;:&quot;, &quot;address_block&quot;: &quot;/api/v1/Utilities/AddressBlock:1:&quot;, &quot;interface_name&quot;: &quot;eth0&quot;, &quot;offset&quot;: 1, &quot;is_primary&quot;: true }
+EOF
+</pre></div>
+</div>
+<p>result:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T18:51:53.521628+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Address&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.13.22&quot;</span><span class="p">,</span> <span class="s2">&quot;interface_name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.13.0&quot;</span><span class="p">,</span> <span class="s2">&quot;sub_interface&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;is_primary&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span> <span class="s2">&quot;pointer&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.13.1&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T18:51:53.521652+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;networked&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Networked:2:&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Contractor is now running, now let’s configure it to make a VM.</p>
+</div>
+<div class="section" id="next-steps">
+<h1>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="TryIt_create_vm.html"><span class="doc">Creating a VM (Ubuntu)</span></a></p>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">t3kton</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Contractor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#id1">Contractor</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Peter Howe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

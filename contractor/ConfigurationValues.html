@@ -1,71 +1,65 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Configuration Values &mdash; t3kton 1.0 documentation</title>
-    
+    <meta charset="utf-8" />
+    <title>Configuration Values &#8212; t3kton 1.0 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="t3kton 1.0 documentation" href="../index.html" />
-    <link rel="up" title="Contractor" href="index.html" />
-    <link rel="next" title="Ip Addresses" href="IpAddresses.html" />
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Networking" href="Networking.html" />
     <link rel="prev" title="Give it a Try" href="TryIt.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body role="document">  
+  </head><body>
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="configuration-values">
 <h1>Configuration Values<a class="headerlink" href="#configuration-values" title="Permalink to this headline">¶</a></h1>
 <p>Config value key names must match the regex:</p>
-<div class="highlight-python"><div class="highlight"><pre>^[&lt;&gt;\-~]?[a-zA-Z0-9][a-zA-Z0-9_\-]*(:[a-zA-Z0-9]+)?$
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>^[&lt;&gt;\-~]?[a-zA-Z0-9][a-zA-Z0-9_\-]*(:[a-zA-Z0-9]+)?$
 </pre></div>
 </div>
 <p>If the first character is: (processed in this order)</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">-:</th><td class="field-body">remove from the value so far</td>
-</tr>
-<tr class="field-even field"><th class="field-name">&lt;nothing&gt;:</th><td class="field-body">overlay/replace value so far with new value</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">&lt;:</th><td class="field-body">prepend to the value so far (same affect as append on dict/maps)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">&gt;:</th><td class="field-body">append to the value so far</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">~:</th><td class="field-body">mask out/hide value so far, (NOTE: value is ignored)</td>
-</tr>
-</tbody>
-</table>
+<div><dl class="field-list simple">
+<dt class="field-odd">-</dt>
+<dd class="field-odd"><p>remove from the value so far</p>
+</dd>
+<dt class="field-even">&lt;nothing&gt;</dt>
+<dd class="field-even"><p>overlay/replace value so far with new value</p>
+</dd>
+<dt class="field-odd">&lt;</dt>
+<dd class="field-odd"><p>prepend to the value so far (same affect as append on dict/maps)</p>
+</dd>
+<dt class="field-even">&gt;</dt>
+<dd class="field-even"><p>append to the value so far</p>
+</dd>
+<dt class="field-odd">~</dt>
+<dd class="field-odd"><p>mask out/hide value so far, (NOTE: value is ignored)</p>
+</dd>
+</dl>
 </div></blockquote>
 <p>If <cite>:[a-zA-Z0-9]+</cite> is present, the value key/value is only applied if the class
-(the part that comes after the &#8216;:&#8217;) matches the classes indicated by the
+(the part that comes after the ‘:’) matches the classes indicated by the
 foundation.  This is the <strong>_foundation_class_list</strong>.</p>
 <div class="section" id="global-and-config-attributes">
 <h2>Global and Config Attributes<a class="headerlink" href="#global-and-config-attributes" title="Permalink to this headline">¶</a></h2>
@@ -80,35 +74,35 @@ rules, as they are set internally.  They are also not affected by config classes
 before outputting and before merging with a PXE or Boot template.</p>
 <p>For documentation on Jina2 see <a class="reference external" href="http://jinja.pocoo.org/">http://jinja.pocoo.org/</a></p>
 <p>For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>root_zone: &#39;myservice.com&#39;
-dns_search: [ &#39;site1.{{ root_zone }}&#39;, &#39;{{ root_zone }}&#39; ]
-dns_zone: &#39;site1.{{ root_zone }}&#39;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root_zone</span><span class="p">:</span> <span class="s1">&#39;myservice.com&#39;</span>
+<span class="n">dns_search</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;site1.{{ root_zone }}&#39;</span><span class="p">,</span> <span class="s1">&#39;{{ root_zone }}&#39;</span> <span class="p">]</span>
+<span class="n">dns_zone</span><span class="p">:</span> <span class="s1">&#39;site1.{{ root_zone }}&#39;</span>
 </pre></div>
 </div>
 <p>Becomes:</p>
-<div class="highlight-python"><div class="highlight"><pre>root_zone: &#39;myservice.com&#39;
-dns_search: [ &#39;site1.myservice.com&#39;, &#39;myservice.com&#39; ]
-dns_zone: &#39;site1.myservice.com&#39;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root_zone</span><span class="p">:</span> <span class="s1">&#39;myservice.com&#39;</span>
+<span class="n">dns_search</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;site1.myservice.com&#39;</span><span class="p">,</span> <span class="s1">&#39;myservice.com&#39;</span> <span class="p">]</span>
+<span class="n">dns_zone</span><span class="p">:</span> <span class="s1">&#39;site1.myservice.com&#39;</span>
 </pre></div>
 </div>
 <p>Jinja filters can be used:</p>
-<div class="highlight-python"><div class="highlight"><pre>dns_search: [ &#39;site1.{{ root_zone|default(\&#39;.test\&#39;) }}&#39;, &#39;{{ root_zone|default(\&#39;.test\&#39;) }}&#39; ]
-dns_zone: &#39;site1.{{ root_zone|default(\&#39;.test\&#39;) }}&#39;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dns_search</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;site1.{{ root_zone|default(</span><span class="se">\&#39;</span><span class="s1">.test</span><span class="se">\&#39;</span><span class="s1">) }}&#39;</span><span class="p">,</span> <span class="s1">&#39;{{ root_zone|default(</span><span class="se">\&#39;</span><span class="s1">.test</span><span class="se">\&#39;</span><span class="s1">) }}&#39;</span> <span class="p">]</span>
+<span class="n">dns_zone</span><span class="p">:</span> <span class="s1">&#39;site1.{{ root_zone|default(</span><span class="se">\&#39;</span><span class="s1">.test</span><span class="se">\&#39;</span><span class="s1">) }}&#39;</span>
 </pre></div>
 </div>
 <p>Becomes:</p>
-<div class="highlight-python"><div class="highlight"><pre>dns_search: [ &#39;site1..test&#39;, &#39;.test&#39; ]
-dns_zone: &#39;site1..test&#39;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dns_search</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;site1..test&#39;</span><span class="p">,</span> <span class="s1">&#39;.test&#39;</span> <span class="p">]</span>
+<span class="n">dns_zone</span><span class="p">:</span> <span class="s1">&#39;site1..test&#39;</span>
 </pre></div>
 </div>
 <p>NOTE:  There is not sorting nor predictable order, be careful when embeding/referencing,
 you may get random results.  A second (or more) evaluation round can be forced by escaping
-the &#8216;{{&#8216; ie:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span> <span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="s1">&#39;{{ &quot;{{&quot; }}{{b}}}}&#39;</span> <span class="p">}</span>
+the ‘{{‘ ie:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="s1">&#39;{{ &quot;{{&quot; }}{{b}}}}&#39;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>the result will be:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span> <span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="s1">&#39;c&#39;</span> <span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="s1">&#39;c&#39;</span> <span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -119,30 +113,29 @@ the &#8216;{{&#8216; ie:</p>
 <div class="section" id="sources-of-configuration-values">
 <h2>Sources of Configuration Values<a class="headerlink" href="#sources-of-configuration-values" title="Permalink to this headline">¶</a></h2>
 <p>In general the order is blueprint, attributes, config values, and global attributes</p>
-<dl class="docutils">
-<dt>For a Site</dt>
-<dd>Parents in order from parent to child
+<dl>
+<dt>For a Site</dt><dd><p>Parents in order from parent to child
 Target Site config values
-Global attribute values</dd>
-<dt>For a Foundation</dt>
-<dd>Foundation&#8217;s BluePrint (with its parents applied)
-Foundation&#8217;s attribute values (including values from a complex, if Foundation belongs to a complex)
-Site (with its parents applied)
-Global attribute values</dd>
-<dt>For a Structure</dt>
-<dd><p class="first">Structures&#8217;s BluePrint (with its parents applied)
-Foundation&#8217;s attribute values
-Site (with its parents applied)
-Structure&#8217;s attribute values
-Structure&#8217;s config_values
 Global attribute values</p>
-<p>NOTE: the Foundation&#8217;s BluePrint values are NOT used, these are only for the physical provisioning of the Foundation, ie: BIOS settings, the Structure can specify values for the Foundation by which FoundationBluePrints the Structure BluePrint supports</p>
-<p class="last">NOTE2: also includes the complex values, if the foundation belongs to a complex</p>
 </dd>
-<dt>NOTE:</dt>
-<dd>Site configs are applied from the top most parent down with the child overlaying the parent.
+<dt>For a Foundation</dt><dd><p>Foundation’s BluePrint (with its parents applied)
+Foundation’s attribute values (including values from a complex, if Foundation belongs to a complex)
+Site (with its parents applied)
+Global attribute values</p>
+</dd>
+<dt>For a Structure</dt><dd><p>Structures’s BluePrint (with its parents applied)
+Foundation’s attribute values
+Site (with its parents applied)
+Structure’s attribute values
+Structure’s config_values
+Global attribute values</p>
+<p>NOTE: the Foundation’s BluePrint values are NOT used, these are only for the physical provisioning of the Foundation, ie: BIOS settings, the Structure can specify values for the Foundation by which FoundationBluePrints the Structure BluePrint supports</p>
+<p>NOTE2: also includes the complex values, if the foundation belongs to a complex</p>
+</dd>
+<dt>NOTE:</dt><dd><p>Site configs are applied from the top most parent down with the child overlaying the parent.
 BluePrint configs are applied Top down, and across each layer, the order of siblings is not predictable.
-BluePrint scripts are searched BFS (Breadth First Search), the order of siblings is not predictable.</dd>
+BluePrint scripts are searched BFS (Breadth First Search), the order of siblings is not predictable.</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="attribute-values">
@@ -163,152 +156,153 @@ the most recent modification date to any of the sources of configuration informa
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>NOTE: for the following examples the ip address attributes and global attributes
 are ommited.</p>
-<p>Let&#8217;s start with a Site with the following values:</p>
-<div class="highlight-python"><div class="highlight"><pre>+-------------------------------------------+
-|                                           |
-| dns_servers: [ &#39;10.0.0.20&#39;, &#39;10.0.0.21&#39; ] |
-| dns_search: [ &#39;myservice.com&#39; ]           |
-| dns_zone: &#39;myservice.com&#39;                 |
-|                                           |
-+-------------------------------------------+
+<p>Let’s start with a Site with the following values:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-------------------------------------------+</span>
+<span class="o">|</span>                                           <span class="o">|</span>
+<span class="o">|</span> <span class="n">dns_servers</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;10.0.0.20&#39;</span><span class="p">,</span> <span class="s1">&#39;10.0.0.21&#39;</span> <span class="p">]</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">dns_search</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;myservice.com&#39;</span> <span class="p">]</span>           <span class="o">|</span>
+<span class="o">|</span> <span class="n">dns_zone</span><span class="p">:</span> <span class="s1">&#39;myservice.com&#39;</span>                 <span class="o">|</span>
+<span class="o">|</span>                                           <span class="o">|</span>
+<span class="o">+-------------------------------------------+</span>
 </pre></div>
 </div>
 <p>Nice and simple.  This Example is mostly going to deal with dns, but the
 config vaules can be  used for just about anything.</p>
-<p>Let&#8217;s add a Foundation and Structure (NOTE: the Foundation and Structure
+<p>Let’s add a Foundation and Structure (NOTE: the Foundation and Structure
 provide more attribute values than what is shown):</p>
-<div class="highlight-python"><div class="highlight"><pre>+-------------------------------------------+
-|                                           |
-| dns_servers: [ &#39;10.0.0.20&#39;, &#39;10.0.0.21&#39; ] |
-| dns_search: [ &#39;myservice.com&#39; ]           |
-| dns_zone: &#39;myservice.com&#39;                 |
-|                                           |
-| +----------------------+                  |
-| |                      |                  |
-| | Structure:           |                  |
-| |   Hostname: web1     |                  |
-| |                      |                  |
-| +----------+-----------+                  |
-|            |                              |
-| +----------+-----------+                  |
-| |                      |                  |
-| | Foundation:          |                  |
-| |   Locator: d2r050u20 |                  |
-| |                      |                  |
-| +----------------------+                  |
-|                                           |
-+-------------------------------------------+
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-------------------------------------------+</span>
+<span class="o">|</span>                                           <span class="o">|</span>
+<span class="o">|</span> <span class="n">dns_servers</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;10.0.0.20&#39;</span><span class="p">,</span> <span class="s1">&#39;10.0.0.21&#39;</span> <span class="p">]</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">dns_search</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;myservice.com&#39;</span> <span class="p">]</span>           <span class="o">|</span>
+<span class="o">|</span> <span class="n">dns_zone</span><span class="p">:</span> <span class="s1">&#39;myservice.com&#39;</span>                 <span class="o">|</span>
+<span class="o">|</span>                                           <span class="o">|</span>
+<span class="o">|</span> <span class="o">+----------------------+</span>                  <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span>                      <span class="o">|</span>                  <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span> <span class="n">Structure</span><span class="p">:</span>           <span class="o">|</span>                  <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span>   <span class="n">Hostname</span><span class="p">:</span> <span class="n">web1</span>     <span class="o">|</span>                  <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span>                      <span class="o">|</span>                  <span class="o">|</span>
+<span class="o">|</span> <span class="o">+----------+-----------+</span>                  <span class="o">|</span>
+<span class="o">|</span>            <span class="o">|</span>                              <span class="o">|</span>
+<span class="o">|</span> <span class="o">+----------+-----------+</span>                  <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span>                      <span class="o">|</span>                  <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span> <span class="n">Foundation</span><span class="p">:</span>          <span class="o">|</span>                  <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span>   <span class="n">Locator</span><span class="p">:</span> <span class="n">d2r050u20</span> <span class="o">|</span>                  <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span>                      <span class="o">|</span>                  <span class="o">|</span>
+<span class="o">|</span> <span class="o">+----------------------+</span>                  <span class="o">|</span>
+<span class="o">|</span>                                           <span class="o">|</span>
+<span class="o">+-------------------------------------------+</span>
 </pre></div>
 </div>
-<p>Now if we get the config values for the structure, it&#8217;s resulting config values
+<p>Now if we get the config values for the structure, it’s resulting config values
 would be.</p>
 <blockquote>
-<div>dns_servers: [ &#8216;10.0.0.20&#8217;, &#8216;10.0.0.21&#8217; ]
-dns_search: [ &#8216;myservice.com&#8217; ]
-dns_zone: &#8216;myservice.com&#8217;
-_foundation_locator: &#8216;d2r050u20&#8217;
-_structure_hostname: &#8216;web1&#8217;</div></blockquote>
+<div><p>dns_servers: [ ‘10.0.0.20’, ‘10.0.0.21’ ]
+dns_search: [ ‘myservice.com’ ]
+dns_zone: ‘myservice.com’
+_foundation_locator: ‘d2r050u20’
+_structure_hostname: ‘web1’</p>
+</div></blockquote>
 <p>One last thing we forgot, the blueprints:</p>
-<div class="highlight-python"><div class="highlight"><pre>+-------------------------------------------+
-|                                           |
-| dns_servers: [ &#39;10.0.0.20&#39;, &#39;10.0.0.21&#39; ] |
-| dns_search: [ &#39;myservice.com&#39; ]           |
-| dns_zone: &#39;myservice.com&#39;                 |    +----------------------------------------------------------------------+
-|                                           |    |                                                                      |
-| +----------------------+                  |    | Web Server Structure BluePrint:                                      |
-| |                      +-----------------------+   distro: &#39;xenial&#39;                                                   |
-| | Structure:           |                  |    |   extra_packages: [ &#39;apache2&#39;, &#39;python-django&#39;, &#39;postgres-server&#39; ]  |
-| |   Hostname: &#39;web1&#39;   |                  |    |                                                                      |
-| |                      |                  |    +----------------------------------------------------------------------+
-| +----------+-----------+                  |
-|            |                              |    +----------------------------------------------------------------------+
-| +----------+-------------+                |    |                                                                      |
-| |                        +---------------------+ Small VM Foundation BluePrint:                                       |
-| | Foundation:            |                |    |   cpu_count: 2                                                       |
-| |   Locator: &#39;d2r050u20&#39; |                |    |   memory: 1024                                                       |
-| |                        |                |    |                                                                      |
-| +------------------------+                |    +----------------------------------------------------------------------+
-|                                           |
-+-------------------------------------------+
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-------------------------------------------+</span>
+<span class="o">|</span>                                           <span class="o">|</span>
+<span class="o">|</span> <span class="n">dns_servers</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;10.0.0.20&#39;</span><span class="p">,</span> <span class="s1">&#39;10.0.0.21&#39;</span> <span class="p">]</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">dns_search</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;myservice.com&#39;</span> <span class="p">]</span>           <span class="o">|</span>
+<span class="o">|</span> <span class="n">dns_zone</span><span class="p">:</span> <span class="s1">&#39;myservice.com&#39;</span>                 <span class="o">|</span>    <span class="o">+----------------------------------------------------------------------+</span>
+<span class="o">|</span>                                           <span class="o">|</span>    <span class="o">|</span>                                                                      <span class="o">|</span>
+<span class="o">|</span> <span class="o">+----------------------+</span>                  <span class="o">|</span>    <span class="o">|</span> <span class="n">Web</span> <span class="n">Server</span> <span class="n">Structure</span> <span class="n">BluePrint</span><span class="p">:</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span>                      <span class="o">+-----------------------+</span>   <span class="n">distro</span><span class="p">:</span> <span class="s1">&#39;xenial&#39;</span>                                                   <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span> <span class="n">Structure</span><span class="p">:</span>           <span class="o">|</span>                  <span class="o">|</span>    <span class="o">|</span>   <span class="n">extra_packages</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;apache2&#39;</span><span class="p">,</span> <span class="s1">&#39;python-django&#39;</span><span class="p">,</span> <span class="s1">&#39;postgres-server&#39;</span> <span class="p">]</span>  <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span>   <span class="n">Hostname</span><span class="p">:</span> <span class="s1">&#39;web1&#39;</span>   <span class="o">|</span>                  <span class="o">|</span>    <span class="o">|</span>                                                                      <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span>                      <span class="o">|</span>                  <span class="o">|</span>    <span class="o">+----------------------------------------------------------------------+</span>
+<span class="o">|</span> <span class="o">+----------+-----------+</span>                  <span class="o">|</span>
+<span class="o">|</span>            <span class="o">|</span>                              <span class="o">|</span>    <span class="o">+----------------------------------------------------------------------+</span>
+<span class="o">|</span> <span class="o">+----------+-------------+</span>                <span class="o">|</span>    <span class="o">|</span>                                                                      <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span>                        <span class="o">+---------------------+</span> <span class="n">Small</span> <span class="n">VM</span> <span class="n">Foundation</span> <span class="n">BluePrint</span><span class="p">:</span>                                       <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span> <span class="n">Foundation</span><span class="p">:</span>            <span class="o">|</span>                <span class="o">|</span>    <span class="o">|</span>   <span class="n">cpu_count</span><span class="p">:</span> <span class="mi">2</span>                                                       <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span>   <span class="n">Locator</span><span class="p">:</span> <span class="s1">&#39;d2r050u20&#39;</span> <span class="o">|</span>                <span class="o">|</span>    <span class="o">|</span>   <span class="n">memory</span><span class="p">:</span> <span class="mi">1024</span>                                                       <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span>                        <span class="o">|</span>                <span class="o">|</span>    <span class="o">|</span>                                                                      <span class="o">|</span>
+<span class="o">|</span> <span class="o">+------------------------+</span>                <span class="o">|</span>    <span class="o">+----------------------------------------------------------------------+</span>
+<span class="o">|</span>                                           <span class="o">|</span>
+<span class="o">+-------------------------------------------+</span>
 </pre></div>
 </div>
 <p>There we go, now the Structures Config Values are:</p>
-<div class="highlight-python"><div class="highlight"><pre>dns_servers: [ &#39;10.0.0.20&#39;, &#39;10.0.0.21&#39; ]
-dns_search: [ &#39;myservice.com&#39; ]
-dns_zone: &#39;myservice.com&#39;
-distro: &#39;xenial&#39;
-extra_packages: [ &#39;apache2&#39;, &#39;python-django&#39;, &#39;postgres-server&#39; ]
-_foundation_locator: &#39;d2r050u20&#39;
-_structure_hostname: &#39;web1&#39;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dns_servers</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;10.0.0.20&#39;</span><span class="p">,</span> <span class="s1">&#39;10.0.0.21&#39;</span> <span class="p">]</span>
+<span class="n">dns_search</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;myservice.com&#39;</span> <span class="p">]</span>
+<span class="n">dns_zone</span><span class="p">:</span> <span class="s1">&#39;myservice.com&#39;</span>
+<span class="n">distro</span><span class="p">:</span> <span class="s1">&#39;xenial&#39;</span>
+<span class="n">extra_packages</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;apache2&#39;</span><span class="p">,</span> <span class="s1">&#39;python-django&#39;</span><span class="p">,</span> <span class="s1">&#39;postgres-server&#39;</span> <span class="p">]</span>
+<span class="n">_foundation_locator</span><span class="p">:</span> <span class="s1">&#39;d2r050u20&#39;</span>
+<span class="n">_structure_hostname</span><span class="p">:</span> <span class="s1">&#39;web1&#39;</span>
 </pre></div>
 </div>
-<p>And the Foundation&#8217;s Config Values are:</p>
-<div class="highlight-python"><div class="highlight"><pre>dns_servers: [ &#39;10.0.0.20&#39;, &#39;10.0.0.21&#39; ]
-dns_search: [ &#39;myservice.com&#39; ]
-dns_zone: &#39;myservice.com&#39;
-cou_count: 2
-memory: 1024
-_foundation_locator: &#39;d2r050u20&#39;
+<p>And the Foundation’s Config Values are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dns_servers</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;10.0.0.20&#39;</span><span class="p">,</span> <span class="s1">&#39;10.0.0.21&#39;</span> <span class="p">]</span>
+<span class="n">dns_search</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;myservice.com&#39;</span> <span class="p">]</span>
+<span class="n">dns_zone</span><span class="p">:</span> <span class="s1">&#39;myservice.com&#39;</span>
+<span class="n">cou_count</span><span class="p">:</span> <span class="mi">2</span>
+<span class="n">memory</span><span class="p">:</span> <span class="mi">1024</span>
+<span class="n">_foundation_locator</span><span class="p">:</span> <span class="s1">&#39;d2r050u20&#39;</span>
 </pre></div>
 </div>
-<p>Everything was fine until our web site got busy, time to expand.  First let&#8217;s
-move our server to a sub-site and create another sub-site with it&#8217;s own
+<p>Everything was fine until our web site got busy, time to expand.  First let’s
+move our server to a sub-site and create another sub-site with it’s own
 web server:</p>
-<div class="highlight-python"><div class="highlight"><pre>+----------------------------------------------------------------------------------------------+
-|                                                                                              |
-| dns_servers: [ &#39;10.0.0.20&#39;, &#39;10.0.0.21&#39; ]                                                    |
-| dns_search: [ &#39;myservice.com&#39; ]                                                              |
-| dns_zone: &#39;myservice.com&#39;                                                                    |
-|                                                                                              |
-| +-------------------------------------------+  +-------------------------------------------+ |
-| |                                           |  |                                           | |
-| | {dns_search: [ &#39;site1.myservice.com&#39; ]    |  | {dns_search: [ &#39;site2.myservice.com&#39; ]    | |
-| | dns_zone: &#39;site1.myservice.com            |  | dns_zone: &#39;site2.myservice.com            | |   +----------------------------------------------------------------------+
-| |                                           |  |                                           | |   |                                                                      |
-| | +----------------------+                  |  | +----------------------+                  | |   | Web Server Structure BluePrint:                                      |
-| | |                      +-----------------------+                      +------------------------+   distro: &#39;xenial&#39;                                                   |
-| | | Structure:           |                  |  | | Structure:           |                  | |   |   extra_packages: [ &#39;apache2&#39;, &#39;python-django&#39;, &#39;postgres-server&#39; ]  |
-| | |   Hostname: &#39;web1&#39;   |                  |  | |   Hostname: &#39;web1&#39;   |                  | |   |                                                                      |
-| | |                      |                  |  | |                      |                  | |   +----------------------------------------------------------------------+
-| | +----------+-----------+                  |  | +----------+-----------+                  | |
-| |            |                              |  |            |                              | |   +----------------------------------------------------------------------+
-| | +----------+-------------+                |  | +----------+-------------+                | |   |                                                                      |
-| | |                        +---------------------+                        +----------------------+ Small VM Foundation BluePrint:                                       |
-| | | Foundation:            |                |  | | Foundation:            |                | |   |   cpu_count: 2                                                       |
-| | |   Locator: &#39;d2r050u20&#39; |                |  | |   Locator: &#39;d2r020u20&#39; |                | |   |   memory: 1024                                                       |
-| | |                        |                |  | |                        |                | |   |                                                                      |
-| | +------------------------+                |  | +------------------------+                | |   +----------------------------------------------------------------------+
-| |                                           |  |                                           | |
-| +-------------------------------------------+  +-------------------------------------------+ |
-|                                                                                              |
-+----------------------------------------------------------------------------------------------+
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+----------------------------------------------------------------------------------------------+</span>
+<span class="o">|</span>                                                                                              <span class="o">|</span>
+<span class="o">|</span> <span class="n">dns_servers</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;10.0.0.20&#39;</span><span class="p">,</span> <span class="s1">&#39;10.0.0.21&#39;</span> <span class="p">]</span>                                                    <span class="o">|</span>
+<span class="o">|</span> <span class="n">dns_search</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;myservice.com&#39;</span> <span class="p">]</span>                                                              <span class="o">|</span>
+<span class="o">|</span> <span class="n">dns_zone</span><span class="p">:</span> <span class="s1">&#39;myservice.com&#39;</span>                                                                    <span class="o">|</span>
+<span class="o">|</span>                                                                                              <span class="o">|</span>
+<span class="o">|</span> <span class="o">+-------------------------------------------+</span>  <span class="o">+-------------------------------------------+</span> <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span>                                           <span class="o">|</span>  <span class="o">|</span>                                           <span class="o">|</span> <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span> <span class="p">{</span><span class="n">dns_search</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;site1.myservice.com&#39;</span> <span class="p">]</span>    <span class="o">|</span>  <span class="o">|</span> <span class="p">{</span><span class="n">dns_search</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;site2.myservice.com&#39;</span> <span class="p">]</span>    <span class="o">|</span> <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span> <span class="n">dns_zone</span><span class="p">:</span> <span class="s1">&#39;site1.myservice.com            |  | dns_zone: &#39;</span><span class="n">site2</span><span class="o">.</span><span class="n">myservice</span><span class="o">.</span><span class="n">com</span>            <span class="o">|</span> <span class="o">|</span>   <span class="o">+----------------------------------------------------------------------+</span>
+<span class="o">|</span> <span class="o">|</span>                                           <span class="o">|</span>  <span class="o">|</span>                                           <span class="o">|</span> <span class="o">|</span>   <span class="o">|</span>                                                                      <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">+----------------------+</span>                  <span class="o">|</span>  <span class="o">|</span> <span class="o">+----------------------+</span>                  <span class="o">|</span> <span class="o">|</span>   <span class="o">|</span> <span class="n">Web</span> <span class="n">Server</span> <span class="n">Structure</span> <span class="n">BluePrint</span><span class="p">:</span>                                      <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span>                      <span class="o">+-----------------------+</span>                      <span class="o">+------------------------+</span>   <span class="n">distro</span><span class="p">:</span> <span class="s1">&#39;xenial&#39;</span>                                                   <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="n">Structure</span><span class="p">:</span>           <span class="o">|</span>                  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span> <span class="n">Structure</span><span class="p">:</span>           <span class="o">|</span>                  <span class="o">|</span> <span class="o">|</span>   <span class="o">|</span>   <span class="n">extra_packages</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;apache2&#39;</span><span class="p">,</span> <span class="s1">&#39;python-django&#39;</span><span class="p">,</span> <span class="s1">&#39;postgres-server&#39;</span> <span class="p">]</span>  <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span>   <span class="n">Hostname</span><span class="p">:</span> <span class="s1">&#39;web1&#39;</span>   <span class="o">|</span>                  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>   <span class="n">Hostname</span><span class="p">:</span> <span class="s1">&#39;web1&#39;</span>   <span class="o">|</span>                  <span class="o">|</span> <span class="o">|</span>   <span class="o">|</span>                                                                      <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span>                      <span class="o">|</span>                  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>                      <span class="o">|</span>                  <span class="o">|</span> <span class="o">|</span>   <span class="o">+----------------------------------------------------------------------+</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">+----------+-----------+</span>                  <span class="o">|</span>  <span class="o">|</span> <span class="o">+----------+-----------+</span>                  <span class="o">|</span> <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span>            <span class="o">|</span>                              <span class="o">|</span>  <span class="o">|</span>            <span class="o">|</span>                              <span class="o">|</span> <span class="o">|</span>   <span class="o">+----------------------------------------------------------------------+</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">+----------+-------------+</span>                <span class="o">|</span>  <span class="o">|</span> <span class="o">+----------+-------------+</span>                <span class="o">|</span> <span class="o">|</span>   <span class="o">|</span>                                                                      <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span>                        <span class="o">+---------------------+</span>                        <span class="o">+----------------------+</span> <span class="n">Small</span> <span class="n">VM</span> <span class="n">Foundation</span> <span class="n">BluePrint</span><span class="p">:</span>                                       <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="n">Foundation</span><span class="p">:</span>            <span class="o">|</span>                <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span> <span class="n">Foundation</span><span class="p">:</span>            <span class="o">|</span>                <span class="o">|</span> <span class="o">|</span>   <span class="o">|</span>   <span class="n">cpu_count</span><span class="p">:</span> <span class="mi">2</span>                                                       <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span>   <span class="n">Locator</span><span class="p">:</span> <span class="s1">&#39;d2r050u20&#39;</span> <span class="o">|</span>                <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>   <span class="n">Locator</span><span class="p">:</span> <span class="s1">&#39;d2r020u20&#39;</span> <span class="o">|</span>                <span class="o">|</span> <span class="o">|</span>   <span class="o">|</span>   <span class="n">memory</span><span class="p">:</span> <span class="mi">1024</span>                                                       <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span>                        <span class="o">|</span>                <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>                        <span class="o">|</span>                <span class="o">|</span> <span class="o">|</span>   <span class="o">|</span>                                                                      <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">+------------------------+</span>                <span class="o">|</span>  <span class="o">|</span> <span class="o">+------------------------+</span>                <span class="o">|</span> <span class="o">|</span>   <span class="o">+----------------------------------------------------------------------+</span>
+<span class="o">|</span> <span class="o">|</span>                                           <span class="o">|</span>  <span class="o">|</span>                                           <span class="o">|</span> <span class="o">|</span>
+<span class="o">|</span> <span class="o">+-------------------------------------------+</span>  <span class="o">+-------------------------------------------+</span> <span class="o">|</span>
+<span class="o">|</span>                                                                                              <span class="o">|</span>
+<span class="o">+----------------------------------------------------------------------------------------------+</span>
 </pre></div>
 </div>
-<p>Nice, now we can handle the load.  Site 1&#8217;s Structure is now:</p>
-<div class="highlight-python"><div class="highlight"><pre>dns_servers: [ &#39;10.0.0.20&#39;, &#39;10.0.0.21&#39; ]
-dns_search: [ &#39;site1.myservice.com&#39;, &#39;myservice.com&#39; ]
-dns_zone: &#39;site1.myservice.com&#39;
-distro: &#39;xenial&#39;
-extra_packages: [ &#39;apache2&#39;, &#39;python-django&#39;, &#39;postgres-server&#39; ]
-_foundation_locator: &#39;d2r050u20&#39;
-_structure_hostname: &#39;web1&#39;
+<p>Nice, now we can handle the load.  Site 1’s Structure is now:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dns_servers</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;10.0.0.20&#39;</span><span class="p">,</span> <span class="s1">&#39;10.0.0.21&#39;</span> <span class="p">]</span>
+<span class="n">dns_search</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;site1.myservice.com&#39;</span><span class="p">,</span> <span class="s1">&#39;myservice.com&#39;</span> <span class="p">]</span>
+<span class="n">dns_zone</span><span class="p">:</span> <span class="s1">&#39;site1.myservice.com&#39;</span>
+<span class="n">distro</span><span class="p">:</span> <span class="s1">&#39;xenial&#39;</span>
+<span class="n">extra_packages</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;apache2&#39;</span><span class="p">,</span> <span class="s1">&#39;python-django&#39;</span><span class="p">,</span> <span class="s1">&#39;postgres-server&#39;</span> <span class="p">]</span>
+<span class="n">_foundation_locator</span><span class="p">:</span> <span class="s1">&#39;d2r050u20&#39;</span>
+<span class="n">_structure_hostname</span><span class="p">:</span> <span class="s1">&#39;web1&#39;</span>
 </pre></div>
 </div>
-<p>And Site 2&#8217;s Structure is:</p>
-<div class="highlight-python"><div class="highlight"><pre>dns_servers: [ &#39;10.0.0.20&#39;, &#39;10.0.0.21&#39; ]
-dns_search: [ &#39;site2.myservice.com&#39;, &#39;myservice.com&#39; ]
-dns_zone: &#39;site2.myservice.com&#39;
-distro: &#39;xenial&#39;
-extra_packages: [ &#39;apache2&#39;, &#39;python-django&#39;, &#39;postgres-server&#39; ]
-_foundation_locator: &#39;d2r020u20&#39;
-_structure_hostname: &#39;web1&#39;
+<p>And Site 2’s Structure is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dns_servers</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;10.0.0.20&#39;</span><span class="p">,</span> <span class="s1">&#39;10.0.0.21&#39;</span> <span class="p">]</span>
+<span class="n">dns_search</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;site2.myservice.com&#39;</span><span class="p">,</span> <span class="s1">&#39;myservice.com&#39;</span> <span class="p">]</span>
+<span class="n">dns_zone</span><span class="p">:</span> <span class="s1">&#39;site2.myservice.com&#39;</span>
+<span class="n">distro</span><span class="p">:</span> <span class="s1">&#39;xenial&#39;</span>
+<span class="n">extra_packages</span><span class="p">:</span> <span class="p">[</span> <span class="s1">&#39;apache2&#39;</span><span class="p">,</span> <span class="s1">&#39;python-django&#39;</span><span class="p">,</span> <span class="s1">&#39;postgres-server&#39;</span> <span class="p">]</span>
+<span class="n">_foundation_locator</span><span class="p">:</span> <span class="s1">&#39;d2r020u20&#39;</span>
+<span class="n">_structure_hostname</span><span class="p">:</span> <span class="s1">&#39;web1&#39;</span>
 </pre></div>
 </div>
 <p>At some point in the future we add another DNS server, we can add it to the top
 level and it will propagate to everything automatically.  Actually a better DNS
 design would be to add dns servers to Site 1 and Site 2 and prepend those to the
 dns server list.  Also if we want another global dns search zone to come after
-&#8216;myservice.com&#8217;, we can add it to the list at the top, and once again it will
+‘myservice.com’, we can add it to the list at the top, and once again it will
 propagate for us.  If there is a site that you do not want to inherit the
 top level dns_search, you would omit the <strong>&lt;</strong> from the name, and the value will
 overwrite instead of pre-pend.</p>
@@ -317,47 +311,68 @@ overwrite instead of pre-pend.</p>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Configuration Values</a><ul>
-<li><a class="reference internal" href="#global-and-config-attributes">Global and Config Attributes</a></li>
-<li><a class="reference internal" href="#value-merging">Value Merging</a></li>
-<li><a class="reference internal" href="#value-overlay-rules">Value Overlay Rules</a></li>
-<li><a class="reference internal" href="#sources-of-configuration-values">Sources of Configuration Values</a></li>
-<li><a class="reference internal" href="#attribute-values">Attribute Values</a></li>
-<li><a class="reference internal" href="#global-attribute-values">Global attribute values</a></li>
-<li><a class="reference internal" href="#example">Example</a></li>
+<h1 class="logo"><a href="../index.html">t3kton</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Contractor</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html">Introduction to Contractor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TryIt.html">Give it a Try</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Configuration Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Networking.html">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Modules.html">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tscript.html">tscript</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins.html#todo">TODO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Resources.html">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="API.html">CInP API Documentation for Contractor API</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#id1">Contractor</a></li>
 </ul>
+
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
   <li><a href="index.html">Contractor</a><ul>
       <li>Previous: <a href="TryIt.html" title="previous chapter">Give it a Try</a></li>
-      <li>Next: <a href="IpAddresses.html" title="next chapter">Ip Addresses</a></li>
+      <li>Next: <a href="Networking.html" title="next chapter">Networking</a></li>
   </ul></li>
   </ul></li>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -366,8 +381,8 @@ overwrite instead of pre-pend.</p>
       &copy;2019, Peter Howe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
 

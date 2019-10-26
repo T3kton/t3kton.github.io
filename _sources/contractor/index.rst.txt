@@ -9,7 +9,7 @@ Contents:
   Introduction
   TryIt
   ConfigurationValues
-  IpAddresses
+  Networking
   Modules
   tscript
   Plugins

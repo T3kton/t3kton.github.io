@@ -38,8 +38,8 @@ Now to install the python code, NOTE the Makefile will call './setup.py install'
   cd contractor
   sudo DESTDIR=/ make install
   sudo cp debian/cron.d /etc/cron.d/contractor
-  sudo cp /etc/contractor/master.conf.sample /etc/contractor/master.conf
-  sudo ln -sf /etc/contractor/master.conf /usr/lib/python3/dist-packages/contractor/settings.py
+  sudo cp /etc/contractor.conf.sample /etc/contractor.conf
+  sudo ln -sf /etc/contractor.conf /usr/lib/python3/dist-packages/contractor/settings.py
   sudo mkdir -p /etc/bind/contractor/zones
   sudo mkdir -p /var/lib/contractor
   sudo a2ensite contractor.conf
@@ -62,3 +62,5 @@ Now to install the python code, NOTE the Makefile will call './setup.py install'
   sudo systemctl restart cron
   sudo systemctl enable subcontractor
   sudo systemctl enable dhcpd
+
+return to :ref:`contractor/TryIt:installing`

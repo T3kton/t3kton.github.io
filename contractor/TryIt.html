@@ -1,42 +1,35 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Give it a Try &mdash; t3kton 1.0 documentation</title>
-    
+    <meta charset="utf-8" />
+    <title>Give it a Try &#8212; t3kton 1.0 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="t3kton 1.0 documentation" href="../index.html" />
-    <link rel="up" title="Contractor" href="index.html" />
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Configuration Values" href="ConfigurationValues.html" />
     <link rel="prev" title="Introduction to Contractor" href="Introduction.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body role="document">  
+  </head><body>
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="give-it-a-try">
@@ -45,20 +38,20 @@
 a much less complex interface to you.  That being said, there is a bit of a hurdle
 to get it up and running, depending on what you are trying to automate.  So, buckle
 in, this is going to be a lot of fun.</p>
-<p>This demo will result in a VM in a private /24 network that can create and destroy
+<p>This demo will require in a VM in a private /24 network that can create and destroy
 other VMs in that network.  You can use either VCenter or VirtualBox.  After the
 Contractor VM is up and running, you can install more blueprints and plugins to do
 docker or other foundations.  The requirement for the private network comes primarally from
-the setupWizard&#8217;s default configuration, if you feel comfortable with modifying
+the setupWizard’s default configuration, if you feel comfortable with modifying
 the setupWizard and the Apache Configurations, you can use blueprints and plugins
 for hosted providers such as AWS and Azure.</p>
-<p>NOTE: setupWizard is going to re-write some bind config files, so don&#8217;t edit them
+<p>NOTE: setupWizard is going to re-write some bind config files, so don’t edit them
 until after the install is complete.</p>
 <p>If you are not failure with how Contractor handles Networking, you will probably
-want to take a look at the overview on <a class="reference internal" href="IpAddresses.html"><em>Ip Addresses</em></a>.</p>
+want to take a look at the overview on <a class="reference internal" href="Networking.html"><span class="doc">Networking</span></a>.</p>
 <div class="section" id="installing">
 <h2>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
-<p>Create an Ubuntu Xenial VM, name it <cite>contractor</cite>, set the fqdn to <cite>contractor.site1.test</cite>
+<p>Create an Ubuntu Xenial(16.04LTS) VM, name it <cite>contractor</cite>, set the fqdn to <cite>contractor.site1.test</cite>
 Ideally it should be in a /24 network.  Offset 1 is assumed to be the gateway.
 All these values can be adjusted either in the setupWizard file before it is run,
 or after it is setup, you can use the API/UI to edit these values.
@@ -66,11 +59,11 @@ The DNS server will be set for the contractor VM, and bind on the contractor vm 
 be set to forward to the DNS server that was originally configured on the VM.</p>
 <div class="section" id="from-source">
 <h3>From Source<a class="headerlink" href="#from-source" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference internal" href="TryIt_source.html"><em>From Source</em></a></p>
+<p><a class="reference internal" href="TryIt_source.html"><span class="doc">From Source</span></a></p>
 </div>
 <div class="section" id="from-packages">
 <h3>From Packages<a class="headerlink" href="#from-packages" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference internal" href="TryIt_packaged.html"><em>Prebuilt Packages</em></a></p>
+<p><a class="reference internal" href="TryIt_packaged.html"><span class="doc">Prebuilt Packages</span></a></p>
 </div>
 </div>
 <div class="section" id="setup">
@@ -80,22 +73,24 @@ be set to forward to the DNS server that was originally configured on the VM.</p
 <p>To prevent your new contractor VM from taking over the network you are curently
 connected to, you will need to configure a issloated network.  There are also
 some other Infrastructure related tasks that need to be done.</p>
-<p><a class="reference internal" href="TryIt_vcenter_setup.html"><em>Vcenter/ESX Setup</em></a></p>
-<p><a class="reference internal" href="TryIt_virtualbox_setup.html"><em>VirtualBox Setup</em></a></p>
+<p><a class="reference internal" href="TryIt_setup_vcenter.html"><span class="doc">Vcenter/ESX Setup</span></a></p>
+<p><a class="reference internal" href="TryIt_setup_virtualbox.html"><span class="doc">VirtualBox Setup</span></a></p>
+<p><a class="reference internal" href="TryIt_setup_ipmi.html"><span class="doc">IPMI Setup</span></a></p>
+<p><a class="reference internal" href="TryIt_setup_amt.html"><span class="doc">AMT Setup</span></a></p>
 </div>
 <div class="section" id="install-required-services">
 <h3>Install Required Services<a class="headerlink" href="#install-required-services" title="Permalink to this headline">¶</a></h3>
 <p>Install Postgres:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo apt install -y postgresql-client postgresql-9.5 mongodb-server
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">postgresql</span><span class="o">-</span><span class="n">client</span> <span class="n">postgresql</span><span class="o">-</span><span class="mf">9.5</span> <span class="n">mongodb</span><span class="o">-</span><span class="n">server</span>
 </pre></div>
 </div>
 <p>Create the postgres db:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo su postgres -c &quot;echo \&quot;CREATE ROLE contractor WITH PASSWORD &#39;contractor&#39; NOSUPERUSER NOCREATEDB NOCREATEROLE LOGIN;\&quot; | psql&quot;
-sudo su postgres -c &quot;createdb -O contractor contractor&quot;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">su</span> <span class="n">postgres</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;echo </span><span class="se">\&quot;</span><span class="s2">CREATE ROLE contractor WITH PASSWORD &#39;contractor&#39; NOSUPERUSER NOCREATEDB NOCREATEROLE LOGIN;</span><span class="se">\&quot;</span><span class="s2"> | psql&quot;</span>
+<span class="n">sudo</span> <span class="n">su</span> <span class="n">postgres</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;createdb -O contractor contractor&quot;</span>
 </pre></div>
 </div>
 <p>NOTE, for those two commands you may see:</p>
-<div class="highlight-python"><div class="highlight"><pre>could not change directory to &quot;/root&quot;: Permission denied
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">could</span> <span class="ow">not</span> <span class="n">change</span> <span class="n">directory</span> <span class="n">to</span> <span class="s2">&quot;/root&quot;</span><span class="p">:</span> <span class="n">Permission</span> <span class="n">denied</span>
 </pre></div>
 </div>
 <p>this is from the <cite>su</cite> command, thoes messages can be ignored</p>
@@ -103,30 +98,31 @@ sudo su postgres -c &quot;createdb -O contractor contractor&quot;
 <div class="section" id="update-packages">
 <h3>Update Packages<a class="headerlink" href="#update-packages" title="Permalink to this headline">¶</a></h3>
 <p>The Ubuntu toml and jinja2 packages are too old, update with:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo apt install -y python3-pip
-sudo pip3 install toml jinja2 --upgrade
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
+<span class="n">sudo</span> <span class="n">pip3</span> <span class="n">install</span> <span class="n">toml</span> <span class="n">jinja2</span> <span class="o">--</span><span class="n">upgrade</span>
 </pre></div>
 </div>
-<p>if you are using the virtualbox plugin, you will need zeep:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo pip3 install zeep
+<p>if you are using the Virtualbox plugin, you will need zeep:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">pip3</span> <span class="n">install</span> <span class="n">zeep</span>
 </pre></div>
 </div>
-<p>for vcenter/esx install pyvmomi:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo pip3 install pyvmomi
+<p>for VCenter/ESX install pyvmomi:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">pip3</span> <span class="n">install</span> <span class="n">pyvmomi</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="configure-apache">
 <h3>Configure Apache<a class="headerlink" href="#configure-apache" title="Permalink to this headline">¶</a></h3>
 <p>We will need a HTTP site to serve up static resources, as well as a Proxy server
-to bridge from the isolated network.  This proxy server will also cache, that will
-make things install faster the second time.</p>
+to bridge from the isolated network.  This proxy server will also cache. We are
+using Apache to Proxy with for this example, however you can use any proxy you
+would like, just update the <cite>proxy-server</cite> paramater to the <cite>setupWizard</cite> call.</p>
 <p>First create the directory for the static resources:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo mkdir -p /var/www/static
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">static</span>
 </pre></div>
 </div>
 <p>now create the proxy site <cite>/etc/apache2/sites-available/proxy.conf</cite> with the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>Listen 3128
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Listen 3128
 &lt;VirtualHost *:3128&gt;
   ServerName proxy
   ServerAlias proxy.site1.test
@@ -152,7 +148,7 @@ make things install faster the second time.</p>
 <p>NOTE: if you need to relay through an upstream proxy to have access to the ubuntu
 and centos mirrors, enable the <cite>ProxyRemote</cite> line and update it with the upstream proxy.
 Now create the static site <cite>/etc/apache2/sites-available/static.conf</cite> with the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;VirtualHost *:80&gt;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;VirtualHost *:80&gt;
   ServerName static
   ServerAlias static.site1.test
 
@@ -168,63 +164,68 @@ Now create the static site <cite>/etc/apache2/sites-available/static.conf</cite>
 line, and change the <cite>&lt;domain&gt;</cite> to <cite>site1.test</cite></p>
 <p>Now enable the proxy and static site, disable the default site, and reload the
 apache configuration:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo a2ensite proxy
-sudo a2ensite static
-sudo a2dissite 000-default
-sudo a2enmod proxy proxy_connect proxy_ftp proxy_http cache_disk cache
-sudo systemctl restart apache2
-sudo systemctl start apache-htcacheclean
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">a2ensite</span> <span class="n">proxy</span>
+<span class="n">sudo</span> <span class="n">a2ensite</span> <span class="n">static</span>
+<span class="n">sudo</span> <span class="n">a2dissite</span> <span class="mi">000</span><span class="o">-</span><span class="n">default</span>
+<span class="n">sudo</span> <span class="n">a2enmod</span> <span class="n">proxy</span> <span class="n">proxy_connect</span> <span class="n">proxy_ftp</span> <span class="n">proxy_http</span> <span class="n">cache_disk</span> <span class="n">cache</span>
+<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">restart</span> <span class="n">apache2</span>
+<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">start</span> <span class="n">apache</span><span class="o">-</span><span class="n">htcacheclean</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="setup-the-database">
 <h3>Setup the database<a class="headerlink" href="#setup-the-database" title="Permalink to this headline">¶</a></h3>
 <p>Now to create the db:</p>
-<div class="highlight-python"><div class="highlight"><pre>/usr/lib/contractor/util/manage.py migrate
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">util</span><span class="o">/</span><span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">migrate</span>
 </pre></div>
 </div>
 <p>Install the iputils functions, this contains the port check function contractor
 will use to verify the OS has booted:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo respkg -i contractor-plugins-iputils_0.4.0.respkg
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">iputils_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
 <p>Install base os config:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo respkg -i contractor-os-base_0.4.respkg
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">os</span><span class="o">-</span><span class="n">base_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
 <p>Now to enable plugins.
 We use manual for misc stuff that is either pre-configured or handled by something else:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo respkg -i contractor-plugins-manual_0.4.0.respkg
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">manual_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
-<p>if you are using esx/vcenter:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo respkg -i contractor-plugins-vcenter_0.4.0.respkg
+<p>if you are using ESX/VCenter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">vcenter_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
-<p>if you are using virtualbox:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo respkg -i contractor-plugins-virtualbox_0.4.0.respkg
+<p>if you are using Virtualbox:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">virtualbox_</span><span class="o">*.</span><span class="n">respkg</span>
+</pre></div>
+</div>
+<p>if you are using IPMI:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">ipmi_</span><span class="o">*.</span><span class="n">respkg</span>
+</pre></div>
+</div>
+<p>if you are using AMT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">amt_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
 <p>do manual plugin again so it can cross link to the other plugins:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo respkg -i contractor-plugins-manual_0.4.0.respkg
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">manual_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
-<p>Now to setup some base info, and configure bind:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo /usr/lib/contractor/setup/setupWizard --no-ip-reservation --dns-server=10.0.0.10 --proxy-server=http://10.0.0.10:3128/
+<p>Now to configure the base contractor information, this includes configuring bind.
+This command will prompt you for the password to use for the <cite>root</cite> user that we
+will be using for API calls.  Set <cite>&lt; interface name &gt;</cite> to the name of the interface
+on the internal network:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">setup</span><span class="o">/</span><span class="n">setupWizard</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">ip</span><span class="o">-</span><span class="n">reservation</span> <span class="o">--</span><span class="n">dns</span><span class="o">-</span><span class="n">server</span><span class="o">=</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">0.10</span> <span class="o">--</span><span class="n">proxy</span><span class="o">-</span><span class="n">server</span><span class="o">=</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">0.10</span><span class="p">:</span><span class="mi">3128</span><span class="o">/</span> <span class="o">--</span><span class="n">primary</span><span class="o">-</span><span class="n">interface</span><span class="o">=&lt;</span> <span class="n">interface</span> <span class="n">name</span> <span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>It is safe to ignore the message:</p>
-<div class="highlight-python"><div class="highlight"><pre>rndc: connect failed: 127.0.0.1#953: connection refused
-WARNING: &quot;rndc reload&quot; failed
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rndc</span><span class="p">:</span> <span class="n">connect</span> <span class="n">failed</span><span class="p">:</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="c1">#953: connection refused</span>
+<span class="n">WARNING</span><span class="p">:</span> <span class="s2">&quot;rndc reload&quot;</span> <span class="n">failed</span>
 </pre></div>
 </div>
 <p>Bind (the DNS server) is not running yet, it will be started later.</p>
-<p>And now to create a user for us to login as for the API calls:</p>
-<div class="highlight-python"><div class="highlight"><pre>/usr/lib/contractor/util/manage.py createsuperuser
-</pre></div>
-</div>
-<p>that command will ask for a username, email and password.  The email address
-does not need to be a real address.</p>
 </div>
 <div class="section" id="environment-setup">
 <h3>Environment Setup<a class="headerlink" href="#environment-setup" title="Permalink to this headline">¶</a></h3>
@@ -232,124 +233,121 @@ does not need to be a real address.</p>
 You can run these commands from either the contractor VM, or any place that can make
 http requests to contractor.</p>
 <p>we will be using curl, make sure it is installed:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo apt install -y curl
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">curl</span>
 </pre></div>
 </div>
-<p>First we will define some Environment values so we don&#8217;t have to keep tying redundant info
+<p>First we will define some Environment values so we don’t have to keep tying redundant info
 the Contractor server.  This is assuming you will be running these commands from
 the contractor VM, if you are running these steps from someplace else, update the
 ip address to the ip address of the contractor vm:</p>
-<div class="highlight-python"><div class="highlight"><pre>export COPS=( --noproxy \* --header &quot;CInP-Version: 0.9&quot; --header &quot;Content-Type: application/json&quot; )
-export SITE=&quot;/api/v1/Site/Site:site1:&quot;
-export CHOST=&quot;http://127.0.0.1&quot;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">COPS</span><span class="o">=</span><span class="p">(</span> <span class="o">--</span><span class="n">noproxy</span> \<span class="o">*</span> <span class="o">--</span><span class="n">header</span> <span class="s2">&quot;CInP-Version: 0.9&quot;</span> <span class="o">--</span><span class="n">header</span> <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="p">)</span>
+<span class="n">export</span> <span class="n">SITE</span><span class="o">=</span><span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span>
+<span class="n">export</span> <span class="n">CHOST</span><span class="o">=</span><span class="s2">&quot;http://127.0.0.1&quot;</span>
 </pre></div>
 </div>
-<p>COPS is defining some curl options, in this case some headers that are required
-by CInP(see <a class="reference external" href="https://github.com/cinp/">https://github.com/cinp/</a>) which is used by Contractor for it&#8217;s API.
-SITE defines the uri of the site we are going to use, and CHOST is the URL to the
-Contractor server.</p>
-<p>now we need to login, replace <cite>&lt; username &gt;</cite> and <cite>&lt; password &gt;</cite> with the username and
-password you specified API user (the createsuperuser step):</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CALL $CHOST/api/v1/Auth/User\(login\)
-{ &quot;username&quot;: &quot;&lt; username &gt;&quot;, &quot;password&quot;: &quot;&lt; password &gt;&quot; }
-EOF
+<p>COPS is defining some curl options. SITE defines the uri of the site we are going
+to use, and CHOST is the URL to the Contractor server.</p>
+<p>now we need to login, replace the <cite>&lt; password &gt;</cite> with the password you passed to
+<cite>setupWizard</cite> (the <cite>–root-password</cite> paramater):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>echo &#39;{ &quot;username&quot;: &quot;root&quot;, &quot;password&quot;: &quot;&lt; password &gt;&quot; }&#39; | curl &quot;${COPS[@]}&quot; --data @- -X CALL $CHOST/api/v1/Auth/User\(login\)
 </pre></div>
 </div>
 <p>which will output something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="s2">&quot;k4of9zewijvze0gf72ylb6p6zxv4srol&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;k4of9zewijvze0gf72ylb6p6zxv4srol&quot;</span>
 </pre></div>
 </div>
 <p>which will return a auth token, save that to our headers, replace <cite>&lt; username &gt;</cite>
 with the API username, and <cite>&lt; auth token &gt;</cite> with the result of the last command:</p>
-<div class="highlight-python"><div class="highlight"><pre>COPS+=( --header &quot;Auth-Id: &lt; username &gt;&quot;)
-COPS+=( --header &quot;Auth-Token: &lt; auth token &gt;&quot; )
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">COPS</span><span class="o">+=</span><span class="p">(</span> <span class="o">--</span><span class="n">header</span> <span class="s2">&quot;Auth-Id: root&quot;</span><span class="p">)</span>
+<span class="n">COPS</span><span class="o">+=</span><span class="p">(</span> <span class="o">--</span><span class="n">header</span> <span class="s2">&quot;Auth-Token: &lt; auth token &gt;&quot;</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>This is adding more headers to our curl options, from here on our curl operations
-are authenticated.  Let&#8217;s make sure our login is working:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CALL $CHOST/api/v1/Auth/User\(whoami\)
-{}
-EOF
+are authenticated.  Let’s make sure our login is working:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>echo &#39;{}&#39; | curl &quot;${COPS[@]}&quot; --data @- -X CALL $CHOST/api/v1/Auth/User\(whoami\)
 </pre></div>
 </div>
 <p>that should output your username, for example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="s2">&quot;root&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;root&quot;</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="http-requests-note">
+<h3>HTTP Requests Note<a class="headerlink" href="#http-requests-note" title="Permalink to this headline">¶</a></h3>
+<p>As you may of noticed from the Authentication requests, each request has some JSON
+encoded request data, as well as a JSON encoded response.  Contractor uses a REST like
+HTTP-JSON library called CInP, which can be found at <a class="reference external" href="https://github.com/cinp/">https://github.com/cinp/</a>.
+CInP is the reason for the <cite>CInP-Version: 0.9</cite> HTTP Header.  Going forward most
+requests are going to use the heredoc method for passing the request body to
+curl.  If you are not familure with this method, keep in mind that for requests
+the require modification (ie: the have &lt;something&gt; in them), don’t copy paste
+everything at once, generally it works to copy paste everything but the last <cite>EOF</cite>
+then back arrow, fix what ever values you need to fix, go to the end, hit &lt;enter&gt;
+then type in the closing <cite>EOF</cite>.  The requests that don’t need modification, you can
+copy paste all at once.</p>
+<p>Some requests create objects, when <cite>-X CREATE</cite> is used with curl, the id of the
+created object is found in the header <cite>Object-Id</cite>, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">201</span> <span class="n">CREATED</span>
+<span class="n">Date</span><span class="p">:</span> <span class="n">Thu</span><span class="p">,</span> <span class="mi">23</span> <span class="n">May</span> <span class="mi">2019</span> <span class="mi">23</span><span class="p">:</span><span class="mi">42</span><span class="p">:</span><span class="mi">17</span> <span class="n">GMT</span>
+<span class="n">Server</span><span class="p">:</span> <span class="n">Apache</span><span class="o">/</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">18</span> <span class="p">(</span><span class="n">Ubuntu</span><span class="p">)</span>
+<span class="n">Verb</span><span class="p">:</span> <span class="n">CREATE</span>
+<span class="n">Access</span><span class="o">-</span><span class="n">Control</span><span class="o">-</span><span class="n">Allow</span><span class="o">-</span><span class="n">Origin</span><span class="p">:</span> <span class="o">*</span>
+<span class="n">Cinp</span><span class="o">-</span><span class="n">Version</span><span class="p">:</span> <span class="mf">0.9</span>
+<span class="n">Access</span><span class="o">-</span><span class="n">Control</span><span class="o">-</span><span class="n">Expose</span><span class="o">-</span><span class="n">Headers</span><span class="p">:</span> <span class="n">Method</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Cinp</span><span class="o">-</span><span class="n">Version</span><span class="p">,</span> <span class="n">Count</span><span class="p">,</span> <span class="n">Position</span><span class="p">,</span> <span class="n">Total</span><span class="p">,</span> <span class="n">Multi</span><span class="o">-</span><span class="n">Object</span><span class="p">,</span> <span class="n">Object</span><span class="o">-</span><span class="n">Id</span><span class="p">,</span> <span class="n">Id</span><span class="o">-</span><span class="n">Only</span>
+<span class="n">Cache</span><span class="o">-</span><span class="n">Control</span><span class="p">:</span> <span class="n">no</span><span class="o">-</span><span class="n">cache</span>
+<span class="n">Object</span><span class="o">-</span><span class="n">Id</span><span class="p">:</span> <span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">Utilities</span><span class="o">/</span><span class="n">AddressBlock</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Length</span><span class="p">:</span> <span class="mi">318</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="p">:</span> <span class="n">application</span><span class="o">/</span><span class="n">json</span><span class="p">;</span><span class="n">charset</span><span class="o">=</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span>
+
+<span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;internal&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="s2">&quot;254&quot;</span><span class="p">,</span> <span class="s2">&quot;_max_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.255&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway_offset&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-05-23T23:42:17.180084+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;subnet&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-05-23T23:42:17.180121+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;isIpV4&quot;</span><span class="p">:</span> <span class="s2">&quot;True&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The url of that newly created AddressBlock is <cite>/api/v1/Utilities/AddressBlock:2:</cite>,
+generally we are only concerned with the id which is between the <cite>:</cite> in this case
+the id is <cite>2</cite>.  We will point out when you need to take note of id of a created object.</p>
+<p>For the most part when we display the output of a request, we are not going to show
+the headers, just the response body.</p>
 </div>
 <div class="section" id="network-configuration">
 <h3>Network Configuration<a class="headerlink" href="#network-configuration" title="Permalink to this headline">¶</a></h3>
 <p>The setupWizard has pre-loaded the database with a stand in host to represent
 the contractor VM and has flagged it as pre-built.  It has also created
 a site called <cite>site1</cite> and some base DNS configuration. It also took the network
-of the primary interface and loaded it into the database named &#8216;main&#8217;.</p>
-<p>We need to create another address block for the internal network.  Replace
-<cite>&lt; network name &gt;</cite> with the name of the network created in vcenter (ie: internal)
-or virtual box (ie: vboxnet0):</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/AddressBlock
-{ &quot;site&quot;: &quot;$SITE&quot;, &quot;name&quot;: &quot;&lt;network name&gt;&quot;, &quot;subnet&quot;: &quot;10.0.0.1&quot;, &quot;gateway_offset&quot;: null, &quot;prefix&quot;: &quot;24&quot; }
-EOF
+of the primary interface and loaded it into the database as the Network <cite>main</cite>,
+and AddressBlock name <cite>main</cite>.</p>
+<p>First we need to set an Environment variable for the existing AddressBlock:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">ADRBLK</span><span class="o">=</span><span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span>
 </pre></div>
 </div>
-<p>which should output something like:</p>
-<div class="highlight-python"><div class="highlight"><pre>HTTP/1.1 201 CREATED
-Date: Thu, 23 May 2019 23:42:17 GMT
-Server: Apache/2.4.18 (Ubuntu)
-Verb: CREATE
-Access-Control-Allow-Origin: *
-Cinp-Version: 0.9
-Access-Control-Expose-Headers: Method, Type, Cinp-Version, Count, Position, Total, Multi-Object, Object-Id, Id-Only
-Cache-Control: no-cache
-Object-Id: /api/v1/Utilities/AddressBlock:2:
-Content-Length: 318
-Content-Type: application/json;charset=utf-8
-
-{&quot;name&quot;: &quot;vboxnet0&quot;, &quot;size&quot;: &quot;254&quot;, &quot;_max_address&quot;: &quot;10.0.0.255&quot;, &quot;gateway_offset&quot;: null, &quot;updated&quot;: &quot;2019-05-23T23:42:17.180084+00:00&quot;, &quot;site&quot;: &quot;/api/v1/Site/Site:site1:&quot;, &quot;netmask&quot;: &quot;255.255.255.0&quot;, &quot;subnet&quot;: &quot;10.0.0.0&quot;, &quot;created&quot;: &quot;2019-05-23T23:42:17.180121+00:00&quot;, &quot;gateway&quot;: null, &quot;isIpV4&quot;: &quot;True&quot;, &quot;prefix&quot;: 24}
-</pre></div>
-</div>
-<p>look for the header Object-Id: /api/v1/Building/AddressBlock:2:, the number between
-the <cite>:</cite> may be something else.  Set another environment variable to the Id value,
-replace the <cite>&lt; id &gt;</cite> to match the number in the Object-Id above:</p>
-<div class="highlight-python"><div class="highlight"><pre>export ADRBLK=&quot;/api/v1/Utilities/AddressBlock:&lt; id &gt;:&quot;
-</pre></div>
-</div>
-<p>NOTE: the subnet you specify when creating the AddressBlock will be rounded up
-to the top of the subnet.  In this case we could of specified any ip from
-10.0.0.0 - 10.0.0.255 would result in the same subnet.</p>
-<p>Now to add the internal ip of the contractor host, first set the address on eth0
-to non-primary, we want the internal ip to be primary:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X UPDATE $CHOST/api/v1/Utilities/Address:1:
-{ &quot;is_primary&quot;: false }
+<p>Now to create network for the internal network.  Contractor will use the name of the Network
+to know what virtual network to select when deploying VMs.  Replace <cite>&lt; network name &gt;</cite> with
+the name of the network created in vcenter (ie: internal) or virtual box (ie: vboxnet0):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/Network
+{ &quot;site&quot;: &quot;$SITE&quot;, &quot;name&quot;: &quot;&lt; network name &gt;&quot; }
 EOF
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">126</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-05T03:16:00.142926+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;pointer&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;networked&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Networked:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;vlan&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.13.126&quot;</span><span class="p">,</span> <span class="s2">&quot;is_primary&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;interface_name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-05T02:45:12.304186+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.13.1&quot;</span><span class="p">,</span> <span class="s2">&quot;sub_interface&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Address&quot;</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.13.0&quot;</span><span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;vboxnet0&quot;</span><span class="p">,</span> <span class="s2">&quot;address_block_list&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-24T17:55:09.024672+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-24T17:55:09.024647+00:00&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>create an interface <cite>eth1</cite> for the ip to belong to (this represents the new interface
-we created on the internal network):</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
-{ &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:contractor:&quot;, &quot;name&quot;: &quot;eth1&quot;, &quot;physical_location&quot;: &quot;eth1&quot;, &quot;is_provisioning&quot;: false }
+<p>Take note of the id of that created AddressBlock.  Set another environment variable
+to the Id value, replace the <cite>&lt; id &gt;</cite> to the id of the above id:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">NETWORK</span><span class="o">=</span><span class="s2">&quot;/api/v1/Utilities/Network:&lt; id &gt;:&quot;</span>
+</pre></div>
+</div>
+<p>Now to attach the AddressBlock to the Network:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/NetworkAddressBlock
+{ &quot;network&quot;: &quot;$NETWORK&quot;, &quot;address_block&quot;: &quot;$ADRBLK&quot; }
 EOF
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;is_provisioning&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:contractor:&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth1&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-05T03:18:13.581612+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-05T03:18:13.581678+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth1&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>finally the ip it&#8217;s self:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/Address
-{ &quot;networked&quot;: &quot;/api/v1/Utilities/Networked:1:&quot;, &quot;address_block&quot;: &quot;$ADRBLK&quot;, &quot;interface_name&quot;: &quot;eth1&quot;, &quot;offset&quot;: 10, &quot;is_primary&quot;: true }
-EOF
-</pre></div>
-</div>
-<p>result:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.10&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T16:20:56.567650+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;pointer&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;vlan&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;networked&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Networked:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_primary&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Address&quot;</span><span class="p">,</span> <span class="s2">&quot;interface_name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth1&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.1&quot;</span><span class="p">,</span> <span class="s2">&quot;sub_interface&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T16:20:56.567606+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Network:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;vlan&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;vlan_tagged&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-24T17:58:54.146006+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-24T17:58:54.146044+00:00&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>now to reserve some ip addresses so they do not get auto assigned:</p>
-<div class="highlight-python"><div class="highlight"><pre>for OFFSET in 2 3 4 5 6 7 8 9 11 12 13 14 15 16 17 18 19 20; do
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for OFFSET in 2 3 4 5 6 7 8 9 11 12 13 14 15 16 17 18 19 20; do
 cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/ReservedAddress
 { &quot;address_block&quot;: &quot;$ADRBLK&quot;, &quot;offset&quot;: &quot;$OFFSET&quot;, &quot;reason&quot;: &quot;Network Reserved&quot; }
 EOF
@@ -357,7 +355,7 @@ done
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.2&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="s2">&quot;Network Reserved&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T16:34:54.312992+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T16:34:54.312941+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ReservedAddress&quot;</span><span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.2&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="s2">&quot;Network Reserved&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T16:34:54.312992+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T16:34:54.312941+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ReservedAddress&quot;</span><span class="p">}</span>
 <span class="p">{</span><span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.3&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="s2">&quot;Network Reserved&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T16:34:54.327090+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T16:34:54.327065+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ReservedAddress&quot;</span><span class="p">}</span>
 <span class="p">{</span><span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.4&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="s2">&quot;Network Reserved&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T16:34:54.339957+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T16:34:54.339924+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ReservedAddress&quot;</span><span class="p">}</span>
 <span class="p">{</span><span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.5&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="s2">&quot;Network Reserved&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T16:34:54.352559+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T16:34:54.352535+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ReservedAddress&quot;</span><span class="p">}</span>
@@ -381,35 +379,35 @@ done
 <div class="section" id="starting-dns">
 <h3>Starting DNS<a class="headerlink" href="#starting-dns" title="Permalink to this headline">¶</a></h3>
 <p>Restart bind with new zones:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo systemctl restart bind9
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">restart</span> <span class="n">bind9</span>
 </pre></div>
 </div>
 <p>Now to force a re-gen of the DNS files:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">sudo</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">cron</span><span class="o">/</span><span class="n">genDNS</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">cron</span><span class="o">/</span><span class="n">genDNS</span>
 </pre></div>
 </div>
 <p>This VM needs to use the contractor generated dns, so edit
-<cite>/etc/network/interfaces</cite> to set the dns server to &#8220;127.0.0.1&#8221;, and set the dns
-search to &#8220;site1.test site1&#8221;. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>auto ensXXX
-iface ensXXX inet static
-  ...
-  dns-nameservers 127.0.0.1
-  dns-search site1.test site1
+<cite>/etc/network/interfaces</cite> to set the dns server to “127.0.0.1”, and set the dns
+search to “site1.test site1”. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">auto</span> <span class="n">ensXXX</span>
+<span class="n">iface</span> <span class="n">ensXXX</span> <span class="n">inet</span> <span class="n">static</span>
+  <span class="o">...</span>
+  <span class="n">dns</span><span class="o">-</span><span class="n">nameservers</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span>
+  <span class="n">dns</span><span class="o">-</span><span class="n">search</span> <span class="n">site1</span><span class="o">.</span><span class="n">test</span> <span class="n">test</span>
 </pre></div>
 </div>
 <p>then reload networking configuration:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo systemctl restart networking
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">restart</span> <span class="n">networking</span>
 </pre></div>
 </div>
 <p>now if you ping contractor you should get the internal ip (10.0.0.10):</p>
-<div class="highlight-python"><div class="highlight"><pre>ping static -c2
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ping</span> <span class="n">static</span> <span class="o">-</span><span class="n">c2</span>
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-python"><div class="highlight"><pre>PING eth1.contractor.site1.test (10.0.0.10) 56(84) bytes of data.
-64 bytes from contractor.site1.test (10.0.0.10): icmp_seq=1 ttl=64 time=0.031 ms
-64 bytes from contractor.site1.test (10.0.0.10): icmp_seq=2 ttl=64 time=0.063 ms
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PING</span> <span class="n">eth1</span><span class="o">.</span><span class="n">contractor</span><span class="o">.</span><span class="n">site1</span><span class="o">.</span><span class="n">test</span> <span class="p">(</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">0.10</span><span class="p">)</span> <span class="mi">56</span><span class="p">(</span><span class="mi">84</span><span class="p">)</span> <span class="nb">bytes</span> <span class="n">of</span> <span class="n">data</span><span class="o">.</span>
+<span class="mi">64</span> <span class="nb">bytes</span> <span class="kn">from</span> <span class="nn">contractor.site1.test</span> <span class="p">(</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">0.10</span><span class="p">):</span> <span class="n">icmp_seq</span><span class="o">=</span><span class="mi">1</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">64</span> <span class="n">time</span><span class="o">=</span><span class="mf">0.031</span> <span class="n">ms</span>
+<span class="mi">64</span> <span class="nb">bytes</span> <span class="kn">from</span> <span class="nn">contractor.site1.test</span> <span class="p">(</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">0.10</span><span class="p">):</span> <span class="n">icmp_seq</span><span class="o">=</span><span class="mi">2</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">64</span> <span class="n">time</span><span class="o">=</span><span class="mf">0.063</span> <span class="n">ms</span>
 </pre></div>
 </div>
 <p>now take a look at the contractor ui at <a class="reference external" href="http:/">http:/</a>/&lt;contractor ip&gt;, (this ip is the ip
@@ -418,493 +416,79 @@ you assigned to the first interface)</p>
 <div class="section" id="subcontractor">
 <h3>Subcontractor<a class="headerlink" href="#subcontractor" title="Permalink to this headline">¶</a></h3>
 <p>install tfptd (used for PXE booting) and the PXE booting agent:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo apt install -y tftpd-hpa
-sudo respkg -i contractor-ipxe_0.4.respkg
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">tftpd</span><span class="o">-</span><span class="n">hpa</span>
+<span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">ipxe_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
 <p>now edit <cite>/etc/subcontractor.conf</cite>
-enable the modules you want to use, remove the &#8216;;&#8217; and set the 0 to a 1.
+enable the modules you want to use, remove the ‘;’ and set the 0 to a 1.
 The 1 means one task for that plugin at a time.  If you want to be able to process
 more targets at the same time, you can try 2 or 4 depending on the plugin, the
-resources of your vm, etc.  You may also want to change the <cite>poll_delay</cite> to 5, this
+resources of your vm, etc.  You may also want to change the <cite>poll_interval</cite> to 5, this
 will cause subcontractor to ask for more tasks every 5 seconds instead of the default
 20.  If we were setting up a system that would be processing a lot of tasks, we would
 want to slow this down to reduce the overhead on contractor. In the dhcpd section,
 make sure <cite>listen_interface</cite> and <cite>tftp_server</cite> are correct, <cite>tftp_server</cite> should be the ip of
 the vm on the new internal interface.</p>
 <p>now start up subcontractor:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo systemctl start subcontractor
-sudo systemctl start dhcpd
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">start</span> <span class="n">subcontractor</span>
+<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">start</span> <span class="n">dhcpd</span>
 </pre></div>
 </div>
-<p>make sure it&#8217;s running:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo systemctl status subcontractor
-sudo systemctl status dhcpd
+<p>make sure it’s running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">status</span> <span class="n">subcontractor</span>
+<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">status</span> <span class="n">dhcpd</span>
 </pre></div>
 </div>
-<p>optional, edit <cite>/etc/default/tftpd-hpa</cite> and add &#8216;-v &#8216; to TFTP_OPTIONS.  This will
+<p>optional, edit <cite>/etc/default/tftpd-hpa</cite> and add ‘-v ‘ to TFTP_OPTIONS.  This will
 cause tfptd to log transfers to syslog.  This can be helpful in troubleshooting
 boot problems. Make sure to run <cite>systemctl restart tftpd-hpa</cite> to reload.</p>
 </div>
-<div class="section" id="setting-up-vm-host">
-<h3>Setting up VM Host<a class="headerlink" href="#setting-up-vm-host" title="Permalink to this headline">¶</a></h3>
-<p>First we need to make a pre-built entry on a manual foundation to represent the
-virtualbox/vcenter/esx host, first creating the foundation:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Manual/ManualFoundation
-{ &quot;site&quot;: &quot;$SITE&quot;, &quot;locator&quot;: &quot;host&quot;, &quot;blueprint&quot;: &quot;/api/v1/BluePrint/FoundationBluePrint:manual-foundation-base:&quot; }
-EOF
-</pre></div>
-</div>
-<p>which should output something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;id_map&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;located_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;class_list&quot;</span><span class="p">:</span> <span class="s2">&quot;[&#39;Metal&#39;, &#39;VM&#39;, &#39;Container&#39;, &#39;Switch&#39;, &#39;Manual&#39;]&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:manual-foundation-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T16:48:53.818982+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;locator&quot;</span><span class="p">:</span> <span class="s2">&quot;host&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T16:48:53.818962+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Manual&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>create the interface:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
-{ &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:host:&quot;, &quot;name&quot;: &quot;eth0&quot;, &quot;physical_location&quot;: &quot;eth0&quot;, &quot;is_provisioning&quot;: true }
-EOF
-</pre></div>
-</div>
-<p>which should output something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-06T04:13:47.808962+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_provisioning&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-06T04:13:47.808940+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:host:&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>Now to create the structure:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/Structure
-{ &quot;site&quot;: &quot;$SITE&quot;, &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:host:&quot;, &quot;hostname&quot;: &quot;host&quot;, &quot;blueprint&quot;: &quot;/api/v1/BluePrint/StructureBluePrint:manual-structure-base:&quot; }
-EOF
-</pre></div>
-</div>
-<p>which should output something like:</p>
-<div class="highlight-python"><div class="highlight"><pre>HTTP/1.1 201 CREATED
-Date: Sat, 23 Feb 2019 16:49:20 GMT
-Server: Apache/2.4.18 (Ubuntu)
-Object-Id: /api/v1/Building/Structure:2:
-Cinp-Version: 0.9
-Cache-Control: no-cache
-Access-Control-Expose-Headers: Method, Type, Cinp-Version, Count, Position, Total, Multi-Object, Object-Id, Id-Only
-Verb: CREATE
-Access-Control-Allow-Origin: *
-Content-Length: 412
-Content-Type: application/json;charset=utf-8
-
-{&quot;config_uuid&quot;: &quot;349c8a47-e123-4234-91de-c387a440ffa5&quot;, &quot;hostname&quot;: &quot;host&quot;, &quot;created&quot;: &quot;2019-02-23T16:49:20.064258+00:00&quot;, &quot;state&quot;: &quot;planned&quot;, &quot;blueprint&quot;: &quot;/api/v1/BluePrint/StructureBluePrint:manual-structure-base:&quot;, &quot;built_at&quot;: null, &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:host:&quot;, &quot;config_values&quot;: {}, &quot;updated&quot;: &quot;2019-02-23T16:49:20.064239+00:00&quot;, &quot;site&quot;: &quot;/api/v1/Site/Site:site1:&quot;}
-</pre></div>
-</div>
-<p>look for the header <cite>Object-Id: /api/v1/Building/Structure:2:</cite>, take note of the
-sturcture id (the number between the <cite>:</cite>, in this case 2).</p>
-<p>now we need to tell contractor it is allready built so it dosen&#8217;t try to build it
-again.  There curently isn&#8217;t a API endpoint to manipluate the state of targets,
-so we will use a command line utility, this command needs to be run on the
-contractor VM. replace <cite>&lt;structure id&gt;</cite> with the id from the previous step:</p>
-<div class="highlight-python"><div class="highlight"><pre>/usr/lib/contractor/util/boss -f host --built
-/usr/lib/contractor/util/boss -s &lt;structure id&gt; --built
-</pre></div>
-</div>
-<p>which will output something like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>Working with &quot;ManualFoundation host&quot;
-No Job to Delete
-ManualFoundation host now set to built.
-Working with &quot;Structure #2(host) of &quot;manual-structure-base&quot; in &quot;site1&quot;&quot;
-No Job to Delete
-Structure #2(host) of &quot;manual-structure-base&quot; in &quot;site1&quot; now set to built.
-</pre></div>
-</div>
-<p>Now to define the foundation blueprint and create the complex.</p>
-</div>
-<div class="section" id="vcenter">
-<h3>VCenter<a class="headerlink" href="#vcenter" title="Permalink to this headline">¶</a></h3>
-<p>Environment setup:</p>
-<div class="highlight-python"><div class="highlight"><pre>export FBP=&quot;/api/v1/BluePrint/FoundationBluePrint:vcenter-vm-base:&quot;
-export FMDL=&quot;/api/v1/VCenter/VCenterFoundation&quot;
-export FDATA=&#39;, &quot;vcenter_complex&quot;: &quot;/api/v1/VCenter/VCenterComplex:demovcenter:&quot;&#39;
-</pre></div>
-</div>
-<p>First create the VCenterBox Complex, replace <cite>&lt; datacenter &gt;</cite> with the name of
-the VCenter datacenter to put the VMs in, if using ESX directly put &#8216;ha-datacenter&#8217;,
-replace <cite>&lt; cluster &gt;</cite> with the name of the cluster to put the vms in, if using
-ESX put the hostname of the ESX server, if it&#8217;s still default it will be &#8216;localhost.&#8217;.
-Replace <cite>&lt; structure id &gt;</cite>
-with the strudture id from the host creation above, <cite>&lt; username &gt;</cite> and <cite>&lt; password &gt;</cite>
-replace with the ESX/VCenter username and password:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/VCenter/VCenterComplex
-{ &quot;site&quot;: &quot;$SITE&quot;, &quot;name&quot;: &quot;demovcenter&quot;, &quot;description&quot;: &quot;Demo VCenter/ESX Host/Complex&quot;, &quot;vcenter_datacenter&quot;: &quot;&lt; datacenter &gt;&quot;, &quot;vcenter_cluster&quot;: &quot;&lt; cluster &gt;&quot;, &quot;vcenter_host&quot;: &quot;/api/v1/Building/Structure:&lt; structure id&gt;:&quot;, &quot;vcenter_username&quot;: &quot;&lt; username &gt;&quot;, &quot;vcenter_password&quot;: &quot;&lt; password &gt;&quot; }
-EOF
-</pre></div>
-</div>
-<p>should return something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;built_percentage&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T23:51:33.613222+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;vcenter_host&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Structure:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;vcenter_password&quot;</span><span class="p">:</span> <span class="s2">&quot;vmware&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T23:51:33.613199+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;vcenter_cluster&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;demovcenter&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Demo VCenter/ESX Host/Complex&quot;</span><span class="p">,</span> <span class="s2">&quot;vcenter_datacenter&quot;</span><span class="p">:</span> <span class="s2">&quot;ha-datacenter&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;VCenter&quot;</span><span class="p">,</span> <span class="s2">&quot;members&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;vcenter_username&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>Technically if you are using VCenter, you should create another structure
-so Contractor knows the hosts of the VCenter cluster, however, for the sake of
-simplicity, we will just add the ESX Host/VCenter cluster we just added as the host
-of the VCenterCluster as it&#8217;s only member,  once again the <cite>&lt; structure id &gt;</cite> is
-the id of the manual structure  we have been using so far:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/ComplexStructure
-{ &quot;complex&quot;: &quot;/api/v1/Building/Complex:demovcenter:&quot;, &quot;structure&quot;: &quot;/api/v1/Building/Structure:&lt; structure id&gt;:&quot; }
-EOF
-</pre></div>
-</div>
-<p>should return something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-24T00:02:06.164123+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;complex&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Complex:demovcenter:&quot;</span><span class="p">,</span> <span class="s2">&quot;structure&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Structure:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-24T00:02:06.164082+00:00&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>now to set the ip address of the vcenter/esx host. This ip will be used by
-subcontractor to communicate with VCenter to manipulate vms, and will need to be
-route-able from the contractor vm (where subcontractor is installed), this assumes
-that address is in the address space of the contractor vm, specifically the network
-that setupWizard created, Which should be attached to AddressBlock 1.  Change <cite>&lt; offset &gt;</cite>
-to the offset of the VCenter/ESX host, if the VCenter/ESX host is not in the same
-network that the contractor was created in, (and thus the same network that was
-setup bu the setup wizzard), you will need to create another AddressBlock and update
-the following call to use that AddressBlock in the following.  Replace structure id
-with the id from the structure creation step:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/Address
-{ &quot;networked&quot;: &quot;/api/v1/Utilities/Networked:&lt; structure id &gt;:&quot;, &quot;address_block&quot;: &quot;/api/v1/Utilities/AddressBlock:1:&quot;, &quot;interface_name&quot;: &quot;eth0&quot;, &quot;offset&quot;: &lt; offset &gt;, &quot;is_primary&quot;: true }
-EOF
-</pre></div>
-</div>
-<p>which should output something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T18:51:53.521628+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Address&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;vlan&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.13.22&quot;</span><span class="p">,</span> <span class="s2">&quot;interface_name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.13.0&quot;</span><span class="p">,</span> <span class="s2">&quot;sub_interface&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;is_primary&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span> <span class="s2">&quot;pointer&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.13.1&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T18:51:53.521652+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;networked&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Networked:2:&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="virtualbox">
-<h3>VirtualBox<a class="headerlink" href="#virtualbox" title="Permalink to this headline">¶</a></h3>
-<p>Environment setup:</p>
-<div class="highlight-python"><div class="highlight"><pre>export FBP=&quot;/api/v1/BluePrint/FoundationBluePrint:virtualbox-vm-base:&quot;
-export FMDL=&quot;/api/v1/VirtualBox/VirtualBoxFoundation&quot;
-export FDATA=&#39;, &quot;virtualbox_complex&quot;: &quot;/api/v1/VirtualBox/VirtualBoxComplex:demovbox:&quot;&#39;
-</pre></div>
-</div>
-<p>First create the VirtualBox Complex, replace the <cite>&lt; username &gt;</cite> and <cite>&lt; password &gt;</cite>
-with either your username and password for the machine with vbox running on it,
-or if you ran the vboxmanage command to disable the auth library, you can leave
-the username and password a few random alpha letters:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/VirtualBox/VirtualBoxComplex
-{ &quot;site&quot;: &quot;$SITE&quot;, &quot;name&quot;: &quot;demovbox&quot;, &quot;virtualbox_username&quot;: &quot;&lt; username &gt;&quot;, &quot;virtualbox_password&quot;: &quot;&lt; password &gt;&quot;, &quot;description&quot;: &quot;Demo VirtualBox Host/Complex&quot; }
-EOF
-</pre></div>
-</div>
-<p>should output something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Demo VirtualBox Host/Complex&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-05T03:29:33.401162+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;built_percentage&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span> <span class="s2">&quot;virtualbox_password&quot;</span><span class="p">:</span> <span class="s2">&quot;asdf&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;demovbox&quot;</span><span class="p">,</span> <span class="s2">&quot;virtualbox_username&quot;</span><span class="p">:</span> <span class="s2">&quot;asdf&quot;</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-05T03:29:33.401328+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;members&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;VirtualBox&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>Now we add the structure host we manually created as a member of the complex,
-replace <cite>&lt; structure id &gt;</cite> with the id from the manul host structure from above:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/ComplexStructure
-{ &quot;complex&quot;: &quot;/api/v1/Building/Complex:demovbox:&quot;, &quot;structure&quot;: &quot;/api/v1/Building/Structure:&lt; structure id&gt;:&quot; }
-EOF
-</pre></div>
-</div>
-<p>should output something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;complex&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Complex:demovbox:&quot;</span><span class="p">,</span> <span class="s2">&quot;structure&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Structure:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-20T04:55:31.730431+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-20T04:55:31.730357+00:00&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>now to set the ip address, this is the ip address of virtualbox the host.
-This is the same ip that we passed to vboxwebsrv, which is offset 1 of the internal
-network we created:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/Address
-{ &quot;networked&quot;: &quot;/api/v1/Utilities/Networked:&lt; structure id &gt;:&quot;, &quot;address_block&quot;: &quot;/api/v1/Utilities/AddressBlock:1:&quot;, &quot;interface_name&quot;: &quot;eth0&quot;, &quot;offset&quot;: 1, &quot;is_primary&quot;: true }
-EOF
-</pre></div>
-</div>
-<p>which should output something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T18:51:53.521628+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Address&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;vlan&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.13.22&quot;</span><span class="p">,</span> <span class="s2">&quot;interface_name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.13.0&quot;</span><span class="p">,</span> <span class="s2">&quot;sub_interface&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;is_primary&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span> <span class="s2">&quot;pointer&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.13.1&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-23T18:51:53.521652+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;networked&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Networked:2:&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>Contractor is now running, now let&#8217;s configure it to make a VM.</p>
-</div>
-<div class="section" id="creating-a-vm-ubuntu">
-<h3>Creating a VM (Ubuntu)<a class="headerlink" href="#creating-a-vm-ubuntu" title="Permalink to this headline">¶</a></h3>
-<p>First we need to load the ubuntu blueprints:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo respkg -i contractor-ubuntu-base_0.4.respkg
-</pre></div>
-</div>
-<p>Now we create the Foundation of the VM to be created:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/$FMDL
-{ &quot;site&quot;: &quot;$SITE&quot;, &quot;locator&quot;: &quot;testvm01&quot;, &quot;blueprint&quot;: &quot;$FBP&quot; $FDATA }
-EOF
-</pre></div>
-</div>
-<p>output:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;VirtualBox&quot;</span><span class="p">,</span> <span class="s2">&quot;id_map&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;virtualbox_complex&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/VirtualBox/VirtualBoxComplex:demovbox:&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:virtualbox-vm-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;locator&quot;</span><span class="p">:</span> <span class="s2">&quot;tesvm01&quot;</span><span class="p">,</span> <span class="s2">&quot;located_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-20T04:58:52.855473+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-20T04:58:52.855507+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;class_list&quot;</span><span class="p">:</span> <span class="s2">&quot;[&#39;VM&#39;, &#39;VirtualBox&#39;]&quot;</span><span class="p">,</span> <span class="s2">&quot;virtualbox_uuid&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>create the interface:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
-{ &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:testvm01:&quot;, &quot;name&quot;: &quot;eth0&quot;, &quot;physical_location&quot;: &quot;eth0&quot;, &quot;is_provisioning&quot;: true }
-EOF
-</pre></div>
-</div>
-<p>output:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_provisioning&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-25T14:28:36.245466+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:testvm01:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-25T14:28:36.245500+00:00&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>Now we will create a VM with the Ubuntu Bionic blueprint:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/Structure
-{ &quot;site&quot;: &quot;$SITE&quot;, &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:testvm01:&quot;, &quot;hostname&quot;: &quot;testvm01&quot;, &quot;blueprint&quot;: &quot;/api/v1/BluePrint/StructureBluePrint:ubuntu-bionic-base:&quot; }
-EOF
-</pre></div>
-</div>
-<p>once again take node of the structure id.  Now we assign and ip address, we will
-let contractor pick, we are going to use the helper method <cite>nextAddress</cite>.  Replace
-<cite>&lt; structure id &gt;</cite> with the structure id from the previous call:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CALL &quot;${CHOST}${ADRBLK}(nextAddress)&quot;
-{ &quot;networked&quot;: &quot;/api/v1/Building/Structure:&lt; structure id &gt;:&quot;, &quot;interface_name&quot;: &quot;eth0&quot;, &quot;is_primary&quot;: true }
-EOF
-</pre></div>
-</div>
-<p>output:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="s2">&quot;/api/v1/Utilities/Address:30:&quot;</span>
-</pre></div>
-</div>
-<p>Contractor will not auto-start the create (nor destroy) jobs.  So we need to add two
-jobs, one to create the Foundation and one to create the Structure:</p>
-<div class="highlight-python"><div class="highlight"><pre>curl &quot;${COPS[@]}&quot; -X CALL &quot;${CHOST}/api/v1/Building/Foundation:testvm01:(doCreate)&quot;
-curl &quot;${COPS[@]}&quot; -X CALL &quot;${CHOST}/api/v1/Building/Structure:&lt; structure id &gt;:(doCreate)&quot;
-</pre></div>
-</div>
-<p>Now to see it get built.  Pull up the <cite>http://&lt;contractor ip&gt;</cite>
-in a web browser if you don&#8217;t have it open allready, go to the <cite>Job Log</cite> should see an
-entry saying that the foundation build has started.  Goto the <cite>Jobs</cite> should see a Foundation
-or Structure Job there.  The Foundation Job won&#8217;t last long.  In the top right of the
-page is a refresh and auto refresh buttons.</p>
-<p>After the Foundation job completes, a Structure job will auto start, after it completes
-your VM should be up and sshable, however the default for ubuntu is to disallow sshing
-as root, but we can show the ssh service is listening:</p>
-<div class="highlight-python"><div class="highlight"><pre>nc -vz testvm01 22
-</pre></div>
-</div>
-<p>should output something like:</p>
-<div class="highlight-python"><div class="highlight"><pre>Connection to testvm01 22 port [tcp/ssh] succeeded!
-</pre></div>
-</div>
-<p>If you pull up the console, the default root password is &#8220;root&#8221;.</p>
-<p>After you have verified that it is there, logout of the test vm and kick off a
-job to delete it and re-build it:</p>
-<div class="highlight-python"><div class="highlight"><pre>/usr/lib/contractor/util/boss -f testvm01 --do-destroy
-</pre></div>
-</div>
-<p>We set the structure to auto-build, so after it get&#8217;s done with the remove job, it will
-create it again.</p>
-</div>
-<div class="section" id="creating-a-vm-centos">
-<h3>Creating a VM (CentOS)<a class="headerlink" href="#creating-a-vm-centos" title="Permalink to this headline">¶</a></h3>
-<p>Ok, let&#8217;s create a centos VM now, is&#8217;t all the same as the ubuntu VM except the
-blueprint we choose.</p>
-<p>Load the centos Blueprints:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo respkg -i contractor-centos-base_0.4.respkg
-</pre></div>
-</div>
-<p>Foundation:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/$FMDL
-{ &quot;site&quot;: &quot;$SITE&quot;, &quot;locator&quot;: &quot;testvm02&quot;, &quot;blueprint&quot;: &quot;$FBP&quot; $FDATA }
-EOF
-</pre></div>
-</div>
-<p>output:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;VirtualBox&quot;</span><span class="p">,</span> <span class="s2">&quot;id_map&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;virtualbox_complex&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/VirtualBox/VirtualBoxComplex:demovbox:&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:virtualbox-vm-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;locator&quot;</span><span class="p">:</span> <span class="s2">&quot;tesvm01&quot;</span><span class="p">,</span> <span class="s2">&quot;located_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-20T04:58:52.855473+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-20T04:58:52.855507+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;class_list&quot;</span><span class="p">:</span> <span class="s2">&quot;[&#39;VM&#39;, &#39;VirtualBox&#39;]&quot;</span><span class="p">,</span> <span class="s2">&quot;virtualbox_uuid&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>create the interface:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
-{ &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:testvm02:&quot;, &quot;name&quot;: &quot;eth0&quot;, &quot;physical_location&quot;: &quot;eth0&quot;, &quot;is_provisioning&quot;: true }
-EOF
-</pre></div>
-</div>
-<p>output:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_provisioning&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-25T14:28:36.245466+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:testvm02:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-25T14:28:36.245500+00:00&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>Now we will create a VM with the CentOS7 blueprint:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/Structure
-{ &quot;site&quot;: &quot;$SITE&quot;, &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:testvm02:&quot;, &quot;hostname&quot;: &quot;testvm02&quot;, &quot;blueprint&quot;: &quot;/api/v1/BluePrint/StructureBluePrint:centos-7-base:&quot; }
-EOF
-</pre></div>
-</div>
-<p>output:</p>
-<div class="highlight-python"><div class="highlight"><pre>HTTP/1.1 201 CREATED
-Date: Mon, 11 Mar 2019 13:45:58 GMT
-Server: Apache/2.4.18 (Ubuntu)
-Cache-Control: no-cache
-Verb: CREATE
-Cinp-Version: 0.9
-Object-Id: /api/v1/Building/Structure:4:
-Access-Control-Expose-Headers: Method, Type, Cinp-Version, Count, Position, Total, Multi-Object, Object-Id, Id-Only
-Access-Control-Allow-Origin: *
-Content-Length: 413
-Content-Type: application/json;charset=utf-8
-
-{&quot;hostname&quot;: &quot;testvm02&quot;, &quot;created&quot;: &quot;2019-03-11T13:45:58.963923+00:00&quot;, &quot;config_values&quot;: null, &quot;config_uuid&quot;: &quot;d8821d29-f884-4c2d-af63-7d0292b2ce41&quot;, &quot;updated&quot;: &quot;2019-03-11T13:45:58.963901+00:00&quot;, &quot;blueprint&quot;: &quot;/api/v1/BluePrint/StructureBluePrint:centos-7-base:&quot;, &quot;site&quot;: &quot;/api/v1/Site/Site:site1:&quot;, &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:testvm02:&quot;, &quot;built_at&quot;: null, &quot;state&quot;: &quot;planned&quot;}
-</pre></div>
-</div>
-<p>and assign the ip address, make sure to use the structure id from the testvm02 structure:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CALL &quot;${CHOST}${ADRBLK}(nextAddress)&quot;
-{ &quot;networked&quot;: &quot;/api/v1/Building/Structure:&lt; structure id &gt;:&quot;, &quot;interface_name&quot;: &quot;eth0&quot;, &quot;is_primary&quot;: true }
-EOF
-</pre></div>
-</div>
-<p>output:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="s2">&quot;/api/v1/Utilities/Address:30:&quot;</span>
-</pre></div>
-</div>
-<p>Once again create the create jobs:</p>
-<div class="highlight-python"><div class="highlight"><pre>curl &quot;${COPS[@]}&quot; -X CALL &quot;${CHOST}/api/v1/Building/Foundation:testvm02:(doCreate)&quot;
-curl &quot;${COPS[@]}&quot; -X CALL &quot;${CHOST}/api/v1/Building/Structure:&lt; structure id &gt;:(doCreate)&quot;
-</pre></div>
-</div>
-<p>Again the jobs should be running to create the CentOS VM.  When it is done, ssh in:</p>
-<div class="highlight-python"><div class="highlight"><pre>ssh root@testvm02
-</pre></div>
-</div>
-<p>go a head and play around with it for a bit.  Make sure to try deconfiguring both
-VMs at the same time so you can see Contractor do more than one thing at a time.</p>
-</div>
-<div class="section" id="accessing-configuration-information">
-<h3>Accessing Configuration Information<a class="headerlink" href="#accessing-configuration-information" title="Permalink to this headline">¶</a></h3>
-<p>Contractor provides three configuration urls for a target.  The first two depend on
-what the target is set to PXE boot to, the third is all the configuration information
-for that target in JSON format.</p>
-<p>ssh into one of the VMs, this will show what it is like from testvm02:</p>
-<div class="highlight-python"><div class="highlight"><pre>ssh root@testvm02
-</pre></div>
-</div>
-<p>First the pxe script, this script is downloaded and run but the iPXE boot loader
-that the target VM was told to download from the dhcp server.:</p>
-<div class="highlight-python"><div class="highlight"><pre>curl http://contractor/config/boot_script/
-</pre></div>
-</div>
-<p>which will output:</p>
-<div class="highlight-python"><div class="highlight"><pre>#!ipxe
-
-echo Booting form Primary Boot Disk
-sanboot --no-describe --drive 0x80 || echo Primary Boot Disk is not Bootable
-</pre></div>
-</div>
-<p>The VM is current set to the <cite>normal-boot</cite> pxe.  That script tells it to boot to the
-first harddrive.</p>
-<p>Next the pxe_template:</p>
-<div class="highlight-python"><div class="highlight"><pre>curl http://contractor/config/pxe_template/
-</pre></div>
-</div>
-<p>output:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1"># Normal Boot</span>
-</pre></div>
-</div>
-<p>once again, with this VM having been set to <cite>normal-boot</cite>, the pxe template is
-just a comment at the top.  The pxe_template is stored as a Jinja2 template that
-is combined with the configuration information and served out to the target.
-This is the URL that is used for the Kickstart and/or Pressed files for the CentOS
-and Debian installers.  The source for the CentOS and Ubuntu boot_scripts and
-pxe_templates are at <a class="reference external" href="https://github.com/T3kton/resources/blob/master/os-bases/centos/usr/lib/contractor/resources/centos.toml">https://github.com/T3kton/resources/blob/master/os-bases/centos/usr/lib/contractor/resources/centos.toml</a>
-and <a class="reference external" href="https://github.com/T3kton/resources/blob/master/os-bases/ubuntu/usr/lib/contractor/resources/ubuntu.toml">https://github.com/T3kton/resources/blob/master/os-bases/ubuntu/usr/lib/contractor/resources/ubuntu.toml</a>
-those are then packaged during when you built the resources, and installed to
-/usr/lib/contractor/resource/ when the resource package was installed.</p>
-<p>The third url is:</p>
-<div class="highlight-python"><div class="highlight"><pre>curl http://contractor/config/config/
-</pre></div>
-</div>
-<p>output:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;installer_pxe&quot;</span><span class="p">:</span> <span class="s2">&quot;centos-7&quot;</span><span class="p">,</span> <span class="s2">&quot;__pxe_template_location&quot;</span><span class="p">:</span> <span class="s2">&quot;http://contractor/config/pxe_template/&quot;</span><span class="p">,</span> <span class="s2">&quot;_structure_config_uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;118e0e44-457e-47df-b8c0-d157d5dde1b4&quot;</span><span class="p">,</span> <span class="s2">&quot;mirror_server&quot;</span><span class="p">:</span> <span class="s2">&quot;mirror.centos.org&quot;</span><span class="p">,</span> <span class="s2">&quot;_blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;centos-7-base&quot;</span><span class="p">,</span> <span class="s2">&quot;__timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-11T14:32:27.909856+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;_foundation_state&quot;</span><span class="p">:</span> <span class="s2">&quot;built&quot;</span><span class="p">,</span> <span class="s2">&quot;domain_name&quot;</span><span class="p">:</span> <span class="s2">&quot;site1.test&quot;</span><span class="p">,</span> <span class="s2">&quot;dns_search&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;site1.test&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">],</span> <span class="s2">&quot;_structure_state&quot;</span><span class="p">:</span> <span class="s2">&quot;built&quot;</span><span class="p">,</span> <span class="s2">&quot;__pxe_location&quot;</span><span class="p">:</span> <span class="s2">&quot;http://static/pxe/&quot;</span><span class="p">,</span> <span class="s2">&quot;distro&quot;</span><span class="p">:</span> <span class="s2">&quot;centos&quot;</span><span class="p">,</span> <span class="s2">&quot;_hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;testvm02&quot;</span><span class="p">,</span> <span class="s2">&quot;_foundation_class_list&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;VM&quot;</span><span class="p">,</span> <span class="s2">&quot;VCenter&quot;</span><span class="p">],</span> <span class="s2">&quot;dns_servers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;10.0.0.10&quot;</span><span class="p">],</span> <span class="s2">&quot;memory_size&quot;</span><span class="p">:</span> <span class="mi">2048</span><span class="p">,</span> <span class="s2">&quot;_foundation_type&quot;</span><span class="p">:</span> <span class="s2">&quot;VCenter&quot;</span><span class="p">,</span> <span class="s2">&quot;_provisioning_interface&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;_vcenter_complex&quot;</span><span class="p">:</span> <span class="s2">&quot;demovcenter&quot;</span><span class="p">,</span> <span class="s2">&quot;_interface_map&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;eth0&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="s2">&quot;00:50:56:03:1e:6d&quot;</span><span class="p">,</span> <span class="s2">&quot;address_list&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;vlan&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.123&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;primary&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;sub_interface&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;tagged&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;auto&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">}]}},</span> <span class="s2">&quot;_foundation_locator&quot;</span><span class="p">:</span> <span class="s2">&quot;testvm02&quot;</span><span class="p">,</span> <span class="s2">&quot;_vcenter_uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;52545577-0025-e8d7-1915-bd64585f47c1&quot;</span><span class="p">,</span> <span class="s2">&quot;_vcenter_cluster&quot;</span><span class="p">:</span> <span class="s2">&quot;localhost.&quot;</span><span class="p">,</span> <span class="s2">&quot;_site&quot;</span><span class="p">:</span> <span class="s2">&quot;site1&quot;</span><span class="p">,</span> <span class="s2">&quot;ntp_servers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ntp.ubuntu.com&quot;</span><span class="p">],</span> <span class="s2">&quot;distro_version&quot;</span><span class="p">:</span> <span class="s2">&quot;7&quot;</span><span class="p">,</span> <span class="s2">&quot;_fqdn&quot;</span><span class="p">:</span> <span class="s2">&quot;testvm02.site1.test&quot;</span><span class="p">,</span> <span class="s2">&quot;mirror_proxy&quot;</span><span class="p">:</span> <span class="s2">&quot;http://10.0.0.10:3128/&quot;</span><span class="p">,</span> <span class="s2">&quot;_foundation_interface_list&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="s2">&quot;00:50:56:03:1e:6d&quot;</span><span class="p">,</span> <span class="s2">&quot;address_list&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;vlan&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.123&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;primary&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;sub_interface&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;tagged&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;auto&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">}]}],</span> <span class="s2">&quot;__contractor_host&quot;</span><span class="p">:</span> <span class="s2">&quot;http://contractor/&quot;</span><span class="p">,</span> <span class="s2">&quot;_foundation_id&quot;</span><span class="p">:</span> <span class="s2">&quot;testvm02&quot;</span><span class="p">,</span> <span class="s2">&quot;vcenter_guest_id&quot;</span><span class="p">:</span> <span class="s2">&quot;rhel7_64Guest&quot;</span><span class="p">,</span> <span class="s2">&quot;swap_size&quot;</span><span class="p">:</span> <span class="mi">512</span><span class="p">,</span> <span class="s2">&quot;_structure_id&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;__last_modified&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-11T14:01:18.090983+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;_provisioning_interface_mac&quot;</span><span class="p">:</span> <span class="s2">&quot;00:50:56:03:1e:6d&quot;</span><span class="p">,</span> <span class="s2">&quot;_vcenter_datacenter&quot;</span><span class="p">:</span> <span class="s2">&quot;ha-datacenter&quot;</span><span class="p">,</span> <span class="s2">&quot;virtualbox_guest_type&quot;</span><span class="p">:</span> <span class="s2">&quot;RedHat_64&quot;</span><span class="p">,</span> <span class="s2">&quot;root_pass&quot;</span><span class="p">:</span> <span class="s2">&quot;$6$rootroot$oLo.loyMV45VA7/0sKV5JH/xBAXiq/igL4hQrGz3yd9XUavmC82tZm1lxW2N.5eLxQUlqp53wXKRzifZApP0/1&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>This url can be used by what ever scripts/CMS as a source of configuration
-information.  See the documentation at <a class="reference internal" href="ConfigurationValues.html"><em>Configuration Values</em></a> for more
-information on how these values are compiled.  One value to point out here is
-<cite>_structure_config_uuid</cite>, this value is set when the structure record is created
-or when the structure is destroyed.  This way if there is a stale copy of the
-structure (old VM snapshot, or a VM that didn&#8217;t get cleaned up properly, etc)
-comes on-line, it (or some other monitoring system) can detect that it is no
-longer current and take action.</p>
-<p>Contractor uses the source ip address of this URL requests to determine which
-target&#8217;s information to return.  You can also use the structure id, foundation
-locater or config uuid, to tell contractor which configuration to return.</p>
-<p>by config uuid:</p>
-<div class="highlight-python"><div class="highlight"><pre>curl http://contractor/config/config/c/118e0e44-457e-47df-b8c0-d157d5dde1b4
-</pre></div>
-</div>
-<p>by structure id:</p>
-<div class="highlight-python"><div class="highlight"><pre>curl http://contractor/config/config/s/4
-</pre></div>
-</div>
-<p>by foundation locator:</p>
-<div class="highlight-python"><div class="highlight"><pre>curl http://contractor/config/config/f/testvm02
-</pre></div>
-</div>
-<p>one way for a target to detect if it is slit good and in cases when the ip address
-might change, is to request it&#8217;s config by the uuid.</p>
-</div>
-<div class="section" id="removing-the-vms">
-<h3>Removing the VMs<a class="headerlink" href="#removing-the-vms" title="Permalink to this headline">¶</a></h3>
-<p>We can either Delete the VMs with the <cite>boss</cite> command:</p>
-<div class="highlight-python"><div class="highlight"><pre>/usr/lib/contractor/util/boss -s &lt;structure id&gt; --do-destroy --wait
-/usr/lib/contractor/util/boss -f &lt;locator&gt; --do-destroy --wait
-/usr/lib/contractor/util/boss -s &lt;structure id&gt; --delete
-/usr/lib/contractor/util/boss -f &lt;locator&gt; --delete
-</pre></div>
-</div>
-<p>or via the API:</p>
-<div class="highlight-python"><div class="highlight"><pre>curl &quot;${COPS[@]}&quot; -X CALL &quot;${CHOST}/api/v1/Building/Structure:&lt; structure id &gt;:(doDestroy)&quot;
-</pre></div>
-</div>
-<p>wait for that job to complete, then:</p>
-<div class="highlight-python"><div class="highlight"><pre>curl &quot;${COPS[@]}&quot; -X CALL &quot;${CHOST}/api/v1/Building/Foundation:&lt; locator &gt;:(doDestroy)&quot;
-</pre></div>
-</div>
-<p>wait for that job to complete, and finally:</p>
-<div class="highlight-python"><div class="highlight"><pre>curl &quot;${COPS[@]}&quot; -X DELETE &quot;${CHOST}/api/v1/Building/Structure:&lt; structure id &gt;:&quot;
-curl &quot;${COPS[@]}&quot; -X DELETE &quot;${CHOST}/api/v1/Building/Foundation:&lt; locator &gt;:&quot;
-</pre></div>
-</div>
-<p>Now the VM is no longer in virtualbox/vcenter nor contractor.</p>
-<p>The <cite>boss</cite> command can also trigger jobs, and set the status of foundations and
-structures.  See:</p>
-<div class="highlight-python"><div class="highlight"><pre>/usr/lib/contractor/util/boss --help
-</pre></div>
-</div>
-<p>for more info.</p>
+<div class="section" id="next-steps">
+<h3>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h3>
+<p>If you are installing to VCenter or VirtualBox:
+<a class="reference internal" href="TryIt_complex.html"><span class="doc">Setting up VM Host</span></a></p>
+<p>If you are installing on a BareMetal/IPMI machine:
+<a class="reference internal" href="TryIt_install_baremetal.html"><span class="doc">Install ESX</span></a></p>
 </div>
 </div>
 </div>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Give it a Try</a><ul>
-<li><a class="reference internal" href="#installing">Installing</a><ul>
-<li><a class="reference internal" href="#from-source">From Source</a></li>
-<li><a class="reference internal" href="#from-packages">From Packages</a></li>
+<h1 class="logo"><a href="../index.html">t3kton</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Contractor</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Introduction.html">Introduction to Contractor</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Give it a Try</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ConfigurationValues.html">Configuration Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Networking.html">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Modules.html">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tscript.html">tscript</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins.html#todo">TODO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Resources.html">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="API.html">CInP API Documentation for Contractor API</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#setup">Setup</a><ul>
-<li><a class="reference internal" href="#set-up-infrastructure">Set up Infrastructure</a></li>
-<li><a class="reference internal" href="#install-required-services">Install Required Services</a></li>
-<li><a class="reference internal" href="#update-packages">Update Packages</a></li>
-<li><a class="reference internal" href="#configure-apache">Configure Apache</a></li>
-<li><a class="reference internal" href="#setup-the-database">Setup the database</a></li>
-<li><a class="reference internal" href="#environment-setup">Environment Setup</a></li>
-<li><a class="reference internal" href="#network-configuration">Network Configuration</a></li>
-<li><a class="reference internal" href="#starting-dns">Starting DNS</a></li>
-<li><a class="reference internal" href="#subcontractor">Subcontractor</a></li>
-<li><a class="reference internal" href="#setting-up-vm-host">Setting up VM Host</a></li>
-<li><a class="reference internal" href="#vcenter">VCenter</a></li>
-<li><a class="reference internal" href="#virtualbox">VirtualBox</a></li>
-<li><a class="reference internal" href="#creating-a-vm-ubuntu">Creating a VM (Ubuntu)</a></li>
-<li><a class="reference internal" href="#creating-a-vm-centos">Creating a VM (CentOS)</a></li>
-<li><a class="reference internal" href="#accessing-configuration-information">Accessing Configuration Information</a></li>
-<li><a class="reference internal" href="#removing-the-vms">Removing the VMs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#id1">Contractor</a></li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
+
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -917,18 +501,23 @@ structures.  See:</p>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -937,8 +526,8 @@ structures.  See:</p>
       &copy;2019, Peter Howe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
 

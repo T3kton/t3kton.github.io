@@ -1,42 +1,35 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Introduction to Contractor &mdash; t3kton 1.0 documentation</title>
-    
+    <meta charset="utf-8" />
+    <title>Introduction to Contractor &#8212; t3kton 1.0 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="t3kton 1.0 documentation" href="../index.html" />
-    <link rel="up" title="Contractor" href="index.html" />
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Give it a Try" href="TryIt.html" />
     <link rel="prev" title="Contractor" href="index.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body role="document">  
+  </head><body>
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="introduction-to-contractor">
@@ -51,92 +44,92 @@ collisions with various platforms and systems.</p>
 to build on, a Structure is the thing you want to build.  Say we want to
 build a Web Server.  Our Structure is a set of configuration values and scripts
 required to build that web server, i.e., Install Ubuntu LTS 18.04 and install and
-Configure Apache (more on those details in .....).  The Foundation is what we
+Configure Apache (more on those details in …..).  The Foundation is what we
 want to install that on, i.e., a VM, Container, Blade Server, Bare-metal Server,
-Raspberry PI, ECS, GCD, etc...  Not all Foundations are going to be compatible
+Raspberry PI, ECS, GCD, etc…  Not all Foundations are going to be compatible
 with all Structures, however a well defined Structure can be installed on most
 of them.</p>
 <p>So far we have this:</p>
-<div class="highlight-python"><div class="highlight"><pre>+-----------------------------+
-|                             |
-|  Structure (Web Server)     |
-|                             |
-+-----------------------------+
-             |
-             |
-+-----------------------------+
-|                             |
-|   Foundation                |
-|                             |
-+-----------------------------+
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-----------------------------+</span>
+<span class="o">|</span>                             <span class="o">|</span>
+<span class="o">|</span>  <span class="n">Structure</span> <span class="p">(</span><span class="n">Web</span> <span class="n">Server</span><span class="p">)</span>     <span class="o">|</span>
+<span class="o">|</span>                             <span class="o">|</span>
+<span class="o">+-----------------------------+</span>
+             <span class="o">|</span>
+             <span class="o">|</span>
+<span class="o">+-----------------------------+</span>
+<span class="o">|</span>                             <span class="o">|</span>
+<span class="o">|</span>   <span class="n">Foundation</span>                <span class="o">|</span>
+<span class="o">|</span>                             <span class="o">|</span>
+<span class="o">+-----------------------------+</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="sites">
 <h2>Sites<a class="headerlink" href="#sites" title="Permalink to this headline">¶</a></h2>
-<p>The next term is <strong>Site</strong>.  A site is a Logical grouping of things.  Let&#8217;s put
-our Web Server in a Site called &#8220;Cluster 1&#8221;</p>
-<div class="highlight-python"><div class="highlight"><pre>+-------------------------------------+
-|  Cluster 1                          |
-|                                     |
-|    +-----------------------------+  |
-|    |                             |  |
-|    |  Structure (Web Server)     |  |
-|    |                             |  |
-|    +------------+----------------+  |
-|                 |                   |
-|                 |                   |
-|    +------------+----------------+  |
-|    |                             |  |
-|    |   Foundation                |  |
-|    |                             |  |
-|    +-----------------------------+  |
-|                                     |
-+-------------------------------------+
+<p>The next term is <strong>Site</strong>.  A site is a Logical grouping of things.  Let’s put
+our Web Server in a Site called “Cluster 1”</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-------------------------------------+</span>
+<span class="o">|</span>  <span class="n">Cluster</span> <span class="mi">1</span>                          <span class="o">|</span>
+<span class="o">|</span>                                     <span class="o">|</span>
+<span class="o">|</span>    <span class="o">+-----------------------------+</span>  <span class="o">|</span>
+<span class="o">|</span>    <span class="o">|</span>                             <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>    <span class="o">|</span>  <span class="n">Structure</span> <span class="p">(</span><span class="n">Web</span> <span class="n">Server</span><span class="p">)</span>     <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>    <span class="o">|</span>                             <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>    <span class="o">+------------+----------------+</span>  <span class="o">|</span>
+<span class="o">|</span>                 <span class="o">|</span>                   <span class="o">|</span>
+<span class="o">|</span>                 <span class="o">|</span>                   <span class="o">|</span>
+<span class="o">|</span>    <span class="o">+------------+----------------+</span>  <span class="o">|</span>
+<span class="o">|</span>    <span class="o">|</span>                             <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>    <span class="o">|</span>   <span class="n">Foundation</span>                <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>    <span class="o">|</span>                             <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>    <span class="o">+-----------------------------+</span>  <span class="o">|</span>
+<span class="o">|</span>                                     <span class="o">|</span>
+<span class="o">+-------------------------------------+</span>
 </pre></div>
 </div>
 <p>Each Item we have used so far contains configuration values.  These are Key
 Value pairs that can be overlay-ed.  In this case Contractor will take the
-configuration values of &#8220;Cluster 1&#8221; then overlay them with &#8220;Foundation&#8221; and
-the &#8220;Structure&#8221;.</p>
+configuration values of “Cluster 1” then overlay them with “Foundation” and
+the “Structure”.</p>
 <p>Sites can be be put into other Sites.  For example we have Clusters 1, 2, and 3
-in &#8220;Datacenter West&#8221;.</p>
-<div class="highlight-python"><div class="highlight"><pre>+---------------------------------------------------------------------------------------------+
-| Datacenter West                                                                             |
-|                                                                                             |
-|  +-------------------------------------+ +----------------------+ +----------------------+  |
-|  |  Cluster 1                          | |  Cluster 2           | |  Cluster 3           |  |
-|  |                                     | |                      | |                      |  |
-|  |    +-----------------------------+  | |    +--------------+  | |    +--------------+  |  |
-|  |    |                             |  | |    |              |  | |    |              |  |  |
-|  |    |  Structure (Web Server)     |  | |    |  Structure   |  | |    |  Structure   |  |  |
-|  |    |                             |  | |    |              |  | |    |              |  |  |
-|  |    +------------+----------------+  | |    +-----+--------+  | |    +-----+--------+  |  |
-|  |                 |                   | |          |           | |          |           |  |
-|  |                 |                   | |          |           | |          |           |  |
-|  |    +------------+----------------+  | |    +-----+--------+  | |    +-----+--------+  |  |
-|  |    |                             |  | |    |              |  | |    |              |  |  |
-|  |    |   Foundation                |  | |    |  Foundation  |  | |    |  Foundation  |  |  |
-|  |    |                             |  | |    |              |  | |    |              |  |  |
-|  |    +-----------------------------+  | |    +--------------+  | |    +--------------+  |  |
-|  |                                     | |                      | |                      |  |
-|  +-------------------------------------+ +----------------------+ +----------------------+  |
-|                                                                                             |
-+---------------------------------------------------------------------------------------------+
+in “Datacenter West”.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+---------------------------------------------------------------------------------------------+</span>
+<span class="o">|</span> <span class="n">Datacenter</span> <span class="n">West</span>                                                                             <span class="o">|</span>
+<span class="o">|</span>                                                                                             <span class="o">|</span>
+<span class="o">|</span>  <span class="o">+-------------------------------------+</span> <span class="o">+----------------------+</span> <span class="o">+----------------------+</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="n">Cluster</span> <span class="mi">1</span>                          <span class="o">|</span> <span class="o">|</span>  <span class="n">Cluster</span> <span class="mi">2</span>           <span class="o">|</span> <span class="o">|</span>  <span class="n">Cluster</span> <span class="mi">3</span>           <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                                     <span class="o">|</span> <span class="o">|</span>                      <span class="o">|</span> <span class="o">|</span>                      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>    <span class="o">+-----------------------------+</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">+--------------+</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">+--------------+</span>  <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>    <span class="o">|</span>                             <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">|</span>              <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">|</span>              <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>    <span class="o">|</span>  <span class="n">Structure</span> <span class="p">(</span><span class="n">Web</span> <span class="n">Server</span><span class="p">)</span>     <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">|</span>  <span class="n">Structure</span>   <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">|</span>  <span class="n">Structure</span>   <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>    <span class="o">|</span>                             <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">|</span>              <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">|</span>              <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>    <span class="o">+------------+----------------+</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">+-----+--------+</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">+-----+--------+</span>  <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                 <span class="o">|</span>                   <span class="o">|</span> <span class="o">|</span>          <span class="o">|</span>           <span class="o">|</span> <span class="o">|</span>          <span class="o">|</span>           <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                 <span class="o">|</span>                   <span class="o">|</span> <span class="o">|</span>          <span class="o">|</span>           <span class="o">|</span> <span class="o">|</span>          <span class="o">|</span>           <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>    <span class="o">+------------+----------------+</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">+-----+--------+</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">+-----+--------+</span>  <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>    <span class="o">|</span>                             <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">|</span>              <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">|</span>              <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>    <span class="o">|</span>   <span class="n">Foundation</span>                <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">|</span>  <span class="n">Foundation</span>  <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">|</span>  <span class="n">Foundation</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>    <span class="o">|</span>                             <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">|</span>              <span class="o">|</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">|</span>              <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>    <span class="o">+-----------------------------+</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">+--------------+</span>  <span class="o">|</span> <span class="o">|</span>    <span class="o">+--------------+</span>  <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                                     <span class="o">|</span> <span class="o">|</span>                      <span class="o">|</span> <span class="o">|</span>                      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">+-------------------------------------+</span> <span class="o">+----------------------+</span> <span class="o">+----------------------+</span>  <span class="o">|</span>
+<span class="o">|</span>                                                                                             <span class="o">|</span>
+<span class="o">+---------------------------------------------------------------------------------------------+</span>
 </pre></div>
 </div>
-<p>Now the configuration information will first have site &#8220;Datacenter West&#8221; then,
+<p>Now the configuration information will first have site “Datacenter West” then,
 Cluster X, Foundation, Structure.  This comes in handy for propagating configuration
 information without having to set it for each item individually.  For example,
-we can have the DNS Search Zones be set to &#8220;west.site.com&#8221; in the site &#8220;Datacenter West&#8221;
-and prepend that with &#8220;cluster1.site.com&#8221; in &#8220;Cluster 1&#8221;.  If at any time we want
+we can have the DNS Search Zones be set to “west.site.com” in the site “Datacenter West”
+and prepend that with “cluster1.site.com” in “Cluster 1”.  If at any time we want
 some other global DNS search zone, we add it to the top and it automatically propagates
-down.  You could also set &#8220;Release&#8221;=&#8221;Prod&#8221; in &#8220;Datacenter West&#8221; and then create a
-&#8220;Cluster Test&#8221; and override the &#8220;Release&#8221; to the value &#8220;Test&#8221;.  You could also do
+down.  You could also set “Release”=”Prod” in “Datacenter West” and then create a
+“Cluster Test” and override the “Release” to the value “Test”.  You could also do
 A-B testing, etc.</p>
 <p>Any Item can make an HTTP request to Contractor and Contractor will reply with a JSON
-encoded reply with that item&#8217;s combined configuration values.</p>
-<p>This is all fun and all, but not really useful.  Let&#8217;s change things up a bit and
+encoded reply with that item’s combined configuration values.</p>
+<p>This is all fun and all, but not really useful.  Let’s change things up a bit and
 install ESX on the bare-metal and put a few Web servers on ESX.</p>
 <p>Before we do that we need to dig into Foundations a little more. The <strong>Foundation</strong>
 class is meant as a root class for specific target handlers to work against.</p>
@@ -147,47 +140,47 @@ ESX/VCenter.</p>
 <div class="section" id="complexes">
 <h2>Complexes<a class="headerlink" href="#complexes" title="Permalink to this headline">¶</a></h2>
 <p>Note: we are going to omit Cluster 2 and 3 for now, they are clones of Cluster 1:</p>
-<div class="highlight-python"><div class="highlight"><pre>+-----------------------------------------------------------------------------+
-| Datacenter West                                                             |
-|                                                                             |
-|  +-----------------------------------------------------------------------+  |
-|  |  Cluster 1                                                            |  |
-|  |                                                                       |  |
-|  |  +-----------------------------+ +-----------------------------+      |  |
-|  |  |                             | |                             |      |  |
-|  |  |  Structure (Web Server)     | |  Structure (Web Server)     |      |  |
-|  |  |                             | |                             |      |  |
-|  |  +------------+----------------+ +------------+----------------+      |  |
-|  |               |                               |                       |  |
-|  |               |                               |                       |  |
-|  |  +------------+----------------+ +------------+----------------+      |  |
-|  |  |                             | |                             |      |  |
-|  |  |   VCenterFoundation         | |   VCenterFoundation         |      |  |
-|  |  |                             | |                             |      |  |
-|  |  +------------------------+----+ +---+-------------------------+      |  |
-|  |                           |          |                                |  |
-|  |                      +----+----------+---+                            |  |
-|  |                      |                   |                            |  |
-|  |                      | VCenter Complex   |                            |  |
-|  |                      |                   |                            |  |
-|  |                      +--------+----------+                            |  |
-|  |                               |                                       |  |
-|  |                  +------------+----------------+                      |  |
-|  |                  |                             |                      |  |
-|  |                  |  Structure (ESX)            |                      |  |
-|  |                  |                             |                      |  |
-|  |                  +------------+----------------+                      |  |
-|  |                               |                                       |  |
-|  |                               |                                       |  |
-|  |                  +------------+----------------+                      |  |
-|  |                  |                             |                      |  |
-|  |                  |   IPMIFoundation            |                      |  |
-|  |                  |                             |                      |  |
-|  |                  +-----------------------------+                      |  |
-|  |                                                                       |  |
-|  +-----------------------------------------------------------------------+  |
-|                                                                             |
-+-----------------------------------------------------------------------------+
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-----------------------------------------------------------------------------+</span>
+<span class="o">|</span> <span class="n">Datacenter</span> <span class="n">West</span>                                                             <span class="o">|</span>
+<span class="o">|</span>                                                                             <span class="o">|</span>
+<span class="o">|</span>  <span class="o">+-----------------------------------------------------------------------+</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="n">Cluster</span> <span class="mi">1</span>                                                            <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                                                                       <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">+-----------------------------+</span> <span class="o">+-----------------------------+</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>                             <span class="o">|</span> <span class="o">|</span>                             <span class="o">|</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="n">Structure</span> <span class="p">(</span><span class="n">Web</span> <span class="n">Server</span><span class="p">)</span>     <span class="o">|</span> <span class="o">|</span>  <span class="n">Structure</span> <span class="p">(</span><span class="n">Web</span> <span class="n">Server</span><span class="p">)</span>     <span class="o">|</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>                             <span class="o">|</span> <span class="o">|</span>                             <span class="o">|</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">+------------+----------------+</span> <span class="o">+------------+----------------+</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>               <span class="o">|</span>                               <span class="o">|</span>                       <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>               <span class="o">|</span>                               <span class="o">|</span>                       <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">+------------+----------------+</span> <span class="o">+------------+----------------+</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>                             <span class="o">|</span> <span class="o">|</span>                             <span class="o">|</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>   <span class="n">VCenterFoundation</span>         <span class="o">|</span> <span class="o">|</span>   <span class="n">VCenterFoundation</span>         <span class="o">|</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>                             <span class="o">|</span> <span class="o">|</span>                             <span class="o">|</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">+------------------------+----+</span> <span class="o">+---+-------------------------+</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                           <span class="o">|</span>          <span class="o">|</span>                                <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                      <span class="o">+----+----------+---+</span>                            <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                      <span class="o">|</span>                   <span class="o">|</span>                            <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                      <span class="o">|</span> <span class="n">VCenter</span> <span class="n">Complex</span>   <span class="o">|</span>                            <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                      <span class="o">|</span>                   <span class="o">|</span>                            <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                      <span class="o">+--------+----------+</span>                            <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                               <span class="o">|</span>                                       <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                  <span class="o">+------------+----------------+</span>                      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                  <span class="o">|</span>                             <span class="o">|</span>                      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                  <span class="o">|</span>  <span class="n">Structure</span> <span class="p">(</span><span class="n">ESX</span><span class="p">)</span>            <span class="o">|</span>                      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                  <span class="o">|</span>                             <span class="o">|</span>                      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                  <span class="o">+------------+----------------+</span>                      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                               <span class="o">|</span>                                       <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                               <span class="o">|</span>                                       <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                  <span class="o">+------------+----------------+</span>                      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                  <span class="o">|</span>                             <span class="o">|</span>                      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                  <span class="o">|</span>   <span class="n">IPMIFoundation</span>            <span class="o">|</span>                      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                  <span class="o">|</span>                             <span class="o">|</span>                      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                  <span class="o">+-----------------------------+</span>                      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                                                                       <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">+-----------------------------------------------------------------------+</span>  <span class="o">|</span>
+<span class="o">|</span>                                                                             <span class="o">|</span>
+<span class="o">+-----------------------------------------------------------------------------+</span>
 </pre></div>
 </div>
 <p>This introduces our next item the <strong>Complex</strong> as in a building complex.  A Complex
@@ -197,52 +190,52 @@ NOTE: the configuration info of the Structure and Foundations that make up a
 cluster do <strong>NOT</strong> flow through to the Foundations and Structures built on that
 complex.  The Members of the Complex can even belong to another site.</p>
 <p>For Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>+-----------------------------------------------------------------------------+
-| Datacenter West                                                             |
-|                                                                             |
-|  +-----------------------------------------------------------------------+  |
-|  |  Cluster 1                                                            |  |
-|  |                                                                       |  |
-|  |  +-----------------------------+ +-----------------------------+      |  |
-|  |  |                             | |                             |      |  |
-|  |  |  Structure (Web Server)     | |  Structure (Web Server)     |      |  |
-|  |  |                             | |                             |      |  |
-|  |  +------------+----------------+ +------------+----------------+      |  |
-|  |               |                               |                       |  |
-|  |               |                               |                       |  |
-|  |  +------------+----------------+ +------------+----------------+      |  |
-|  |  |                             | |                             |      |  |
-|  |  |   VCenterFoundation         | |   VCenterFoundation         |      |  |
-|  |  |                             | |                             |      |  |
-|  |  +------------------------+----+ +---+-------------------------+      |  |
-|  |                           |          |                                |  |
-|  +-----------------------------------------------------------------------+  |
-|  |                           |          |                                |  |
-|  |  Cluster 1 Hosting   +----+----------+---+                            |  |
-|  |                      |                   |                            |  |
-|  |                      | VCenter Complex   |                            |  |
-|  |                      |                   |                            |  |
-|  |                      +---+-------------+-+                            |  |
-|  |                          |             |                              |  |
-|  |                          |             |                              |  |
-|  |                          |             |                              |  |
-|  |                          |             |                              |  |
-|  |     +--------------------+------+   +--+-------------------------+    |  |
-|  |     |                           |   |                            |    |  |
-|  |     | Structure (ESX)           |   | Structure (ESX)            |    |  |
-|  |     |                           |   |                            |    |  |
-|  |     +----------+----------------+   +-----------+----------------+    |  |
-|  |                |                                |                     |  |
-|  |                |                                |                     |  |
-|  |     +----------+----------------+   +-----------+----------------+    |  |
-|  |     |                           |   |                            |    |  |
-|  |     |  IPMIFoundation           |   |  IPMIFoundation            |    |  |
-|  |     |                           |   |                            |    |  |
-|  |     +---------------------------+   +----------------------------+    |  |
-|  |                                                                       |  |
-|  +-----------------------------------------------------------------------+  |
-|                                                                             |
-+-----------------------------------------------------------------------------+
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-----------------------------------------------------------------------------+</span>
+<span class="o">|</span> <span class="n">Datacenter</span> <span class="n">West</span>                                                             <span class="o">|</span>
+<span class="o">|</span>                                                                             <span class="o">|</span>
+<span class="o">|</span>  <span class="o">+-----------------------------------------------------------------------+</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="n">Cluster</span> <span class="mi">1</span>                                                            <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                                                                       <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">+-----------------------------+</span> <span class="o">+-----------------------------+</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>                             <span class="o">|</span> <span class="o">|</span>                             <span class="o">|</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>  <span class="n">Structure</span> <span class="p">(</span><span class="n">Web</span> <span class="n">Server</span><span class="p">)</span>     <span class="o">|</span> <span class="o">|</span>  <span class="n">Structure</span> <span class="p">(</span><span class="n">Web</span> <span class="n">Server</span><span class="p">)</span>     <span class="o">|</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>                             <span class="o">|</span> <span class="o">|</span>                             <span class="o">|</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">+------------+----------------+</span> <span class="o">+------------+----------------+</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>               <span class="o">|</span>                               <span class="o">|</span>                       <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>               <span class="o">|</span>                               <span class="o">|</span>                       <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">+------------+----------------+</span> <span class="o">+------------+----------------+</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>                             <span class="o">|</span> <span class="o">|</span>                             <span class="o">|</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>   <span class="n">VCenterFoundation</span>         <span class="o">|</span> <span class="o">|</span>   <span class="n">VCenterFoundation</span>         <span class="o">|</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>                             <span class="o">|</span> <span class="o">|</span>                             <span class="o">|</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="o">+------------------------+----+</span> <span class="o">+---+-------------------------+</span>      <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                           <span class="o">|</span>          <span class="o">|</span>                                <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">+-----------------------------------------------------------------------+</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                           <span class="o">|</span>          <span class="o">|</span>                                <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>  <span class="n">Cluster</span> <span class="mi">1</span> <span class="n">Hosting</span>   <span class="o">+----+----------+---+</span>                            <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                      <span class="o">|</span>                   <span class="o">|</span>                            <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                      <span class="o">|</span> <span class="n">VCenter</span> <span class="n">Complex</span>   <span class="o">|</span>                            <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                      <span class="o">|</span>                   <span class="o">|</span>                            <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                      <span class="o">+---+-------------+-+</span>                            <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                          <span class="o">|</span>             <span class="o">|</span>                              <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                          <span class="o">|</span>             <span class="o">|</span>                              <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                          <span class="o">|</span>             <span class="o">|</span>                              <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                          <span class="o">|</span>             <span class="o">|</span>                              <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>     <span class="o">+--------------------+------+</span>   <span class="o">+--+-------------------------+</span>    <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>     <span class="o">|</span>                           <span class="o">|</span>   <span class="o">|</span>                            <span class="o">|</span>    <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>     <span class="o">|</span> <span class="n">Structure</span> <span class="p">(</span><span class="n">ESX</span><span class="p">)</span>           <span class="o">|</span>   <span class="o">|</span> <span class="n">Structure</span> <span class="p">(</span><span class="n">ESX</span><span class="p">)</span>            <span class="o">|</span>    <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>     <span class="o">|</span>                           <span class="o">|</span>   <span class="o">|</span>                            <span class="o">|</span>    <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>     <span class="o">+----------+----------------+</span>   <span class="o">+-----------+----------------+</span>    <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                <span class="o">|</span>                                <span class="o">|</span>                     <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                <span class="o">|</span>                                <span class="o">|</span>                     <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>     <span class="o">+----------+----------------+</span>   <span class="o">+-----------+----------------+</span>    <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>     <span class="o">|</span>                           <span class="o">|</span>   <span class="o">|</span>                            <span class="o">|</span>    <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>     <span class="o">|</span>  <span class="n">IPMIFoundation</span>           <span class="o">|</span>   <span class="o">|</span>  <span class="n">IPMIFoundation</span>            <span class="o">|</span>    <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>     <span class="o">|</span>                           <span class="o">|</span>   <span class="o">|</span>                            <span class="o">|</span>    <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>     <span class="o">+---------------------------+</span>   <span class="o">+----------------------------+</span>    <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">|</span>                                                                       <span class="o">|</span>  <span class="o">|</span>
+<span class="o">|</span>  <span class="o">+-----------------------------------------------------------------------+</span>  <span class="o">|</span>
+<span class="o">|</span>                                                                             <span class="o">|</span>
+<span class="o">+-----------------------------------------------------------------------------+</span>
 </pre></div>
 </div>
 <p>Complexes also cause Contractor to build the Web Server Structure/Foundations
@@ -252,8 +245,8 @@ much the same for a Docker/OpenStack/etc Complex.</p>
 <div class="section" id="side-track-to-the-manifesto">
 <h2>Side Track to the Manifesto<a class="headerlink" href="#side-track-to-the-manifesto" title="Permalink to this headline">¶</a></h2>
 <p>At this point you are probably wondering how having all these Foundation types
-is simplifying deployments.  By separating the configuration of the &#8220;Hosted&#8221; and
-the &#8220;Host&#8221; we can effectively divide up the job of configuring the system.  (Do
+is simplifying deployments.  By separating the configuration of the “Hosted” and
+the “Host” we can effectively divide up the job of configuring the system.  (Do
 I get to drop the DevOps Buzzword now?)  As a Developer/Engineer configures their
 code, they embody that in a Structure.  They can package that configuration
 information along with their code/designs and that configuration can also
@@ -267,27 +260,27 @@ and no matter if it is hosted on premise in VMs, or deployed to AWS for some
 peak load handling, Operations can scale as needed, to whatever.</p>
 <p>Also by allowing every thing, no matter the platform, to be tracked in the same
 place, you now have a single source of truth for your monitoring system to rely on.
-You don&#8217;t have to worry about parts of your Micro Services failing to auto-register.
+You don’t have to worry about parts of your Micro Services failing to auto-register.
 And, you know exactly what is deployed where; useful when hardware needs to be
 swapped out.</p>
 <p>Your Operations teams are also free to try changing out hosting solutions without
-retooling everything to try it &#8211; in some cases without involving Engineering
+retooling everything to try it – in some cases without involving Engineering
 to do so.</p>
 <p>Not only can you unify your provisioning tools, but also the auto-scaling tools.</p>
 <p>You are also free from vendor lock in.  If a new Cloud provider comes along, they
-don&#8217;t need to have an AWS like API to use them, just a Foundation subclass
-provider that talks to that Cloud provider&#8217;s API and you are set.  Same if
+don’t need to have an AWS like API to use them, just a Foundation subclass
+provider that talks to that Cloud provider’s API and you are set.  Same if
 a new class of hardware comes along (ARM servers anyone?) or a new way of
-approaching hosting (the next thing after containers).  And you don&#8217;t have to try to
+approaching hosting (the next thing after containers).  And you don’t have to try to
 fit all your use cases into one silver bullet.  You can have a nice auto-scaling
 Container Cloud/Swarm with your micro services right next to standard VMs running
-the databases and object storage.  All with one &#8220;pane of glass&#8221;</p>
-<p>Ok, back to business, buzzword dropping disabled...</p>
+the databases and object storage.  All with one “pane of glass”</p>
+<p>Ok, back to business, buzzword dropping disabled…</p>
 </div>
 <div class="section" id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
 <p>One final piece of the deployment puzzle, the <strong>Dependency</strong>.  This is to make sure
-your deployments happen in order.  For example, you can&#8217;t install any OSes until
+your deployments happen in order.  For example, you can’t install any OSes until
 the Switch is provisioned.  Also you may have to allocate space on an NFS mount
 before installing a VM.  This is where Dependencies come in, allowing a Foundation
 to Depend on a Structure being built, and/or a job being run on a Structure.</p>
@@ -304,16 +297,16 @@ build to embody the process and configuration information of Creating the
 Structure/Foundation.</p>
 <p>A <strong>BluePrint</strong> can have multiple parents, this is useful for centralizing
 configuration information.</p>
-<p>A Blueprint must have (or one through it&#8217;s parents) two <strong>Scripts</strong>.  A
-&#8220;create&#8221; and a &#8220;destroy&#8221; script.  I can also have other named scripts
-for other tasks.  These scripts are written in <strong>tscript</strong> (see <a class="reference internal" href="tscript.html"><em>tscript</em></a>).</p>
+<p>A Blueprint must have (or one through it’s parents) two <strong>Scripts</strong>.  A
+“create” and a “destroy” script.  I can also have other named scripts
+for other tasks.  These scripts are written in <strong>tscript</strong> (see <a class="reference internal" href="tscript.html"><span class="doc">tscript</span></a>).</p>
 <p>Taking our example from above, the blueprint for the webserver would look something
 like (see :doc:ConfigurationValues for info on the configuration values):</p>
-<div class="highlight-python"><div class="highlight"><pre>[ structure.webserver ]
-  description = &#39;My Serbserver&#39;
-  parents = [ &#39;ubuntu-bionic-base&#39; ]
-[ structure.webserver.config_values ]
-  &#39;&gt;package_list&#39; = [ &#39;apache&#39;, &#39;myapp&#39; ]
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="n">structure</span><span class="o">.</span><span class="n">webserver</span> <span class="p">]</span>
+  <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;My Serbserver&#39;</span>
+  <span class="n">parents</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;ubuntu-bionic-base&#39;</span> <span class="p">]</span>
+<span class="p">[</span> <span class="n">structure</span><span class="o">.</span><span class="n">webserver</span><span class="o">.</span><span class="n">config_values</span> <span class="p">]</span>
+  <span class="s1">&#39;&gt;package_list&#39;</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;apache&#39;</span><span class="p">,</span> <span class="s1">&#39;myapp&#39;</span> <span class="p">]</span>
 </pre></div>
 </div>
 <p>It would inherit the create/destroy scripts from <cite>linux-installer</cite>, which is an
@@ -324,30 +317,46 @@ ancestor to <cite>ubuntu-bionic-base</cite> which is defined in <a class="refere
 <h2>Other<a class="headerlink" href="#other" title="Permalink to this headline">¶</a></h2>
 <p>There are other Classes/Components in Contractor, but they are mostly for dealing
 with Configure/Destroy/Misc Jobs (the Foreman module), or managing DNS Zones (Directory module).
-As well as keeping track of Ip Addresses and other &#8220;Utilities&#8221; in the Utilities module.
+As well as keeping track of Ip Addresses and other “Utilities” in the Utilities module.
 Those are documented elsewhere.</p>
 </div>
 </div>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Introduction to Contractor</a><ul>
-<li><a class="reference internal" href="#foundations-and-structures">Foundations and Structures</a></li>
-<li><a class="reference internal" href="#sites">Sites</a></li>
-<li><a class="reference internal" href="#complexes">Complexes</a></li>
-<li><a class="reference internal" href="#side-track-to-the-manifesto">Side Track to the Manifesto</a></li>
-<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
-<li><a class="reference internal" href="#blueprints">BluePrints</a></li>
-<li><a class="reference internal" href="#other">Other</a></li>
+<h1 class="logo"><a href="../index.html">t3kton</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Contractor</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Introduction to Contractor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TryIt.html">Give it a Try</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ConfigurationValues.html">Configuration Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Networking.html">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Modules.html">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tscript.html">tscript</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins.html#todo">TODO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Resources.html">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="API.html">CInP API Documentation for Contractor API</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#id1">Contractor</a></li>
 </ul>
+
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -360,18 +369,23 @@ Those are documented elsewhere.</p>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -380,8 +394,8 @@ Those are documented elsewhere.</p>
       &copy;2019, Peter Howe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
 
