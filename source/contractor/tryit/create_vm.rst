@@ -3,7 +3,7 @@ Creating a VM (Ubuntu)
 
 First we need to load the ubuntu blueprints::
 
-  sudo respkg -i contractor-ubuntu-base_0.4.respkg
+  sudo respkg -i contractor-ubuntu-base_*.respkg
 
 Now we create the Foundation of the VM to be created::
 
@@ -18,12 +18,12 @@ result::
 create the interface::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
-  { "foundation": "/api/v1/Building/Foundation:testvm01:", "name": "eth0", "physical_location": "eth0", "is_provisioning": true }
+  { "foundation": "/api/v1/Building/Foundation:testvm01:", "name": "eth0", "physical_location": "eth0", "network": "$NETWORK", "is_provisioning": true }
   EOF
 
 result::
 
-  {"pxe": null, "name": "eth0", "is_provisioning": true, "physical_location": "eth0", "updated": "2019-02-25T14:28:36.245466+00:00", "mac": null, "foundation": "/api/v1/Building/Foundation:testvm01:", "created": "2019-02-25T14:28:36.245500+00:00"}
+  {"mac": null, "is_provisioning": true, "name": "eth0", "physical_location": "eth0", "network": "/api/v1/Utilities/Network:2:", "created": "2019-10-27T04:01:42.209918+00:00", "foundation": "/api/v1/Building/Foundation:testvm01:", "updated": "2019-10-27T04:01:42.209881+00:00", "link_name": null, "pxe": null}
 
 Now we will create a VM with the Ubuntu Bionic blueprint::
 
@@ -36,7 +36,7 @@ let contractor pick, we are going to use the helper method `nextAddress`.  Repla
 `< structure id >` with the structure id from the previous call::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CALL "${CHOST}${ADRBLK}(nextAddress)"
-  { "networked": "/api/v1/Building/Structure:< structure id >:", "interface_name": "eth0", "is_primary": true }
+  { "networked": "/api/v1/Utilities/Networked:< structure id >:", "interface_name": "eth0", "is_primary": true }
   EOF
 
 result::
@@ -68,12 +68,12 @@ should output something like::
 If you pull up the console, the default root password is "root".
 
 After you have verified that it is there, logout of the test vm and kick off a
-job to delete it and re-build it::
+job to clean it up::
 
-  /usr/lib/contractor/util/boss -f testvm01 --do-destroy
+  curl "${COPS[@]}" -X CALL "${CHOST}/api/v1/Building/Foundation:testvm01:(doDestroy)"
+  curl "${COPS[@]}" -X CALL "${CHOST}/api/v1/Building/Structure:< structure id >:(doDestroy)"
 
-We set the structure to auto-build, so after it get's done with the remove job, it will
-create it again.
+After those jobs have completed you can call the doCreate again to rebuild them.
 
 Creating a VM (CentOS)
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -83,7 +83,7 @@ blueprint we choose.
 
 Load the centos Blueprints::
 
-  sudo respkg -i contractor-centos-base_0.4.respkg
+  sudo respkg -i contractor-centos-base_*.respkg
 
 Foundation::
 
@@ -98,12 +98,12 @@ result::
 create the interface::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
-  { "foundation": "/api/v1/Building/Foundation:testvm02:", "name": "eth0", "physical_location": "eth0", "is_provisioning": true }
+  { "foundation": "/api/v1/Building/Foundation:testvm02:", "name": "eth0", "physical_location": "eth0", "network": "$NETWORK", "is_provisioning": true }
   EOF
 
 result::
 
-  {"pxe": null, "name": "eth0", "is_provisioning": true, "physical_location": "eth0", "updated": "2019-02-25T14:28:36.245466+00:00", "mac": null, "foundation": "/api/v1/Building/Foundation:testvm02:", "created": "2019-02-25T14:28:36.245500+00:00"}
+  {"pxe": null, "name": "eth0", "is_provisioning": true, "physical_location": "eth0", "network": "/api/v1/Utilities/Network:2:", "updated": "2019-02-25T14:28:36.245466+00:00", "mac": null, "foundation": "/api/v1/Building/Foundation:testvm02:", "created": "2019-02-25T14:28:36.245500+00:00"}
 
 Now we will create a VM with the CentOS7 blueprint::
 
@@ -130,7 +130,7 @@ result::
 and assign the ip address, make sure to use the structure id from the testvm02 structure::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CALL "${CHOST}${ADRBLK}(nextAddress)"
-  { "networked": "/api/v1/Building/Structure:< structure id >:", "interface_name": "eth0", "is_primary": true }
+  { "networked": "/api/v1/Utilities/Networked:< structure id >:", "interface_name": "eth0", "is_primary": true }
   EOF
 
 result::
@@ -146,9 +146,10 @@ Again the jobs should be running to create the CentOS VM.  When it is done, ssh 
 
   ssh root@testvm02
 
-go a head and play around with it for a bit.  Make sure to try deconfiguring both
-VMs at the same time so you can see Contractor do more than one thing at a time.
+Once again the root password is "root", go a head and play around with it for a bit.
+Make sure to try deconfiguring both VMs at the same time so you can see Contractor
+do more than one thing at a time.
 
 Next Steps
 ~~~~~~~~~~
-:doc:`TryIt_config_info`
+:doc:`config_info`

@@ -1,4 +1,4 @@
-Vcenter/ESX Setup
+VCenter/ESX Setup
 =================
 
 For the purposes of this demo, VCenter it's self is not required.  All you will
@@ -29,4 +29,4 @@ or newer.  If you are using and older version of VCenter you will need to::
 Otherwise your VCenter/ESX will give you an `invalidProperty = 'configSpec.guestId'`
 error when you build CentOS VMs.
 
-return to :ref:`contractor/TryIt:setup`
+return to :ref:`contractor/tryit/installing:setup`

@@ -7,7 +7,7 @@ Contents:
   :maxdepth: 2
 
   Introduction
-  TryIt
+  tryit/index
   ConfigurationValues
   Networking
   Modules
@@ -16,18 +16,6 @@ Contents:
   Resources
   API
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
-
-
-Contractor
-==========
 
 Overview
 --------

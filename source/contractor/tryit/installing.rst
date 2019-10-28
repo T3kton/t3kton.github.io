@@ -1,45 +1,23 @@
-Give it a Try
-==============
-
-*Warning*: Contractor is made to solve complex problems, for the most part it presents
-a much less complex interface to you.  That being said, there is a bit of a hurdle
-to get it up and running, depending on what you are trying to automate.  So, buckle
-in, this is going to be a lot of fun.
-
-This demo will require in a VM in a private /24 network that can create and destroy
-other VMs in that network.  You can use either VCenter or VirtualBox.  After the
-Contractor VM is up and running, you can install more blueprints and plugins to do
-docker or other foundations.  The requirement for the private network comes primarally from
-the setupWizard's default configuration, if you feel comfortable with modifying
-the setupWizard and the Apache Configurations, you can use blueprints and plugins
-for hosted providers such as AWS and Azure.
-
-NOTE: setupWizard is going to re-write some bind config files, so don't edit them
-until after the install is complete.
-
-If you are not failure with how Contractor handles Networking, you will probably
-want to take a look at the overview on :doc:`Networking`.
-
 Installing
 ----------
 
 Create an Ubuntu Xenial(16.04LTS) VM, name it `contractor`, set the fqdn to `contractor.site1.test`
 Ideally it should be in a /24 network.  Offset 1 is assumed to be the gateway.
 All these values can be adjusted either in the setupWizard file before it is run,
-or after it is setup, you can use the API/UI to edit these values.
+or after it is setup, you can use the API to edit these values.
 The DNS server will be set for the contractor VM, and bind on the contractor vm will
 be set to forward to the DNS server that was originally configured on the VM.
 
 From Source
 ~~~~~~~~~~~
 
-:doc:`TryIt_source`
+:doc:`source`
 
 
 From Packages
 ~~~~~~~~~~~~~
 
-:doc:`TryIt_packaged`
+:doc:`packaged`
 
 Setup
 -----
@@ -51,13 +29,13 @@ To prevent your new contractor VM from taking over the network you are curently
 connected to, you will need to configure a issloated network.  There are also
 some other Infrastructure related tasks that need to be done.
 
-:doc:`TryIt_setup_vcenter`
+:doc:`setup_vcenter`
 
-:doc:`TryIt_setup_virtualbox`
+:doc:`setup_virtualbox`
 
-:doc:`TryIt_setup_ipmi`
+:doc:`setup_ipmi`
 
-:doc:`TryIt_setup_amt`
+:doc:`setup_amt`
 
 Install Required Services
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,7 +49,7 @@ Create the postgres db::
   sudo su postgres -c "echo \"CREATE ROLE contractor WITH PASSWORD 'contractor' NOSUPERUSER NOCREATEDB NOCREATEROLE LOGIN;\" | psql"
   sudo su postgres -c "createdb -O contractor contractor"
 
-NOTE, for those two commands you may see::
+NOTE, for those two commands you may see something like::
 
   could not change directory to "/root": Permission denied
 
@@ -314,7 +292,7 @@ and AddressBlock name `main`.
 ..   { "site": "$SITE", "name": "internal", "subnet": "10.0.0.1", "gateway_offset": null, "prefix": "24" }
 ..   EOF
 ..
-.. result::
+.. result ::
 ..
 ..   {"name": "internal", "size": "254", "_max_address": "10.0.0.255", "gateway_offset": null, "site": "/api/v1/Site/Site:site1:", "netmask": "255.255.255.0", "subnet": "10.0.0.0", "gateway": null, "isIpV4": "True", "prefix": 24, "created": "2019-05-23T23:42:17.180121+00:00", "updated": "2019-05-23T23:42:17.180084+00:00"}
 ..
@@ -462,7 +440,7 @@ Next Steps
 ~~~~~~~~~~
 
 If you are installing to VCenter or VirtualBox:
-:doc:`TryIt_complex`
+:doc:`complex`
 
 If you are installing on a BareMetal/IPMI machine:
-:doc:`TryIt_install_baremetal`
+:doc:`install_baremetal`

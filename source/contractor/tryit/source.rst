@@ -63,4 +63,4 @@ Now to install the python code, NOTE the Makefile will call './setup.py install'
   sudo systemctl enable subcontractor
   sudo systemctl enable dhcpd
 
-return to :ref:`contractor/TryIt:installing`
+return to :ref:`contractor/tryit/installing:installing`
