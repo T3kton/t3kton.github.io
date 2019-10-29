@@ -39,3 +39,5 @@ until after the install is complete.
 
 If you are not failure with how Contractor handles Networking, you will probably
 want to take a look at the overview on :doc:`../Networking`.
+
+Let's get going. :doc:`installing`

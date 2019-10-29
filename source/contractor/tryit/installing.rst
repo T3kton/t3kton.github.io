@@ -176,6 +176,10 @@ do manual plugin again so it can cross link to the other plugins::
 
   sudo respkg -i contractor-plugins-manual_*.respkg
 
+restart apache so it loads the newly enabled plutings::
+
+  sudo systemctl restart apache2
+
 Now to configure the base contractor information, this includes configuring bind.
 This command will prompt you for the password to use for the `root` user that we
 will be using for API calls.  Set `< interface name >` to the name of the interface
@@ -284,26 +288,6 @@ the contractor VM and has flagged it as pre-built.  It has also created
 a site called `site1` and some base DNS configuration. It also took the network
 of the primary interface and loaded it into the database as the Network `main`,
 and AddressBlock name `main`.
-
-.. We need to create a Network and AddressBlock block for the internal network.  First
-.. the AddressBlock::
-..
-..   cat << EOF | curl -i "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/AddressBlock
-..   { "site": "$SITE", "name": "internal", "subnet": "10.0.0.1", "gateway_offset": null, "prefix": "24" }
-..   EOF
-..
-.. result ::
-..
-..   {"name": "internal", "size": "254", "_max_address": "10.0.0.255", "gateway_offset": null, "site": "/api/v1/Site/Site:site1:", "netmask": "255.255.255.0", "subnet": "10.0.0.0", "gateway": null, "isIpV4": "True", "prefix": 24, "created": "2019-05-23T23:42:17.180121+00:00", "updated": "2019-05-23T23:42:17.180084+00:00"}
-..
-.. Take note of the id of that created AddressBlock.  Set another environment variable
-.. to the Id value, replace the `< id >` to the id of the above id::
-..
-..   export ADRBLK="/api/v1/Utilities/AddressBlock:< id >:"
-..
-.. NOTE: the subnet you specify when creating the AddressBlock will be rounded up
-.. to the top of the subnet.  In this case we could of specified any ip from
-.. 10.0.0.0 - 10.0.0.255 would result in the same subnet.
 
 First we need to set an Environment variable for the existing AddressBlock::
 
