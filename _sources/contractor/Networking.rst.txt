@@ -76,7 +76,7 @@ scope.  And `DynamicAddress` - an Address that belongs to a DHCP group.
 Networks
 --------
 
-A `Network` is used to name the physical/logical networks that `NetworkInterface`s are attached
+A `Network` is used to name the physical/logical networks that `NetworkInterface` are attached
 to.  AddressBlocks are associated with Networks, with optional vlan tagging.  The
 Network name is used by plugins such as VCenter/AWS/Azure to know the name of the
 Switch/Network to attach to.
@@ -119,3 +119,10 @@ Foundations will borrow the Address information of the Structure that they are c
 with to do tasks of the Foundation Jobs.  Without a Structure, Foundation Jobs that
 require an Address can not be done. (This is something that will hopefully change
 in the future by borrowing from a dynamic pool, but for now a Structure is required.)
+
+DNS
+~~~
+
+Contractor's requirements for DNS.....
+
+extra DNS records

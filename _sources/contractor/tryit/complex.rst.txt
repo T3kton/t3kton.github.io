@@ -98,7 +98,7 @@ now to set the ip address of the vcenter/esx host. This ip will be used by
 subcontractor to communicate with VCenter to manipulate vms, and will need to be
 route-able from the contractor vm (where subcontractor is installed), this assumes
 that address is in the address space of the contractor vm, specifically the network
-that setupWizard created, Which should be attached to AddressBlock 1.  Change `< offset >`
+that setupWizard created.  Change `< offset >`
 to the offset of the VCenter/ESX host, if the VCenter/ESX host is not in the same
 network that the contractor was created in, (and thus the same network that was
 setup bu the setup wizzard), you will need to create another AddressBlock and update
@@ -106,7 +106,7 @@ the following call to use that AddressBlock in the following.  Replace structure
 with the id from the structure creation step::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/Address
-  { "networked": "/api/v1/Utilities/Networked:< structure id >:", "address_block": "/api/v1/Utilities/AddressBlock:1:", "interface_name": "eth0", "offset": < offset >, "is_primary": true }
+  { "networked": "/api/v1/Utilities/Networked:< structure id >:", "address_block": "$ADRBLK", "interface_name": "eth0", "offset": < offset >, "is_primary": true }
   EOF
 
 result::
@@ -151,7 +151,7 @@ This is the same ip that we passed to vboxwebsrv, which is offset 1 of the inter
 network we created, once again replace `< structure id >`::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/Address
-  { "networked": "/api/v1/Utilities/Networked:< structure id >:", "address_block": "/api/v1/Utilities/AddressBlock:1:", "interface_name": "eth0", "offset": 1, "is_primary": true }
+  { "networked": "/api/v1/Utilities/Networked:< structure id >:", "address_block": "$ADRBLK", "interface_name": "eth0", "offset": 1, "is_primary": true }
   EOF
 
 result::
@@ -162,4 +162,4 @@ Contractor is now running, now let's configure it to make a VM.
 
 Next Steps
 ~~~~~~~~~~
-:doc:`TryIt_create_vm`
+:doc:`create_vm`

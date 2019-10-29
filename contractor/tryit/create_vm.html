@@ -5,17 +5,19 @@
   <head>
     <meta charset="utf-8" />
     <title>Creating a VM (Ubuntu) &#8212; t3kton 1.0 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Accessing Configuration Information" href="config_info.html" />
+    <link rel="prev" title="Install ESX" href="install_baremetal.html" />
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -33,7 +35,7 @@
   <div class="section" id="creating-a-vm-ubuntu">
 <h1>Creating a VM (Ubuntu)<a class="headerlink" href="#creating-a-vm-ubuntu" title="Permalink to this headline">¶</a></h1>
 <p>First we need to load the ubuntu blueprints:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">ubuntu</span><span class="o">-</span><span class="n">base_0</span><span class="o">.</span><span class="mf">4.</span><span class="n">respkg</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">ubuntu</span><span class="o">-</span><span class="n">base_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
 <p>Now we create the Foundation of the VM to be created:</p>
@@ -48,12 +50,12 @@ EOF
 </div>
 <p>create the interface:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
-{ &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:testvm01:&quot;, &quot;name&quot;: &quot;eth0&quot;, &quot;physical_location&quot;: &quot;eth0&quot;, &quot;is_provisioning&quot;: true }
+{ &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:testvm01:&quot;, &quot;name&quot;: &quot;eth0&quot;, &quot;physical_location&quot;: &quot;eth0&quot;, &quot;network&quot;: &quot;$NETWORK&quot;, &quot;is_provisioning&quot;: true }
 EOF
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_provisioning&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-25T14:28:36.245466+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:testvm01:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-25T14:28:36.245500+00:00&quot;</span><span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;is_provisioning&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Network:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-27T04:01:42.209918+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:testvm01:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-27T04:01:42.209881+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;link_name&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>Now we will create a VM with the Ubuntu Bionic blueprint:</p>
@@ -66,7 +68,7 @@ EOF
 let contractor pick, we are going to use the helper method <cite>nextAddress</cite>.  Replace
 <cite>&lt; structure id &gt;</cite> with the structure id from the previous call:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">&lt;&lt;</span> <span class="n">EOF</span> <span class="o">|</span> <span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">--</span><span class="n">data</span> <span class="o">@-</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">$</span><span class="si">{ADRBLK}</span><span class="s2">(nextAddress)&quot;</span>
-<span class="p">{</span> <span class="s2">&quot;networked&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Structure:&lt; structure id &gt;:&quot;</span><span class="p">,</span> <span class="s2">&quot;interface_name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_primary&quot;</span><span class="p">:</span> <span class="n">true</span> <span class="p">}</span>
+<span class="p">{</span> <span class="s2">&quot;networked&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Networked:&lt; structure id &gt;:&quot;</span><span class="p">,</span> <span class="s2">&quot;interface_name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_primary&quot;</span><span class="p">:</span> <span class="n">true</span> <span class="p">}</span>
 <span class="n">EOF</span>
 </pre></div>
 </div>
@@ -97,19 +99,19 @@ as root, but we can show the ssh service is listening:</p>
 </div>
 <p>If you pull up the console, the default root password is “root”.</p>
 <p>After you have verified that it is there, logout of the test vm and kick off a
-job to delete it and re-build it:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">util</span><span class="o">/</span><span class="n">boss</span> <span class="o">-</span><span class="n">f</span> <span class="n">testvm01</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">destroy</span>
+job to clean it up:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Foundation:testvm01:(doDestroy)&quot;</span>
+<span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Structure:&lt; structure id &gt;:(doDestroy)&quot;</span>
 </pre></div>
 </div>
-<p>We set the structure to auto-build, so after it get’s done with the remove job, it will
-create it again.</p>
+<p>After those jobs have completed you can call the doCreate again to rebuild them.</p>
 </div>
 <div class="section" id="creating-a-vm-centos">
 <h1>Creating a VM (CentOS)<a class="headerlink" href="#creating-a-vm-centos" title="Permalink to this headline">¶</a></h1>
 <p>Ok, let’s create a centos VM now, is’t all the same as the ubuntu VM except the
 blueprint we choose.</p>
 <p>Load the centos Blueprints:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">centos</span><span class="o">-</span><span class="n">base_0</span><span class="o">.</span><span class="mf">4.</span><span class="n">respkg</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">centos</span><span class="o">-</span><span class="n">base_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
 <p>Foundation:</p>
@@ -124,12 +126,12 @@ EOF
 </div>
 <p>create the interface:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
-{ &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:testvm02:&quot;, &quot;name&quot;: &quot;eth0&quot;, &quot;physical_location&quot;: &quot;eth0&quot;, &quot;is_provisioning&quot;: true }
+{ &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:testvm02:&quot;, &quot;name&quot;: &quot;eth0&quot;, &quot;physical_location&quot;: &quot;eth0&quot;, &quot;network&quot;: &quot;$NETWORK&quot;, &quot;is_provisioning&quot;: true }
 EOF
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_provisioning&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-25T14:28:36.245466+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:testvm02:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-25T14:28:36.245500+00:00&quot;</span><span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_provisioning&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Network:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-25T14:28:36.245466+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:testvm02:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-25T14:28:36.245500+00:00&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>Now we will create a VM with the CentOS7 blueprint:</p>
@@ -156,7 +158,7 @@ EOF
 </div>
 <p>and assign the ip address, make sure to use the structure id from the testvm02 structure:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">&lt;&lt;</span> <span class="n">EOF</span> <span class="o">|</span> <span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">--</span><span class="n">data</span> <span class="o">@-</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">$</span><span class="si">{ADRBLK}</span><span class="s2">(nextAddress)&quot;</span>
-<span class="p">{</span> <span class="s2">&quot;networked&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Structure:&lt; structure id &gt;:&quot;</span><span class="p">,</span> <span class="s2">&quot;interface_name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_primary&quot;</span><span class="p">:</span> <span class="n">true</span> <span class="p">}</span>
+<span class="p">{</span> <span class="s2">&quot;networked&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Networked:&lt; structure id &gt;:&quot;</span><span class="p">,</span> <span class="s2">&quot;interface_name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_primary&quot;</span><span class="p">:</span> <span class="n">true</span> <span class="p">}</span>
 <span class="n">EOF</span>
 </pre></div>
 </div>
@@ -173,12 +175,13 @@ EOF
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">root</span><span class="nd">@testvm02</span>
 </pre></div>
 </div>
-<p>go a head and play around with it for a bit.  Make sure to try deconfiguring both
-VMs at the same time so you can see Contractor do more than one thing at a time.</p>
+<p>Once again the root password is “root”, go a head and play around with it for a bit.
+Make sure to try deconfiguring both VMs at the same time so you can see Contractor
+do more than one thing at a time.</p>
 </div>
 <div class="section" id="next-steps">
 <h1>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference internal" href="TryIt_config_info.html"><span class="doc">Accessing Configuration Information</span></a></p>
+<p><a class="reference internal" href="config_info.html"><span class="doc">Accessing Configuration Information</span></a></p>
 </div>
 
 
@@ -188,7 +191,7 @@ VMs at the same time so you can see Contractor do more than one thing at a time.
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">t3kton</a></h1>
+<h1 class="logo"><a href="../../index.html">t3kton</a></h1>
 
 
 
@@ -198,23 +201,41 @@ VMs at the same time so you can see Contractor do more than one thing at a time.
 
 
 <h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Contractor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html#id1">Contractor</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Contractor</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Introduction.html">Introduction to Contractor</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Give it a Try</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ConfigurationValues.html">Configuration Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Networking.html">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Modules.html">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tscript.html">tscript</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins.html#todo">TODO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Resources.html">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html">CInP API Documentation for Contractor API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#future">Future</a></li>
+</ul>
+</li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Contractor</a><ul>
+  <li><a href="index.html">Give it a Try</a><ul>
+      <li>Previous: <a href="install_baremetal.html" title="previous chapter">Install ESX</a></li>
+      <li>Next: <a href="config_info.html" title="next chapter">Accessing Configuration Information</a></li>
+  </ul></li>
+  </ul></li>
   </ul></li>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
+    <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
     </form>

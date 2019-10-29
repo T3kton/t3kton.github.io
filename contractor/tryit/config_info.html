@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Accessing Configuration Information &#8212; t3kton 1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Removing the VM(s)" href="destroy_vm.html" />
+    <link rel="prev" title="Creating a VM (Ubuntu)" href="create_vm.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="accessing-configuration-information">
+<h1>Accessing Configuration Information<a class="headerlink" href="#accessing-configuration-information" title="Permalink to this headline">¶</a></h1>
+<p>Contractor provides three configuration urls for a target.  The first two depend on
+what the target is set to PXE boot to, the third is all the configuration information
+for that target in JSON format.</p>
+<p>ssh into one of the VMs, this will show what it is like from testvm02:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">root</span><span class="nd">@testvm02</span>
+</pre></div>
+</div>
+<p>First the pxe script, this script is downloaded and run but the iPXE boot loader
+that the target VM was told to download from the dhcp server:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">contractor</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">boot_script</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>which will output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!ipxe</span>
+
+<span class="n">echo</span> <span class="n">Booting</span> <span class="n">form</span> <span class="n">Primary</span> <span class="n">Boot</span> <span class="n">Disk</span>
+<span class="n">sanboot</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">describe</span> <span class="o">--</span><span class="n">drive</span> <span class="mh">0x80</span> <span class="o">||</span> <span class="n">echo</span> <span class="n">Primary</span> <span class="n">Boot</span> <span class="n">Disk</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Bootable</span>
+</pre></div>
+</div>
+<p>The VM is current set to the <cite>normal-boot</cite> pxe.  That script tells it to boot to the
+first harddrive.</p>
+<p>Next the pxe_template:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">contractor</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">pxe_template</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Normal Boot</span>
+</pre></div>
+</div>
+<p>once again, with this VM having been set to <cite>normal-boot</cite>, the pxe template is
+just a comment at the top.  The pxe_template is stored as a Jinja2 template that
+is combined with the configuration information and served out to the target.
+This is the URL that is used for the Kickstart and/or Pressed files for the CentOS
+and Debian installers.  The source for the CentOS and Ubuntu boot_scripts and
+pxe_templates are at <a class="reference external" href="https://github.com/T3kton/resources/blob/master/os-bases/centos/usr/lib/contractor/resources/centos.toml">https://github.com/T3kton/resources/blob/master/os-bases/centos/usr/lib/contractor/resources/centos.toml</a>
+and <a class="reference external" href="https://github.com/T3kton/resources/blob/master/os-bases/ubuntu/usr/lib/contractor/resources/ubuntu.toml">https://github.com/T3kton/resources/blob/master/os-bases/ubuntu/usr/lib/contractor/resources/ubuntu.toml</a>
+those are then packaged during when you built the resources, and installed to
+/usr/lib/contractor/resource/ when the resource package was installed.</p>
+<p>The third url is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">contractor</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">config</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;mirror_server&quot;</span><span class="p">:</span> <span class="s2">&quot;mirror.centos.org&quot;</span><span class="p">,</span> <span class="s2">&quot;memory_size&quot;</span><span class="p">:</span> <span class="mi">2048</span><span class="p">,</span> <span class="s2">&quot;_foundation_locator&quot;</span><span class="p">:</span> <span class="s2">&quot;testvm02&quot;</span><span class="p">,</span> <span class="s2">&quot;_foundation_id&quot;</span><span class="p">:</span> <span class="s2">&quot;testvm02&quot;</span><span class="p">,</span> <span class="s2">&quot;__pxe_location&quot;</span><span class="p">:</span> <span class="s2">&quot;http://static/pxe/&quot;</span><span class="p">,</span> <span class="s2">&quot;azure_image&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;sku&quot;</span><span class="p">:</span> <span class="s2">&quot;7.6&quot;</span><span class="p">,</span> <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;latest&quot;</span><span class="p">,</span> <span class="s2">&quot;publisher&quot;</span><span class="p">:</span> <span class="s2">&quot;OpenLogic&quot;</span><span class="p">,</span> <span class="s2">&quot;offer&quot;</span><span class="p">:</span> <span class="s2">&quot;CentOS&quot;</span><span class="p">},</span> <span class="s2">&quot;dns_search&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;site1.test&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">],</span> <span class="s2">&quot;_primary_interface&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;root_password_hash&quot;</span><span class="p">:</span> <span class="s2">&quot;$6$rootroot$oLo.loyMV45VA7/0sKV5JH/xBAXiq/igL4hQrGz3yd9XUavmC82tZm1lxW2N.5eLxQUlqp53wXKRzifZApP0/1&quot;</span><span class="p">,</span> <span class="s2">&quot;__last_modified&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-28T15:31:07.915815+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;_virtualbox_uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;270af40c-33c4-466e-a874-25034757eabb&quot;</span><span class="p">,</span> <span class="s2">&quot;mirror_proxy&quot;</span><span class="p">:</span> <span class="s2">&quot;http://10.0.0.10:3128/&quot;</span><span class="p">,</span> <span class="s2">&quot;__contractor_host&quot;</span><span class="p">:</span> <span class="s2">&quot;http://contractor/&quot;</span><span class="p">,</span> <span class="s2">&quot;_structure_id&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;dns_servers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;10.0.0.10&quot;</span><span class="p">],</span> <span class="s2">&quot;vcenter_guest_id&quot;</span><span class="p">:</span> <span class="s2">&quot;centos7_64Guest&quot;</span><span class="p">,</span> <span class="s2">&quot;_structure_config_uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;eff1ddb6-47b5-4e07-8120-a1c14e7ee94a&quot;</span><span class="p">,</span> <span class="s2">&quot;installer_pxe&quot;</span><span class="p">:</span> <span class="s2">&quot;centos-7&quot;</span><span class="p">,</span> <span class="s2">&quot;_site&quot;</span><span class="p">:</span> <span class="s2">&quot;site1&quot;</span><span class="p">,</span> <span class="s2">&quot;_interface_map&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;eth0&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;vboxnet0&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="s2">&quot;08:00:27:f1:c8:60&quot;</span><span class="p">,</span> <span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;address_list&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;subnet&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;vlan&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;tagged&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;sub_interface&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">,</span> <span class="s2">&quot;auto&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;primary&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span> <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.124&quot;</span><span class="p">}]}},</span> <span class="s2">&quot;_fqdn&quot;</span><span class="p">:</span> <span class="s2">&quot;testvm02.site1.test&quot;</span><span class="p">,</span> <span class="s2">&quot;_provisioning_interface_mac&quot;</span><span class="p">:</span> <span class="s2">&quot;08:00:27:f1:c8:60&quot;</span><span class="p">,</span> <span class="s2">&quot;_domain_name&quot;</span><span class="p">:</span> <span class="s2">&quot;site1.test&quot;</span><span class="p">,</span> <span class="s2">&quot;__timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-28T15:45:12.941159+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;distro_version&quot;</span><span class="p">:</span> <span class="s2">&quot;7&quot;</span><span class="p">,</span> <span class="s2">&quot;_provisioning_address&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;subnet&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;sub_interface&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">,</span> <span class="s2">&quot;auto&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;primary&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span> <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.124&quot;</span><span class="p">},</span> <span class="s2">&quot;_foundation_interface_list&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;vboxnet0&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="s2">&quot;08:00:27:f1:c8:60&quot;</span><span class="p">,</span> <span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;address_list&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;subnet&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;vlan&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;tagged&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;sub_interface&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">,</span> <span class="s2">&quot;auto&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;primary&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span> <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.124&quot;</span><span class="p">}]}],</span> <span class="s2">&quot;ntp_servers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ntp.ubuntu.com&quot;</span><span class="p">],</span> <span class="s2">&quot;virtualbox_guest_type&quot;</span><span class="p">:</span> <span class="s2">&quot;RedHat_64&quot;</span><span class="p">,</span> <span class="s2">&quot;_structure_state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;_foundation_state&quot;</span><span class="p">:</span> <span class="s2">&quot;built&quot;</span><span class="p">,</span> <span class="s2">&quot;_primary_address&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;subnet&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;sub_interface&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;mtu&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">,</span> <span class="s2">&quot;auto&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;primary&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span> <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.124&quot;</span><span class="p">},</span> <span class="s2">&quot;_hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;testvm02&quot;</span><span class="p">,</span> <span class="s2">&quot;__pxe_template_location&quot;</span><span class="p">:</span> <span class="s2">&quot;http://contractor/config/pxe_template/c/eff1ddb6-47b5-4e07-8120-a1c14e7ee94a&quot;</span><span class="p">,</span> <span class="s2">&quot;_virtualbox_complex&quot;</span><span class="p">:</span> <span class="s2">&quot;demovbox&quot;</span><span class="p">,</span> <span class="s2">&quot;_foundation_type&quot;</span><span class="p">:</span> <span class="s2">&quot;VirtualBox&quot;</span><span class="p">,</span> <span class="s2">&quot;_blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;centos-7-base&quot;</span><span class="p">,</span> <span class="s2">&quot;_primary_interface_mac&quot;</span><span class="p">:</span> <span class="s2">&quot;08:00:27:f1:c8:60&quot;</span><span class="p">,</span> <span class="s2">&quot;domain_name&quot;</span><span class="p">:</span> <span class="s2">&quot;site1.test&quot;</span><span class="p">,</span> <span class="s2">&quot;swap_size&quot;</span><span class="p">:</span> <span class="mi">512</span><span class="p">,</span> <span class="s2">&quot;_foundation_class_list&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;VM&quot;</span><span class="p">,</span> <span class="s2">&quot;VirtualBox&quot;</span><span class="p">],</span> <span class="s2">&quot;distro&quot;</span><span class="p">:</span> <span class="s2">&quot;centos&quot;</span><span class="p">,</span> <span class="s2">&quot;_provisioning_interface&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>This url can be used by what ever scripts/CMS as a source of configuration
+information.  See the documentation at <a class="reference internal" href="../ConfigurationValues.html"><span class="doc">Configuration Values</span></a> for more
+information on how these values are compiled.  One value to point out here is
+<cite>_structure_config_uuid</cite>, this value is set when the structure record is created
+or when the structure is destroyed.  This way if there is a stale copy of the
+structure (old VM snapshot, or a VM that didn’t get cleaned up properly, etc)
+comes on-line, it (or some other monitoring system) can detect that it is no
+longer current and take action.</p>
+<p>Contractor uses the source ip address of this URL requests to determine which
+target’s information to return.  You can also use the structure id, foundation
+locater or config uuid, to tell contractor which configuration to return.</p>
+<p>by config uuid:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">contractor</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">c</span><span class="o">/&lt;</span> <span class="n">_structure_config_uuid</span> <span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">contractor</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">c</span><span class="o">/</span><span class="n">eff1ddb6</span><span class="o">-</span><span class="mi">47</span><span class="n">b5</span><span class="o">-</span><span class="mf">4e07</span><span class="o">-</span><span class="mi">8120</span><span class="o">-</span><span class="n">a1c14e7ee94a</span>
+</pre></div>
+</div>
+<p>by structure id:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">contractor</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">s</span><span class="o">/&lt;</span> <span class="n">structure</span> <span class="nb">id</span> <span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">contractor</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">s</span><span class="o">/</span><span class="mi">4</span>
+</pre></div>
+</div>
+<p>by foundation locator:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">contractor</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">f</span><span class="o">/&lt;</span> <span class="n">foundation</span> <span class="n">locator</span> <span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">contractor</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">testvm02</span>
+</pre></div>
+</div>
+<p>or by ip address:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">contractor</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">a</span><span class="o">/&lt;</span> <span class="n">ip</span> <span class="n">address</span> <span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">contractor</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">a</span><span class="o">/</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">0.124</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="next-steps">
+<h1>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="destroy_vm.html"><span class="doc">Removing the VM(s)</span></a></p>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">t3kton</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Contractor</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Introduction.html">Introduction to Contractor</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Give it a Try</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ConfigurationValues.html">Configuration Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Networking.html">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Modules.html">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tscript.html">tscript</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins.html#todo">TODO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Resources.html">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html">CInP API Documentation for Contractor API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#future">Future</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Contractor</a><ul>
+  <li><a href="index.html">Give it a Try</a><ul>
+      <li>Previous: <a href="create_vm.html" title="previous chapter">Creating a VM (Ubuntu)</a></li>
+      <li>Next: <a href="destroy_vm.html" title="next chapter">Removing the VM(s)</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Peter Howe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

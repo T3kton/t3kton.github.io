@@ -1,5 +1,5 @@
-IPMI Setup
-==========
+AMT Setup
+=========
 
 To prevent Contractor from DHCPing your other systems, you will want to create a private
 network to build contractor's targets in.  This demo assumes it will be `10.0.0.1/24`.
@@ -12,4 +12,4 @@ new network, and assign the ip `10.0.0.10` to that interface.
 In the `/etc/subcontractor.conf` file under the `dhcpd` section, set
 the `listen_interface` to the name of the newly created interface.
 
-return to :ref:`contractor/TryIt:setup`
+return to :ref:`contractor/tryit/installing:setup`

@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Give it a Try &#8212; t3kton 1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Installing" href="installing.html" />
+    <link rel="prev" title="Introduction to Contractor" href="../Introduction.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="give-it-a-try">
+<h1>Give it a Try<a class="headerlink" href="#give-it-a-try" title="Permalink to this headline">¶</a></h1>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#from-source">From Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#from-packages">From Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html#setup">Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#set-up-infrastructure">Set up Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#install-required-services">Install Required Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#update-packages">Update Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#configure-apache">Configure Apache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#setup-the-database">Setup the database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#environment-setup">Environment Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#http-requests-note">HTTP Requests Note</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#network-configuration">Network Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#starting-dns">Starting DNS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#subcontractor">Subcontractor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installing.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="packaged.html">From Prebuilt Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source.html">From Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup_amt.html">AMT Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup_ipmi.html">IPMI Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup_vcenter.html">VCenter/ESX Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup_vcenter.html#vcenter-guestids">VCenter GuestIDs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup_virtualbox.html">VirtualBox Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="complex.html">Setting up VM Host</a></li>
+<li class="toctree-l1"><a class="reference internal" href="complex.html#vcenter">VCenter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="complex.html#virtualbox">VirtualBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="complex.html#next-steps">Next Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install_baremetal.html">Install ESX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create_vm.html">Creating a VM (Ubuntu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create_vm.html#creating-a-vm-centos">Creating a VM (CentOS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create_vm.html#next-steps">Next Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config_info.html">Accessing Configuration Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config_info.html#next-steps">Next Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="destroy_vm.html">Removing the VM(s)</a></li>
+</ul>
+</div>
+<p><em>Note</em>: Contractor is made to solve complex problems, for the most part it presents
+a much less complex interface to you.  That being said, there is a bit of a hurdle
+to get it up and running, depending on what you are trying to automate.  So, buckle
+in, this is going to be a lot of fun.</p>
+<p>This demo will require in a VM in a private /24 network that can create and destroy
+other VMs in that network.  You can use either VCenter or VirtualBox.  After the
+Contractor VM is up and running, you can install more blueprints and plugins to do
+docker or other foundations.  The requirement for the private network comes primarally from
+the setupWizard’s default configuration, if you feel comfortable with modifying
+the setupWizard and the Apache Configurations, you can use blueprints and plugins
+for hosted providers such as AWS and Azure.</p>
+<p>NOTE: setupWizard is going to re-write some bind config files, so don’t edit them
+until after the install is complete.</p>
+<p>If you are not failure with how Contractor handles Networking, you will probably
+want to take a look at the overview on <a class="reference internal" href="../Networking.html"><span class="doc">Networking</span></a>.</p>
+<p>Let’s get going. <a class="reference internal" href="installing.html"><span class="doc">Installing</span></a></p>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">t3kton</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Contractor</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Introduction.html">Introduction to Contractor</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Give it a Try</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ConfigurationValues.html">Configuration Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Networking.html">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Modules.html">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tscript.html">tscript</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins.html">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plugins.html#todo">TODO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Resources.html">Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../API.html">CInP API Documentation for Contractor API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#future">Future</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Contractor</a><ul>
+      <li>Previous: <a href="../Introduction.html" title="previous chapter">Introduction to Contractor</a></li>
+      <li>Next: <a href="installing.html" title="next chapter">Installing</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Peter Howe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

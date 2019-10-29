@@ -3,7 +3,7 @@ Removing the VM(s)
 
 We can either Delete the VMs with the `boss` command::
 
-  /usr/lib/contractor/util/boss -s <structure id> --do-destroy --wait
+  /usr/lib/contractor/util/boss -s <structure id> --do-destroy
   /usr/lib/contractor/util/boss -f <locator> --do-destroy --wait
   /usr/lib/contractor/util/boss -s <structure id> --delete
   /usr/lib/contractor/util/boss -f <locator> --delete
@@ -11,9 +11,6 @@ We can either Delete the VMs with the `boss` command::
 or via the API::
 
   curl "${COPS[@]}" -X CALL "${CHOST}/api/v1/Building/Structure:< structure id >:(doDestroy)"
-
-wait for that job to complete, then::
-
   curl "${COPS[@]}" -X CALL "${CHOST}/api/v1/Building/Foundation:< locator >:(doDestroy)"
 
 wait for that job to complete, and finally::
