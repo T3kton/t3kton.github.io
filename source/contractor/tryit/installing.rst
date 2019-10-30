@@ -37,8 +37,14 @@ some other Infrastructure related tasks that need to be done.
 
 :doc:`setup_amt`
 
-Install Required Services
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Create Database
+~~~~~~~~~~~~~~~
+
+.. raw:: html
+
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+        <iframe src="https://www.youtube.com/embed/Wjm6kKus1Ho" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+    </div>
 
 Install Postgres::
 
@@ -197,6 +203,12 @@ Bind (the DNS server) is not running yet, it will be started later.
 Environment Setup
 ~~~~~~~~~~~~~~~~~
 
+.. raw:: html
+
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+        <iframe src="https://www.youtube.com/embed/TIEt0UWRrpk" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+    </div>
+
 We will be using the HTTP API to inject new stuff into contractor.
 You can run these commands from either the contractor VM, or any place that can make
 http requests to contractor.
@@ -282,6 +294,12 @@ the headers, just the response body.
 
 Network Configuration
 ~~~~~~~~~~~~~~~~~~~~~
+
+.. raw:: html
+
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+        <iframe src="https://www.youtube.com/embed/hdY97j2u4rc" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+    </div>
 
 The setupWizard has pre-loaded the database with a stand in host to represent
 the contractor VM and has flagged it as pre-built.  It has also created
@@ -389,6 +407,12 @@ you assigned to the first interface)
 
 Subcontractor
 ~~~~~~~~~~~~~
+
+.. raw:: html
+
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+        <iframe src="https://www.youtube.com/embed/O_fCrUK3mvs" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+    </div>
 
 install tfptd (used for PXE booting) and the PXE booting agent::
 
