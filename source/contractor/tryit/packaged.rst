@@ -12,7 +12,7 @@ Setup the PPA which has the built packages::
   sudo apt install -y software-properties-common
   add-apt-repository -y ppa:pnhowe/t3kton
   apt update
-  apt install -y git build-essential respkg contractor contractor-plugins subcontractor subcontractor-plugins liblzma-dev xorriso
+  apt install -y git ntp build-essential respkg contractor contractor-plugins subcontractor subcontractor-plugins liblzma-dev xorriso
 
 The resource packages are not hosted publicly so you will need to build them::
 
