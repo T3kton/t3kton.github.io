@@ -29,4 +29,8 @@ or newer.  If you are using and older version of VCenter you will need to::
 Otherwise your VCenter/ESX will give you an `invalidProperty = 'configSpec.guestId'`
 error when you build CentOS VMs.
 
+Now you will need to install python3-zeep::
+
+  sudo apt install python3-pyvmomi
+
 return to :ref:`contractor/tryit/installing:setup`

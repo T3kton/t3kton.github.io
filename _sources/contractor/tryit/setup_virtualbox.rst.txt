@@ -48,4 +48,8 @@ windows::
 
   vboxwebsrv.exe -H 10.0.0.1
 
+Now you will need to install python3-zeep::
+
+  sudo apt install python3-zeep
+
 return to :ref:`contractor/tryit/installing:setup`

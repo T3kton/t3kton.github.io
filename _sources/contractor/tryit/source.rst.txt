@@ -7,7 +7,7 @@ From Source
         <iframe src="https://www.youtube.com/embed/pstnJfNhtjE" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
     </div>
 
-Building requires running on a Ubuntu Xenial machine.
+Building requires running on a Ubuntu Bionic(10.04 LTS) machine, make sure you have at least 10GB of free space.
 
 Install the required build tools, the PPA has a few required packages for building
 and installing::
@@ -15,7 +15,7 @@ and installing::
   sudo apt install -y software-properties-common
   sudo add-apt-repository -y ppa:pnhowe/t3kton
   sudo apt update
-  sudo apt install -y git respkg build-essential python3-dev python3-setuptools nodejs npm nodejs-legacy liblzma-dev xorriso python3-django apache2 libapache2-mod-wsgi-py3 python3-parsimonious python3-werkzeug python3-psycopg2 python3-cinp python3-toml python3-jinja2 bind9 bind9utils python3-dhcplib python3-pymongo
+  sudo apt install -y git ntp apache2 bc bind9 bind9utils build-essential gettext gperf libapache2-mod-wsgi-py3 libassuan-dev libblkid-dev libbz2-dev libdevmapper-dev libelf-dev libgcrypt-dev libgpg-error-dev libksba-dev liblzma-dev libnpth0-dev libreadline-dev libsqlite3-dev nodejs npm pkg-config python3-cinp python3-dev python3-dhcplib python3-django python3-jinja2 python3-parsimonious python3-pip python3-psycopg2 python3-pymongo python3-setuptools python3-toml python3-werkzeug respkg uuid-dev xorriso zlib1g-dev
 
 Create an empty directory, and cd into it
 
@@ -35,9 +35,18 @@ Now to build Contractor, first we need to get the node requirements for the UI, 
   sed s/"export Tooltip from '.\/tooltip';"/"export { default as Tooltip } from '.\/tooltip';"/ -i node_modules/react-toolbox/components/index.js
   cd ../..
 
-and build the resources.  The make in the resources can take a while::
+and build the resources.  The make in the resources and disks can take a while::
 
   for i in contractor_plugins resources; do cd $i && make -j2 respkg && mv *.respkg .. && cd ..; done
+
+If you are doing AMT or IPMI, you will need the bootstrap PXE, that is built with::
+
+  git clone https://github.com/T3kton/disks.git
+  cd disks
+  make -j2
+  make respkg
+  mv *.respkg ..
+  cd ..
 
 Now to install the python code, NOTE the Makefile will call './setup.py install' for you::
 

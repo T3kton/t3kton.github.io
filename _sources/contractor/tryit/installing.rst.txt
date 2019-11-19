@@ -48,7 +48,7 @@ Create Database
 
 Install Postgres::
 
-  sudo apt install -y postgresql-client postgresql-9.5 mongodb-server
+  sudo apt install -y postgresql-client postgresql-10 mongodb-server
 
 Create the postgres db::
 
@@ -60,22 +60,6 @@ NOTE, for those two commands you may see something like::
   could not change directory to "/root": Permission denied
 
 this is from the `su` command, thoes messages can be ignored
-
-Update Packages
-~~~~~~~~~~~~~~~
-
-The Ubuntu toml and jinja2 packages are too old, update with::
-
-  sudo apt install -y python3-pip
-  sudo pip3 install toml jinja2 --upgrade
-
-if you are using the Virtualbox plugin, you will need zeep::
-
-  sudo pip3 install zeep
-
-for VCenter/ESX install pyvmomi::
-
-  sudo pip3 install pyvmomi
 
 Configure Apache
 ~~~~~~~~~~~~~~~~
@@ -157,6 +141,11 @@ Install base os config::
 
   sudo respkg -i contractor-os-base_*.respkg
 
+If you are going to use IPMI or AMT, Install the disks package, this has the bootstrap,
+set-rtc, and disk-wipe PXE images::
+
+  sudo respkg -i disks-contractor_*.respkg
+
 Now to enable plugins.
 We use manual for misc stuff that is either pre-configured or handled by something else::
 
@@ -178,10 +167,6 @@ if you are using AMT::
 
   sudo respkg -i contractor-plugins-amt_*.respkg
 
-do manual plugin again so it can cross link to the other plugins::
-
-  sudo respkg -i contractor-plugins-manual_*.respkg
-
 restart apache so it loads the newly enabled plutings::
 
   sudo systemctl restart apache2
@@ -191,7 +176,7 @@ This command will prompt you for the password to use for the `root` user that we
 will be using for API calls.  Set `< interface name >` to the name of the interface
 on the internal network::
 
-  sudo /usr/lib/contractor/setup/setupWizard --no-ip-reservation --dns-server=10.0.0.10 --proxy-server=http://10.0.0.10:3128/ --primary-interface=< interface name >
+  sudo /usr/lib/contractor/setup/setupWizard --no-ip-reservation --dns-server=10.0.0.10 --proxy-server=http://10.0.0.10:3128/ --ntp-server=contractor --primary-interface=< interface name >
 
 It is safe to ignore the message::
 
@@ -313,7 +298,8 @@ First we need to set an Environment variable for the existing AddressBlock::
 
 Now to create network for the internal network.  Contractor will use the name of the Network
 to know what virtual network to select when deploying VMs.  Replace `< network name >` with
-the name of the network created in vcenter (ie: internal) or virtual box (ie: vboxnet0)::
+the name of the network created in vcenter (ie: internal) or virtual box (ie: vboxnet0), for
+IPMI and AMT, use 'internal'::
 
   cat << EOF | curl -i "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/Network
   { "site": "$SITE", "name": "< network name >" }
@@ -348,24 +334,41 @@ now to reserve some ip addresses so they do not get auto assigned::
 
 result::
 
-  {"ip_address": "10.0.0.2", "offset": 2, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.312992+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.312941+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.3", "offset": 3, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.327090+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.327065+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.4", "offset": 4, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.339957+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.339924+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.5", "offset": 5, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.352559+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.352535+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.6", "offset": 6, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.365187+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.365162+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.7", "offset": 7, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.378354+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.378327+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.8", "offset": 8, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.390835+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.390812+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.9", "offset": 9, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.404003+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.403980+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.11", "offset": 11, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.416552+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.416528+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.12", "offset": 12, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.429354+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.429332+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.13", "offset": 13, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.442067+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.442043+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.14", "offset": 14, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.455041+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.455018+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.15", "offset": 15, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.467245+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.467222+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.16", "offset": 16, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.479525+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.479503+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.17", "offset": 17, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.492109+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.492083+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.18", "offset": 18, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.504386+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.504363+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.19", "offset": 19, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.517128+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.517105+00:00", "type": "ReservedAddress"}
-  {"ip_address": "10.0.0.20", "offset": 20, "reason": "Network Reserved", "created": "2019-02-23T16:34:54.529458+00:00", "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-02-23T16:34:54.529435+00:00", "type": "ReservedAddress"}
+{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 2, "updated": "2019-11-05T02:58:26.350596+00:00", "created": "2019-11-05T02:58:26.350625+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.2", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 3, "updated": "2019-11-05T02:58:26.384282+00:00", "created": "2019-11-05T02:58:26.384306+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.3", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 4, "updated": "2019-11-05T02:58:26.420326+00:00", "created": "2019-11-05T02:58:26.420348+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.4", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 5, "updated": "2019-11-05T02:58:26.445826+00:00", "created": "2019-11-05T02:58:26.445852+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.5", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 6, "updated": "2019-11-05T02:58:26.471761+00:00", "created": "2019-11-05T02:58:26.471781+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.6", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 7, "updated": "2019-11-05T02:58:26.496654+00:00", "created": "2019-11-05T02:58:26.496676+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.7", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 8, "updated": "2019-11-05T02:58:26.524865+00:00", "created": "2019-11-05T02:58:26.524899+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.8", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 9, "updated": "2019-11-05T02:58:26.552813+00:00", "created": "2019-11-05T02:58:26.552836+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.9", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 11, "updated": "2019-11-05T02:58:26.579828+00:00", "created": "2019-11-05T02:58:26.579867+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.11", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 12, "updated": "2019-11-05T02:58:26.607718+00:00", "created": "2019-11-05T02:58:26.607740+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.12", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 13, "updated": "2019-11-05T02:58:26.636675+00:00", "created": "2019-11-05T02:58:26.636697+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.13", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 14, "updated": "2019-11-05T02:58:26.662100+00:00", "created": "2019-11-05T02:58:26.662127+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.14", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 15, "updated": "2019-11-05T02:58:26.688283+00:00", "created": "2019-11-05T02:58:26.688311+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.15", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 16, "updated": "2019-11-05T02:58:26.715900+00:00", "created": "2019-11-05T02:58:26.715922+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.16", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 17, "updated": "2019-11-05T02:58:26.745761+00:00", "created": "2019-11-05T02:58:26.745797+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.17", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 18, "updated": "2019-11-05T02:58:26.772841+00:00", "created": "2019-11-05T02:58:26.772863+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.18", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 19, "updated": "2019-11-05T02:58:26.800554+00:00", "created": "2019-11-05T02:58:26.800588+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.19", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 20, "updated": "2019-11-05T02:58:26.827612+00:00", "created": "2019-11-05T02:58:26.827637+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.20", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+
+and some dynamic Ips for devices we do not yet have MAC addresses for, we are going to set
+these to PXE boot to the bootstrap image::
+
+  for OFFSET in 21 22 23 24 25; do
+  cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/DynamicAddress
+  { "address_block": "$ADRBLK", "offset": "$OFFSET", "pxe": "/api/v1/BluePrint/PXE:bootstrap:" }
+  EOF
+  done
+
+result::
+
+  {"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 21, "updated": "2019-11-05T02:58:45.380257+00:00", "created": "2019-11-05T02:58:45.380307+00:00", "pxe": "/api/v1/BluePrint/PXE:bootstrap:", "type": "DynamicAddress", "ip_address": "10.0.0.21", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+  {"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 22, "updated": "2019-11-05T02:58:45.415840+00:00", "created": "2019-11-05T02:58:45.415876+00:00", "pxe": "/api/v1/BluePrint/PXE:bootstrap:", "type": "DynamicAddress", "ip_address": "10.0.0.22", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+  {"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 23, "updated": "2019-11-05T02:58:45.448887+00:00", "created": "2019-11-05T02:58:45.448930+00:00", "pxe": "/api/v1/BluePrint/PXE:bootstrap:", "type": "DynamicAddress", "ip_address": "10.0.0.23", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+  {"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 24, "updated": "2019-11-05T02:58:45.475547+00:00", "created": "2019-11-05T02:58:45.475569+00:00", "pxe": "/api/v1/BluePrint/PXE:bootstrap:", "type": "DynamicAddress", "ip_address": "10.0.0.24", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
+  {"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 25, "updated": "2019-11-05T02:58:45.501742+00:00", "created": "2019-11-05T02:58:45.501762+00:00", "pxe": "/api/v1/BluePrint/PXE:bootstrap:", "type": "DynamicAddress", "ip_address": "10.0.0.25", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
 
 Starting DNS
 ~~~~~~~~~~~~
@@ -378,19 +381,21 @@ Now to force a re-gen of the DNS files::
 
   sudo /usr/lib/contractor/cron/genDNS
 
-This VM needs to use the contractor generated dns, so edit
-`/etc/network/interfaces` to set the dns server to "127.0.0.1", and set the dns
-search to "site1.test site1". For example::
+This VM needs to use the contractor generated dns, so edit the file in /etc/netplan/
+to set the dns server to "127.0.0.1", and set the dns search to "site1.test site1".
+For example::
 
-  auto ensXXX
-  iface ensXXX inet static
+  network:
     ...
-    dns-nameservers 127.0.0.1
-    dns-search site1.test test
+    enp0s3:
+      ...
+      nameservers:
+        search: [site1.test test]
+        addresses: [127.0.0.1]
 
-then reload networking configuration::
+then apply the networking configuration::
 
-  sudo systemctl restart networking
+  sudo netplan apply
 
 now if you ping contractor you should get the internal ip (10.0.0.10)::
 
@@ -398,7 +403,7 @@ now if you ping contractor you should get the internal ip (10.0.0.10)::
 
 result::
 
-  PING eth1.contractor.site1.test (10.0.0.10) 56(84) bytes of data.
+  PING enp0s8.contractor.site1.test (10.0.0.10) 56(84) bytes of data.
   64 bytes from contractor.site1.test (10.0.0.10): icmp_seq=1 ttl=64 time=0.031 ms
   64 bytes from contractor.site1.test (10.0.0.10): icmp_seq=2 ttl=64 time=0.063 ms
 
