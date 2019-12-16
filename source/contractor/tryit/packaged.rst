@@ -1,5 +1,5 @@
 From Prebuilt Packages
-======================
+----------------------
 
 NOTE:  This is is a bit old, try from source.  When we have a place to host auto-built packages better figured
 out, this will be usefull again.

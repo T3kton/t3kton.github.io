@@ -1,5 +1,5 @@
 Removing the VM(s)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 We can either Delete the VMs with the `boss` command::
 
@@ -26,3 +26,8 @@ structures.  See::
   /usr/lib/contractor/util/boss --help
 
 for more info.
+
+Next Steps
+----------
+
+:doc:`docker`

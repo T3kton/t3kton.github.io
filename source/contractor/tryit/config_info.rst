@@ -1,5 +1,5 @@
 Accessing Configuration Information
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------
 
 Contractor provides three configuration urls for a target.  The first two depend on
 what the target is set to PXE boot to, the third is all the configuration information

@@ -145,7 +145,7 @@ result::
   {"description": "Demo VirtualBox Host/Complex", "updated": "2019-03-05T03:29:33.401162+00:00", "site": "/api/v1/Site/Site:site1:", "built_percentage": 90, "virtualbox_password": "asdf", "name": "demovbox", "virtualbox_username": "asdf", "state": "planned", "created": "2019-03-05T03:29:33.401328+00:00", "members": [], "type": "VirtualBox"}
 
 Now we add the structure host we manually created as a member of the complex,
-replace `< structure id >` with the id from the manul host structure from above::
+replace `< structure id >` with the id from the manual host structure from above::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Building/ComplexStructure
   { "complex": "/api/v1/Building/Complex:demovbox:", "structure": "/api/v1/Building/Structure:< structure id>:" }
@@ -171,4 +171,9 @@ Contractor is now running, now let's configure it to make a VM.
 
 Next Steps
 ~~~~~~~~~~
+
+Next up we will create and destroy a VM
 :doc:`create_vm`
+
+If you want to skip the demo VM creation and skip right to the docker:
+:doc:`docker`

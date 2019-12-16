@@ -1,5 +1,5 @@
 VirtualBox Setup
-================
+----------------
 
 .. raw:: html
 
@@ -50,6 +50,6 @@ windows::
 
 Now you will need to install python3-zeep::
 
-  sudo apt install python3-zeep
+  sudo apt install -y python3-zeep
 
 return to :ref:`contractor/tryit/installing:setup`

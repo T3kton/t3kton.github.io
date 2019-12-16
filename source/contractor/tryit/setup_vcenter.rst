@@ -1,5 +1,5 @@
 VCenter/ESX Setup
-=================
+-----------------
 
 For the purposes of this demo, VCenter it's self is not required.  All you will
 need is a standalone ESX server.  To prevent Contractor from DHCPing your other
@@ -15,7 +15,7 @@ In the `/etc/subcontractor.conf` file under the `dhcpd` section, set
 the `listen_interface` to the name of the newly created interface.
 
 VCenter GuestIDs
-================
+~~~~~~~~~~~~~~~~
 
 By default, the resources blueprint for CentOS Assume you are using VCenter 6.7
 or newer.  If you are using and older version of VCenter you will need to::
@@ -29,8 +29,8 @@ or newer.  If you are using and older version of VCenter you will need to::
 Otherwise your VCenter/ESX will give you an `invalidProperty = 'configSpec.guestId'`
 error when you build CentOS VMs.
 
-Now you will need to install python3-zeep::
+Now you will need to install python3-pyvmomi::
 
-  sudo apt install python3-pyvmomi
+  sudo apt install -y python3-pyvmomi
 
 return to :ref:`contractor/tryit/installing:setup`
