@@ -37,6 +37,13 @@ some other Infrastructure related tasks that need to be done.
 
 :doc:`setup_amt`
 
+:doc:`setup_docker`
+
+the ubuntu toml package is to old, update with::
+
+  apt install -y python3-pip
+  pip3 install toml --upgrade
+
 Create Database
 ~~~~~~~~~~~~~~~
 
@@ -167,6 +174,10 @@ if you are using AMT::
 
   sudo respkg -i contractor-plugins-amt_*.respkg
 
+if you are using Docker::
+
+  sudo respkg -i contractor-plugins-docker_*.respkg
+
 restart apache so it loads the newly enabled plutings::
 
   sudo systemctl restart apache2
@@ -232,7 +243,7 @@ with the API username, and `< auth token >` with the result of the last command:
 This is adding more headers to our curl options, from here on our curl operations
 are authenticated.  Let's make sure our login is working::
 
-   echo '{}' | curl "${COPS[@]}" --data @- -X CALL $CHOST/api/v1/Auth/User\(whoami\)
+  echo '{}' | curl "${COPS[@]}" --data @- -X CALL $CHOST/api/v1/Auth/User\(whoami\)
 
 that should output your username, for example::
 
@@ -353,8 +364,10 @@ result::
 {"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 19, "updated": "2019-11-05T02:58:26.800554+00:00", "created": "2019-11-05T02:58:26.800588+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.19", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
 {"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 20, "updated": "2019-11-05T02:58:26.827612+00:00", "created": "2019-11-05T02:58:26.827637+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.20", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
 
-and some dynamic Ips for devices we do not yet have MAC addresses for, we are going to set
-these to PXE boot to the bootstrap image::
+If you are installing to AMT/IPMI you will need some dynamic Ips for devices we
+do not yet have MAC addresses for, we are going to set these to PXE boot to the
+bootstrap image, if you are not going to to AMT/IPMI, skip this step, you probably
+do not have the bootstrap PXE image loaded::
 
   for OFFSET in 21 22 23 24 25; do
   cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/DynamicAddress
@@ -440,7 +453,7 @@ now start up subcontractor::
   sudo systemctl start subcontractor
   sudo systemctl start dhcpd
 
-make sure it's running::
+make sure they are running::
 
   sudo systemctl status subcontractor
   sudo systemctl status dhcpd

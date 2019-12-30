@@ -36,7 +36,9 @@
 <h1>From Source<a class="headerlink" href="#from-source" title="Permalink to this headline">¶</a></h1>
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
     <iframe src="https://www.youtube.com/embed/pstnJfNhtjE" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
-</div><p>Building requires running on a Ubuntu Bionic(10.04 LTS) machine, make sure you have at least 10GB of free space.</p>
+</div><div class="section" id="install-dependencies">
+<h2>Install Dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>Building requires running on a Ubuntu Bionic(10.04 LTS) machine, make sure you have at least 10GB of free space.</p>
 <p>Install the required build tools, the PPA has a few required packages for building
 and installing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">software</span><span class="o">-</span><span class="n">properties</span><span class="o">-</span><span class="n">common</span>
@@ -54,6 +56,9 @@ and installing:</p>
 <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">resources</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="build">
+<h2>Build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h2>
 <p>Now to build Contractor, first we need to get the node requirements for the UI, and fix a bug with react-toolbox:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">contractor</span>
 <span class="n">cd</span> <span class="n">ui</span> <span class="o">&amp;&amp;</span> <span class="n">npm</span> <span class="n">install</span>
@@ -106,6 +111,7 @@ and installing:</p>
 </pre></div>
 </div>
 <p>return to <a class="reference internal" href="installing.html#installing"><span class="std std-ref">Installing</span></a></p>
+</div>
 </div>
 
 

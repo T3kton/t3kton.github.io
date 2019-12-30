@@ -13,11 +13,13 @@ Contents:
   setup_ipmi
   setup_vcenter
   setup_virtualbox
+  setup_docker
   complex
   install_baremetal
   create_vm
   config_info
   destroy_vm
+  docker
 
 
 

@@ -1,5 +1,5 @@
 IPMI Setup
-==========
+----------
 
 To prevent Contractor from DHCPing your other systems, you will want to create a private
 network to build contractor's targets in.  This demo assumes it will be `10.0.0.1/24`.

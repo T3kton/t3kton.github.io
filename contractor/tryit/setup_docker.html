@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>VCenter/ESX Setup &#8212; t3kton 1.0 documentation</title>
+    <title>Docker Setup &#8212; t3kton 1.0 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -14,8 +14,8 @@
     <script type="text/javascript" src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="VirtualBox Setup" href="setup_virtualbox.html" />
-    <link rel="prev" title="IPMI Setup" href="setup_ipmi.html" />
+    <link rel="next" title="Setting up VM Host" href="complex.html" />
+    <link rel="prev" title="VirtualBox Setup" href="setup_virtualbox.html" />
    
   <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
@@ -32,37 +32,14 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="vcenter-esx-setup">
-<h1>VCenter/ESX Setup<a class="headerlink" href="#vcenter-esx-setup" title="Permalink to this headline">¶</a></h1>
-<p>For the purposes of this demo, VCenter it’s self is not required.  All you will
-need is a standalone ESX server.  To prevent Contractor from DHCPing your other
-systems, you will want to create a private network to build contractor’s targets in.
-This demo assumes it will be <cite>10.0.0.1/24</cite>.  For our example name it “internal”,
-if you choose to name it something else, make sure that change is reflected in the
-name of the address block that will be created later.</p>
-<p>After you create the network/port group, add a second interface to the contractor VM on this
-new network, and assign the ip <cite>10.0.0.10</cite> to that interface.</p>
-<p>In the <cite>/etc/subcontractor.conf</cite> file under the <cite>dhcpd</cite> section, set
-the <cite>listen_interface</cite> to the name of the newly created interface.</p>
-<div class="section" id="vcenter-guestids">
-<h2>VCenter GuestIDs<a class="headerlink" href="#vcenter-guestids" title="Permalink to this headline">¶</a></h2>
-<p>By default, the resources blueprint for CentOS Assume you are using VCenter 6.7
-or newer.  If you are using and older version of VCenter you will need to:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">resources</span>
-<span class="n">make</span> <span class="n">oldvcenter</span>
-<span class="n">make</span> <span class="n">respkg</span>
-<span class="n">mv</span> <span class="o">*.</span><span class="n">respkg</span> <span class="o">..</span>
-<span class="n">cd</span> <span class="o">..</span>
-</pre></div>
-</div>
-<p>Otherwise your VCenter/ESX will give you an <cite>invalidProperty = ‘configSpec.guestId’</cite>
-error when you build CentOS VMs.</p>
-<p>Now you will need to install python3-pyvmomi:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">python3</span><span class="o">-</span><span class="n">pyvmomi</span>
+  <div class="section" id="docker-setup">
+<h1>Docker Setup<a class="headerlink" href="#docker-setup" title="Permalink to this headline">¶</a></h1>
+<p>After you have the network and other configuration for the underlying hardware/virtualzation
+configured, you will need to install python3-docker:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">python3</span><span class="o">-</span><span class="n">docker</span>
 </pre></div>
 </div>
 <p>return to <a class="reference internal" href="installing.html#setup"><span class="std std-ref">Setup</span></a></p>
-</div>
 </div>
 
 
@@ -106,8 +83,8 @@ error when you build CentOS VMs.</p>
   <li><a href="../../index.html">Documentation overview</a><ul>
   <li><a href="../index.html">Contractor</a><ul>
   <li><a href="index.html">Give it a Try</a><ul>
-      <li>Previous: <a href="setup_ipmi.html" title="previous chapter">IPMI Setup</a></li>
-      <li>Next: <a href="setup_virtualbox.html" title="next chapter">VirtualBox Setup</a></li>
+      <li>Previous: <a href="setup_virtualbox.html" title="previous chapter">VirtualBox Setup</a></li>
+      <li>Next: <a href="complex.html" title="next chapter">Setting up VM Host</a></li>
   </ul></li>
   </ul></li>
   </ul></li>

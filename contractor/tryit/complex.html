@@ -15,7 +15,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Setup Bare-metal" href="install_baremetal.html" />
-    <link rel="prev" title="VirtualBox Setup" href="setup_virtualbox.html" />
+    <link rel="prev" title="Docker Setup" href="setup_docker.html" />
    
   <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
@@ -171,7 +171,7 @@ EOF
 </pre></div>
 </div>
 <p>Now we add the structure host we manually created as a member of the complex,
-replace <cite>&lt; structure id &gt;</cite> with the id from the manul host structure from above:</p>
+replace <cite>&lt; structure id &gt;</cite> with the id from the manual host structure from above:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/ComplexStructure
 { &quot;complex&quot;: &quot;/api/v1/Building/Complex:demovbox:&quot;, &quot;structure&quot;: &quot;/api/v1/Building/Structure:&lt; structure id&gt;:&quot; }
 EOF
@@ -197,7 +197,10 @@ EOF
 </div>
 <div class="section" id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="create_vm.html"><span class="doc">Creating a VM (Ubuntu)</span></a></p>
+<p>Next up we will create and destroy a VM
+<a class="reference internal" href="create_vm.html"><span class="doc">Creating a VM (Ubuntu)</span></a></p>
+<p>If you want to skip the demo VM creation and skip right to the docker:
+<a class="reference internal" href="docker.html"><span class="doc">Working with Docker</span></a></p>
 </div>
 </div>
 
@@ -242,7 +245,7 @@ EOF
   <li><a href="../../index.html">Documentation overview</a><ul>
   <li><a href="../index.html">Contractor</a><ul>
   <li><a href="index.html">Give it a Try</a><ul>
-      <li>Previous: <a href="setup_virtualbox.html" title="previous chapter">VirtualBox Setup</a></li>
+      <li>Previous: <a href="setup_docker.html" title="previous chapter">Docker Setup</a></li>
       <li>Next: <a href="install_baremetal.html" title="next chapter">Setup Bare-metal</a></li>
   </ul></li>
   </ul></li>
