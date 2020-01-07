@@ -51,12 +51,12 @@ Now to load up our ESX host into contractor. First we create the Foundation of
 our host::
 
   cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/$FMDL
-  { "site": "$SITE", "locator": "esx01", "blueprint": "$FBP" $FDATA }
+  { "site": "$SITE", "locator": "esx01", "plot": "/api/v1/Survey/Plot:test:", "blueprint": "$FBP" $FDATA }
   EOF
 
 result::
 
-  {"locator": "esx01", "site": "/api/v1/Site/Site:site1:", "blueprint": "/api/v1/BluePrint/FoundationBluePrint:amt-base:", "id_map": null, "located_at": null, "built_at": null, "updated": "2019-11-05T04:37:29.855004+00:00", "created": "2019-11-05T04:37:29.855021+00:00", "amt_username": "admin", "amt_password": "asdf", "amt_ip_address": "10.0.0.90", "state": "planned", "type": "AMT", "class_list": "['Physical', 'AMT']"}
+  {"locator": "esx01", "site": "/api/v1/Site/Site:site1:", "blueprint": "/api/v1/BluePrint/FoundationBluePrint:amt-base:", "id_map": null, "located_at": null, "built_at": null, "updated": "2020-01-05T00:51:07.330119+00:00", "created": "2020-01-05T00:51:07.330135+00:00", "amt_username": "admin", "amt_password": "asdQWE1@3", "amt_ip_address": "192.168.200.95", "plot": "/api/v1/Survey/Plot:test:", "state": "planned", "type": "AMT", "class_list": "['Physical', 'AMT']"}
 
 create the interface::
 
