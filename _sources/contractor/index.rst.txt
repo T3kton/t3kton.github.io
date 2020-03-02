@@ -25,7 +25,7 @@ to create/destroy/manipluate your resources no matter where or what they are.
 This enables you to focus on what you want to make, and not have to worry about
 the details and differences in deployment.
 
-To acomplish this, Contractor breaks deployment/provisioning into two parts.  A
+To accomplish this, Contractor breaks deployment/provisioning into two parts.  A
 Structure, or what it is you want to deploy, and a Foundation, or what you want
 to deploy it on.  Examples of Foundations are VirtualBox VMs, Docker Containers,
 Servers with IPMI, Servers with out out-of-band control, Switches, PDUs, AWS, GCD,
