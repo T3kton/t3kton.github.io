@@ -1,17 +1,26 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>From Source &#8212; t3kton 1.0 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="AMT Setup" href="setup_amt.html" />
@@ -19,17 +28,15 @@
    
   <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
-  
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head><body>
+  </head>
+  <body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="from-source">
@@ -41,7 +48,7 @@
 <p>Building requires running on a Ubuntu Bionic(10.04 LTS) machine, make sure you have at least 10GB of free space.</p>
 <p>Install the required build tools, the PPA has a few required packages for building
 and installing:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">software</span><span class="o">-</span><span class="n">properties</span><span class="o">-</span><span class="n">common</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">software</span><span class="o">-</span><span class="n">properties</span><span class="o">-</span><span class="n">common</span>
 <span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="o">-</span><span class="n">y</span> <span class="n">ppa</span><span class="p">:</span><span class="n">pnhowe</span><span class="o">/</span><span class="n">t3kton</span>
 <span class="n">sudo</span> <span class="n">apt</span> <span class="n">update</span>
 <span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">git</span> <span class="n">ntp</span> <span class="n">apache2</span> <span class="n">bc</span> <span class="n">bind9</span> <span class="n">bind9utils</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">gettext</span> <span class="n">gperf</span> <span class="n">libapache2</span><span class="o">-</span><span class="n">mod</span><span class="o">-</span><span class="n">wsgi</span><span class="o">-</span><span class="n">py3</span> <span class="n">libassuan</span><span class="o">-</span><span class="n">dev</span> <span class="n">libblkid</span><span class="o">-</span><span class="n">dev</span> <span class="n">libbz2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libdevmapper</span><span class="o">-</span><span class="n">dev</span> <span class="n">libelf</span><span class="o">-</span><span class="n">dev</span> <span class="n">libgcrypt</span><span class="o">-</span><span class="n">dev</span> <span class="n">libgpg</span><span class="o">-</span><span class="n">error</span><span class="o">-</span><span class="n">dev</span> <span class="n">libksba</span><span class="o">-</span><span class="n">dev</span> <span class="n">liblzma</span><span class="o">-</span><span class="n">dev</span> <span class="n">libnpth0</span><span class="o">-</span><span class="n">dev</span> <span class="n">libreadline</span><span class="o">-</span><span class="n">dev</span> <span class="n">libsqlite3</span><span class="o">-</span><span class="n">dev</span> <span class="n">nodejs</span> <span class="n">npm</span> <span class="n">pkg</span><span class="o">-</span><span class="n">config</span> <span class="n">python3</span><span class="o">-</span><span class="n">cinp</span> <span class="n">python3</span><span class="o">-</span><span class="n">dev</span> <span class="n">python3</span><span class="o">-</span><span class="n">dhcplib</span> <span class="n">python3</span><span class="o">-</span><span class="n">django</span> <span class="n">python3</span><span class="o">-</span><span class="n">jinja2</span> <span class="n">python3</span><span class="o">-</span><span class="n">parsimonious</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span> <span class="n">python3</span><span class="o">-</span><span class="n">psycopg2</span> <span class="n">python3</span><span class="o">-</span><span class="n">pymongo</span> <span class="n">python3</span><span class="o">-</span><span class="n">setuptools</span> <span class="n">python3</span><span class="o">-</span><span class="n">toml</span> <span class="n">python3</span><span class="o">-</span><span class="n">werkzeug</span> <span class="n">respkg</span> <span class="n">uuid</span><span class="o">-</span><span class="n">dev</span> <span class="n">xorriso</span> <span class="n">zlib1g</span><span class="o">-</span><span class="n">dev</span>
@@ -49,7 +56,7 @@ and installing:</p>
 </div>
 <p>Create an empty directory, and cd into it</p>
 <p>First clone the contractor and related projects:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">contractor</span><span class="o">.</span><span class="n">git</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">contractor</span><span class="o">.</span><span class="n">git</span>
 <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">contractor_plugins</span><span class="o">.</span><span class="n">git</span>
 <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">subcontractor</span><span class="o">.</span><span class="n">git</span>
 <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">subcontractor_plugins</span><span class="o">.</span><span class="n">git</span>
@@ -60,7 +67,7 @@ and installing:</p>
 <div class="section" id="build">
 <h2>Build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h2>
 <p>Now to build Contractor, first we need to get the node requirements for the UI, and fix a bug with react-toolbox:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">contractor</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">contractor</span>
 <span class="n">cd</span> <span class="n">ui</span> <span class="o">&amp;&amp;</span> <span class="n">npm</span> <span class="n">install</span>
 <span class="n">sed</span> <span class="n">s</span><span class="o">/</span><span class="s2">&quot;export Ripple from &#39;.\/ripple&#39;;&quot;</span><span class="o">/</span><span class="s2">&quot;export { default as Ripple } from &#39;.\/ripple&#39;;&quot;</span><span class="o">/</span> <span class="o">-</span><span class="n">i</span> <span class="n">node_modules</span><span class="o">/</span><span class="n">react</span><span class="o">-</span><span class="n">toolbox</span><span class="o">/</span><span class="n">components</span><span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">js</span>
 <span class="n">sed</span> <span class="n">s</span><span class="o">/</span><span class="s2">&quot;export Tooltip from &#39;.\/tooltip&#39;;&quot;</span><span class="o">/</span><span class="s2">&quot;export { default as Tooltip } from &#39;.\/tooltip&#39;;&quot;</span><span class="o">/</span> <span class="o">-</span><span class="n">i</span> <span class="n">node_modules</span><span class="o">/</span><span class="n">react</span><span class="o">-</span><span class="n">toolbox</span><span class="o">/</span><span class="n">components</span><span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">js</span>
@@ -68,11 +75,11 @@ and installing:</p>
 </pre></div>
 </div>
 <p>and build the resources.  The make in the resources and disks can take a while:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for i in contractor_plugins resources; do cd $i &amp;&amp; make -j2 respkg &amp;&amp; mv *.respkg .. &amp;&amp; cd ..; done
+<div class="highlight-default"><div class="highlight"><pre><span></span>for i in contractor_plugins resources; do cd $i &amp;&amp; make -j2 respkg &amp;&amp; mv *.respkg .. &amp;&amp; cd ..; done
 </pre></div>
 </div>
 <p>If you are doing AMT or IPMI, you will need the bootstrap PXE, that is built with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">disks</span><span class="o">.</span><span class="n">git</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">disks</span><span class="o">.</span><span class="n">git</span>
 <span class="n">cd</span> <span class="n">disks</span>
 <span class="n">make</span> <span class="o">-</span><span class="n">j2</span>
 <span class="n">make</span> <span class="n">respkg</span>
@@ -81,7 +88,7 @@ and installing:</p>
 </pre></div>
 </div>
 <p>Now to install the python code, NOTE the Makefile will call ‘./setup.py install’ for you:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">contractor</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">contractor</span>
 <span class="n">sudo</span> <span class="n">DESTDIR</span><span class="o">=/</span> <span class="n">make</span> <span class="n">install</span>
 <span class="n">sudo</span> <span class="n">cp</span> <span class="n">debian</span><span class="o">/</span><span class="n">cron</span><span class="o">.</span><span class="n">d</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cron</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">contractor</span>
 <span class="n">sudo</span> <span class="n">cp</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">contractor</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">sample</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">contractor</span><span class="o">.</span><span class="n">conf</span>
@@ -116,39 +123,18 @@ and installing:</p>
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../../index.html">t3kton</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Contractor</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../Introduction.html">Introduction to Contractor</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Give it a Try</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ConfigurationValues.html">Configuration Values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Networking.html">Networking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Modules.html">Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tscript.html">tscript</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Plugins.html">Plugins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Plugins.html#todo">TODO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Resources.html">Resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../API.html">CInP API Documentation for Contractor API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#future">Future</a></li>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">From Source</a><ul>
+<li><a class="reference internal" href="#install-dependencies">Install Dependencies</a></li>
+<li><a class="reference internal" href="#build">Build</a></li>
 </ul>
 </li>
 </ul>
-
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -163,23 +149,15 @@ and installing:</p>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
+  <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -188,8 +166,8 @@ and installing:</p>
       &copy;2019, Peter Howe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
     </div>
 

@@ -1,17 +1,26 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Setup Bare-metal &#8212; t3kton 1.0 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Creating a VM (Ubuntu)" href="create_vm.html" />
@@ -19,17 +28,15 @@
    
   <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
-  
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head><body>
+  </head>
+  <body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="setup-bare-metal">
@@ -37,14 +44,14 @@
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
     <iframe src="https://www.youtube.com/embed/S2eAo1pLzPQ" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
 </div><p>We are going to install ESX on our IPMI/AMT device.  First we need vmware blueprints:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">vmware</span><span class="o">-</span><span class="n">base_</span><span class="o">*.</span><span class="n">respkg</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">vmware</span><span class="o">-</span><span class="n">base_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
 <p>Next we need to extract is ESXi installer.  First you need to get the ESXi installer .iso,
 it will be named something like <cite>VMware-VMvisor-Installer-6.7.0.update01-10302608.x86_64.iso</cite>.
 You can get it from VMware’s web site, by signing up for the esx/vcenter demo.  To
 extract the iso execute:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">esxExtractISO</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="o">.</span><span class="n">iso</span><span class="o">&gt;</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">static</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">esxExtractISO</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="o">.</span><span class="n">iso</span><span class="o">&gt;</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">static</span>
 </pre></div>
 </div>
 <p>Before we can install anything, we first need to figure out how we are going to identify
@@ -55,14 +62,14 @@ second is ‘&lt;switch mac&gt;-&lt;slot&gt;-&lt;port&gt;-&lt;subport&gt;’.  I
 pluggined into a Unifi swich named ‘DevSwitch’ in port 7, so the ‘link_name’ is
 ‘DevSwitch-0-7-0’.  Generally the slot and support are 0, unless you are using a
 large switch/router with blades and/or port split outs.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">IFIDENT</span><span class="o">=</span><span class="s1">&#39;, &quot;link_name&quot;: &quot;&lt;link name&gt;&quot;&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">IFIDENT</span><span class="o">=</span><span class="s1">&#39;, &quot;link_name&quot;: &quot;&lt;link name&gt;&quot;&#39;</span>
 </pre></div>
 </div>
 <p>If you are installing to an IPMI Device, replace the username, password with the
 username and password to access the ipmi interface.  The ip will be set by the bootstrap
 PXE.  Eventually bootstrap will set the username and password as well.  For now, I
 would recommend use the manifacture’s default username and password here.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">FBP</span><span class="o">=</span><span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:ipmi-base:&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">FBP</span><span class="o">=</span><span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:ipmi-base:&quot;</span>
 <span class="n">export</span> <span class="n">FMDL</span><span class="o">=</span><span class="s2">&quot;/api/v1/IPMI/IPMIFoundation&quot;</span>
 <span class="n">export</span> <span class="n">FDATA</span><span class="o">=</span><span class="s1">&#39;, &quot;ipmi_username&quot;: &quot;&lt; Username &gt;&quot;, &quot;ipmi_password&quot;: &quot;&lt; Password &gt;&quot;, &quot;ipmi_ip_address&quot;: &quot;&lt; ip of IPMI interface &gt;&quot;&#39;</span>
 </pre></div>
@@ -71,57 +78,57 @@ would recommend use the manifacture’s default username and password here.:</p>
 in thoes cases where you do not know what it is.  The Bootstrap PXE profile can not
 curently re-configure the username, password nor ip address, so you will need to do
 this manually.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">FBP</span><span class="o">=</span><span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:amt-base:&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">FBP</span><span class="o">=</span><span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:amt-base:&quot;</span>
 <span class="n">export</span> <span class="n">FMDL</span><span class="o">=</span><span class="s2">&quot;/api/v1/AMT/AMTFoundation&quot;</span>
 <span class="n">export</span> <span class="n">FDATA</span><span class="o">=</span><span class="s1">&#39;, &quot;amt_username&quot;: &quot;&lt; Username &gt;&quot;, &quot;amt_password&quot;: &quot;&lt; Password &gt;&quot;, &quot;amt_ip_address&quot;: &quot;&lt; ip of AMT interface &gt;&quot;&#39;</span>
 </pre></div>
 </div>
 <p>Now to load up our ESX host into contractor. First we create the Foundation of
 our host:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/$FMDL
+<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/$FMDL
 { &quot;site&quot;: &quot;$SITE&quot;, &quot;locator&quot;: &quot;esx01&quot;, &quot;plot&quot;: &quot;/api/v1/Survey/Plot:test:&quot;, &quot;blueprint&quot;: &quot;$FBP&quot; $FDATA }
 EOF
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;locator&quot;</span><span class="p">:</span> <span class="s2">&quot;esx01&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:amt-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;id_map&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;located_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-05T00:51:07.330119+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-05T00:51:07.330135+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;amt_username&quot;</span><span class="p">:</span> <span class="s2">&quot;admin&quot;</span><span class="p">,</span> <span class="s2">&quot;amt_password&quot;</span><span class="p">:</span> <span class="s2">&quot;asdQWE1@3&quot;</span><span class="p">,</span> <span class="s2">&quot;amt_ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.200.95&quot;</span><span class="p">,</span> <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Survey/Plot:test:&quot;</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;AMT&quot;</span><span class="p">,</span> <span class="s2">&quot;class_list&quot;</span><span class="p">:</span> <span class="s2">&quot;[&#39;Physical&#39;, &#39;AMT&#39;]&quot;</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;locator&quot;</span><span class="p">:</span> <span class="s2">&quot;esx01&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:amt-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;id_map&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;located_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-05T00:51:07.330119+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-05T00:51:07.330135+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;amt_username&quot;</span><span class="p">:</span> <span class="s2">&quot;admin&quot;</span><span class="p">,</span> <span class="s2">&quot;amt_password&quot;</span><span class="p">:</span> <span class="s2">&quot;asdQWE1@3&quot;</span><span class="p">,</span> <span class="s2">&quot;amt_ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.200.95&quot;</span><span class="p">,</span> <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Survey/Plot:test:&quot;</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;AMT&quot;</span><span class="p">,</span> <span class="s2">&quot;class_list&quot;</span><span class="p">:</span> <span class="s2">&quot;[&#39;Physical&#39;, &#39;AMT&#39;]&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>create the interface:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
+<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
 { &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:esx01:&quot;, &quot;name&quot;: &quot;vmnic0&quot;, &quot;physical_location&quot;: &quot;eth0&quot;, &quot;network&quot;: &quot;$NETWORK&quot;, &quot;is_provisioning&quot;: true $IFIDENT }
 EOF
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;vmnic0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_provisioning&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Network:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T04:39:27.042076+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T04:39:27.042113+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:esx01:&quot;</span><span class="p">,</span> <span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;link_name&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;vmnic0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_provisioning&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Network:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T04:39:27.042076+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T04:39:27.042113+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:esx01:&quot;</span><span class="p">,</span> <span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;link_name&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>Now to create the structure, using the ESX blueprint:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/Structure
+<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/Structure
 { &quot;site&quot;: &quot;$SITE&quot;, &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:esx01:&quot;, &quot;hostname&quot;: &quot;esx01&quot;, &quot;blueprint&quot;: &quot;/api/v1/BluePrint/StructureBluePrint:vmware-esx-base:&quot; }
 EOF
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;esx01&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/StructureBluePrint:vmware-esx-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:esx01:&quot;</span><span class="p">,</span> <span class="s2">&quot;config_uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;bf2ce43e-76c1-4b58-b825-dc6e91521d8c&quot;</span><span class="p">,</span> <span class="s2">&quot;config_values&quot;</span><span class="p">:</span> <span class="p">{},</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T04:41:06.904005+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T04:41:06.904020+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;esx01&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/StructureBluePrint:vmware-esx-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:esx01:&quot;</span><span class="p">,</span> <span class="s2">&quot;config_uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;bf2ce43e-76c1-4b58-b825-dc6e91521d8c&quot;</span><span class="p">,</span> <span class="s2">&quot;config_values&quot;</span><span class="p">:</span> <span class="p">{},</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T04:41:06.904005+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T04:41:06.904020+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>once again take node of the structure id.  Now we assign and ip address, we are going
 to set it at offset 30 which will result in 10.0.0.30.  Replace
 <cite>&lt; structure id &gt;</cite> with the structure id from the previous call:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/Address
+<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/Address
 { &quot;networked&quot;: &quot;/api/v1/Utilities/Networked:&lt; structure id &gt;:&quot;, &quot;address_block&quot;: &quot;$ADRBLK&quot;, &quot;interface_name&quot;: &quot;vmnic0&quot;, &quot;offset&quot;: 30, &quot;is_primary&quot;: true }
 EOF
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T04:44:05.444313+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T04:44:05.444336+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;networked&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Networked:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;interface_name&quot;</span><span class="p">:</span> <span class="s2">&quot;vmnic0&quot;</span><span class="p">,</span> <span class="s2">&quot;sub_interface&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;pointer&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;is_primary&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Address&quot;</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.30&quot;</span><span class="p">,</span> <span class="s2">&quot;subnet&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T04:44:05.444313+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T04:44:05.444336+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;networked&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Networked:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;interface_name&quot;</span><span class="p">:</span> <span class="s2">&quot;vmnic0&quot;</span><span class="p">,</span> <span class="s2">&quot;sub_interface&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;pointer&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;is_primary&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Address&quot;</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.30&quot;</span><span class="p">,</span> <span class="s2">&quot;subnet&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>And finally, create the create jobs.  Replace the structure id as you did for the address
 creation:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Foundation:esx01:(doCreate)&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Foundation:esx01:(doCreate)&quot;</span>
 <span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Structure:&lt; structure id &gt;:(doCreate)&quot;</span>
 </pre></div>
 </div>
@@ -144,39 +151,17 @@ and <cite>esx01.site1.test</cite> for the cluster in the next section.  The user
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../../index.html">t3kton</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Contractor</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../Introduction.html">Introduction to Contractor</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Give it a Try</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ConfigurationValues.html">Configuration Values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Networking.html">Networking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Modules.html">Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tscript.html">tscript</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Plugins.html">Plugins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Plugins.html#todo">TODO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Resources.html">Resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../API.html">CInP API Documentation for Contractor API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#future">Future</a></li>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Setup Bare-metal</a><ul>
+<li><a class="reference internal" href="#next-steps">Next Steps</a></li>
 </ul>
 </li>
 </ul>
-
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -191,23 +176,15 @@ and <cite>esx01.site1.test</cite> for the cluster in the next section.  The user
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
+  <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -216,8 +193,8 @@ and <cite>esx01.site1.test</cite> for the cluster in the next section.  The user
       &copy;2019, Peter Howe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
     </div>
 

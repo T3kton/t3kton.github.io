@@ -1,17 +1,26 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>tscript &#8212; t3kton 1.0 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Plugins" href="Plugins.html" />
@@ -19,17 +28,15 @@
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
-  
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head><body>
+  </head>
+  <body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="tscript">
@@ -58,15 +65,15 @@ of Foundation in use.</p>
 <h2>built in functions<a class="headerlink" href="#built-in-functions" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
-<li><p>len( array ) - return length of the <cite>array</cite></p></li>
-<li><p>slice( array, start, end ) - returns a slice of the <cite>array</cite> from <cite>start</cite> to <cite>end</cite> (same start end rules as python)</p></li>
-<li><p>pop( array, index=-1 ) - returns and removes index <cite>index</cite> from <cite>array</cite></p></li>
-<li><p>append( array, value ) - appends <cite>value</cite> to the end of the <cite>array</cite></p></li>
-<li><p>index( array, value ) - returns the index(offset) or <cite>value</cite> in <cite>array</cite></p></li>
-<li><p>pause( msg ) - pause the script with the message <cite>msg</cite></p></li>
-<li><p>error( msg ) - cause a non fatal error with the message <cite>msg</cite></p></li>
-<li><p>fatal_error( msg ) - cause a fatal error with the message <cite>msg</cite></p></li>
-<li><p>delay( seconds=0, minutes=0, hours=0 ) - delay execution of the script for the specified <cite>seconds</cite>, <cite>minutes</cite>, and/or <cite>hours</cite></p></li>
+<li>len( array ) - return length of the <cite>array</cite></li>
+<li>slice( array, start, end ) - returns a slice of the <cite>array</cite> from <cite>start</cite> to <cite>end</cite> (same start end rules as python)</li>
+<li>pop( array, index=-1 ) - returns and removes index <cite>index</cite> from <cite>array</cite></li>
+<li>append( array, value ) - appends <cite>value</cite> to the end of the <cite>array</cite></li>
+<li>index( array, value ) - returns the index(offset) or <cite>value</cite> in <cite>array</cite></li>
+<li>pause( msg ) - pause the script with the message <cite>msg</cite></li>
+<li>error( msg ) - cause a non fatal error with the message <cite>msg</cite></li>
+<li>fatal_error( msg ) - cause a fatal error with the message <cite>msg</cite></li>
+<li>delay( seconds=0, minutes=0, hours=0 ) - delay execution of the script for the specified <cite>seconds</cite>, <cite>minutes</cite>, and/or <cite>hours</cite></li>
 </ul>
 </div></blockquote>
 </div>
@@ -74,25 +81,25 @@ of Foundation in use.</p>
 <h2>examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
-<li><p><a class="reference external" href="https://github.com/T3kton/resources/blob/master/os-bases/os_base/usr/lib/contractor/resources/base_os.toml#L12">https://github.com/T3kton/resources/blob/master/os-bases/os_base/usr/lib/contractor/resources/base_os.toml#L12</a></p></li>
-<li><p><a class="reference external" href="https://github.com/T3kton/resources/blob/master/os-bases/os_base/usr/lib/contractor/resources/base_os.toml#L52">https://github.com/T3kton/resources/blob/master/os-bases/os_base/usr/lib/contractor/resources/base_os.toml#L52</a></p></li>
-<li><p><a class="reference external" href="https://github.com/T3kton/resources/blob/master/vmware/vmware/usr/lib/contractor/resources/vmware.toml#L23">https://github.com/T3kton/resources/blob/master/vmware/vmware/usr/lib/contractor/resources/vmware.toml#L23</a></p></li>
-<li><p><a class="reference external" href="https://github.com/T3kton/contractor_plugins/blob/master/resources/vcenter/usr/lib/contractor/resources/vcenter.toml#L12">https://github.com/T3kton/contractor_plugins/blob/master/resources/vcenter/usr/lib/contractor/resources/vcenter.toml#L12</a></p></li>
-<li><p><a class="reference external" href="https://github.com/T3kton/contractor_plugins/blob/master/resources/vcenter/usr/lib/contractor/resources/vcenter.toml#L33">https://github.com/T3kton/contractor_plugins/blob/master/resources/vcenter/usr/lib/contractor/resources/vcenter.toml#L33</a></p></li>
-<li><p><a class="reference external" href="https://github.com/T3kton/contractor_plugins/blob/master/resources/docker/usr/lib/contractor/resources/docker.toml#L11">https://github.com/T3kton/contractor_plugins/blob/master/resources/docker/usr/lib/contractor/resources/docker.toml#L11</a></p></li>
-<li><p><a class="reference external" href="https://github.com/T3kton/contractor_plugins/blob/master/resources/docker/usr/lib/contractor/resources/docker.toml#L21">https://github.com/T3kton/contractor_plugins/blob/master/resources/docker/usr/lib/contractor/resources/docker.toml#L21</a></p></li>
-<li><p><a class="reference external" href="https://github.com/T3kton/contractor_plugins/blob/master/resources/azure/lib/contractor/resources/azure.toml#L13">https://github.com/T3kton/contractor_plugins/blob/master/resources/azure/lib/contractor/resources/azure.toml#L13</a></p></li>
-<li><p><a class="reference external" href="https://github.com/T3kton/contractor_plugins/blob/master/resources/azure/lib/contractor/resources/azure.toml#L24">https://github.com/T3kton/contractor_plugins/blob/master/resources/azure/lib/contractor/resources/azure.toml#L24</a></p></li>
-<li><p><a class="reference external" href="https://github.com/T3kton/contractor_plugins/blob/master/resources/virtualbox/usr/lib/contractor/resources/virtualbox.toml#L11">https://github.com/T3kton/contractor_plugins/blob/master/resources/virtualbox/usr/lib/contractor/resources/virtualbox.toml#L11</a></p></li>
-<li><p><a class="reference external" href="https://github.com/T3kton/contractor_plugins/blob/master/resources/virtualbox/usr/lib/contractor/resources/virtualbox.toml#L24">https://github.com/T3kton/contractor_plugins/blob/master/resources/virtualbox/usr/lib/contractor/resources/virtualbox.toml#L24</a></p></li>
-<li><p><a class="reference external" href="https://github.com/T3kton/contractor_plugins/blob/master/resources/manual/usr/lib/contractor/resources/manual.toml#L16">https://github.com/T3kton/contractor_plugins/blob/master/resources/manual/usr/lib/contractor/resources/manual.toml#L16</a></p></li>
+<li><a class="reference external" href="https://github.com/T3kton/resources/blob/master/os-bases/os_base/usr/lib/contractor/resources/base_os.toml#L12">https://github.com/T3kton/resources/blob/master/os-bases/os_base/usr/lib/contractor/resources/base_os.toml#L12</a></li>
+<li><a class="reference external" href="https://github.com/T3kton/resources/blob/master/os-bases/os_base/usr/lib/contractor/resources/base_os.toml#L52">https://github.com/T3kton/resources/blob/master/os-bases/os_base/usr/lib/contractor/resources/base_os.toml#L52</a></li>
+<li><a class="reference external" href="https://github.com/T3kton/resources/blob/master/vmware/vmware/usr/lib/contractor/resources/vmware.toml#L23">https://github.com/T3kton/resources/blob/master/vmware/vmware/usr/lib/contractor/resources/vmware.toml#L23</a></li>
+<li><a class="reference external" href="https://github.com/T3kton/contractor_plugins/blob/master/resources/vcenter/usr/lib/contractor/resources/vcenter.toml#L12">https://github.com/T3kton/contractor_plugins/blob/master/resources/vcenter/usr/lib/contractor/resources/vcenter.toml#L12</a></li>
+<li><a class="reference external" href="https://github.com/T3kton/contractor_plugins/blob/master/resources/vcenter/usr/lib/contractor/resources/vcenter.toml#L33">https://github.com/T3kton/contractor_plugins/blob/master/resources/vcenter/usr/lib/contractor/resources/vcenter.toml#L33</a></li>
+<li><a class="reference external" href="https://github.com/T3kton/contractor_plugins/blob/master/resources/docker/usr/lib/contractor/resources/docker.toml#L11">https://github.com/T3kton/contractor_plugins/blob/master/resources/docker/usr/lib/contractor/resources/docker.toml#L11</a></li>
+<li><a class="reference external" href="https://github.com/T3kton/contractor_plugins/blob/master/resources/docker/usr/lib/contractor/resources/docker.toml#L21">https://github.com/T3kton/contractor_plugins/blob/master/resources/docker/usr/lib/contractor/resources/docker.toml#L21</a></li>
+<li><a class="reference external" href="https://github.com/T3kton/contractor_plugins/blob/master/resources/azure/lib/contractor/resources/azure.toml#L13">https://github.com/T3kton/contractor_plugins/blob/master/resources/azure/lib/contractor/resources/azure.toml#L13</a></li>
+<li><a class="reference external" href="https://github.com/T3kton/contractor_plugins/blob/master/resources/azure/lib/contractor/resources/azure.toml#L24">https://github.com/T3kton/contractor_plugins/blob/master/resources/azure/lib/contractor/resources/azure.toml#L24</a></li>
+<li><a class="reference external" href="https://github.com/T3kton/contractor_plugins/blob/master/resources/virtualbox/usr/lib/contractor/resources/virtualbox.toml#L11">https://github.com/T3kton/contractor_plugins/blob/master/resources/virtualbox/usr/lib/contractor/resources/virtualbox.toml#L11</a></li>
+<li><a class="reference external" href="https://github.com/T3kton/contractor_plugins/blob/master/resources/virtualbox/usr/lib/contractor/resources/virtualbox.toml#L24">https://github.com/T3kton/contractor_plugins/blob/master/resources/virtualbox/usr/lib/contractor/resources/virtualbox.toml#L24</a></li>
+<li><a class="reference external" href="https://github.com/T3kton/contractor_plugins/blob/master/resources/manual/usr/lib/contractor/resources/manual.toml#L16">https://github.com/T3kton/contractor_plugins/blob/master/resources/manual/usr/lib/contractor/resources/manual.toml#L16</a></li>
 </ul>
 </div></blockquote>
 </div>
 <div class="section" id="gramer">
 <h2>gramer<a class="headerlink" href="#gramer" title="Permalink to this headline">¶</a></h2>
 <p>tscript uses the parsimonious parser, here is it’s grammar:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>script              = lines
+<div class="highlight-default"><div class="highlight"><pre><span></span>script              = lines
 lines               = line*
 line                = ( expression / ws_s ) comment? nl_p
 expression          = ws_s ( jump_point / goto / function / ifelse / whiledo / block / assignment / infix / boolean / not_ / none / exists / other / array_map_item / array / map / variable / time / number_float / number_int / text ) ws_s
@@ -150,39 +157,19 @@ em_p                = ~&quot;[\\x0d\\x0a \\x09]+&quot;
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">t3kton</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Contractor</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="Introduction.html">Introduction to Contractor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tryit/index.html">Give it a Try</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ConfigurationValues.html">Configuration Values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Networking.html">Networking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Modules.html">Modules</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">tscript</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Plugins.html">Plugins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Plugins.html#todo">TODO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Resources.html">Resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html">CInP API Documentation for Contractor API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#future">Future</a></li>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">tscript</a><ul>
+<li><a class="reference internal" href="#built-in-functions">built in functions</a></li>
+<li><a class="reference internal" href="#examples">examples</a></li>
+<li><a class="reference internal" href="#gramer">gramer</a></li>
 </ul>
 </li>
 </ul>
-
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -195,23 +182,15 @@ em_p                = ~&quot;[\\x0d\\x0a \\x09]+&quot;
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
+  <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -220,8 +199,8 @@ em_p                = ~&quot;[\\x0d\\x0a \\x09]+&quot;
       &copy;2019, Peter Howe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
     </div>
 

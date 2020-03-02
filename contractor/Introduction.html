@@ -1,17 +1,26 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Introduction to Contractor &#8212; t3kton 1.0 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Give it a Try" href="tryit/index.html" />
@@ -19,17 +28,15 @@
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
-  
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head><body>
+  </head>
+  <body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="introduction-to-contractor">
@@ -50,7 +57,7 @@ Raspberry PI, ECS, GCD, etc…  Not all Foundations are going to be compatible
 with all Structures, however a well defined Structure can be installed on most
 of them.</p>
 <p>So far we have this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-----------------------------+</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-----------------------------+</span>
 <span class="o">|</span>                             <span class="o">|</span>
 <span class="o">|</span>  <span class="n">Structure</span> <span class="p">(</span><span class="n">Web</span> <span class="n">Server</span><span class="p">)</span>     <span class="o">|</span>
 <span class="o">|</span>                             <span class="o">|</span>
@@ -69,7 +76,7 @@ of them.</p>
 <h2>Sites<a class="headerlink" href="#sites" title="Permalink to this headline">¶</a></h2>
 <p>The next term is <strong>Site</strong>.  A site is a Logical grouping of things.  Let’s put
 our Web Server in a Site called “Cluster 1”</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-------------------------------------+</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-------------------------------------+</span>
 <span class="o">|</span>  <span class="n">Cluster</span> <span class="mi">1</span>                          <span class="o">|</span>
 <span class="o">|</span>                                     <span class="o">|</span>
 <span class="o">|</span>    <span class="o">+-----------------------------+</span>  <span class="o">|</span>
@@ -94,7 +101,7 @@ configuration values of “Cluster 1” then overlay them with “Foundation” 
 the “Structure”.</p>
 <p>Sites can be be put into other Sites.  For example we have Clusters 1, 2, and 3
 in “Datacenter West”.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+---------------------------------------------------------------------------------------------+</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---------------------------------------------------------------------------------------------+</span>
 <span class="o">|</span> <span class="n">Datacenter</span> <span class="n">West</span>                                                                             <span class="o">|</span>
 <span class="o">|</span>                                                                                             <span class="o">|</span>
 <span class="o">|</span>  <span class="o">+-------------------------------------+</span> <span class="o">+----------------------+</span> <span class="o">+----------------------+</span>  <span class="o">|</span>
@@ -140,7 +147,7 @@ ESX/VCenter.</p>
 <div class="section" id="complexes">
 <h2>Complexes<a class="headerlink" href="#complexes" title="Permalink to this headline">¶</a></h2>
 <p>Note: we are going to omit Cluster 2 and 3 for now, they are clones of Cluster 1:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-----------------------------------------------------------------------------+</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-----------------------------------------------------------------------------+</span>
 <span class="o">|</span> <span class="n">Datacenter</span> <span class="n">West</span>                                                             <span class="o">|</span>
 <span class="o">|</span>                                                                             <span class="o">|</span>
 <span class="o">|</span>  <span class="o">+-----------------------------------------------------------------------+</span>  <span class="o">|</span>
@@ -190,7 +197,7 @@ NOTE: the configuration info of the Structure and Foundations that make up a
 cluster do <strong>NOT</strong> flow through to the Foundations and Structures built on that
 complex.  The Members of the Complex can even belong to another site.</p>
 <p>For Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-----------------------------------------------------------------------------+</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-----------------------------------------------------------------------------+</span>
 <span class="o">|</span> <span class="n">Datacenter</span> <span class="n">West</span>                                                             <span class="o">|</span>
 <span class="o">|</span>                                                                             <span class="o">|</span>
 <span class="o">|</span>  <span class="o">+-----------------------------------------------------------------------+</span>  <span class="o">|</span>
@@ -302,7 +309,7 @@ configuration information.</p>
 for other tasks.  These scripts are written in <strong>tscript</strong> (see <a class="reference internal" href="tscript.html"><span class="doc">tscript</span></a>).</p>
 <p>Taking our example from above, the blueprint for the webserver would look something
 like (see :doc:ConfigurationValues for info on the configuration values):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="n">structure</span><span class="o">.</span><span class="n">webserver</span> <span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="n">structure</span><span class="o">.</span><span class="n">webserver</span> <span class="p">]</span>
   <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;My Serbserver&#39;</span>
   <span class="n">parents</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;ubuntu-bionic-base&#39;</span> <span class="p">]</span>
 <span class="p">[</span> <span class="n">structure</span><span class="o">.</span><span class="n">webserver</span><span class="o">.</span><span class="n">config_values</span> <span class="p">]</span>
@@ -324,39 +331,23 @@ Those are documented elsewhere.</p>
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">t3kton</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Contractor</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Introduction to Contractor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tryit/index.html">Give it a Try</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ConfigurationValues.html">Configuration Values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Networking.html">Networking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Modules.html">Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tscript.html">tscript</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Plugins.html">Plugins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Plugins.html#todo">TODO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Resources.html">Resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html">CInP API Documentation for Contractor API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#future">Future</a></li>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction to Contractor</a><ul>
+<li><a class="reference internal" href="#foundations-and-structures">Foundations and Structures</a></li>
+<li><a class="reference internal" href="#sites">Sites</a></li>
+<li><a class="reference internal" href="#complexes">Complexes</a></li>
+<li><a class="reference internal" href="#side-track-to-the-manifesto">Side Track to the Manifesto</a></li>
+<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li><a class="reference internal" href="#blueprints">BluePrints</a></li>
+<li><a class="reference internal" href="#other">Other</a></li>
 </ul>
 </li>
 </ul>
-
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -369,23 +360,15 @@ Those are documented elsewhere.</p>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
+  <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -394,8 +377,8 @@ Those are documented elsewhere.</p>
       &copy;2019, Peter Howe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
     </div>
 

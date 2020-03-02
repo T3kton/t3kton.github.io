@@ -1,17 +1,26 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Resources &#8212; t3kton 1.0 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="CInP API Documentation for Contractor API" href="API.html" />
@@ -19,17 +28,15 @@
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
-  
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head><body>
+  </head>
+  <body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="resources">
@@ -67,45 +74,43 @@
 <div class="section" id="id3">
 <h5>ubuntu<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h5>
 <blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">__pxe_location</dt>
-<dd class="field-odd"><p></p></dd>
-<dt class="field-even">__pxe_template_location</dt>
-<dd class="field-even"><p></p></dd>
-<dt class="field-odd">_interface_map</dt>
-<dd class="field-odd"><p></p></dd>
-<dt class="field-even">_hostname</dt>
-<dd class="field-even"><p></p></dd>
-<dt class="field-odd">_domain_name</dt>
-<dd class="field-odd"><p></p></dd>
-<dt class="field-even">dns_servers</dt>
-<dd class="field-even"><p>list of dns server ip address</p>
-</dd>
-<dt class="field-odd">mirror_server</dt>
-<dd class="field-odd"><p>ubuntu mirror server, ie: <cite>us.archive.ubuntu.com</cite></p>
-</dd>
-<dt class="field-even">mirror_proxy</dt>
-<dd class="field-even"><p>proxy server to access the mirror_server (optional), ie: ‘<a class="reference external" href="http://proxy:3128/">http://proxy:3128/</a>’</p>
-</dd>
-<dt class="field-odd">distro_version</dt>
-<dd class="field-odd"><p>ubuntu version, ie: <cite>xenial</cite></p>
-</dd>
-<dt class="field-even">root_pass</dt>
-<dd class="field-even"><p>hashed root password</p>
-</dd>
-<dt class="field-odd">ntp_servers</dt>
-<dd class="field-odd"><p>list of ntp servers</p>
-</dd>
-<dt class="field-even">packages</dt>
-<dd class="field-even"><p>list of packages to install, ie: <cite>[ ‘open-vm-tools’ ]</cite></p>
-</dd>
-<dt class="field-odd">postinstall_script</dt>
-<dd class="field-odd"><p>url to a script to download and executed in the target install, ie: <cite>http://static/stuff.sh</cite></p>
-</dd>
-<dt class="field-even">postinstall_commands</dt>
-<dd class="field-even"><p>list of commands to run in the target install, ie: <cite>[ ‘echo “configured” &gt; /etc/file’, ‘ls -l / &gt; /stock_root’ ]</cite></p>
-</dd>
-</dl>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">__pxe_location:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">__pxe_template_location:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">_interface_map:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">_hostname:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">_domain_name:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">dns_servers:</th><td class="field-body">list of dns server ip address</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">mirror_server:</th><td class="field-body">ubuntu mirror server, ie: <cite>us.archive.ubuntu.com</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">mirror_proxy:</th><td class="field-body">proxy server to access the mirror_server (optional), ie: ‘<a class="reference external" href="http://proxy:3128/">http://proxy:3128/</a>’</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">distro_version:</th><td class="field-body">ubuntu version, ie: <cite>xenial</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">root_pass:</th><td class="field-body">hashed root password</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">ntp_servers:</th><td class="field-body">list of ntp servers</td>
+</tr>
+<tr class="field-even field"><th class="field-name">packages:</th><td class="field-body">list of packages to install, ie: <cite>[ ‘open-vm-tools’ ]</cite></td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">postinstall_script:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">url to a script to download and executed in the target install, ie: <cite>http://static/stuff.sh</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">postinstall_commands:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">list of commands to run in the target install, ie: <cite>[ ‘echo “configured” &gt; /etc/file’, ‘ls -l / &gt; /stock_root’ ]</cite></td>
+</tr>
+</tbody>
+</table>
 </div></blockquote>
 <p>NOTE: <cite>postinstall_script</cite> is executed before <cite>postinstall_commands</cite></p>
 </div>
@@ -130,30 +135,37 @@
 <div class="section" id="centos-6">
 <h5>centos-6<a class="headerlink" href="#centos-6" title="Permalink to this headline">¶</a></h5>
 <blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">__pxe_location</dt>
-<dd class="field-odd"><p></p></dd>
-<dt class="field-even">__pxe_template_location</dt>
-<dd class="field-even"><p></p></dd>
-<dt class="field-odd">_fqdn</dt>
-<dd class="field-odd"><p></p></dd>
-<dt class="field-even">_interface_map</dt>
-<dd class="field-even"><p></p></dd>
-<dt class="field-odd">mirror_server</dt>
-<dd class="field-odd"><p></p></dd>
-<dt class="field-even">mirror_proxy</dt>
-<dd class="field-even"><p></p></dd>
-<dt class="field-odd">dns_servers</dt>
-<dd class="field-odd"><p></p></dd>
-<dt class="field-even">root_pass</dt>
-<dd class="field-even"><p></p></dd>
-<dt class="field-odd">packages</dt>
-<dd class="field-odd"><p></p></dd>
-<dt class="field-even">postinstall_script</dt>
-<dd class="field-even"><p></p></dd>
-<dt class="field-odd">postinstall_commands</dt>
-<dd class="field-odd"><p></p></dd>
-</dl>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">__pxe_location:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">__pxe_template_location:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">_fqdn:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">_interface_map:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">mirror_server:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">mirror_proxy:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">dns_servers:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">root_pass:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">packages:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">postinstall_script:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">postinstall_commands:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
 </div></blockquote>
 <p>See ububntu pxe for details</p>
 </div>
@@ -183,39 +195,65 @@
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">t3kton</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Contractor</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="Introduction.html">Introduction to Contractor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tryit/index.html">Give it a Try</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ConfigurationValues.html">Configuration Values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Networking.html">Networking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Modules.html">Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tscript.html">tscript</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Plugins.html">Plugins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Plugins.html#todo">TODO</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html">CInP API Documentation for Contractor API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#future">Future</a></li>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Resources</a><ul>
+<li><a class="reference internal" href="#os-base">OS Base</a><ul>
+<li><a class="reference internal" href="#id1">OS Base</a><ul>
+<li><a class="reference internal" href="#structure-blueprints">Structure BluePrints</a><ul>
+<li><a class="reference internal" href="#linux-base">linux-base</a></li>
 </ul>
 </li>
 </ul>
-
+</li>
+<li><a class="reference internal" href="#ubuntu">Ubuntu</a><ul>
+<li><a class="reference internal" href="#id2">Structure BluePrints</a><ul>
+<li><a class="reference internal" href="#ubuntu-base">ubuntu-base</a></li>
+<li><a class="reference internal" href="#ubuntu-trusty-base">ubuntu-trusty-base</a></li>
+<li><a class="reference internal" href="#ubuntu-xenial-base">ubuntu-xenial-base</a></li>
+<li><a class="reference internal" href="#ubuntu-bionic-base">ubuntu-bionic-base</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pxe">PXE</a><ul>
+<li><a class="reference internal" href="#id3">ubuntu</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#centos">CentOS</a><ul>
+<li><a class="reference internal" href="#id4">Structure BluePrints</a><ul>
+<li><a class="reference internal" href="#centos-base">centos-base</a></li>
+<li><a class="reference internal" href="#centos-6-base">centos-6-base</a></li>
+<li><a class="reference internal" href="#centos-7-base">centos-7-base</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5">PXE</a><ul>
+<li><a class="reference internal" href="#centos-6">centos-6</a></li>
+<li><a class="reference internal" href="#centos-7">centos-7</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#utility">Utility</a><ul>
+<li><a class="reference internal" href="#id6">Utility</a><ul>
+<li><a class="reference internal" href="#id7">Structure BluePrints</a><ul>
+<li><a class="reference internal" href="#linux-jumpbox">linux-jumpbox</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#vmware">VMWare</a></li>
+</ul>
+</li>
+</ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -228,23 +266,15 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
+  <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -253,8 +283,8 @@
       &copy;2019, Peter Howe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
     </div>
 

@@ -1,17 +1,26 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Installing &#8212; t3kton 1.0 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="From Prebuilt Packages" href="packaged.html" />
@@ -19,17 +28,15 @@
    
   <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
-  
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head><body>
+  </head>
+  <body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="installing">
@@ -62,7 +69,7 @@ some other Infrastructure related tasks that need to be done.</p>
 <p><a class="reference internal" href="setup_amt.html"><span class="doc">AMT Setup</span></a></p>
 <p><a class="reference internal" href="setup_docker.html"><span class="doc">Docker Setup</span></a></p>
 <p>the ubuntu toml package is to old, update with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
 <span class="n">pip3</span> <span class="n">install</span> <span class="n">toml</span> <span class="o">--</span><span class="n">upgrade</span>
 </pre></div>
 </div>
@@ -72,16 +79,16 @@ some other Infrastructure related tasks that need to be done.</p>
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
     <iframe src="https://www.youtube.com/embed/Wjm6kKus1Ho" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
 </div><p>Install Postgres:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">postgresql</span><span class="o">-</span><span class="n">client</span> <span class="n">postgresql</span><span class="o">-</span><span class="mi">10</span> <span class="n">mongodb</span><span class="o">-</span><span class="n">server</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">postgresql</span><span class="o">-</span><span class="n">client</span> <span class="n">postgresql</span><span class="o">-</span><span class="mi">10</span> <span class="n">mongodb</span><span class="o">-</span><span class="n">server</span>
 </pre></div>
 </div>
 <p>Create the postgres db:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">su</span> <span class="n">postgres</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;echo </span><span class="se">\&quot;</span><span class="s2">CREATE ROLE contractor WITH PASSWORD &#39;contractor&#39; NOSUPERUSER NOCREATEDB NOCREATEROLE LOGIN;</span><span class="se">\&quot;</span><span class="s2"> | psql&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">su</span> <span class="n">postgres</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;echo </span><span class="se">\&quot;</span><span class="s2">CREATE ROLE contractor WITH PASSWORD &#39;contractor&#39; NOSUPERUSER NOCREATEDB NOCREATEROLE LOGIN;</span><span class="se">\&quot;</span><span class="s2"> | psql&quot;</span>
 <span class="n">sudo</span> <span class="n">su</span> <span class="n">postgres</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;createdb -O contractor contractor&quot;</span>
 </pre></div>
 </div>
 <p>NOTE, for those two commands you may see something like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">could</span> <span class="ow">not</span> <span class="n">change</span> <span class="n">directory</span> <span class="n">to</span> <span class="s2">&quot;/root&quot;</span><span class="p">:</span> <span class="n">Permission</span> <span class="n">denied</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">could</span> <span class="ow">not</span> <span class="n">change</span> <span class="n">directory</span> <span class="n">to</span> <span class="s2">&quot;/root&quot;</span><span class="p">:</span> <span class="n">Permission</span> <span class="n">denied</span>
 </pre></div>
 </div>
 <p>this is from the <cite>su</cite> command, thoes messages can be ignored</p>
@@ -93,11 +100,11 @@ to bridge from the isolated network.  This proxy server will also cache. We are
 using Apache to Proxy with for this example, however you can use any proxy you
 would like, just update the <cite>proxy-server</cite> paramater to the <cite>setupWizard</cite> call.</p>
 <p>First create the directory for the static resources:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">static</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">static</span>
 </pre></div>
 </div>
 <p>now create the proxy site <cite>/etc/apache2/sites-available/proxy.conf</cite> with the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Listen 3128
+<div class="highlight-default"><div class="highlight"><pre><span></span>Listen 3128
 &lt;VirtualHost *:3128&gt;
   ServerName proxy
   ServerAlias proxy.site1.test
@@ -123,7 +130,7 @@ would like, just update the <cite>proxy-server</cite> paramater to the <cite>set
 <p>NOTE: if you need to relay through an upstream proxy to have access to the ubuntu
 and centos mirrors, enable the <cite>ProxyRemote</cite> line and update it with the upstream proxy.
 Now create the static site <cite>/etc/apache2/sites-available/static.conf</cite> with the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;VirtualHost *:80&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;VirtualHost *:80&gt;
   ServerName static
   ServerAlias static.site1.test
 
@@ -139,7 +146,7 @@ Now create the static site <cite>/etc/apache2/sites-available/static.conf</cite>
 line, and change the <cite>&lt;domain&gt;</cite> to <cite>site1.test</cite></p>
 <p>Now enable the proxy and static site, disable the default site, and reload the
 apache configuration:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">a2ensite</span> <span class="n">proxy</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">a2ensite</span> <span class="n">proxy</span>
 <span class="n">sudo</span> <span class="n">a2ensite</span> <span class="n">static</span>
 <span class="n">sudo</span> <span class="n">a2dissite</span> <span class="mi">000</span><span class="o">-</span><span class="n">default</span>
 <span class="n">sudo</span> <span class="n">a2enmod</span> <span class="n">proxy</span> <span class="n">proxy_connect</span> <span class="n">proxy_ftp</span> <span class="n">proxy_http</span> <span class="n">cache_disk</span> <span class="n">cache</span>
@@ -151,61 +158,61 @@ apache configuration:</p>
 <div class="section" id="setup-the-database">
 <h2>Setup the database<a class="headerlink" href="#setup-the-database" title="Permalink to this headline">¶</a></h2>
 <p>Now to create the db:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">util</span><span class="o">/</span><span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">migrate</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">util</span><span class="o">/</span><span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">migrate</span>
 </pre></div>
 </div>
 <p>Install the iputils functions, this contains the port check function contractor
 will use to verify the OS has booted:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">iputils_</span><span class="o">*.</span><span class="n">respkg</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">iputils_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
 <p>Install base os config:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">os</span><span class="o">-</span><span class="n">base_</span><span class="o">*.</span><span class="n">respkg</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">os</span><span class="o">-</span><span class="n">base_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
 <p>If you are going to use IPMI or AMT, Install the disks package, this has the bootstrap,
 set-rtc, and disk-wipe PXE images:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">disks</span><span class="o">-</span><span class="n">contractor_</span><span class="o">*.</span><span class="n">respkg</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">disks</span><span class="o">-</span><span class="n">contractor_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
 <p>Now to enable plugins.
 We use manual for misc stuff that is either pre-configured or handled by something else:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">manual_</span><span class="o">*.</span><span class="n">respkg</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">manual_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
 <p>if you are using ESX/VCenter:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">vcenter_</span><span class="o">*.</span><span class="n">respkg</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">vcenter_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
 <p>if you are using Virtualbox:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">virtualbox_</span><span class="o">*.</span><span class="n">respkg</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">virtualbox_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
 <p>if you are using IPMI:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">ipmi_</span><span class="o">*.</span><span class="n">respkg</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">ipmi_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
 <p>if you are using AMT:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">amt_</span><span class="o">*.</span><span class="n">respkg</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">amt_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
 <p>if you are using Docker:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">docker_</span><span class="o">*.</span><span class="n">respkg</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">docker_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
 <p>restart apache so it loads the newly enabled plutings:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">restart</span> <span class="n">apache2</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">restart</span> <span class="n">apache2</span>
 </pre></div>
 </div>
 <p>Now to configure the base contractor information, this includes configuring bind.
 This command will prompt you for the password to use for the <cite>root</cite> user that we
 will be using for API calls.  Set <cite>&lt; interface name &gt;</cite> to the name of the interface
 on the internal network:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">setup</span><span class="o">/</span><span class="n">setupWizard</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">ip</span><span class="o">-</span><span class="n">reservation</span> <span class="o">--</span><span class="n">dns</span><span class="o">-</span><span class="n">server</span><span class="o">=</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">0.10</span> <span class="o">--</span><span class="n">proxy</span><span class="o">-</span><span class="n">server</span><span class="o">=</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">0.10</span><span class="p">:</span><span class="mi">3128</span><span class="o">/</span> <span class="o">--</span><span class="n">ntp</span><span class="o">-</span><span class="n">server</span><span class="o">=</span><span class="n">contractor</span> <span class="o">--</span><span class="n">primary</span><span class="o">-</span><span class="n">interface</span><span class="o">=&lt;</span> <span class="n">interface</span> <span class="n">name</span> <span class="o">&gt;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">setup</span><span class="o">/</span><span class="n">setupWizard</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">ip</span><span class="o">-</span><span class="n">reservation</span> <span class="o">--</span><span class="n">dns</span><span class="o">-</span><span class="n">server</span><span class="o">=</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">0.10</span> <span class="o">--</span><span class="n">proxy</span><span class="o">-</span><span class="n">server</span><span class="o">=</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">0.10</span><span class="p">:</span><span class="mi">3128</span><span class="o">/</span> <span class="o">--</span><span class="n">ntp</span><span class="o">-</span><span class="n">server</span><span class="o">=</span><span class="n">contractor</span> <span class="o">--</span><span class="n">primary</span><span class="o">-</span><span class="n">interface</span><span class="o">=&lt;</span> <span class="n">interface</span> <span class="n">name</span> <span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>It is safe to ignore the message:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rndc</span><span class="p">:</span> <span class="n">connect</span> <span class="n">failed</span><span class="p">:</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="c1">#953: connection refused</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rndc</span><span class="p">:</span> <span class="n">connect</span> <span class="n">failed</span><span class="p">:</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="c1">#953: connection refused</span>
 <span class="n">WARNING</span><span class="p">:</span> <span class="s2">&quot;rndc reload&quot;</span> <span class="n">failed</span>
 </pre></div>
 </div>
@@ -219,14 +226,14 @@ on the internal network:</p>
 You can run these commands from either the contractor VM, or any place that can make
 http requests to contractor.</p>
 <p>we will be using curl, make sure it is installed:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">curl</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">curl</span>
 </pre></div>
 </div>
 <p>First we will define some Environment values so we don’t have to keep tying redundant info
 the Contractor server.  This is assuming you will be running these commands from
 the contractor VM, if you are running these steps from someplace else, update the
 ip address to the ip address of the contractor vm:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">COPS</span><span class="o">=</span><span class="p">(</span> <span class="o">--</span><span class="n">noproxy</span> \<span class="o">*</span> <span class="o">--</span><span class="n">header</span> <span class="s2">&quot;CInP-Version: 0.9&quot;</span> <span class="o">--</span><span class="n">header</span> <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">COPS</span><span class="o">=</span><span class="p">(</span> <span class="o">--</span><span class="n">noproxy</span> \<span class="o">*</span> <span class="o">--</span><span class="n">header</span> <span class="s2">&quot;CInP-Version: 0.9&quot;</span> <span class="o">--</span><span class="n">header</span> <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="p">)</span>
 <span class="n">export</span> <span class="n">SITE</span><span class="o">=</span><span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span>
 <span class="n">export</span> <span class="n">CHOST</span><span class="o">=</span><span class="s2">&quot;http://127.0.0.1&quot;</span>
 </pre></div>
@@ -235,26 +242,26 @@ ip address to the ip address of the contractor vm:</p>
 to use, and CHOST is the URL to the Contractor server.</p>
 <p>now we need to login, replace the <cite>&lt; password &gt;</cite> with the password you passed to
 <cite>setupWizard</cite> (the <cite>–root-password</cite> paramater):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>echo &#39;{ &quot;username&quot;: &quot;root&quot;, &quot;password&quot;: &quot;&lt; password &gt;&quot; }&#39; | curl &quot;${COPS[@]}&quot; --data @- -X CALL $CHOST/api/v1/Auth/User\(login\)
+<div class="highlight-default"><div class="highlight"><pre><span></span>echo &#39;{ &quot;username&quot;: &quot;root&quot;, &quot;password&quot;: &quot;&lt; password &gt;&quot; }&#39; | curl &quot;${COPS[@]}&quot; --data @- -X CALL $CHOST/api/v1/Auth/User\(login\)
 </pre></div>
 </div>
 <p>which will output something like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;k4of9zewijvze0gf72ylb6p6zxv4srol&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;k4of9zewijvze0gf72ylb6p6zxv4srol&quot;</span>
 </pre></div>
 </div>
 <p>which will return a auth token, save that to our headers, replace <cite>&lt; username &gt;</cite>
 with the API username, and <cite>&lt; auth token &gt;</cite> with the result of the last command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">COPS</span><span class="o">+=</span><span class="p">(</span> <span class="o">--</span><span class="n">header</span> <span class="s2">&quot;Auth-Id: root&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">COPS</span><span class="o">+=</span><span class="p">(</span> <span class="o">--</span><span class="n">header</span> <span class="s2">&quot;Auth-Id: root&quot;</span><span class="p">)</span>
 <span class="n">COPS</span><span class="o">+=</span><span class="p">(</span> <span class="o">--</span><span class="n">header</span> <span class="s2">&quot;Auth-Token: &lt; auth token &gt;&quot;</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>This is adding more headers to our curl options, from here on our curl operations
 are authenticated.  Let’s make sure our login is working:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>echo &#39;{}&#39; | curl &quot;${COPS[@]}&quot; --data @- -X CALL $CHOST/api/v1/Auth/User\(whoami\)
+<div class="highlight-default"><div class="highlight"><pre><span></span>echo &#39;{}&#39; | curl &quot;${COPS[@]}&quot; --data @- -X CALL $CHOST/api/v1/Auth/User\(whoami\)
 </pre></div>
 </div>
 <p>that should output your username, for example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;root&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;root&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -273,7 +280,7 @@ then type in the closing <cite>EOF</cite>.  The requests that don’t need modif
 copy paste all at once.</p>
 <p>Some requests create objects, when <cite>-X CREATE</cite> is used with curl, the id of the
 created object is found in the header <cite>Object-Id</cite>, for example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">201</span> <span class="n">CREATED</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">201</span> <span class="n">CREATED</span>
 <span class="n">Date</span><span class="p">:</span> <span class="n">Thu</span><span class="p">,</span> <span class="mi">23</span> <span class="n">May</span> <span class="mi">2019</span> <span class="mi">23</span><span class="p">:</span><span class="mi">42</span><span class="p">:</span><span class="mi">17</span> <span class="n">GMT</span>
 <span class="n">Server</span><span class="p">:</span> <span class="n">Apache</span><span class="o">/</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">18</span> <span class="p">(</span><span class="n">Ubuntu</span><span class="p">)</span>
 <span class="n">Verb</span><span class="p">:</span> <span class="n">CREATE</span>
@@ -304,39 +311,39 @@ a site called <cite>site1</cite> and some base DNS configuration. It also took t
 of the primary interface and loaded it into the database as the Network <cite>main</cite>,
 and AddressBlock name <cite>main</cite>.</p>
 <p>First we need to set an Environment variable for the existing AddressBlock:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">ADRBLK</span><span class="o">=</span><span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">ADRBLK</span><span class="o">=</span><span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span>
 </pre></div>
 </div>
 <p>Now to create network for the internal network.  Contractor will use the name of the Network
 to know what virtual network to select when deploying VMs.  Replace <cite>&lt; network name &gt;</cite> with
 the name of the network created in vcenter (ie: internal) or virtual box (ie: vboxnet0), for
 IPMI and AMT, use ‘internal’:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/Network
+<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/Network
 { &quot;site&quot;: &quot;$SITE&quot;, &quot;name&quot;: &quot;&lt; network name &gt;&quot; }
 EOF
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;vboxnet0&quot;</span><span class="p">,</span> <span class="s2">&quot;address_block_list&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-24T17:55:09.024672+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-24T17:55:09.024647+00:00&quot;</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;vboxnet0&quot;</span><span class="p">,</span> <span class="s2">&quot;address_block_list&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-24T17:55:09.024672+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-24T17:55:09.024647+00:00&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>Take note of the id of that created AddressBlock.  Set another environment variable
 to the Id value, replace the <cite>&lt; id &gt;</cite> to the id of the above id:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">NETWORK</span><span class="o">=</span><span class="s2">&quot;/api/v1/Utilities/Network:&lt; id &gt;:&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">NETWORK</span><span class="o">=</span><span class="s2">&quot;/api/v1/Utilities/Network:&lt; id &gt;:&quot;</span>
 </pre></div>
 </div>
 <p>Now to attach the AddressBlock to the Network:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/NetworkAddressBlock
+<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/NetworkAddressBlock
 { &quot;network&quot;: &quot;$NETWORK&quot;, &quot;address_block&quot;: &quot;$ADRBLK&quot; }
 EOF
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Network:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;vlan&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;vlan_tagged&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-24T17:58:54.146006+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-24T17:58:54.146044+00:00&quot;</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Network:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;vlan&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;vlan_tagged&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-24T17:58:54.146006+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-24T17:58:54.146044+00:00&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>now to reserve some ip addresses so they do not get auto assigned:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for OFFSET in 2 3 4 5 6 7 8 9 11 12 13 14 15 16 17 18 19 20; do
+<div class="highlight-default"><div class="highlight"><pre><span></span>for OFFSET in 2 3 4 5 6 7 8 9 11 12 13 14 15 16 17 18 19 20; do
 cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/ReservedAddress
 { &quot;address_block&quot;: &quot;$ADRBLK&quot;, &quot;offset&quot;: &quot;$OFFSET&quot;, &quot;reason&quot;: &quot;Network Reserved&quot; }
 EOF
@@ -344,7 +351,7 @@ done
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:26.350596+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:26.350625+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="s2">&quot;Network Reserved&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ReservedAddress&quot;</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.2&quot;</span><span class="p">,</span> <span class="s2">&quot;subnet&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:26.350596+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:26.350625+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="s2">&quot;Network Reserved&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ReservedAddress&quot;</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.2&quot;</span><span class="p">,</span> <span class="s2">&quot;subnet&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
 <span class="p">{</span><span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:26.384282+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:26.384306+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="s2">&quot;Network Reserved&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ReservedAddress&quot;</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.3&quot;</span><span class="p">,</span> <span class="s2">&quot;subnet&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
 <span class="p">{</span><span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:26.420326+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:26.420348+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="s2">&quot;Network Reserved&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ReservedAddress&quot;</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.4&quot;</span><span class="p">,</span> <span class="s2">&quot;subnet&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
 <span class="p">{</span><span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:26.445826+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:26.445852+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="s2">&quot;Network Reserved&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ReservedAddress&quot;</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.5&quot;</span><span class="p">,</span> <span class="s2">&quot;subnet&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
@@ -368,7 +375,7 @@ done
 do not yet have MAC addresses for, we are going to set these to PXE boot to the
 bootstrap image, if you are not going to to AMT/IPMI, skip this step, you probably
 do not have the bootstrap PXE image loaded:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for OFFSET in 21 22 23 24 25; do
+<div class="highlight-default"><div class="highlight"><pre><span></span>for OFFSET in 21 22 23 24 25; do
 cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/DynamicAddress
 { &quot;address_block&quot;: &quot;$ADRBLK&quot;, &quot;offset&quot;: &quot;$OFFSET&quot;, &quot;pxe&quot;: &quot;/api/v1/BluePrint/PXE:bootstrap:&quot; }
 EOF
@@ -376,7 +383,7 @@ done
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">21</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:45.380257+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:45.380307+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/PXE:bootstrap:&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;DynamicAddress&quot;</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.21&quot;</span><span class="p">,</span> <span class="s2">&quot;subnet&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">21</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:45.380257+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:45.380307+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/PXE:bootstrap:&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;DynamicAddress&quot;</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.21&quot;</span><span class="p">,</span> <span class="s2">&quot;subnet&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
 <span class="p">{</span><span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:45.415840+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:45.415876+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/PXE:bootstrap:&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;DynamicAddress&quot;</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.22&quot;</span><span class="p">,</span> <span class="s2">&quot;subnet&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
 <span class="p">{</span><span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:45.448887+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:45.448930+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/PXE:bootstrap:&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;DynamicAddress&quot;</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.23&quot;</span><span class="p">,</span> <span class="s2">&quot;subnet&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
 <span class="p">{</span><span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:45.475547+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-05T02:58:45.475569+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/PXE:bootstrap:&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;DynamicAddress&quot;</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.24&quot;</span><span class="p">,</span> <span class="s2">&quot;subnet&quot;</span><span class="p">:</span> <span class="s2">&quot;10.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;netmask&quot;</span><span class="p">:</span> <span class="s2">&quot;255.255.255.0&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;24&quot;</span><span class="p">,</span> <span class="s2">&quot;gateway&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
@@ -387,17 +394,17 @@ done
 <div class="section" id="starting-dns">
 <h2>Starting DNS<a class="headerlink" href="#starting-dns" title="Permalink to this headline">¶</a></h2>
 <p>Restart bind with new zones:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">restart</span> <span class="n">bind9</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">restart</span> <span class="n">bind9</span>
 </pre></div>
 </div>
 <p>Now to force a re-gen of the DNS files:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">cron</span><span class="o">/</span><span class="n">genDNS</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">cron</span><span class="o">/</span><span class="n">genDNS</span>
 </pre></div>
 </div>
 <p>This VM needs to use the contractor generated dns, so edit the file in /etc/netplan/
 to set the dns server to “127.0.0.1”, and set the dns search to “site1.test site1”.
 For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">network</span><span class="p">:</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">network</span><span class="p">:</span>
   <span class="o">...</span>
   <span class="n">enp0s3</span><span class="p">:</span>
     <span class="o">...</span>
@@ -407,15 +414,15 @@ For example:</p>
 </pre></div>
 </div>
 <p>then apply the networking configuration:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">netplan</span> <span class="n">apply</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">netplan</span> <span class="n">apply</span>
 </pre></div>
 </div>
 <p>now if you ping contractor you should get the internal ip (10.0.0.10):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ping</span> <span class="n">static</span> <span class="o">-</span><span class="n">c2</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ping</span> <span class="n">static</span> <span class="o">-</span><span class="n">c2</span>
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PING</span> <span class="n">enp0s8</span><span class="o">.</span><span class="n">contractor</span><span class="o">.</span><span class="n">site1</span><span class="o">.</span><span class="n">test</span> <span class="p">(</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">0.10</span><span class="p">)</span> <span class="mi">56</span><span class="p">(</span><span class="mi">84</span><span class="p">)</span> <span class="nb">bytes</span> <span class="n">of</span> <span class="n">data</span><span class="o">.</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PING</span> <span class="n">enp0s8</span><span class="o">.</span><span class="n">contractor</span><span class="o">.</span><span class="n">site1</span><span class="o">.</span><span class="n">test</span> <span class="p">(</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">0.10</span><span class="p">)</span> <span class="mi">56</span><span class="p">(</span><span class="mi">84</span><span class="p">)</span> <span class="nb">bytes</span> <span class="n">of</span> <span class="n">data</span><span class="o">.</span>
 <span class="mi">64</span> <span class="nb">bytes</span> <span class="kn">from</span> <span class="nn">contractor.site1.test</span> <span class="p">(</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">0.10</span><span class="p">):</span> <span class="n">icmp_seq</span><span class="o">=</span><span class="mi">1</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">64</span> <span class="n">time</span><span class="o">=</span><span class="mf">0.031</span> <span class="n">ms</span>
 <span class="mi">64</span> <span class="nb">bytes</span> <span class="kn">from</span> <span class="nn">contractor.site1.test</span> <span class="p">(</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">0.10</span><span class="p">):</span> <span class="n">icmp_seq</span><span class="o">=</span><span class="mi">2</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">64</span> <span class="n">time</span><span class="o">=</span><span class="mf">0.063</span> <span class="n">ms</span>
 </pre></div>
@@ -428,7 +435,7 @@ you assigned to the first interface)</p>
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
     <iframe src="https://www.youtube.com/embed/O_fCrUK3mvs" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
 </div><p>install tfptd (used for PXE booting) and the PXE booting agent:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">tftpd</span><span class="o">-</span><span class="n">hpa</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">tftpd</span><span class="o">-</span><span class="n">hpa</span>
 <span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">ipxe_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
@@ -443,12 +450,12 @@ want to slow this down to reduce the overhead on contractor. In the dhcpd sectio
 make sure <cite>listen_interface</cite> and <cite>tftp_server</cite> are correct, <cite>tftp_server</cite> should be the ip of
 the vm on the new internal interface.</p>
 <p>now start up subcontractor:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">start</span> <span class="n">subcontractor</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">start</span> <span class="n">subcontractor</span>
 <span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">start</span> <span class="n">dhcpd</span>
 </pre></div>
 </div>
 <p>make sure they are running:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">status</span> <span class="n">subcontractor</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">status</span> <span class="n">subcontractor</span>
 <span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">status</span> <span class="n">dhcpd</span>
 </pre></div>
 </div>
@@ -467,39 +474,31 @@ boot problems. Make sure to run <cite>systemctl restart tftpd-hpa</cite> to relo
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../../index.html">t3kton</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Contractor</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../Introduction.html">Introduction to Contractor</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Give it a Try</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ConfigurationValues.html">Configuration Values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Networking.html">Networking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Modules.html">Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tscript.html">tscript</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Plugins.html">Plugins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Plugins.html#todo">TODO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Resources.html">Resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../API.html">CInP API Documentation for Contractor API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#future">Future</a></li>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installing</a><ul>
+<li><a class="reference internal" href="#from-source">From Source</a></li>
+<li><a class="reference internal" href="#from-packages">From Packages</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setup">Setup</a><ul>
+<li><a class="reference internal" href="#set-up-infrastructure">Set up Infrastructure</a></li>
+<li><a class="reference internal" href="#create-database">Create Database</a></li>
+<li><a class="reference internal" href="#configure-apache">Configure Apache</a></li>
+<li><a class="reference internal" href="#setup-the-database">Setup the database</a></li>
+<li><a class="reference internal" href="#environment-setup">Environment Setup</a></li>
+<li><a class="reference internal" href="#http-requests-note">HTTP Requests Note</a></li>
+<li><a class="reference internal" href="#network-configuration">Network Configuration</a></li>
+<li><a class="reference internal" href="#starting-dns">Starting DNS</a></li>
+<li><a class="reference internal" href="#subcontractor">Subcontractor</a></li>
+<li><a class="reference internal" href="#next-steps">Next Steps</a></li>
 </ul>
 </li>
 </ul>
-
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -514,23 +513,15 @@ boot problems. Make sure to run <cite>systemctl restart tftpd-hpa</cite> to relo
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
+  <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -539,8 +530,8 @@ boot problems. Make sure to run <cite>systemctl restart tftpd-hpa</cite> to relo
       &copy;2019, Peter Howe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
     </div>
 

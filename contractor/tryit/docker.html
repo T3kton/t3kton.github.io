@@ -1,17 +1,26 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Working with Docker &#8212; t3kton 1.0 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Configuration Values" href="../ConfigurationValues.html" />
@@ -19,17 +28,15 @@
    
   <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
-  
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head><body>
+  </head>
+  <body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="working-with-docker">
@@ -39,28 +46,28 @@
 </div><div class="section" id="set-up-the-docker-host">
 <h2>Set up the Docker Host<a class="headerlink" href="#set-up-the-docker-host" title="Permalink to this headline">¶</a></h2>
 <p>If you skipped the Demo VM, make sure the ubuntu blueprints are loaded:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">ubuntu</span><span class="o">-</span><span class="n">base_</span><span class="o">*.</span><span class="n">respkg</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">ubuntu</span><span class="o">-</span><span class="n">base_</span><span class="o">*.</span><span class="n">respkg</span>
 </pre></div>
 </div>
 <p>First we need a Docker host, we will create a Ubuntu VM and request docker be
 installed during the OS install, the foundation is the same as the VM install:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/$FMDL
+<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/$FMDL
 { &quot;site&quot;: &quot;$SITE&quot;, &quot;locator&quot;: &quot;docker01&quot;, &quot;blueprint&quot;: &quot;$FBP&quot; $FDATA }
 EOF
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;locator&quot;</span><span class="p">:</span> <span class="s2">&quot;docker01&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:virtualbox-vm-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;id_map&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;located_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-22T17:06:30.236870+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-22T17:06:30.236883+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;virtualbox_complex&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/VirtualBox/VirtualBoxComplex:demovbox:&quot;</span><span class="p">,</span> <span class="s2">&quot;virtualbox_uuid&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;VirtualBox&quot;</span><span class="p">,</span> <span class="s2">&quot;class_list&quot;</span><span class="p">:</span> <span class="s2">&quot;[&#39;VM&#39;, &#39;VirtualBox&#39;]&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;locator&quot;</span><span class="p">:</span> <span class="s2">&quot;docker01&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:virtualbox-vm-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;id_map&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;located_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-22T17:06:30.236870+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-22T17:06:30.236883+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;virtualbox_complex&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/VirtualBox/VirtualBoxComplex:demovbox:&quot;</span><span class="p">,</span> <span class="s2">&quot;virtualbox_uuid&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;VirtualBox&quot;</span><span class="p">,</span> <span class="s2">&quot;class_list&quot;</span><span class="p">:</span> <span class="s2">&quot;[&#39;VM&#39;, &#39;VirtualBox&#39;]&quot;</span>
 </pre></div>
 </div>
 <p>create the interface:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
+<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
 { &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:docker01:&quot;, &quot;name&quot;: &quot;eth0&quot;, &quot;physical_location&quot;: &quot;eth0&quot;, &quot;network&quot;: &quot;$NETWORK&quot;, &quot;is_provisioning&quot;: true }
 EOF
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_provisioning&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Network:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-22T17:06:46.733288+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-22T17:06:46.733313+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:docker01:&quot;</span><span class="p">,</span> <span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;link_name&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_provisioning&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Network:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-22T17:06:46.733288+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-22T17:06:46.733313+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:docker01:&quot;</span><span class="p">,</span> <span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;link_name&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>Next we need to create a VM with Docker installed.  If we were doing a simple one-off
@@ -68,7 +75,7 @@ we could set the config values for this structure directly.  However this one is
 bit more involved, and makes a good example of rolling your own blueprint.  First
 we need to make a blue print file, edit <cite>/root/dockerhost.toml</cite>, and paste this
 into it:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="n">structure</span><span class="o">.</span><span class="n">docker</span><span class="o">-</span><span class="n">host</span> <span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="n">structure</span><span class="o">.</span><span class="n">docker</span><span class="o">-</span><span class="n">host</span> <span class="p">]</span>
   <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Docker Host&#39;</span>
   <span class="n">parents</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;ubuntu-bionic-base&#39;</span> <span class="p">]</span>
 <span class="p">[</span> <span class="n">structure</span><span class="o">.</span><span class="n">docker</span><span class="o">-</span><span class="n">host</span><span class="o">.</span><span class="n">config_values</span> <span class="p">]</span>
@@ -77,13 +84,13 @@ into it:</p>
 </pre></div>
 </div>
 <p>Now we need to load the blueprint into contractor:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">util</span><span class="o">/</span><span class="n">blueprintLoader</span> <span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">dockerhost</span><span class="o">.</span><span class="n">toml</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">util</span><span class="o">/</span><span class="n">blueprintLoader</span> <span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">dockerhost</span><span class="o">.</span><span class="n">toml</span>
 </pre></div>
 </div>
 <p>Normally for a few simple commands we could of used <cite>ostinstall_command_list</cite>, instead
 of the <cite>postinstall_script</cite>, but our setup is on the side of more complex.  Edit
 <cite>/var/www/static/dockersetup</cite> and put this in it:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
 
 <span class="n">echo</span> <span class="s2">&quot;Starting docker setup...&quot;</span>
 
@@ -103,29 +110,29 @@ of the <cite>postinstall_script</cite>, but our setup is on the side of more com
 </pre></div>
 </div>
 <p>With the BluePrint and it’s resources ready to go, we can create a structure with our new blueprint:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/Structure
+<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/Structure
 { &quot;site&quot;: &quot;$SITE&quot;, &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:docker01:&quot;, &quot;hostname&quot;: &quot;docker01&quot;, &quot;blueprint&quot;: &quot;/api/v1/BluePrint/StructureBluePrint:docker-host:&quot; }
 EOF
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;docker01&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/StructureBluePrint:ubuntu-bionic-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:docker01:&quot;</span><span class="p">,</span> <span class="s2">&quot;config_uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;bdf2fefc-299a-4b34-bc3c-894cea1411d7&quot;</span><span class="p">,</span> <span class="s2">&quot;config_values&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;&gt;package_list&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;docker.io&quot;</span><span class="p">]},</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-22T17:13:16.509773+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-22T17:13:16.509800+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;docker01&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/StructureBluePrint:ubuntu-bionic-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:docker01:&quot;</span><span class="p">,</span> <span class="s2">&quot;config_uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;bdf2fefc-299a-4b34-bc3c-894cea1411d7&quot;</span><span class="p">,</span> <span class="s2">&quot;config_values&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;&gt;package_list&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;docker.io&quot;</span><span class="p">]},</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-22T17:13:16.509773+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-22T17:13:16.509800+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>once again take node of the structure id.  And again, let Contractor pick the ip address,
 Replace <cite>&lt; structure id &gt;</cite> with the structure id from the previous call:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">&lt;&lt;</span> <span class="n">EOF</span> <span class="o">|</span> <span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">--</span><span class="n">data</span> <span class="o">@-</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">$</span><span class="si">{ADRBLK}</span><span class="s2">(nextAddress)&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">&lt;&lt;</span> <span class="n">EOF</span> <span class="o">|</span> <span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">--</span><span class="n">data</span> <span class="o">@-</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">$</span><span class="si">{ADRBLK}</span><span class="s2">(nextAddress)&quot;</span>
 <span class="p">{</span> <span class="s2">&quot;networked&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Networked:&lt; structure id &gt;:&quot;</span><span class="p">,</span> <span class="s2">&quot;interface_name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_primary&quot;</span><span class="p">:</span> <span class="n">true</span> <span class="p">}</span>
 <span class="n">EOF</span>
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;/api/v1/Utilities/Address:30:&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;/api/v1/Utilities/Address:30:&quot;</span>
 </pre></div>
 </div>
 <p>Now the create jobs, replace the &lt;structure id&gt; with the structure id of the docker01
 structure:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Foundation:docker01:(doCreate)&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Foundation:docker01:(doCreate)&quot;</span>
 <span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Structure:&lt; structure id &gt;:(doCreate)&quot;</span>
 </pre></div>
 </div>
@@ -136,36 +143,36 @@ structure:</p>
 a Docker Complex</p>
 <p>First we need to re-define our foundation related environment variables to do docker:</p>
 <p>Environment setup:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">FBP</span><span class="o">=</span><span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:docker-container-base:&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">FBP</span><span class="o">=</span><span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:docker-container-base:&quot;</span>
 <span class="n">export</span> <span class="n">FMDL</span><span class="o">=</span><span class="s2">&quot;/api/v1/Docker/DockerFoundation&quot;</span>
 <span class="n">export</span> <span class="n">FDATA</span><span class="o">=</span><span class="s1">&#39;, &quot;docker_complex&quot;: &quot;/api/v1/Docker/DockerComplex:demodocker:&quot;&#39;</span>
 </pre></div>
 </div>
 <p>Now to Create the Docker Complex:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Docker/DockerComplex
+<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Docker/DockerComplex
 { &quot;site&quot;: &quot;$SITE&quot;, &quot;name&quot;: &quot;demodocker&quot;, &quot;description&quot;: &quot;Demo Docker Host/Complex&quot; }
 EOF
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;demodocker&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Demo Docker Host/Complex&quot;</span><span class="p">,</span> <span class="s2">&quot;built_percentage&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-23T00:00:04.930488+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-23T00:00:04.930524+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;members&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Docker&quot;</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;demodocker&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Demo Docker Host/Complex&quot;</span><span class="p">,</span> <span class="s2">&quot;built_percentage&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-23T00:00:04.930488+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-23T00:00:04.930524+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;members&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Docker&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>Now we add the structure host we manually created as a member of the complex,
 replace <cite>&lt; structure id &gt;</cite> with the id from the vm from above:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/ComplexStructure
+<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/ComplexStructure
 { &quot;complex&quot;: &quot;/api/v1/Building/Complex:demodocker:&quot;, &quot;structure&quot;: &quot;/api/v1/Building/Structure:&lt; structure id&gt;:&quot; }
 EOF
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;complex&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Complex:demodocker:&quot;</span><span class="p">,</span> <span class="s2">&quot;structure&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Structure:3:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-23T00:01:12.093790+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-23T00:01:12.093821+00:00&quot;</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;complex&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Complex:demodocker:&quot;</span><span class="p">,</span> <span class="s2">&quot;structure&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Structure:3:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-23T00:01:12.093790+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-23T00:01:12.093821+00:00&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>Docker containters don’t have their own IP address, they use the IP address of
 the host.  To expose services Docker mapps ports thgrough, we need to give Contractor
 a list of Ports to use to map through:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for PORT in $(seq 6000 6050); do
+<div class="highlight-default"><div class="highlight"><pre><span></span>for PORT in $(seq 6000 6050); do
 cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Docker/DockerPort
 { &quot;complex&quot;: &quot;/api/v1/Docker/DockerComplex:demodocker:&quot;, &quot;address_offset&quot;: 0, &quot;port&quot;: $PORT }
 EOF
@@ -173,7 +180,7 @@ done
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;complex&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Docker/DockerComplex:demodocker:&quot;</span><span class="p">,</span> <span class="s2">&quot;port&quot;</span><span class="p">:</span> <span class="mi">6000</span><span class="p">,</span> <span class="s2">&quot;address_offset&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;foundation_index&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-20T20:31:52.061279+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-20T20:31:52.061299+00:00&quot;</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;complex&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Docker/DockerComplex:demodocker:&quot;</span><span class="p">,</span> <span class="s2">&quot;port&quot;</span><span class="p">:</span> <span class="mi">6000</span><span class="p">,</span> <span class="s2">&quot;address_offset&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;foundation_index&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-20T20:31:52.061279+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-20T20:31:52.061299+00:00&quot;</span><span class="p">}</span>
 <span class="p">{</span><span class="s2">&quot;complex&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Docker/DockerComplex:demodocker:&quot;</span><span class="p">,</span> <span class="s2">&quot;port&quot;</span><span class="p">:</span> <span class="mi">6001</span><span class="p">,</span> <span class="s2">&quot;address_offset&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;foundation_index&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-20T20:31:52.093897+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-20T20:31:52.093918+00:00&quot;</span><span class="p">}</span>
 <span class="o">...</span>
 <span class="p">{</span><span class="s2">&quot;complex&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Docker/DockerComplex:demodocker:&quot;</span><span class="p">,</span> <span class="s2">&quot;port&quot;</span><span class="p">:</span> <span class="mi">6048</span><span class="p">,</span> <span class="s2">&quot;address_offset&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;foundation_index&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-20T20:31:53.299457+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-20T20:31:53.299482+00:00&quot;</span><span class="p">}</span>
@@ -185,24 +192,24 @@ done
 <div class="section" id="create-a-container">
 <h2>Create a Container<a class="headerlink" href="#create-a-container" title="Permalink to this headline">¶</a></h2>
 <p>First up the Foundation:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/$FMDL
+<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/$FMDL
 { &quot;site&quot;: &quot;$SITE&quot;, &quot;locator&quot;: &quot;container01&quot;, &quot;blueprint&quot;: &quot;$FBP&quot; $FDATA }
 EOF
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;locator&quot;</span><span class="p">:</span> <span class="s2">&quot;container01&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:docker-container-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;id_map&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;located_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-27T05:02:12.052970+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-27T05:02:12.052984+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;docker_complex&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Docker/DockerComplex:demodocker:&quot;</span><span class="p">,</span> <span class="s2">&quot;docker_id&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Docker&quot;</span><span class="p">,</span> <span class="s2">&quot;class_list&quot;</span><span class="p">:</span> <span class="s2">&quot;[&#39;Docker&#39;]&quot;</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;locator&quot;</span><span class="p">:</span> <span class="s2">&quot;container01&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:docker-container-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;id_map&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;located_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-27T05:02:12.052970+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-11-27T05:02:12.052984+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;docker_complex&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Docker/DockerComplex:demodocker:&quot;</span><span class="p">,</span> <span class="s2">&quot;docker_id&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Docker&quot;</span><span class="p">,</span> <span class="s2">&quot;class_list&quot;</span><span class="p">:</span> <span class="s2">&quot;[&#39;Docker&#39;]&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>Containers inherit the interface and ip address from their host, so we don’t
 create an interface.  Next up create the structure:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/Structure
+<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/Structure
 { &quot;site&quot;: &quot;$SITE&quot;, &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:container01:&quot;, &quot;hostname&quot;: &quot;container01&quot;, &quot;blueprint&quot;: &quot;/api/v1/BluePrint/StructureBluePrint:ubuntu-bionic-base:&quot;, &quot;config_values&quot;: { &quot;docker_command&quot;: [ &quot;/bin/sh&quot;, &quot;-c&quot;, &quot;echo \&quot;use IO::Socket; my \\\\\$sock = new IO::Socket::INET (LocalHost=&gt;&#39;0.0.0.0&#39;, LocalPort=&gt;&#39;22&#39;, Proto=&gt;&#39;tcp&#39;, Listen=&gt;1); while(1){ \\\\\$sock-&gt;accept(); };\&quot; | perl&quot; ], &quot;port_list&quot;: [ &quot;22/tcp&quot; ] } }
 EOF
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;container01&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/StructureBluePrint:ubuntu-bionic-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:container01:&quot;</span><span class="p">,</span> <span class="s2">&quot;config_uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;f08daa97-3788-469d-a1ae-51cafe6e6af9&quot;</span><span class="p">,</span> <span class="s2">&quot;config_values&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;docker_command&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;/bin/sh&quot;</span><span class="p">,</span> <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="s2">&quot;echo </span><span class="se">\&quot;</span><span class="s2">use IO::Socket; my </span><span class="se">\\</span><span class="s2">$sock = new IO::Socket::INET (LocalHost=&gt;&#39;0.0.0.0&#39;, LocalPort=&gt;&#39;22&#39;, Proto=&gt;&#39;tcp&#39;, Listen=&gt;1); while(1){ </span><span class="se">\\</span><span class="s2">$sock-&gt;accept(); };</span><span class="se">\&quot;</span><span class="s2"> | perl&quot;</span><span class="p">],</span> <span class="s2">&quot;port_list&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;22/tcp&quot;</span><span class="p">]},</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-30T21:33:06.493784+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-30T21:33:06.493825+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;container01&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/StructureBluePrint:ubuntu-bionic-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:container01:&quot;</span><span class="p">,</span> <span class="s2">&quot;config_uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;f08daa97-3788-469d-a1ae-51cafe6e6af9&quot;</span><span class="p">,</span> <span class="s2">&quot;config_values&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;docker_command&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;/bin/sh&quot;</span><span class="p">,</span> <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="s2">&quot;echo </span><span class="se">\&quot;</span><span class="s2">use IO::Socket; my </span><span class="se">\\</span><span class="s2">$sock = new IO::Socket::INET (LocalHost=&gt;&#39;0.0.0.0&#39;, LocalPort=&gt;&#39;22&#39;, Proto=&gt;&#39;tcp&#39;, Listen=&gt;1); while(1){ </span><span class="se">\\</span><span class="s2">$sock-&gt;accept(); };</span><span class="se">\&quot;</span><span class="s2"> | perl&quot;</span><span class="p">],</span> <span class="s2">&quot;port_list&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;22/tcp&quot;</span><span class="p">]},</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-30T21:33:06.493784+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-12-30T21:33:06.493825+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>take note of the new structure id.</p>
@@ -214,7 +221,7 @@ the container to listen on port 22 so the port check will succeed.  <cite>docker
 can be either a string or a list, in this case a list so we can control how it is parsed.</p>
 <p>Now the create jobs, replace the &lt;structure id&gt; with the structure id of the container01
 structure:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Foundation:container01:(doCreate)&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Foundation:container01:(doCreate)&quot;</span>
 <span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Structure:&lt; structure id &gt;:(doCreate)&quot;</span>
 </pre></div>
 </div>
@@ -229,18 +236,18 @@ been assigned during the deploy.</p>
 <p>if you ssh to the docker01 vm (<cite>ssh root&#64;docker01</cite> from the contractor vm, the root
 password should be <cite>root</cite>), and run a <cite>docker ps</cite> you will see our new container
 along with the forwared port:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root</span><span class="nd">@docker01</span><span class="p">:</span><span class="o">~</span><span class="c1"># docker ps -a</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">root</span><span class="nd">@docker01</span><span class="p">:</span><span class="o">~</span><span class="c1"># docker ps -a</span>
 <span class="n">CONTAINER</span> <span class="n">ID</span>        <span class="n">IMAGE</span>               <span class="n">COMMAND</span>                   <span class="n">CREATED</span>             <span class="n">STATUS</span>              <span class="n">PORTS</span>                  <span class="n">NAMES</span>
 <span class="n">eb3c74946a2f</span>        <span class="n">ubuntu</span><span class="p">:</span><span class="n">bionic</span>       <span class="s2">&quot;/bin/sh -c &#39;echo </span><span class="se">\&quot;</span><span class="s2">u…&quot;</span>   <span class="mi">31</span> <span class="n">seconds</span> <span class="n">ago</span>      <span class="n">Up</span> <span class="mi">14</span> <span class="n">seconds</span>       <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">6010</span><span class="o">-&gt;</span><span class="mi">22</span><span class="o">/</span><span class="n">tcp</span>   <span class="n">container01</span>
 </pre></div>
 </div>
 <p>Destruction and cleanup of the container is the same procedure as in the VM example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Structure:&lt; structure id &gt;:(doDestroy)&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Structure:&lt; structure id &gt;:(doDestroy)&quot;</span>
 <span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Foundation:container01:(doDestroy)&quot;</span>
 </pre></div>
 </div>
 <p>and:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">DELETE</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Structure:&lt; structure id &gt;:&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">DELETE</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Structure:&lt; structure id &gt;:&quot;</span>
 <span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">DELETE</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Foundation:container01:&quot;</span>
 </pre></div>
 </div>
@@ -249,39 +256,19 @@ along with the forwared port:</p>
 
 
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../../index.html">t3kton</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Contractor</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../Introduction.html">Introduction to Contractor</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Give it a Try</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ConfigurationValues.html">Configuration Values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Networking.html">Networking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Modules.html">Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tscript.html">tscript</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Plugins.html">Plugins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Plugins.html#todo">TODO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Resources.html">Resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../API.html">CInP API Documentation for Contractor API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#future">Future</a></li>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Working with Docker</a><ul>
+<li><a class="reference internal" href="#set-up-the-docker-host">Set up the Docker Host</a></li>
+<li><a class="reference internal" href="#set-up-the-complex">Set up The Complex</a></li>
+<li><a class="reference internal" href="#create-a-container">Create a Container</a></li>
 </ul>
 </li>
 </ul>
-
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -296,23 +283,15 @@ along with the forwared port:</p>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
+  <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -321,8 +300,8 @@ along with the forwared port:</p>
       &copy;2019, Peter Howe.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
     </div>
 
