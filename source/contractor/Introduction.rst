@@ -1,8 +1,9 @@
 Introduction to Contractor
 ==========================
 
-The Goal of Contractor is to provide a Universal Interface/API to Automate
-Management, Provisioning, Deploying, and Configuration of Resource.
+Contractor is an Extendable Resource Management API.  The goal of Contractor
+is to provide an API to Automate the Provisioning, Deployment, Configuration and
+Management of Resources.
 
 Contractor uses building terms (for the most part) to try to avoid name
 collisions with various platforms and systems.
