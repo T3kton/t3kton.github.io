@@ -34,16 +34,36 @@ SubContractor
 
 Interface for Subcontractor, probably going to get moved to Foreman
 
-User
+Auth
 ----
 
-Handles Contractor Users.
+Handles Authenication
+
+PostOffice
+----------
+
+Handles the webhooks
+
+Records
+-------
+
+Deals with the audit log of the jobs
 
 Utilities
 ---------
 
-Handles Network Interfaces, Ip Addresses, and Power interfaces (Not all flushed out yet)
+Handles Network Interfaces, Ip Addresses, and (eventually)Power interfaces
 
+Directory
+---------
+
+Handles the DNS information
+
+
+Survey
+------
+
+Deals with the physical location of things
 
 lib
 ---
