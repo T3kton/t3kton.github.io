@@ -9,6 +9,7 @@ Contents:
   Introduction
   tryit/index
   Docker
+  contractorcli
   ConfigurationValues
   Networking
   Modules
