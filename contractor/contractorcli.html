@@ -1,0 +1,349 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>contractorcli &#8212; t3kton 1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configuration Values" href="ConfigurationValues.html" />
+    <link rel="prev" title="In Docker" href="Docker.html" />
+
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159896960-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-159896960-1');
+</script>
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="contractorcli">
+<h1>contractorcli<a class="headerlink" href="#contractorcli" title="Permalink to this headline">¶</a></h1>
+<p>contractorcli is a client for working with Contractor, you can get a pre-built binary
+from <a class="reference external" href="https://github.com/T3kton/contractorcli/releases">https://github.com/T3kton/contractorcli/releases</a>.</p>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>contractorcli’s config file is stored at ~/.contractorcli.ini.  Here is an example
+file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">contractor</span><span class="p">]</span>
+<span class="n">host</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">192.168</span><span class="o">.</span><span class="mf">200.10</span>
+<span class="n">username</span><span class="p">:</span> <span class="n">root</span>
+<span class="n">password</span><span class="p">:</span> <span class="n">root</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>For most options you can use the flag <cite>-j</cite> or <cite>–json</cite> to output the results as
+JSON:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site config site1
+ntp_servers:  [contractor]
+dns_search:   [site1.test test]
+dns_servers:  [10.0.0.10]
+domain_name:  site1.test
+mirror_proxy: http://10.0.0.10:3128/
+
+$ ./contractorcli -j site config site1
+{
+ &quot;dns_search&quot;: [
+  &quot;site1.test&quot;,
+  &quot;test&quot;
+ ],
+ &quot;dns_servers&quot;: [
+  &quot;10.0.0.10&quot;
+ ],
+ &quot;domain_name&quot;: &quot;site1.test&quot;,
+ &quot;mirror_proxy&quot;: &quot;http://10.0.0.10:3128/&quot;,
+ &quot;ntp_servers&quot;: [
+  &quot;contractor&quot;
+ ]
+}
+</pre></div>
+</div>
+<p>Most commands can also be used in the interactive mode, for example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli structure list
+Id    Site    Hostname        Foundation      Blueprint       Created Updated
+1     site1   contractor      contractor      manual-structure-base   2020-01-07 00:42:58.932884 +0000 +0000  2020-01-07 00:42:59.111802 +0000 +0000
+2     site1   esx01   esx01   vmware-esx-base 2020-01-07 00:46:55.566979 +0000 +0000  2020-02-26 16:22:26.463778 +0000 +0000
+
+$ ./contractorcli shell
+contractor&gt; structure list
+Id    Site    Hostname        Foundation      Blueprint       Created Updated
+1     site1   contractor      contractor      manual-structure-base   2020-01-07 00:42:58.932884 +0000 +0000  2020-01-07 00:42:59.111802 +0000 +0000
+2     site1   esx01   esx01   vmware-esx-base 2020-01-07 00:46:55.566979 +0000 +0000  2020-02-26 16:22:26.463778 +0000 +0000
+contractor&gt;
+</pre></div>
+</div>
+<div class="section" id="version">
+<h3>Version<a class="headerlink" href="#version" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli version
+contractorcli
+  Version:    0.2
+  Commit:     df562afc8f68dba32689c4981ad4973b7a57783c
+</pre></div>
+</div>
+</div>
+<div class="section" id="sites">
+<h3>Sites<a class="headerlink" href="#sites" title="Permalink to this headline">¶</a></h3>
+<p>For Sites, the name is also the id</p>
+<p>List available sites:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site list
+Id    Name    Description     Created Updated
+site1 site1   Initial Site &quot;site1&quot;    2020-01-07 00:42:58.664308 +0000 +0000  2020-02-25 05:53:39.14986 +0000 +0000
+</pre></div>
+</div>
+<p>Get a Site:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site get site1
+Site:          site1
+Description:   Initial Site &quot;site1&quot;
+Parent:
+Zone:          site1
+Config Values: map[dns_search:[site1.test test] dns_servers:[10.0.0.10] domain_name:site1.test mirror_proxy:http://10.0.0.10:3128/ ntp_servers:[contractor]]
+Created:       2020-01-07 00:42:58.664308 +0000 +0000
+Updated:       2020-02-25 05:53:39.14986 +0000 +0000
+</pre></div>
+</div>
+<p>Create a new Site:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site create -d &quot;New Site&quot; -n nsite
+</pre></div>
+</div>
+<p>Update an Existing site:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site update nsite -d &quot;New Description&quot;
+</pre></div>
+</div>
+<p>Delete a site:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site delete nsite
+</pre></div>
+</div>
+<p>Get Effective/Full/Compiled configuration for a site:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site config site1 -f
+__pxe_location:       http://static/pxe/
+dns_search:   [site1.test test]
+dns_servers:  [10.0.0.10]
+domain_name:  site1.test
+ntp_servers:  [contractor]
+_site:        site1
+__timestamp:  2020-03-07T04:46:04.873917+00:00
+__pxe_template_location:      http://contractor/config/pxe_template/
+mirror_proxy: http://10.0.0.10:3128/
+__last_modified:      2020-02-25T05:53:39.149860+00:00
+__contractor_host:    http://contractor/
+</pre></div>
+</div>
+<p>Get the Configuration values for a site:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site config site1
+dns_servers:  [10.0.0.10]
+domain_name:  site1.test
+mirror_proxy: http://10.0.0.10:3128/
+new:  value
+ntp_servers:  [contractor]
+dns_search:   [site1.test test]
+</pre></div>
+</div>
+<p>Set/Add a new configuration value:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site config site1 -n new -v value
+dns_search:   [site1.test test]
+dns_servers:  [10.0.0.10]
+domain_name:  site1.test
+mirror_proxy: http://10.0.0.10:3128/
+ntp_servers:  [contractor]
+new:  value
+</pre></div>
+</div>
+<p>Delete/Remove configuration value:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site config site1 -d new
+dns_search:   [site1.test test]
+dns_servers:  [10.0.0.10]
+domain_name:  site1.test
+mirror_proxy: http://10.0.0.10:3128/
+ntp_servers:  [contractor]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="structure">
+<h2>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h2>
+<p>For Structures the id is a number</p>
+<p>NOTE: List, Get, Update, Create, Configuration sections are similar to Site</p>
+<p>View Existing Job information (this is for structure 2):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli structure job 2 -i
+Site           /api/v1/Site/Site:site1:
+Structure      /api/v1/Building/Structure:2:
+State:         waiting
+Status:        []
+Progress:      0.0
+Message:
+Script Name:   destroy
+Can Start:     True
+Updated:       2020-03-01 06:29:21.829421 +0000 +0000
+Created:       2020-03-01 06:29:21.829439 +0000 +0000
+</pre></div>
+</div>
+<p>Create a new Create(-c)/Destroy(-d) Job (this is for structure 1):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">contractorcli</span> <span class="n">structure</span> <span class="n">job</span> <span class="mi">1</span> <span class="o">-</span><span class="n">d</span>
+<span class="n">job</span><span class="p">:</span>  <span class="mi">12</span>
+</pre></div>
+</div>
+<p>Show Job Status (this is for structure 1):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli structure job 1 -s
+Variables: map[config.__contractor_host:http://contractor/ config.__last_modified:2020-03-07 04:47:44.194113+00:00 config.__pxe_location:http://static/pxe/ config.__pxe_template_location:http://contractor/config/pxe_template/c/1005b8d0-cefa-4c3f-b221-02d5b5332212 config.__timestamp:2020-03-07 04:52:48.310913+00:00 config._blueprint:manual-structure-base config._domain_name:site1.test config._foundation_class_list:[&#39;Metal&#39;, &#39;VM&#39;, &#39;Container&#39;, &#39;Switch&#39;, &#39;Manual&#39;] config._foundation_id:contractor config._foundation_id_map:None config._foundation_interface_list:[{&#39;name&#39;: &#39;enp0s8&#39;, &#39;network&#39;: &#39;main&#39;, &#39;address_list&#39;: [{&#39;address&#39;: &#39;10.0.0.10&#39;, &#39;netmask&#39;: &#39;255.255.255.0&#39;, &#39;prefix&#39;: 24, &#39;subnet&#39;: &#39;10.0.0.0&#39;, &#39;gateway&#39;: None, &#39;auto&#39;: True, &#39;mtu&#39;: 1500, &#39;sub_interface&#39;: None, &#39;primary&#39;: True, &#39;vlan&#39;: 0, &#39;tagged&#39;: False}], &#39;mac&#39;: None, &#39;physical_location&#39;: &#39;enp0s8&#39;}] config._foundation_locator:contractor config._foundation_state:built config._foundation_type:Manual config._fqdn:contractor.site1.test config._hostname:contractor config._interface_map:{&#39;enp0s8&#39;: {&#39;name&#39;: &#39;enp0s8&#39;, &#39;network&#39;: &#39;main&#39;, &#39;address_list&#39;: [{&#39;address&#39;: &#39;10.0.0.10&#39;, &#39;netmask&#39;: &#39;255.255.255.0&#39;, &#39;prefix&#39;: 24, &#39;subnet&#39;: &#39;10.0.0.0&#39;, &#39;gateway&#39;: None, &#39;auto&#39;: True, &#39;mtu&#39;: 1500, &#39;sub_interface&#39;: None, &#39;primary&#39;: True, &#39;vlan&#39;: 0, &#39;tagged&#39;: False}], &#39;mac&#39;: None, &#39;physical_location&#39;: &#39;enp0s8&#39;}} config._primary_address:{&#39;address&#39;: &#39;10.0.0.10&#39;, &#39;netmask&#39;: &#39;255.255.255.0&#39;, &#39;prefix&#39;: 24, &#39;subnet&#39;: &#39;10.0.0.0&#39;, &#39;gateway&#39;: None, &#39;auto&#39;: True, &#39;mtu&#39;: 1500, &#39;sub_interface&#39;: None, &#39;primary&#39;: True} config._primary_interface:enp0s8 config._primary_interface_mac:None config._provisioning_address:{&#39;address&#39;: &#39;10.0.0.10&#39;, &#39;netmask&#39;: &#39;255.255.255.0&#39;, &#39;prefix&#39;: 24, &#39;subnet&#39;: &#39;10.0.0.0&#39;, &#39;gateway&#39;: None, &#39;auto&#39;: True, &#39;mtu&#39;: 1500, &#39;sub_interface&#39;: None, &#39;primary&#39;: True} config._provisioning_interface:enp0s8 config._provisioning_interface_mac:None config._site:site1 config._structure_config_uuid:1005b8d0-cefa-4c3f-b221-02d5b5332212 config._structure_id:1 config._structure_state:built config.dns_search:[&#39;site1.test&#39;, &#39;test&#39;] config.dns_servers:[&#39;10.0.0.10&#39;] config.domain_name:site1.test config.mirror_proxy:http://10.0.0.10:3128/ config.ntp_servers:[&#39;contractor&#39;] foundation.blueprint:manual-foundation-base foundation.class:&lt;class &#39;contractor.plugins.Manual.models.ManualFoundation&#39;&gt; foundation.foundation:ManualFoundation contractor foundation.id:contractor foundation.interface_list:[&lt;RealNetworkInterface: RealNetworkInterface &quot;enp0s8&quot; mac &quot;None&quot;&gt;] foundation.locator:contractor foundation.provisioning_interface:RealNetworkInterface &quot;enp0s8&quot; mac &quot;None&quot; foundation.site:site1 foundation.type:Manual structure.hostname:contractor structure.id:1 structure.primary_interface:RealNetworkInterface &quot;enp0s8&quot; mac &quot;None&quot; structure.primary_ip:10.0.0.10 structure.provisioning_interface:RealNetworkInterface &quot;enp0s8&quot; mac &quot;None&quot; structure.provisioning_ip:10.0.0.10]
+Script State: []
+Script Line No: 0
+-- Script --
+# Uninstall Manual OS
+pause( msg=&#39;Resume When OS is Uninstalled&#39; )
+</pre></div>
+</div>
+</div>
+<div class="section" id="foundation">
+<h2>Foundation<a class="headerlink" href="#foundation" title="Permalink to this headline">¶</a></h2>
+<p>For Foundations the Locator is also the id</p>
+<p>NOTE: List, Get sections are similar to Site
+NOTE2: Job section is similar to Structure</p>
+<p>List the foundation types that are supported by contractorcli and the contractor
+instance it is configured to talk to:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli foundation types
+type: [docker manual virtualbox]
+</pre></div>
+</div>
+<p>Get any type of foundation:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli foundation get esx01
+Locator:       esx01
+Type:          AMT
+Site:          site1
+Blueprint:     amt-base
+Structure:     2
+Id Map:        {&#39;hardware&#39;: {&#39;dmi&#39;: {&#39;BIOS Info&#39;: [{&#39;Vendor&#39;: &#39;Intel Corporation&#39;, &#39;Version&#39;: &#39;MYBDWi5v.86A.0039.2017.1016.1545&#39;, &#39;Release Date&#39;: &#39;10/16/2017&#39;, &#39;BIOS Revision&#39;: &#39;5.6&#39;}], &#39;System Info&#39;: [{&#39;Manufacturer&#39;: &#39;&#39;, &#39;Product Name&#39;: &#39;&#39;, &#39;Version&#39;: &#39;&#39;, &#39;Serial Number&#39;: &#39;&#39;, &#39;UUID&#39;: &#39;4917D980-B0E4-11E5-BF2D-94C69110F1DC&#39;, &#39;SKU Number&#39;: &#39;&#39;, &#39;Family&#39;: &#39;&#39;}], &#39;Base Board Information&#39;: [{&#39;Manufacturer&#39;: &#39;Intel Corporation&#39;, &#39;Product Name&#39;: &#39;NUC5i5MYBE&#39;, &#39;Version&#39;: &#39;H47797-208&#39;, &#39;Serial Number&#39;: &#39;GEMY72300148&#39;, &#39;Asset Tag&#39;: &#39;&#39;, &#39;Type&#39;: &#39;Motherboard&#39;}], &#39;Chassis Information&#39;: [{&#39;Manufacturer&#39;: &#39;&#39;, &#39;Type&#39;: &#39;Desktop&#39;, &#39;Version&#39;: &#39;&#39;, &#39;Serial Number&#39;: &#39;&#39;, &#39;Asset Tag&#39;: &#39;&#39;, &#39;Boot-up State&#39;: &#39;Safe&#39;, &#39;Power Supply State&#39;: &#39;Safe&#39;, &#39;Thermal State&#39;: &#39;Safe&#39;, &#39;Height&#39;: &#39;0&#39;, &#39;Number Of Power Cords&#39;: &#39;1&#39;, &#39;SKU Number&#39;: &#39;To be filled by O.E.M.&#39;}], &#39;OEM Strings&#39;: [{&#39;String 1&#39;: &#39;To Be Filled By O.E.M.&#39;}], &#39;System Configuration Options&#39;: [{&#39;Option 1&#39;: &#39;To Be Filled By O.E.M.&#39;}], &#39;Processor Information&#39;: [{&#39;Socket Designation&#39;: &#39;SOCKET 0&#39;, &#39;Family&#39;: &#39;Core i5&#39;, &#39;Manufacturer&#39;: &#39;Intel(R) Corporation&#39;, &#39;ID&#39;: &#39;0xbfebfbff000306d4&#39;, &#39;Version&#39;: &#39;Intel(R) Core(TM) i5-5300U CPU @ 2.30GHz&#39;, &#39;Status&#39;: &#39;Enabled&#39;, &#39;Serial Number&#39;: &#39;NULL&#39;, &#39;Asset Tag&#39;: &#39;To Be Filled By O.E.M&#39;, &#39;Part Number&#39;: &#39;To Be Filled By O.E.M&#39;, &#39;Core Count&#39;: &#39;2&#39;, &#39;Core Enabled&#39;: &#39;2&#39;, &#39;Thread Count&#39;: &#39;4&#39;}], &#39;Memory Device&#39;: [{&#39;Size&#39;: &#39;No Module Installed&#39;, &#39;Set&#39;: &#39;None&#39;, &#39;Locator&#39;: &#39;SODIMM0&#39;, &#39;Bank Locator&#39;: &#39;CHANNEL A DIMM0&#39;, &#39;Type&#39;: &#39;Unknown&#39;, &#39;Speed&#39;: &#39;Unknown&#39;, &#39;Manufacturer&#39;: &#39;Not Specified&#39;, &#39;Serial Number&#39;: &#39;Not Specified&#39;, &#39;Asset Tag&#39;: &#39;Not Specified&#39;, &#39;Part Number&#39;: &#39;Not Specified&#39;}, {&#39;Size&#39;: &#39;16384 MB&#39;, &#39;Set&#39;: &#39;None&#39;, &#39;Locator&#39;: &#39;SODIMM1&#39;, &#39;Bank Locator&#39;: &#39;CHANNEL B DIMM0&#39;, &#39;Type&#39;: &#39;DDR3&#39;, &#39;Speed&#39;: &#39;1600 MHz&#39;, &#39;Manufacturer&#39;: &#39;1315&#39;, &#39;Serial Number&#39;: &#39;E06E80B7&#39;, &#39;Asset Tag&#39;: &#39;9876543210&#39;, &#39;Part Number&#39;: &#39;CT204864BF160B.M16&#39;}]}, &#39;pci&#39;: {&#39;0000:00:00.00&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 5636}, &#39;0000:00:02.00&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 5654}, &#39;0000:00:03.00&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 5644}, &#39;0000:00:16.00&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 40122}, &#39;0000:00:16.03&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 40125}, &#39;0000:00:19.00&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 5538}, &#39;0000:00:1b.00&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 40096}, &#39;0000:00:1d.00&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 40102}, &#39;0000:00:1f.00&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 40131}, &#39;0000:00:1f.02&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 40067}, &#39;0000:00:1f.03&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 40098}}, &#39;total_ram&#39;: 15910.9609375, &#39;total_cpu_count&#39;: 4, &#39;total_cpu_sockets&#39;: 1}, &#39;network&#39;: {&#39;eth0&#39;: {&#39;mac&#39;: &#39;94:c6:91:10:f1:dc&#39;, &#39;lldp&#39;: {&#39;mac&#39;: &#39;f0:9f:c2:19:56:05&#39;, &#39;name&#39;: &#39;DevSwitch&#39;, &#39;slot&#39;: 0, &#39;port&#39;: 7, &#39;subport&#39;: 0}, &#39;primary&#39;: True}}, &#39;disks&#39;: [{&#39;protocol&#39;: &#39;ATA&#39;, &#39;serial&#39;: &#39;JR1000D33LS4YE&#39;, &#39;model&#39;: &#39;HGST HTS721010A9E630&#39;, &#39;name&#39;: &#39;sda&#39;, &#39;location&#39;: &#39;ATA 0&#39;, &#39;firmware&#39;: &#39;JB0OA3U0&#39;, &#39;capacity&#39;: 931.5133895874023, &#39;devpath&#39;: &#39;/devices/pci0000:00/0000:00:1f.2/ata1/host0/target0:0:0/0:0:0:0/scsi_disk/0:0:0:0&#39;, &#39;pcipath&#39;: &#39;/pci0000:00/0000:00:1f.2/ata1/host0/target0:0:0/0:0:0:0&#39;, &#39;isSSD&#39;: False, &#39;isVirtualDisk&#39;: False}, {&#39;protocol&#39;: &#39;ATA&#39;, &#39;serial&#39;: &#39;1710161C6AF5&#39;, &#39;model&#39;: &#39;Crucial_CT1050MX300S&#39;, &#39;name&#39;: &#39;sdb&#39;, &#39;location&#39;: &#39;ATA 3&#39;, &#39;firmware&#39;: &#39;M0CR040&#39;, &#39;capacity&#39;: 978.0885543823242, &#39;devpath&#39;: &#39;/devices/pci0000:00/0000:00:1f.2/ata4/host3/target3:0:0/3:0:0:0/scsi_disk/3:0:0:0&#39;, &#39;pcipath&#39;: &#39;/pci0000:00/0000:00:1f.2/ata4/host3/target3:0:0/3:0:0:0&#39;, &#39;isSSD&#39;: False, &#39;isVirtualDisk&#39;: False}]}
+Class List:    []
+State:         built
+Located At:    2020-01-07 04:06:31.336942 +0000 +0000
+Built At:      2020-01-07 04:10:14.123422 +0000 +0000
+Created:       2020-01-07 00:46:42.322098 +0000 +0000
+Updated:       2020-01-07 04:10:14.12944 +0000 +0000
+</pre></div>
+</div>
+<p>Get specific type of foundation (Note the addition of AMT specific values):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli foundation amt get esx01
+Locator:        esx01
+AMT Username:   admin
+AMT Password:   asdQWE1@3
+AMT Ip Address: 192.168.200.95
+Plot:           test
+Type:           AMT
+Site:           site1
+Blueprint:      amt-base
+Id Map:         {&#39;hardware&#39;: {&#39;dmi&#39;: {&#39;BIOS Info&#39;: [{&#39;Vendor&#39;: &#39;Intel Corporation&#39;, &#39;Version&#39;: &#39;MYBDWi5v.86A.0039.2017.1016.1545&#39;, &#39;Release Date&#39;: &#39;10/16/2017&#39;, &#39;BIOS Revision&#39;: &#39;5.6&#39;}], &#39;System Info&#39;: [{&#39;Manufacturer&#39;: &#39;&#39;, &#39;Product Name&#39;: &#39;&#39;, &#39;Version&#39;: &#39;&#39;, &#39;Serial Number&#39;: &#39;&#39;, &#39;UUID&#39;: &#39;4917D980-B0E4-11E5-BF2D-94C69110F1DC&#39;, &#39;SKU Number&#39;: &#39;&#39;, &#39;Family&#39;: &#39;&#39;}], &#39;Base Board Information&#39;: [{&#39;Manufacturer&#39;: &#39;Intel Corporation&#39;, &#39;Product Name&#39;: &#39;NUC5i5MYBE&#39;, &#39;Version&#39;: &#39;H47797-208&#39;, &#39;Serial Number&#39;: &#39;GEMY72300148&#39;, &#39;Asset Tag&#39;: &#39;&#39;, &#39;Type&#39;: &#39;Motherboard&#39;}], &#39;Chassis Information&#39;: [{&#39;Manufacturer&#39;: &#39;&#39;, &#39;Type&#39;: &#39;Desktop&#39;, &#39;Version&#39;: &#39;&#39;, &#39;Serial Number&#39;: &#39;&#39;, &#39;Asset Tag&#39;: &#39;&#39;, &#39;Boot-up State&#39;: &#39;Safe&#39;, &#39;Power Supply State&#39;: &#39;Safe&#39;, &#39;Thermal State&#39;: &#39;Safe&#39;, &#39;Height&#39;: &#39;0&#39;, &#39;Number Of Power Cords&#39;: &#39;1&#39;, &#39;SKU Number&#39;: &#39;To be filled by O.E.M.&#39;}], &#39;OEM Strings&#39;: [{&#39;String 1&#39;: &#39;To Be Filled By O.E.M.&#39;}], &#39;System Configuration Options&#39;: [{&#39;Option 1&#39;: &#39;To Be Filled By O.E.M.&#39;}], &#39;Processor Information&#39;: [{&#39;Socket Designation&#39;: &#39;SOCKET 0&#39;, &#39;Family&#39;: &#39;Core i5&#39;, &#39;Manufacturer&#39;: &#39;Intel(R) Corporation&#39;, &#39;ID&#39;: &#39;0xbfebfbff000306d4&#39;, &#39;Version&#39;: &#39;Intel(R) Core(TM) i5-5300U CPU @ 2.30GHz&#39;, &#39;Status&#39;: &#39;Enabled&#39;, &#39;Serial Number&#39;: &#39;NULL&#39;, &#39;Asset Tag&#39;: &#39;To Be Filled By O.E.M&#39;, &#39;Part Number&#39;: &#39;To Be Filled By O.E.M&#39;, &#39;Core Count&#39;: &#39;2&#39;, &#39;Core Enabled&#39;: &#39;2&#39;, &#39;Thread Count&#39;: &#39;4&#39;}], &#39;Memory Device&#39;: [{&#39;Size&#39;: &#39;No Module Installed&#39;, &#39;Set&#39;: &#39;None&#39;, &#39;Locator&#39;: &#39;SODIMM0&#39;, &#39;Bank Locator&#39;: &#39;CHANNEL A DIMM0&#39;, &#39;Type&#39;: &#39;Unknown&#39;, &#39;Speed&#39;: &#39;Unknown&#39;, &#39;Manufacturer&#39;: &#39;Not Specified&#39;, &#39;Serial Number&#39;: &#39;Not Specified&#39;, &#39;Asset Tag&#39;: &#39;Not Specified&#39;, &#39;Part Number&#39;: &#39;Not Specified&#39;}, {&#39;Size&#39;: &#39;16384 MB&#39;, &#39;Set&#39;: &#39;None&#39;, &#39;Locator&#39;: &#39;SODIMM1&#39;, &#39;Bank Locator&#39;: &#39;CHANNEL B DIMM0&#39;, &#39;Type&#39;: &#39;DDR3&#39;, &#39;Speed&#39;: &#39;1600 MHz&#39;, &#39;Manufacturer&#39;: &#39;1315&#39;, &#39;Serial Number&#39;: &#39;E06E80B7&#39;, &#39;Asset Tag&#39;: &#39;9876543210&#39;, &#39;Part Number&#39;: &#39;CT204864BF160B.M16&#39;}]}, &#39;pci&#39;: {&#39;0000:00:00.00&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 5636}, &#39;0000:00:02.00&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 5654}, &#39;0000:00:03.00&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 5644}, &#39;0000:00:16.00&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 40122}, &#39;0000:00:16.03&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 40125}, &#39;0000:00:19.00&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 5538}, &#39;0000:00:1b.00&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 40096}, &#39;0000:00:1d.00&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 40102}, &#39;0000:00:1f.00&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 40131}, &#39;0000:00:1f.02&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 40067}, &#39;0000:00:1f.03&#39;: {&#39;vendor&#39;: 32902, &#39;device&#39;: 40098}}, &#39;total_ram&#39;: 15910.9609375, &#39;total_cpu_count&#39;: 4, &#39;total_cpu_sockets&#39;: 1}, &#39;network&#39;: {&#39;eth0&#39;: {&#39;mac&#39;: &#39;94:c6:91:10:f1:dc&#39;, &#39;lldp&#39;: {&#39;mac&#39;: &#39;f0:9f:c2:19:56:05&#39;, &#39;name&#39;: &#39;DevSwitch&#39;, &#39;slot&#39;: 0, &#39;port&#39;: 7, &#39;subport&#39;: 0}, &#39;primary&#39;: True}}, &#39;disks&#39;: [{&#39;protocol&#39;: &#39;ATA&#39;, &#39;serial&#39;: &#39;JR1000D33LS4YE&#39;, &#39;model&#39;: &#39;HGST HTS721010A9E630&#39;, &#39;name&#39;: &#39;sda&#39;, &#39;location&#39;: &#39;ATA 0&#39;, &#39;firmware&#39;: &#39;JB0OA3U0&#39;, &#39;capacity&#39;: 931.5133895874023, &#39;devpath&#39;: &#39;/devices/pci0000:00/0000:00:1f.2/ata1/host0/target0:0:0/0:0:0:0/scsi_disk/0:0:0:0&#39;, &#39;pcipath&#39;: &#39;/pci0000:00/0000:00:1f.2/ata1/host0/target0:0:0/0:0:0:0&#39;, &#39;isSSD&#39;: False, &#39;isVirtualDisk&#39;: False}, {&#39;protocol&#39;: &#39;ATA&#39;, &#39;serial&#39;: &#39;1710161C6AF5&#39;, &#39;model&#39;: &#39;Crucial_CT1050MX300S&#39;, &#39;name&#39;: &#39;sdb&#39;, &#39;location&#39;: &#39;ATA 3&#39;, &#39;firmware&#39;: &#39;M0CR040&#39;, &#39;capacity&#39;: 978.0885543823242, &#39;devpath&#39;: &#39;/devices/pci0000:00/0000:00:1f.2/ata4/host3/target3:0:0/3:0:0:0/scsi_disk/3:0:0:0&#39;, &#39;pcipath&#39;: &#39;/pci0000:00/0000:00:1f.2/ata4/host3/target3:0:0/3:0:0:0&#39;, &#39;isSSD&#39;: False, &#39;isVirtualDisk&#39;: False}]}
+Class List:     [&#39;Physical&#39;, &#39;AMT&#39;]
+State:          built
+Located At:     2020-01-07 04:06:31.336942 +0000 +0000
+Built At:       2020-01-07 04:10:14.123422 +0000 +0000
+Created:        2020-01-07 00:46:42.322098 +0000 +0000
+Updated:        2020-01-07 04:10:14.12944 +0000 +0000
+</pre></div>
+</div>
+<p>Update and Create are similar to Site except that you must specify the type of
+foundation:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli foundation amt update rtest -b amt-base
+</pre></div>
+</div>
+</div>
+<div class="section" id="blueprint">
+<h2>Blueprint<a class="headerlink" href="#blueprint" title="Permalink to this headline">¶</a></h2>
+<p>For Blueprints the name is also the id</p>
+<p>NOTE: List, Get, Update, Create, Configuration sections are similar to Site</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">contractorcli</a><ul>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#version">Version</a></li>
+<li><a class="reference internal" href="#sites">Sites</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#structure">Structure</a></li>
+<li><a class="reference internal" href="#foundation">Foundation</a></li>
+<li><a class="reference internal" href="#blueprint">Blueprint</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Contractor</a><ul>
+      <li>Previous: <a href="Docker.html" title="previous chapter">In Docker</a></li>
+      <li>Next: <a href="ConfigurationValues.html" title="next chapter">Configuration Values</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Peter Howe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
