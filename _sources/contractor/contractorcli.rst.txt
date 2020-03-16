@@ -239,6 +239,13 @@ foundation::
 
   $ ./contractorcli foundation amt update rtest -b amt-base
 
+Complex
+-------
+
+For Complexes the Name is also the id
+
+NOTE: works much like the foundations except there is no Job control
+
 Blueprint
 ---------
 

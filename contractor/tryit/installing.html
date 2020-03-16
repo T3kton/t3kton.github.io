@@ -428,16 +428,37 @@ For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">netplan</span> <span class="n">apply</span>
 </pre></div>
 </div>
-<p>now if you ping contractor you should get the internal ip (10.0.0.10):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ping</span> <span class="n">static</span> <span class="o">-</span><span class="n">c2</span>
+<p>now let’s see if the network and bind settings are working properly:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">host</span> <span class="n">static</span>
 </pre></div>
 </div>
-<p>result:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PING</span> <span class="n">enp0s8</span><span class="o">.</span><span class="n">contractor</span><span class="o">.</span><span class="n">site1</span><span class="o">.</span><span class="n">test</span> <span class="p">(</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">0.10</span><span class="p">)</span> <span class="mi">56</span><span class="p">(</span><span class="mi">84</span><span class="p">)</span> <span class="nb">bytes</span> <span class="n">of</span> <span class="n">data</span><span class="o">.</span>
-<span class="mi">64</span> <span class="nb">bytes</span> <span class="kn">from</span> <span class="nn">contractor.site1.test</span> <span class="p">(</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">0.10</span><span class="p">):</span> <span class="n">icmp_seq</span><span class="o">=</span><span class="mi">1</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">64</span> <span class="n">time</span><span class="o">=</span><span class="mf">0.031</span> <span class="n">ms</span>
-<span class="mi">64</span> <span class="nb">bytes</span> <span class="kn">from</span> <span class="nn">contractor.site1.test</span> <span class="p">(</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">0.10</span><span class="p">):</span> <span class="n">icmp_seq</span><span class="o">=</span><span class="mi">2</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">64</span> <span class="n">time</span><span class="o">=</span><span class="mf">0.063</span> <span class="n">ms</span>
+<p>results:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">static</span><span class="o">.</span><span class="n">site1</span><span class="o">.</span><span class="n">test</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">alias</span> <span class="k">for</span> <span class="n">contractor</span><span class="o">.</span><span class="n">site1</span><span class="o">.</span><span class="n">test</span><span class="o">.</span>
+<span class="n">contractor</span><span class="o">.</span><span class="n">site1</span><span class="o">.</span><span class="n">test</span> <span class="n">has</span> <span class="n">address</span> <span class="o">&lt;</span><span class="n">contractor</span> <span class="n">ip</span><span class="o">&gt;</span>
+<span class="n">contractor</span><span class="o">.</span><span class="n">site1</span><span class="o">.</span><span class="n">test</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">alias</span> <span class="k">for</span> <span class="n">enp0s8</span><span class="o">.</span><span class="n">contractor</span><span class="o">.</span><span class="n">site1</span><span class="o">.</span><span class="n">test</span><span class="o">.</span>
 </pre></div>
 </div>
+<p>The “search” value from netplan file is used to convert “static” to
+“static.site1.test”.  The first line resolving the alias is from the bind file
+that contractor just generated. The second line is systemd-resolved reading your
+/etc/hosts file to resolve contractor.site1.test. The third line is from bind as
+well.</p>
+<p>NOTE: if you were to:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">dig</span> <span class="nd">@127</span><span class="o">.</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">1</span> <span class="o">+</span><span class="n">short</span> <span class="n">static</span><span class="o">.</span><span class="n">site1</span><span class="o">.</span><span class="n">test</span>
+</pre></div>
+</div>
+<p>you would get:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">contractor</span><span class="o">.</span><span class="n">site1</span><span class="o">.</span><span class="n">test</span><span class="o">.</span>
+<span class="n">enp0s8</span><span class="o">.</span><span class="n">contractor</span><span class="o">.</span><span class="n">site1</span><span class="o">.</span><span class="n">test</span><span class="o">.</span>
+<span class="mf">10.0</span><span class="o">.</span><span class="mf">0.10</span>
+</pre></div>
+</div>
+<p>which results in a different ip address, this is the result from external hosts
+resolving against bind.  In this case systemd-resolved is not consulted, and the
+value in your /etc/hosts file is not used.  If you would like the same result
+externally and internally, you can either cut systemd-resolvd out of the loop internally
+or edit your /etc/hosts file and change the ip address(&lt;contractor ip&gt;) to the ip
+of the internal interface(10.0.0.10).</p>
 <p>now take a look at the contractor ui at <a class="reference external" href="http:/">http:/</a>/&lt;contractor ip&gt;, (this ip is the ip
 you assigned to the first interface)</p>
 </div>

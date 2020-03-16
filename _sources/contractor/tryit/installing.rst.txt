@@ -410,15 +410,38 @@ then apply the networking configuration::
 
   sudo netplan apply
 
-now if you ping contractor you should get the internal ip (10.0.0.10)::
+now let's see if the network and bind settings are working properly::
 
-  ping static -c2
+  host static
 
-result::
+results::
 
-  PING enp0s8.contractor.site1.test (10.0.0.10) 56(84) bytes of data.
-  64 bytes from contractor.site1.test (10.0.0.10): icmp_seq=1 ttl=64 time=0.031 ms
-  64 bytes from contractor.site1.test (10.0.0.10): icmp_seq=2 ttl=64 time=0.063 ms
+  static.site1.test is an alias for contractor.site1.test.
+  contractor.site1.test has address <contractor ip>
+  contractor.site1.test is an alias for enp0s8.contractor.site1.test.
+
+The "search" value from netplan file is used to convert "static" to
+"static.site1.test".  The first line resolving the alias is from the bind file
+that contractor just generated. The second line is systemd-resolved reading your
+/etc/hosts file to resolve contractor.site1.test. The third line is from bind as
+well.
+
+NOTE: if you were to::
+
+  dig @127.0.0.1 +short static.site1.test
+
+you would get::
+
+  contractor.site1.test.
+  enp0s8.contractor.site1.test.
+  10.0.0.10
+
+which results in a different ip address, this is the result from external hosts
+resolving against bind.  In this case systemd-resolved is not consulted, and the
+value in your /etc/hosts file is not used.  If you would like the same result
+externally and internally, you can either cut systemd-resolvd out of the loop internally
+or edit your /etc/hosts file and change the ip address(<contractor ip>) to the ip
+of the internal interface(10.0.0.10).
 
 now take a look at the contractor ui at http://<contractor ip>, (this ip is the ip
 you assigned to the first interface)
