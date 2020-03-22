@@ -22,6 +22,10 @@ From Packages
 Setup
 -----
 
+we will be using curl, make sure it is installed::
+
+  sudo apt install -y curl
+
 Set up Infrastructure
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -41,8 +45,8 @@ some other Infrastructure related tasks that need to be done.
 
 the ubuntu toml package is to old, update with::
 
-  apt install -y python3-pip
-  pip3 install toml --upgrade
+  sudo apt install -y python3-pip
+  sudo pip3 install toml --upgrade
 
 Create Database
 ~~~~~~~~~~~~~~~
@@ -74,63 +78,20 @@ Configure Apache
 We will need a HTTP site to serve up static resources, as well as a Proxy server
 to bridge from the isolated network.  This proxy server will also cache. We are
 using Apache to Proxy with for this example, however you can use any proxy you
-would like, just update the `proxy-server` paramater to the `setupWizard` call.
+would like, just update the `proxy-server` parameter to the `setupWizard` call.
 
-First create the directory for the static resources::
+There is a script that will the apache setup.  Download and make it executable::
 
-    sudo mkdir -p /var/www/static
+  curl https://t3kton.github.io/_static/apache_setup.sh
+  chmod +x apache_setup.sh
 
-now create the proxy site `/etc/apache2/sites-available/proxy.conf` with the following::
+If you do NOT have an upstream proxy::
 
-  Listen 3128
-  <VirtualHost *:3128>
-    ServerName proxy
-    ServerAlias proxy.site1.test
+  sudo ./apache_setup.sh
 
-    DocumentRoot /var/www/static
+if you do have an upstream proxy::
 
-    ErrorLog ${APACHE_LOG_DIR}/proxy_error.log
-    CustomLog ${APACHE_LOG_DIR}/proxy_access.log combined
-
-    ProxyRequests On
-    ProxyVia Full
-
-    CacheEnable disk http://
-    CacheEnable disk https://
-
-    NoProxy static static.site1.test
-    NoProxy contractor contractor.site1.test
-
-    # ProxyRemote * http://<up stream proxy>:3128/
-  </VirtualHost>
-
-NOTE: if you need to relay through an upstream proxy to have access to the ubuntu
-and centos mirrors, enable the `ProxyRemote` line and update it with the upstream proxy.
-Now create the static site `/etc/apache2/sites-available/static.conf` with the following::
-
-  <VirtualHost *:80>
-    ServerName static
-    ServerAlias static.site1.test
-
-    DocumentRoot /var/www/static
-
-    LogFormat "%a %t %D \"%r\" %>s %I %O \"%{Referer}i\" \"%{User-Agent}i\" %X" static_log
-    ErrorLog ${APACHE_LOG_DIR}/static_error.log
-    CustomLog ${APACHE_LOG_DIR}/static_access.log static_log
-  </VirtualHost>
-
-Modify `/etc/apache2/sites-available/contractor.conf` and enable the ServerAlias
-line, and change the `<domain>` to `site1.test`
-
-Now enable the proxy and static site, disable the default site, and reload the
-apache configuration::
-
-  sudo a2ensite proxy
-  sudo a2ensite static
-  sudo a2dissite 000-default
-  sudo a2enmod proxy proxy_connect proxy_ftp proxy_http cache_disk cache
-  sudo systemctl restart apache2
-  sudo systemctl start apache-htcacheclean
+  UPSTREAM_PROXY=<upstream proxy, ie http://myproxy:3128/> sudo ./apache_setup.sh
 
 Setup the database
 ~~~~~~~~~~~~~~~~~~
@@ -208,10 +169,6 @@ Environment Setup
 We will be using the HTTP API to inject new stuff into contractor.
 You can run these commands from either the contractor VM, or any place that can make
 http requests to contractor.
-
-we will be using curl, make sure it is installed::
-
-  sudo apt install -y curl
 
 First we will define some Environment values so we don't have to keep tying redundant info
 the Contractor server.  This is assuming you will be running these commands from
