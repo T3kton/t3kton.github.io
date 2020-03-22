@@ -1,12 +1,12 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!doctype html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>CInP API Documentation for Contractor API &#8212; t3kton 1.0 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -21,15 +21,15 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Resources" href="Resources.html" />
 
-   
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159896960-1"></script>
 <script>
@@ -42,7 +42,482 @@
 
   </head>
   <body>
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Resources.html" title="Resources"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">t3kton 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Contractor</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">CInP API Documentation for Contractor API</a><ul>
+<li><a class="reference internal" href="#namespace-root">Namespace - root</a></li>
+<li><a class="reference internal" href="#namespace-root-amt">Namespace - root.AMT</a><ul>
+<li><a class="reference internal" href="#model-amtfoundation">Model - AMTFoundation</a><ul>
+<li><a class="reference internal" href="#list-filters">List Filters</a><ul>
+<li><a class="reference internal" href="#site">site</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fields">Fields</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#namespace-root-auth">Namespace - root.Auth</a><ul>
+<li><a class="reference internal" href="#model-user">Model - User</a><ul>
+<li><a class="reference internal" href="#action-login">Action - login</a></li>
+<li><a class="reference internal" href="#action-logout">Action - logout</a></li>
+<li><a class="reference internal" href="#action-whoami">Action - whoami</a></li>
+<li><a class="reference internal" href="#action-change-password">Action - change_password</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#namespace-root-azure">Namespace - root.Azure</a><ul>
+<li><a class="reference internal" href="#model-azurecomplex">Model - AzureComplex</a><ul>
+<li><a class="reference internal" href="#id1">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-azurefoundation">Model - AzureFoundation</a><ul>
+<li><a class="reference internal" href="#id2">List Filters</a><ul>
+<li><a class="reference internal" href="#id3">site</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">Fields</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#namespace-root-blueprint">Namespace - root.BluePrint</a><ul>
+<li><a class="reference internal" href="#model-blueprint">Model - BluePrint</a><ul>
+<li><a class="reference internal" href="#id5">Fields</a></li>
+<li><a class="reference internal" href="#action-getconfig">Action - getConfig</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-blueprintscript">Model - BluePrintScript</a><ul>
+<li><a class="reference internal" href="#id6">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-foundationblueprint">Model - FoundationBluePrint</a><ul>
+<li><a class="reference internal" href="#id7">Fields</a></li>
+<li><a class="reference internal" href="#id8">Action - getConfig</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-pxe">Model - PXE</a><ul>
+<li><a class="reference internal" href="#id9">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-script">Model - Script</a><ul>
+<li><a class="reference internal" href="#id10">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-structureblueprint">Model - StructureBluePrint</a><ul>
+<li><a class="reference internal" href="#id11">Fields</a></li>
+<li><a class="reference internal" href="#id12">Action - getConfig</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#namespace-root-building">Namespace - root.Building</a><ul>
+<li><a class="reference internal" href="#model-complex">Model - Complex</a><ul>
+<li><a class="reference internal" href="#id13">List Filters</a><ul>
+<li><a class="reference internal" href="#id14">site</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id15">Fields</a></li>
+<li><a class="reference internal" href="#action-createfoundation">Action - createFoundation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-complexstructure">Model - ComplexStructure</a><ul>
+<li><a class="reference internal" href="#id16">List Filters</a><ul>
+<li><a class="reference internal" href="#complex">complex</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id17">Fields</a></li>
+<li><a class="reference internal" href="#id18">Action - getConfig</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-dependency">Model - Dependency</a><ul>
+<li><a class="reference internal" href="#id19">List Filters</a><ul>
+<li><a class="reference internal" href="#foundation">foundation</a></li>
+<li><a class="reference internal" href="#id20">site</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id21">Fields</a></li>
+<li><a class="reference internal" href="#action-getjob">Action - getJob</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-foundation">Model - Foundation</a><ul>
+<li><a class="reference internal" href="#id22">List Filters</a><ul>
+<li><a class="reference internal" href="#id23">site</a></li>
+<li><a class="reference internal" href="#todo">todo</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id24">Fields</a></li>
+<li><a class="reference internal" href="#action-setidmap">Action - setIdMap</a></li>
+<li><a class="reference internal" href="#action-docreate">Action - doCreate</a></li>
+<li><a class="reference internal" href="#action-dodestroy">Action - doDestroy</a></li>
+<li><a class="reference internal" href="#action-dojob">Action - doJob</a></li>
+<li><a class="reference internal" href="#id25">Action - getJob</a></li>
+<li><a class="reference internal" href="#action-getfoundationtypes">Action - getFoundationTypes</a></li>
+<li><a class="reference internal" href="#id26">Action - getConfig</a></li>
+<li><a class="reference internal" href="#action-getinterfacelist">Action - getInterfaceList</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-structure">Model - Structure</a><ul>
+<li><a class="reference internal" href="#id27">List Filters</a><ul>
+<li><a class="reference internal" href="#id28">site</a></li>
+<li><a class="reference internal" href="#id29">complex</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id30">Fields</a></li>
+<li><a class="reference internal" href="#id31">Action - doCreate</a></li>
+<li><a class="reference internal" href="#id32">Action - doDestroy</a></li>
+<li><a class="reference internal" href="#id33">Action - doJob</a></li>
+<li><a class="reference internal" href="#id34">Action - getConfig</a></li>
+<li><a class="reference internal" href="#id35">Action - getJob</a></li>
+<li><a class="reference internal" href="#action-updateconfig">Action - updateConfig</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#namespace-root-directory">Namespace - root.Directory</a><ul>
+<li><a class="reference internal" href="#model-entry">Model - Entry</a><ul>
+<li><a class="reference internal" href="#id36">List Filters</a><ul>
+<li><a class="reference internal" href="#zone">zone</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id37">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-zone">Model - Zone</a><ul>
+<li><a class="reference internal" href="#id38">Fields</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#namespace-root-docker">Namespace - root.Docker</a><ul>
+<li><a class="reference internal" href="#model-dockercomplex">Model - DockerComplex</a><ul>
+<li><a class="reference internal" href="#id39">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-dockerfoundation">Model - DockerFoundation</a><ul>
+<li><a class="reference internal" href="#id40">List Filters</a><ul>
+<li><a class="reference internal" href="#id41">site</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id42">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-dockerport">Model - DockerPort</a><ul>
+<li><a class="reference internal" href="#id43">Fields</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#namespace-root-foreman">Namespace - root.Foreman</a><ul>
+<li><a class="reference internal" href="#model-basejob">Model - BaseJob</a><ul>
+<li><a class="reference internal" href="#id44">Fields</a></li>
+<li><a class="reference internal" href="#action-pause">Action - pause</a></li>
+<li><a class="reference internal" href="#action-resume">Action - resume</a></li>
+<li><a class="reference internal" href="#action-reset">Action - reset</a></li>
+<li><a class="reference internal" href="#action-rollback">Action - rollback</a></li>
+<li><a class="reference internal" href="#action-clear-dispatched">Action - clear_dispatched</a></li>
+<li><a class="reference internal" href="#action-jobstats">Action - jobStats</a></li>
+<li><a class="reference internal" href="#action-jobrunnervariables">Action - jobRunnerVariables</a></li>
+<li><a class="reference internal" href="#action-jobrunnerstate">Action - jobRunnerState</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-dependencyjob">Model - DependencyJob</a><ul>
+<li><a class="reference internal" href="#id45">List Filters</a><ul>
+<li><a class="reference internal" href="#id46">site</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id47">Fields</a></li>
+<li><a class="reference internal" href="#id48">Action - pause</a></li>
+<li><a class="reference internal" href="#id49">Action - resume</a></li>
+<li><a class="reference internal" href="#id50">Action - reset</a></li>
+<li><a class="reference internal" href="#id51">Action - rollback</a></li>
+<li><a class="reference internal" href="#id52">Action - jobRunnerVariables</a></li>
+<li><a class="reference internal" href="#id53">Action - jobRunnerState</a></li>
+<li><a class="reference internal" href="#action-getdependencyjob">Action - getDependencyJob</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-foundationjob">Model - FoundationJob</a><ul>
+<li><a class="reference internal" href="#id54">List Filters</a><ul>
+<li><a class="reference internal" href="#id55">site</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id56">Fields</a></li>
+<li><a class="reference internal" href="#id57">Action - pause</a></li>
+<li><a class="reference internal" href="#id58">Action - resume</a></li>
+<li><a class="reference internal" href="#id59">Action - reset</a></li>
+<li><a class="reference internal" href="#id60">Action - rollback</a></li>
+<li><a class="reference internal" href="#id61">Action - jobRunnerVariables</a></li>
+<li><a class="reference internal" href="#id62">Action - jobRunnerState</a></li>
+<li><a class="reference internal" href="#action-getfoundationjob">Action - getFoundationJob</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-joblog">Model - JobLog</a><ul>
+<li><a class="reference internal" href="#id63">List Filters</a><ul>
+<li><a class="reference internal" href="#id64">site</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id65">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-structurejob">Model - StructureJob</a><ul>
+<li><a class="reference internal" href="#id66">List Filters</a><ul>
+<li><a class="reference internal" href="#id67">site</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id68">Fields</a></li>
+<li><a class="reference internal" href="#id69">Action - pause</a></li>
+<li><a class="reference internal" href="#id70">Action - resume</a></li>
+<li><a class="reference internal" href="#id71">Action - reset</a></li>
+<li><a class="reference internal" href="#id72">Action - rollback</a></li>
+<li><a class="reference internal" href="#id73">Action - jobRunnerVariables</a></li>
+<li><a class="reference internal" href="#id74">Action - jobRunnerState</a></li>
+<li><a class="reference internal" href="#action-getstructurejob">Action - getStructureJob</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#namespace-root-ipmi">Namespace - root.IPMI</a><ul>
+<li><a class="reference internal" href="#model-ipmifoundation">Model - IPMIFoundation</a><ul>
+<li><a class="reference internal" href="#id75">List Filters</a><ul>
+<li><a class="reference internal" href="#id76">site</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id77">Fields</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#namespace-root-manual">Namespace - root.Manual</a><ul>
+<li><a class="reference internal" href="#model-manualcomplex">Model - ManualComplex</a><ul>
+<li><a class="reference internal" href="#id78">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-manualcomplexedfoundation">Model - ManualComplexedFoundation</a><ul>
+<li><a class="reference internal" href="#id79">List Filters</a><ul>
+<li><a class="reference internal" href="#id80">site</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id81">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-manualfoundation">Model - ManualFoundation</a><ul>
+<li><a class="reference internal" href="#id82">List Filters</a><ul>
+<li><a class="reference internal" href="#id83">site</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id84">Fields</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#namespace-root-postoffice">Namespace - root.PostOffice</a><ul>
+<li><a class="reference internal" href="#model-foundationbox">Model - FoundationBox</a><ul>
+<li><a class="reference internal" href="#id85">Fields</a></li>
+<li><a class="reference internal" href="#action-extend">Action - extend</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-foundationpost">Model - FoundationPost</a><ul>
+<li><a class="reference internal" href="#id86">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-structurebox">Model - StructureBox</a><ul>
+<li><a class="reference internal" href="#id87">Fields</a></li>
+<li><a class="reference internal" href="#id88">Action - extend</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-structurepost">Model - StructurePost</a><ul>
+<li><a class="reference internal" href="#id89">Fields</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#namespace-root-records">Namespace - root.Records</a><ul>
+<li><a class="reference internal" href="#model-recorder">Model - Recorder</a><ul>
+<li><a class="reference internal" href="#action-query">Action - query</a></li>
+<li><a class="reference internal" href="#action-query-objects">Action - query_objects</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#namespace-root-site">Namespace - root.Site</a><ul>
+<li><a class="reference internal" href="#model-site">Model - Site</a><ul>
+<li><a class="reference internal" href="#id90">Fields</a></li>
+<li><a class="reference internal" href="#id91">Action - getConfig</a></li>
+<li><a class="reference internal" href="#action-getdependencymap">Action - getDependencyMap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#namespace-root-subcontractor">Namespace - root.SubContractor</a><ul>
+<li><a class="reference internal" href="#model-dhcpd">Model - DHCPd</a><ul>
+<li><a class="reference internal" href="#action-getdynamicpools">Action - getDynamicPools</a></li>
+<li><a class="reference internal" href="#action-getstaticpools">Action - getStaticPools</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-dispatch">Model - Dispatch</a><ul>
+<li><a class="reference internal" href="#action-getjobs">Action - getJobs</a></li>
+<li><a class="reference internal" href="#action-jobresults">Action - jobResults</a></li>
+<li><a class="reference internal" href="#action-joberror">Action - jobError</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#namespace-root-survey">Namespace - root.Survey</a><ul>
+<li><a class="reference internal" href="#model-cartographer">Model - Cartographer</a><ul>
+<li><a class="reference internal" href="#id92">Fields</a></li>
+<li><a class="reference internal" href="#action-register">Action - register</a></li>
+<li><a class="reference internal" href="#action-lookup">Action - lookup</a></li>
+<li><a class="reference internal" href="#action-setmessage">Action - setMessage</a></li>
+<li><a class="reference internal" href="#action-done">Action - done</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-plot">Model - Plot</a><ul>
+<li><a class="reference internal" href="#id93">Fields</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#namespace-root-utilities">Namespace - root.Utilities</a><ul>
+<li><a class="reference internal" href="#model-abstractnetworkinterface">Model - AbstractNetworkInterface</a><ul>
+<li><a class="reference internal" href="#id94">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-address">Model - Address</a><ul>
+<li><a class="reference internal" href="#id95">List Filters</a><ul>
+<li><a class="reference internal" href="#address-block">address_block</a></li>
+<li><a class="reference internal" href="#structure">structure</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id96">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-addressblock">Model - AddressBlock</a><ul>
+<li><a class="reference internal" href="#id97">List Filters</a><ul>
+<li><a class="reference internal" href="#id98">site</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id99">Fields</a></li>
+<li><a class="reference internal" href="#action-nextaddress">Action - nextAddress</a></li>
+<li><a class="reference internal" href="#action-usage">Action - usage</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-aggregatednetworkinterface">Model - AggregatedNetworkInterface</a><ul>
+<li><a class="reference internal" href="#id100">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-baseaddress">Model - BaseAddress</a><ul>
+<li><a class="reference internal" href="#id101">Fields</a></li>
+<li><a class="reference internal" href="#id102">Action - lookup</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-dynamicaddress">Model - DynamicAddress</a><ul>
+<li><a class="reference internal" href="#id103">List Filters</a><ul>
+<li><a class="reference internal" href="#id104">address_block</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id105">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-network">Model - Network</a><ul>
+<li><a class="reference internal" href="#id106">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-networkaddressblock">Model - NetworkAddressBlock</a><ul>
+<li><a class="reference internal" href="#id107">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-networkinterface">Model - NetworkInterface</a><ul>
+<li><a class="reference internal" href="#id108">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-networked">Model - Networked</a><ul>
+<li><a class="reference internal" href="#id109">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-realnetworkinterface">Model - RealNetworkInterface</a><ul>
+<li><a class="reference internal" href="#id110">List Filters</a><ul>
+<li><a class="reference internal" href="#id111">foundation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id112">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-reservedaddress">Model - ReservedAddress</a><ul>
+<li><a class="reference internal" href="#id113">List Filters</a><ul>
+<li><a class="reference internal" href="#id114">address_block</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id115">Fields</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#namespace-root-vcenter">Namespace - root.VCenter</a><ul>
+<li><a class="reference internal" href="#model-vcentercomplex">Model - VCenterComplex</a><ul>
+<li><a class="reference internal" href="#id116">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-vcenterfoundation">Model - VCenterFoundation</a><ul>
+<li><a class="reference internal" href="#id117">List Filters</a><ul>
+<li><a class="reference internal" href="#id118">site</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id119">Fields</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#namespace-root-virtualbox">Namespace - root.VirtualBox</a><ul>
+<li><a class="reference internal" href="#model-virtualboxcomplex">Model - VirtualBoxComplex</a><ul>
+<li><a class="reference internal" href="#id120">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-virtualboxfoundation">Model - VirtualBoxFoundation</a><ul>
+<li><a class="reference internal" href="#id121">List Filters</a><ul>
+<li><a class="reference internal" href="#id122">site</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id123">Fields</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#generated-by-cinp-autodoc">Generated by CInP autodoc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Resources.html"
+                        title="previous chapter">Resources</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
 
     <div class="document">
       <div class="documentwrapper">
@@ -10839,488 +11314,24 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">CInP API Documentation for Contractor API</a><ul>
-<li><a class="reference internal" href="#namespace-root">Namespace - root</a></li>
-<li><a class="reference internal" href="#namespace-root-amt">Namespace - root.AMT</a><ul>
-<li><a class="reference internal" href="#model-amtfoundation">Model - AMTFoundation</a><ul>
-<li><a class="reference internal" href="#list-filters">List Filters</a><ul>
-<li><a class="reference internal" href="#site">site</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#fields">Fields</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#namespace-root-auth">Namespace - root.Auth</a><ul>
-<li><a class="reference internal" href="#model-user">Model - User</a><ul>
-<li><a class="reference internal" href="#action-login">Action - login</a></li>
-<li><a class="reference internal" href="#action-logout">Action - logout</a></li>
-<li><a class="reference internal" href="#action-whoami">Action - whoami</a></li>
-<li><a class="reference internal" href="#action-change-password">Action - change_password</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#namespace-root-azure">Namespace - root.Azure</a><ul>
-<li><a class="reference internal" href="#model-azurecomplex">Model - AzureComplex</a><ul>
-<li><a class="reference internal" href="#id1">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-azurefoundation">Model - AzureFoundation</a><ul>
-<li><a class="reference internal" href="#id2">List Filters</a><ul>
-<li><a class="reference internal" href="#id3">site</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id4">Fields</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#namespace-root-blueprint">Namespace - root.BluePrint</a><ul>
-<li><a class="reference internal" href="#model-blueprint">Model - BluePrint</a><ul>
-<li><a class="reference internal" href="#id5">Fields</a></li>
-<li><a class="reference internal" href="#action-getconfig">Action - getConfig</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-blueprintscript">Model - BluePrintScript</a><ul>
-<li><a class="reference internal" href="#id6">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-foundationblueprint">Model - FoundationBluePrint</a><ul>
-<li><a class="reference internal" href="#id7">Fields</a></li>
-<li><a class="reference internal" href="#id8">Action - getConfig</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-pxe">Model - PXE</a><ul>
-<li><a class="reference internal" href="#id9">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-script">Model - Script</a><ul>
-<li><a class="reference internal" href="#id10">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-structureblueprint">Model - StructureBluePrint</a><ul>
-<li><a class="reference internal" href="#id11">Fields</a></li>
-<li><a class="reference internal" href="#id12">Action - getConfig</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#namespace-root-building">Namespace - root.Building</a><ul>
-<li><a class="reference internal" href="#model-complex">Model - Complex</a><ul>
-<li><a class="reference internal" href="#id13">List Filters</a><ul>
-<li><a class="reference internal" href="#id14">site</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id15">Fields</a></li>
-<li><a class="reference internal" href="#action-createfoundation">Action - createFoundation</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-complexstructure">Model - ComplexStructure</a><ul>
-<li><a class="reference internal" href="#id16">List Filters</a><ul>
-<li><a class="reference internal" href="#complex">complex</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id17">Fields</a></li>
-<li><a class="reference internal" href="#id18">Action - getConfig</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-dependency">Model - Dependency</a><ul>
-<li><a class="reference internal" href="#id19">List Filters</a><ul>
-<li><a class="reference internal" href="#foundation">foundation</a></li>
-<li><a class="reference internal" href="#id20">site</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id21">Fields</a></li>
-<li><a class="reference internal" href="#action-getjob">Action - getJob</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-foundation">Model - Foundation</a><ul>
-<li><a class="reference internal" href="#id22">List Filters</a><ul>
-<li><a class="reference internal" href="#id23">site</a></li>
-<li><a class="reference internal" href="#todo">todo</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id24">Fields</a></li>
-<li><a class="reference internal" href="#action-setidmap">Action - setIdMap</a></li>
-<li><a class="reference internal" href="#action-docreate">Action - doCreate</a></li>
-<li><a class="reference internal" href="#action-dodestroy">Action - doDestroy</a></li>
-<li><a class="reference internal" href="#action-dojob">Action - doJob</a></li>
-<li><a class="reference internal" href="#id25">Action - getJob</a></li>
-<li><a class="reference internal" href="#action-getfoundationtypes">Action - getFoundationTypes</a></li>
-<li><a class="reference internal" href="#id26">Action - getConfig</a></li>
-<li><a class="reference internal" href="#action-getinterfacelist">Action - getInterfaceList</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-structure">Model - Structure</a><ul>
-<li><a class="reference internal" href="#id27">List Filters</a><ul>
-<li><a class="reference internal" href="#id28">site</a></li>
-<li><a class="reference internal" href="#id29">complex</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id30">Fields</a></li>
-<li><a class="reference internal" href="#id31">Action - doCreate</a></li>
-<li><a class="reference internal" href="#id32">Action - doDestroy</a></li>
-<li><a class="reference internal" href="#id33">Action - doJob</a></li>
-<li><a class="reference internal" href="#id34">Action - getConfig</a></li>
-<li><a class="reference internal" href="#id35">Action - getJob</a></li>
-<li><a class="reference internal" href="#action-updateconfig">Action - updateConfig</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#namespace-root-directory">Namespace - root.Directory</a><ul>
-<li><a class="reference internal" href="#model-entry">Model - Entry</a><ul>
-<li><a class="reference internal" href="#id36">List Filters</a><ul>
-<li><a class="reference internal" href="#zone">zone</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id37">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-zone">Model - Zone</a><ul>
-<li><a class="reference internal" href="#id38">Fields</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#namespace-root-docker">Namespace - root.Docker</a><ul>
-<li><a class="reference internal" href="#model-dockercomplex">Model - DockerComplex</a><ul>
-<li><a class="reference internal" href="#id39">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-dockerfoundation">Model - DockerFoundation</a><ul>
-<li><a class="reference internal" href="#id40">List Filters</a><ul>
-<li><a class="reference internal" href="#id41">site</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id42">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-dockerport">Model - DockerPort</a><ul>
-<li><a class="reference internal" href="#id43">Fields</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#namespace-root-foreman">Namespace - root.Foreman</a><ul>
-<li><a class="reference internal" href="#model-basejob">Model - BaseJob</a><ul>
-<li><a class="reference internal" href="#id44">Fields</a></li>
-<li><a class="reference internal" href="#action-pause">Action - pause</a></li>
-<li><a class="reference internal" href="#action-resume">Action - resume</a></li>
-<li><a class="reference internal" href="#action-reset">Action - reset</a></li>
-<li><a class="reference internal" href="#action-rollback">Action - rollback</a></li>
-<li><a class="reference internal" href="#action-clear-dispatched">Action - clear_dispatched</a></li>
-<li><a class="reference internal" href="#action-jobstats">Action - jobStats</a></li>
-<li><a class="reference internal" href="#action-jobrunnervariables">Action - jobRunnerVariables</a></li>
-<li><a class="reference internal" href="#action-jobrunnerstate">Action - jobRunnerState</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-dependencyjob">Model - DependencyJob</a><ul>
-<li><a class="reference internal" href="#id45">List Filters</a><ul>
-<li><a class="reference internal" href="#id46">site</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id47">Fields</a></li>
-<li><a class="reference internal" href="#id48">Action - pause</a></li>
-<li><a class="reference internal" href="#id49">Action - resume</a></li>
-<li><a class="reference internal" href="#id50">Action - reset</a></li>
-<li><a class="reference internal" href="#id51">Action - rollback</a></li>
-<li><a class="reference internal" href="#id52">Action - jobRunnerVariables</a></li>
-<li><a class="reference internal" href="#id53">Action - jobRunnerState</a></li>
-<li><a class="reference internal" href="#action-getdependencyjob">Action - getDependencyJob</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-foundationjob">Model - FoundationJob</a><ul>
-<li><a class="reference internal" href="#id54">List Filters</a><ul>
-<li><a class="reference internal" href="#id55">site</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id56">Fields</a></li>
-<li><a class="reference internal" href="#id57">Action - pause</a></li>
-<li><a class="reference internal" href="#id58">Action - resume</a></li>
-<li><a class="reference internal" href="#id59">Action - reset</a></li>
-<li><a class="reference internal" href="#id60">Action - rollback</a></li>
-<li><a class="reference internal" href="#id61">Action - jobRunnerVariables</a></li>
-<li><a class="reference internal" href="#id62">Action - jobRunnerState</a></li>
-<li><a class="reference internal" href="#action-getfoundationjob">Action - getFoundationJob</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-joblog">Model - JobLog</a><ul>
-<li><a class="reference internal" href="#id63">List Filters</a><ul>
-<li><a class="reference internal" href="#id64">site</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id65">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-structurejob">Model - StructureJob</a><ul>
-<li><a class="reference internal" href="#id66">List Filters</a><ul>
-<li><a class="reference internal" href="#id67">site</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id68">Fields</a></li>
-<li><a class="reference internal" href="#id69">Action - pause</a></li>
-<li><a class="reference internal" href="#id70">Action - resume</a></li>
-<li><a class="reference internal" href="#id71">Action - reset</a></li>
-<li><a class="reference internal" href="#id72">Action - rollback</a></li>
-<li><a class="reference internal" href="#id73">Action - jobRunnerVariables</a></li>
-<li><a class="reference internal" href="#id74">Action - jobRunnerState</a></li>
-<li><a class="reference internal" href="#action-getstructurejob">Action - getStructureJob</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#namespace-root-ipmi">Namespace - root.IPMI</a><ul>
-<li><a class="reference internal" href="#model-ipmifoundation">Model - IPMIFoundation</a><ul>
-<li><a class="reference internal" href="#id75">List Filters</a><ul>
-<li><a class="reference internal" href="#id76">site</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id77">Fields</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#namespace-root-manual">Namespace - root.Manual</a><ul>
-<li><a class="reference internal" href="#model-manualcomplex">Model - ManualComplex</a><ul>
-<li><a class="reference internal" href="#id78">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-manualcomplexedfoundation">Model - ManualComplexedFoundation</a><ul>
-<li><a class="reference internal" href="#id79">List Filters</a><ul>
-<li><a class="reference internal" href="#id80">site</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id81">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-manualfoundation">Model - ManualFoundation</a><ul>
-<li><a class="reference internal" href="#id82">List Filters</a><ul>
-<li><a class="reference internal" href="#id83">site</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id84">Fields</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#namespace-root-postoffice">Namespace - root.PostOffice</a><ul>
-<li><a class="reference internal" href="#model-foundationbox">Model - FoundationBox</a><ul>
-<li><a class="reference internal" href="#id85">Fields</a></li>
-<li><a class="reference internal" href="#action-extend">Action - extend</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-foundationpost">Model - FoundationPost</a><ul>
-<li><a class="reference internal" href="#id86">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-structurebox">Model - StructureBox</a><ul>
-<li><a class="reference internal" href="#id87">Fields</a></li>
-<li><a class="reference internal" href="#id88">Action - extend</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-structurepost">Model - StructurePost</a><ul>
-<li><a class="reference internal" href="#id89">Fields</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#namespace-root-records">Namespace - root.Records</a><ul>
-<li><a class="reference internal" href="#model-recorder">Model - Recorder</a><ul>
-<li><a class="reference internal" href="#action-query">Action - query</a></li>
-<li><a class="reference internal" href="#action-query-objects">Action - query_objects</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#namespace-root-site">Namespace - root.Site</a><ul>
-<li><a class="reference internal" href="#model-site">Model - Site</a><ul>
-<li><a class="reference internal" href="#id90">Fields</a></li>
-<li><a class="reference internal" href="#id91">Action - getConfig</a></li>
-<li><a class="reference internal" href="#action-getdependencymap">Action - getDependencyMap</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#namespace-root-subcontractor">Namespace - root.SubContractor</a><ul>
-<li><a class="reference internal" href="#model-dhcpd">Model - DHCPd</a><ul>
-<li><a class="reference internal" href="#action-getdynamicpools">Action - getDynamicPools</a></li>
-<li><a class="reference internal" href="#action-getstaticpools">Action - getStaticPools</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-dispatch">Model - Dispatch</a><ul>
-<li><a class="reference internal" href="#action-getjobs">Action - getJobs</a></li>
-<li><a class="reference internal" href="#action-jobresults">Action - jobResults</a></li>
-<li><a class="reference internal" href="#action-joberror">Action - jobError</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#namespace-root-survey">Namespace - root.Survey</a><ul>
-<li><a class="reference internal" href="#model-cartographer">Model - Cartographer</a><ul>
-<li><a class="reference internal" href="#id92">Fields</a></li>
-<li><a class="reference internal" href="#action-register">Action - register</a></li>
-<li><a class="reference internal" href="#action-lookup">Action - lookup</a></li>
-<li><a class="reference internal" href="#action-setmessage">Action - setMessage</a></li>
-<li><a class="reference internal" href="#action-done">Action - done</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-plot">Model - Plot</a><ul>
-<li><a class="reference internal" href="#id93">Fields</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#namespace-root-utilities">Namespace - root.Utilities</a><ul>
-<li><a class="reference internal" href="#model-abstractnetworkinterface">Model - AbstractNetworkInterface</a><ul>
-<li><a class="reference internal" href="#id94">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-address">Model - Address</a><ul>
-<li><a class="reference internal" href="#id95">List Filters</a><ul>
-<li><a class="reference internal" href="#address-block">address_block</a></li>
-<li><a class="reference internal" href="#structure">structure</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id96">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-addressblock">Model - AddressBlock</a><ul>
-<li><a class="reference internal" href="#id97">List Filters</a><ul>
-<li><a class="reference internal" href="#id98">site</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id99">Fields</a></li>
-<li><a class="reference internal" href="#action-nextaddress">Action - nextAddress</a></li>
-<li><a class="reference internal" href="#action-usage">Action - usage</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-aggregatednetworkinterface">Model - AggregatedNetworkInterface</a><ul>
-<li><a class="reference internal" href="#id100">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-baseaddress">Model - BaseAddress</a><ul>
-<li><a class="reference internal" href="#id101">Fields</a></li>
-<li><a class="reference internal" href="#id102">Action - lookup</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-dynamicaddress">Model - DynamicAddress</a><ul>
-<li><a class="reference internal" href="#id103">List Filters</a><ul>
-<li><a class="reference internal" href="#id104">address_block</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id105">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-network">Model - Network</a><ul>
-<li><a class="reference internal" href="#id106">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-networkaddressblock">Model - NetworkAddressBlock</a><ul>
-<li><a class="reference internal" href="#id107">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-networkinterface">Model - NetworkInterface</a><ul>
-<li><a class="reference internal" href="#id108">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-networked">Model - Networked</a><ul>
-<li><a class="reference internal" href="#id109">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-realnetworkinterface">Model - RealNetworkInterface</a><ul>
-<li><a class="reference internal" href="#id110">List Filters</a><ul>
-<li><a class="reference internal" href="#id111">foundation</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id112">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-reservedaddress">Model - ReservedAddress</a><ul>
-<li><a class="reference internal" href="#id113">List Filters</a><ul>
-<li><a class="reference internal" href="#id114">address_block</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id115">Fields</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#namespace-root-vcenter">Namespace - root.VCenter</a><ul>
-<li><a class="reference internal" href="#model-vcentercomplex">Model - VCenterComplex</a><ul>
-<li><a class="reference internal" href="#id116">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-vcenterfoundation">Model - VCenterFoundation</a><ul>
-<li><a class="reference internal" href="#id117">List Filters</a><ul>
-<li><a class="reference internal" href="#id118">site</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id119">Fields</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#namespace-root-virtualbox">Namespace - root.VirtualBox</a><ul>
-<li><a class="reference internal" href="#model-virtualboxcomplex">Model - VirtualBoxComplex</a><ul>
-<li><a class="reference internal" href="#id120">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#model-virtualboxfoundation">Model - VirtualBoxFoundation</a><ul>
-<li><a class="reference internal" href="#id121">List Filters</a><ul>
-<li><a class="reference internal" href="#id122">site</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id123">Fields</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#generated-by-cinp-autodoc">Generated by CInP autodoc</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="index.html">Contractor</a><ul>
-      <li>Previous: <a href="Resources.html" title="previous chapter">Resources</a></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2019, Peter Howe.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
-      
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Resources.html" title="Resources"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">t3kton 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Contractor</a> &#187;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Peter Howe.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
   </body>
 </html>

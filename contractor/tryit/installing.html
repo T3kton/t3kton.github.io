@@ -1,12 +1,12 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!doctype html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Installing &#8212; t3kton 1.0 documentation</title>
-    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -21,16 +21,16 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="From Prebuilt Packages" href="packaged.html" />
     <link rel="prev" title="Give it a Try" href="index.html" />
 
-   
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159896960-1"></script>
 <script>
@@ -43,7 +43,65 @@
 
   </head>
   <body>
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="packaged.html" title="From Prebuilt Packages"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Give it a Try"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">t3kton 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Contractor</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Give it a Try</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installing</a><ul>
+<li><a class="reference internal" href="#from-source">From Source</a></li>
+<li><a class="reference internal" href="#from-packages">From Packages</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setup">Setup</a><ul>
+<li><a class="reference internal" href="#set-up-infrastructure">Set up Infrastructure</a></li>
+<li><a class="reference internal" href="#create-database">Create Database</a></li>
+<li><a class="reference internal" href="#configure-apache">Configure Apache</a></li>
+<li><a class="reference internal" href="#setup-the-database">Setup the database</a></li>
+<li><a class="reference internal" href="#environment-setup">Environment Setup</a></li>
+<li><a class="reference internal" href="#http-requests-note">HTTP Requests Note</a></li>
+<li><a class="reference internal" href="#network-configuration">Network Configuration</a></li>
+<li><a class="reference internal" href="#starting-dns">Starting DNS</a></li>
+<li><a class="reference internal" href="#subcontractor">Subcontractor</a></li>
+<li><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Give it a Try</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="packaged.html"
+                        title="next chapter">From Prebuilt Packages</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
 
     <div class="document">
       <div class="documentwrapper">
@@ -69,6 +127,10 @@ be set to forward to the DNS server that was originally configured on the VM.</p
 </div>
 <div class="section" id="setup">
 <h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
+<p>we will be using curl, make sure it is installed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">curl</span>
+</pre></div>
+</div>
 <div class="section" id="set-up-infrastructure">
 <h2>Set up Infrastructure<a class="headerlink" href="#set-up-infrastructure" title="Permalink to this headline">¶</a></h2>
 <p>To prevent your new contractor VM from taking over the network you are curently
@@ -80,8 +142,8 @@ some other Infrastructure related tasks that need to be done.</p>
 <p><a class="reference internal" href="setup_amt.html"><span class="doc">AMT Setup</span></a></p>
 <p><a class="reference internal" href="setup_docker.html"><span class="doc">Docker Setup</span></a></p>
 <p>the ubuntu toml package is to old, update with:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
-<span class="n">pip3</span> <span class="n">install</span> <span class="n">toml</span> <span class="o">--</span><span class="n">upgrade</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
+<span class="n">sudo</span> <span class="n">pip3</span> <span class="n">install</span> <span class="n">toml</span> <span class="o">--</span><span class="n">upgrade</span>
 </pre></div>
 </div>
 </div>
@@ -109,60 +171,18 @@ some other Infrastructure related tasks that need to be done.</p>
 <p>We will need a HTTP site to serve up static resources, as well as a Proxy server
 to bridge from the isolated network.  This proxy server will also cache. We are
 using Apache to Proxy with for this example, however you can use any proxy you
-would like, just update the <cite>proxy-server</cite> paramater to the <cite>setupWizard</cite> call.</p>
-<p>First create the directory for the static resources:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">static</span>
+would like, just update the <cite>proxy-server</cite> parameter to the <cite>setupWizard</cite> call.</p>
+<p>There is a script that will the apache setup.  Download and make it executable:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">t3kton</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">_static</span><span class="o">/</span><span class="n">apache_setup</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">apache_setup</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
-<p>now create the proxy site <cite>/etc/apache2/sites-available/proxy.conf</cite> with the following:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>Listen 3128
-&lt;VirtualHost *:3128&gt;
-  ServerName proxy
-  ServerAlias proxy.site1.test
-
-  DocumentRoot /var/www/static
-
-  ErrorLog ${APACHE_LOG_DIR}/proxy_error.log
-  CustomLog ${APACHE_LOG_DIR}/proxy_access.log combined
-
-  ProxyRequests On
-  ProxyVia Full
-
-  CacheEnable disk http://
-  CacheEnable disk https://
-
-  NoProxy static static.site1.test
-  NoProxy contractor contractor.site1.test
-
-  # ProxyRemote * http://&lt;up stream proxy&gt;:3128/
-&lt;/VirtualHost&gt;
+<p>If you do NOT have an upstream proxy:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="o">./</span><span class="n">apache_setup</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
-<p>NOTE: if you need to relay through an upstream proxy to have access to the ubuntu
-and centos mirrors, enable the <cite>ProxyRemote</cite> line and update it with the upstream proxy.
-Now create the static site <cite>/etc/apache2/sites-available/static.conf</cite> with the following:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;VirtualHost *:80&gt;
-  ServerName static
-  ServerAlias static.site1.test
-
-  DocumentRoot /var/www/static
-
-  LogFormat &quot;%a %t %D \&quot;%r\&quot; %&gt;s %I %O \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot; %X&quot; static_log
-  ErrorLog ${APACHE_LOG_DIR}/static_error.log
-  CustomLog ${APACHE_LOG_DIR}/static_access.log static_log
-&lt;/VirtualHost&gt;
-</pre></div>
-</div>
-<p>Modify <cite>/etc/apache2/sites-available/contractor.conf</cite> and enable the ServerAlias
-line, and change the <cite>&lt;domain&gt;</cite> to <cite>site1.test</cite></p>
-<p>Now enable the proxy and static site, disable the default site, and reload the
-apache configuration:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">a2ensite</span> <span class="n">proxy</span>
-<span class="n">sudo</span> <span class="n">a2ensite</span> <span class="n">static</span>
-<span class="n">sudo</span> <span class="n">a2dissite</span> <span class="mi">000</span><span class="o">-</span><span class="n">default</span>
-<span class="n">sudo</span> <span class="n">a2enmod</span> <span class="n">proxy</span> <span class="n">proxy_connect</span> <span class="n">proxy_ftp</span> <span class="n">proxy_http</span> <span class="n">cache_disk</span> <span class="n">cache</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">restart</span> <span class="n">apache2</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">start</span> <span class="n">apache</span><span class="o">-</span><span class="n">htcacheclean</span>
+<p>if you do have an upstream proxy:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">UPSTREAM_PROXY</span><span class="o">=&lt;</span><span class="n">upstream</span> <span class="n">proxy</span><span class="p">,</span> <span class="n">ie</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">myproxy</span><span class="p">:</span><span class="mi">3128</span><span class="o">/&gt;</span> <span class="n">sudo</span> <span class="o">./</span><span class="n">apache_setup</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
 </div>
@@ -236,10 +256,6 @@ on the internal network:</p>
 </div><p>We will be using the HTTP API to inject new stuff into contractor.
 You can run these commands from either the contractor VM, or any place that can make
 http requests to contractor.</p>
-<p>we will be using curl, make sure it is installed:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">curl</span>
-</pre></div>
-</div>
 <p>First we will define some Environment values so we don’t have to keep tying redundant info
 the Contractor server.  This is assuming you will be running these commands from
 the contractor VM, if you are running these steps from someplace else, update the
@@ -508,67 +524,28 @@ boot problems. Make sure to run <cite>systemctl restart tftpd-hpa</cite> to relo
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Installing</a><ul>
-<li><a class="reference internal" href="#from-source">From Source</a></li>
-<li><a class="reference internal" href="#from-packages">From Packages</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#setup">Setup</a><ul>
-<li><a class="reference internal" href="#set-up-infrastructure">Set up Infrastructure</a></li>
-<li><a class="reference internal" href="#create-database">Create Database</a></li>
-<li><a class="reference internal" href="#configure-apache">Configure Apache</a></li>
-<li><a class="reference internal" href="#setup-the-database">Setup the database</a></li>
-<li><a class="reference internal" href="#environment-setup">Environment Setup</a></li>
-<li><a class="reference internal" href="#http-requests-note">HTTP Requests Note</a></li>
-<li><a class="reference internal" href="#network-configuration">Network Configuration</a></li>
-<li><a class="reference internal" href="#starting-dns">Starting DNS</a></li>
-<li><a class="reference internal" href="#subcontractor">Subcontractor</a></li>
-<li><a class="reference internal" href="#next-steps">Next Steps</a></li>
-</ul>
-</li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../index.html">Documentation overview</a><ul>
-  <li><a href="../index.html">Contractor</a><ul>
-  <li><a href="index.html">Give it a Try</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">Give it a Try</a></li>
-      <li>Next: <a href="packaged.html" title="next chapter">From Prebuilt Packages</a></li>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2019, Peter Howe.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
-      
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="packaged.html" title="From Prebuilt Packages"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Give it a Try"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">t3kton 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Contractor</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Give it a Try</a> &#187;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Peter Howe.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
   </body>
 </html>

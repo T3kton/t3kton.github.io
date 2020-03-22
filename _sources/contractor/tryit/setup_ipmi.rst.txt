@@ -12,4 +12,8 @@ new network, and assign the ip `10.0.0.10` to that interface.
 In the `/etc/subcontractor.conf` file under the `dhcpd` section, set
 the `listen_interface` to the name of the newly created interface.
 
+Now you will need to install ipmitool::
+
+  sudo apt install -y ipmitool
+
 return to :ref:`contractor/tryit/installing:setup`

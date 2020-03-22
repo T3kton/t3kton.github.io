@@ -18,9 +18,7 @@ and installing::
   sudo apt install -y software-properties-common
   sudo add-apt-repository -y ppa:pnhowe/t3kton
   sudo apt update
-  sudo apt install -y git ntp apache2 bc bind9 bind9utils build-essential gettext gperf libapache2-mod-wsgi-py3 libassuan-dev libblkid-dev libbz2-dev libdevmapper-dev libelf-dev libgcrypt-dev libgpg-error-dev libksba-dev liblzma-dev libnpth0-dev libreadline-dev libsqlite3-dev nodejs npm pkg-config python3-cinp python3-dev python3-dhcplib python3-django python3-jinja2 python3-parsimonious python3-pip python3-psycopg2 python3-pymongo python3-setuptools python3-toml python3-werkzeug respkg uuid-dev xorriso zlib1g-dev
-
-Create an empty directory, and cd into it
+  sudo apt install -y git ntp apache2 bind9 bind9utils build-essential libapache2-mod-wsgi-py3 libbz2-dev liblzma-dev libsqlite3-dev nodejs npm python3-cinp python3-dev python3-dhcplib python3-django python3-jinja2 python3-parsimonious python3-pip python3-psycopg2 python3-pymongo python3-setuptools python3-toml python3-werkzeug respkg xorriso 
 
 First clone the contractor and related projects::
 
@@ -45,14 +43,10 @@ and build the resources.  The make in the resources and disks can take a while::
 
   for i in contractor_plugins resources; do cd $i && make -j2 respkg && mv *.respkg .. && cd ..; done
 
-If you are doing AMT or IPMI, you will need the bootstrap PXE, that is built with::
+If you are doing AMT or IPMI, you will need the PXE images, that is built with::
 
   git clone https://github.com/T3kton/disks.git
-  cd disks
-  make -j2
-  make respkg
-  mv *.respkg ..
-  cd ..
+  cd disks ; make -j2; make respkg; mv *.respkg ..; cd ..
 
 Now to install the python code, NOTE the Makefile will call './setup.py install' for you::
 
