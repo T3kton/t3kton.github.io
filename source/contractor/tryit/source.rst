@@ -1,3 +1,5 @@
+.. highlight:: bash
+
 From Source
 -----------
 
@@ -18,7 +20,7 @@ and installing::
   sudo apt install -y software-properties-common
   sudo add-apt-repository -y ppa:pnhowe/t3kton
   sudo apt update
-  sudo apt install -y git ntp apache2 bind9 bind9utils build-essential libapache2-mod-wsgi-py3 libbz2-dev liblzma-dev libsqlite3-dev nodejs npm python3-cinp python3-dev python3-dhcplib python3-django python3-jinja2 python3-parsimonious python3-pip python3-psycopg2 python3-pymongo python3-setuptools python3-toml python3-werkzeug respkg xorriso 
+  sudo apt install -y git ntp apache2 bind9 bind9utils build-essential libapache2-mod-wsgi-py3 libbz2-dev liblzma-dev libsqlite3-dev nodejs npm python3-cinp python3-dev python3-dhcplib python3-django python3-jinja2 python3-parsimonious python3-pip python3-psycopg2 python3-pymongo python3-setuptools python3-toml python3-werkzeug respkg xorriso
 
 First clone the contractor and related projects::
 

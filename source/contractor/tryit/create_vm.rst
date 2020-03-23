@@ -1,3 +1,5 @@
+.. highlight:: bash
+
 Creating a VM (Ubuntu)
 ~~~~~~~~~~~~~~~~~~~~~~
 

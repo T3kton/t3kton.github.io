@@ -1,3 +1,5 @@
+.. highlight:: bash
+
 From Prebuilt Packages
 ----------------------
 
@@ -7,8 +9,8 @@ First we will need the PPA with the cinp and respkg packages::
   sudo add-apt-repository -y ppa:pnhowe/t3kton
   sudo apt update
 
-Now you can either Install from pre-built or Build the Packages your self and
-install from them.  After that make sure you build the resource files.
+Now you can either `Installing from pre-built packages`_ or `Building Packages`_.
+After that make sure you `Building the Resources`_.
 
 Installing from pre-built packages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -54,7 +56,7 @@ Install Packages::
 NOTE: the `dpkg -i` will fail to install all the packages due to missing the dependandices
 the `apt install -f` should fix all that.
 
-Building the resources
+Building the Resources
 ~~~~~~~~~~~~~~~~~~~~~~
 
 The resource packages are not hosted publicly so you will need to build them,
