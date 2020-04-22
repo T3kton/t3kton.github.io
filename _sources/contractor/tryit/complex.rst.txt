@@ -1,3 +1,5 @@
+.. highlight:: bash
+
 Setting up VM Host
 ------------------
 

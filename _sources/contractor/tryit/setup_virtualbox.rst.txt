@@ -1,3 +1,5 @@
+.. highlight:: bash
+
 VirtualBox Setup
 ----------------
 

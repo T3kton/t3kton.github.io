@@ -107,26 +107,26 @@ the <cite>listen_interface</cite> to the name of the newly created interface.</p
 <p>Normally vboxwebservice will expect the username and password of the user you
 are using to run virtualbox.  If you want to disable auth so you do not need
 to put your password in the virtualbox config, run this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">vboxmanage</span> <span class="n">setproperty</span> <span class="n">websrvauthlibrary</span> <span class="n">null</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>vboxmanage setproperty websrvauthlibrary null
 </pre></div>
 </div>
 <p>windows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">vboxmanage</span><span class="o">.</span><span class="n">exe</span> <span class="n">setproperty</span> <span class="n">websrvauthlibrary</span> <span class="n">null</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>vboxmanage.exe setproperty websrvauthlibrary null
 </pre></div>
 </div>
 <p>Now we need to start the VirtualBox Web Service so subcontractor can talk to it.
 If you specified an Ipv4 address other than 10.0.0.1 when setting up the Host
 Network you update this command to refelect that change.  On the machine you are
 running virtualbox run (if you are using linux):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">vboxwebsrv</span> <span class="o">-</span><span class="n">H</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.1</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>vboxwebsrv -H <span class="m">10</span>.0.0.1
 </pre></div>
 </div>
 <p>windows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">vboxwebsrv</span><span class="o">.</span><span class="n">exe</span> <span class="o">-</span><span class="n">H</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">0.1</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>vboxwebsrv.exe -H <span class="m">10</span>.0.0.1
 </pre></div>
 </div>
 <p>Now you will need to install python3-zeep:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">python3</span><span class="o">-</span><span class="n">zeep</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo apt install -y python3-zeep
 </pre></div>
 </div>
 <p>return to <a class="reference internal" href="installing.html#setup"><span class="std std-ref">Setup</span></a></p>

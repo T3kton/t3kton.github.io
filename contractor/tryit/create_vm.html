@@ -98,51 +98,51 @@
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
     <iframe src="https://www.youtube.com/embed/6NyUwhYWN48" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
 </div><p>First we need to load the ubuntu blueprints:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">ubuntu</span><span class="o">-</span><span class="n">base_</span><span class="o">*.</span><span class="n">respkg</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo respkg -i contractor-ubuntu-base_*.respkg
 </pre></div>
 </div>
 <p>Now we create the Foundation of the VM to be created:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/$FMDL
-{ &quot;site&quot;: &quot;$SITE&quot;, &quot;locator&quot;: &quot;testvm01&quot;, &quot;blueprint&quot;: &quot;$FBP&quot; $FDATA }
-EOF
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cat <span class="s">&lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/$FMDL</span>
+<span class="s">{ &quot;site&quot;: &quot;$SITE&quot;, &quot;locator&quot;: &quot;testvm01&quot;, &quot;blueprint&quot;: &quot;$FBP&quot; $FDATA }</span>
+<span class="s">EOF</span>
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;VirtualBox&quot;</span><span class="p">,</span> <span class="s2">&quot;id_map&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;virtualbox_complex&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/VirtualBox/VirtualBoxComplex:demovbox:&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:virtualbox-vm-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;locator&quot;</span><span class="p">:</span> <span class="s2">&quot;tesvm01&quot;</span><span class="p">,</span> <span class="s2">&quot;located_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-20T04:58:52.855473+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-20T04:58:52.855507+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;class_list&quot;</span><span class="p">:</span> <span class="s2">&quot;[&#39;VM&#39;, &#39;VirtualBox&#39;]&quot;</span><span class="p">,</span> <span class="s2">&quot;virtualbox_uuid&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">{</span><span class="s2">&quot;state&quot;</span>: <span class="s2">&quot;planned&quot;</span>, <span class="s2">&quot;site&quot;</span>: <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span>, <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;VirtualBox&quot;</span>, <span class="s2">&quot;id_map&quot;</span>: <span class="s2">&quot;&quot;</span>, <span class="s2">&quot;virtualbox_complex&quot;</span>: <span class="s2">&quot;/api/v1/VirtualBox/VirtualBoxComplex:demovbox:&quot;</span>, <span class="s2">&quot;blueprint&quot;</span>: <span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:virtualbox-vm-base:&quot;</span>, <span class="s2">&quot;built_at&quot;</span>: null, <span class="s2">&quot;locator&quot;</span>: <span class="s2">&quot;tesvm01&quot;</span>, <span class="s2">&quot;located_at&quot;</span>: null, <span class="s2">&quot;updated&quot;</span>: <span class="s2">&quot;2019-02-20T04:58:52.855473+00:00&quot;</span>, <span class="s2">&quot;created&quot;</span>: <span class="s2">&quot;2019-02-20T04:58:52.855507+00:00&quot;</span>, <span class="s2">&quot;class_list&quot;</span>: <span class="s2">&quot;[&#39;VM&#39;, &#39;VirtualBox&#39;]&quot;</span>, <span class="s2">&quot;virtualbox_uuid&quot;</span>: null<span class="o">}</span>
 </pre></div>
 </div>
 <p>create the interface:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
-{ &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:testvm01:&quot;, &quot;name&quot;: &quot;eth0&quot;, &quot;physical_location&quot;: &quot;eth0&quot;, &quot;network&quot;: &quot;$NETWORK&quot;, &quot;is_provisioning&quot;: true }
-EOF
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cat <span class="s">&lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface</span>
+<span class="s">{ &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:testvm01:&quot;, &quot;name&quot;: &quot;eth0&quot;, &quot;physical_location&quot;: &quot;eth0&quot;, &quot;network&quot;: &quot;$NETWORK&quot;, &quot;is_provisioning&quot;: true }</span>
+<span class="s">EOF</span>
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;is_provisioning&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Network:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-27T04:01:42.209918+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:testvm01:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-10-27T04:01:42.209881+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;link_name&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">{</span><span class="s2">&quot;mac&quot;</span>: null, <span class="s2">&quot;is_provisioning&quot;</span>: true, <span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;eth0&quot;</span>, <span class="s2">&quot;physical_location&quot;</span>: <span class="s2">&quot;eth0&quot;</span>, <span class="s2">&quot;network&quot;</span>: <span class="s2">&quot;/api/v1/Utilities/Network:2:&quot;</span>, <span class="s2">&quot;created&quot;</span>: <span class="s2">&quot;2019-10-27T04:01:42.209918+00:00&quot;</span>, <span class="s2">&quot;foundation&quot;</span>: <span class="s2">&quot;/api/v1/Building/Foundation:testvm01:&quot;</span>, <span class="s2">&quot;updated&quot;</span>: <span class="s2">&quot;2019-10-27T04:01:42.209881+00:00&quot;</span>, <span class="s2">&quot;link_name&quot;</span>: null, <span class="s2">&quot;pxe&quot;</span>: null<span class="o">}</span>
 </pre></div>
 </div>
 <p>Now we will create a VM with the Ubuntu Bionic blueprint:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/Structure
-{ &quot;site&quot;: &quot;$SITE&quot;, &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:testvm01:&quot;, &quot;hostname&quot;: &quot;testvm01&quot;, &quot;blueprint&quot;: &quot;/api/v1/BluePrint/StructureBluePrint:ubuntu-bionic-base:&quot; }
-EOF
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cat <span class="s">&lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/Structure</span>
+<span class="s">{ &quot;site&quot;: &quot;$SITE&quot;, &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:testvm01:&quot;, &quot;hostname&quot;: &quot;testvm01&quot;, &quot;blueprint&quot;: &quot;/api/v1/BluePrint/StructureBluePrint:ubuntu-bionic-base:&quot; }</span>
+<span class="s">EOF</span>
 </pre></div>
 </div>
 <p>once again take node of the structure id.  Now we assign and ip address, we will
 let contractor pick, we are going to use the helper method <cite>nextAddress</cite>.  Replace
 <cite>&lt; structure id &gt;</cite> with the structure id from the previous call:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">&lt;&lt;</span> <span class="n">EOF</span> <span class="o">|</span> <span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">--</span><span class="n">data</span> <span class="o">@-</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">$</span><span class="si">{ADRBLK}</span><span class="s2">(nextAddress)&quot;</span>
-<span class="p">{</span> <span class="s2">&quot;networked&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Networked:&lt; structure id &gt;:&quot;</span><span class="p">,</span> <span class="s2">&quot;interface_name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_primary&quot;</span><span class="p">:</span> <span class="n">true</span> <span class="p">}</span>
-<span class="n">EOF</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cat <span class="s">&lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CALL &quot;${CHOST}${ADRBLK}(nextAddress)&quot;</span>
+<span class="s">{ &quot;networked&quot;: &quot;/api/v1/Utilities/Networked:&lt; structure id &gt;:&quot;, &quot;interface_name&quot;: &quot;eth0&quot;, &quot;is_primary&quot;: true }</span>
+<span class="s">EOF</span>
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;/api/v1/Utilities/Address:30:&quot;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="s2">&quot;/api/v1/Utilities/Address:30:&quot;</span>
 </pre></div>
 </div>
 <p>Contractor will not auto-start the create (nor destroy) jobs.  So we need to add two
 jobs, one to create the Foundation and one to create the Structure:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Foundation:testvm01:(doCreate)&quot;</span>
-<span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Structure:&lt; structure id &gt;:(doCreate)&quot;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COPS</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> -X CALL <span class="s2">&quot;</span><span class="si">${</span><span class="nv">CHOST</span><span class="si">}</span><span class="s2">/api/v1/Building/Foundation:testvm01:(doCreate)&quot;</span>
+curl <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COPS</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> -X CALL <span class="s2">&quot;</span><span class="si">${</span><span class="nv">CHOST</span><span class="si">}</span><span class="s2">/api/v1/Building/Structure:&lt; structure id &gt;:(doCreate)&quot;</span>
 </pre></div>
 </div>
 <p>Now to see it get built.  Pull up the <cite>http://&lt;contractor ip&gt;</cite>
@@ -153,18 +153,18 @@ page is a refresh and auto refresh buttons.</p>
 <p>After the Foundation job completes, a Structure job will auto start, after it completes
 your VM should be up and sshable, however the default for ubuntu is to disallow sshing
 as root, but we can show the ssh service is listening:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nc</span> <span class="o">-</span><span class="n">vz</span> <span class="n">testvm01</span> <span class="mi">22</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>nc -vz testvm01 <span class="m">22</span>
 </pre></div>
 </div>
 <p>should output something like:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>Connection to testvm01 22 port [tcp/ssh] succeeded!
+<div class="highlight-bash"><div class="highlight"><pre><span></span>Connection to testvm01 <span class="m">22</span> port <span class="o">[</span>tcp/ssh<span class="o">]</span> succeeded!
 </pre></div>
 </div>
 <p>If you pull up the console, the default root password is “root”.</p>
 <p>After you have verified that it is there, logout of the test vm and kick off a
 job to clean it up:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Foundation:testvm01:(doDestroy)&quot;</span>
-<span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Structure:&lt; structure id &gt;:(doDestroy)&quot;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COPS</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> -X CALL <span class="s2">&quot;</span><span class="si">${</span><span class="nv">CHOST</span><span class="si">}</span><span class="s2">/api/v1/Building/Foundation:testvm01:(doDestroy)&quot;</span>
+curl <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COPS</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> -X CALL <span class="s2">&quot;</span><span class="si">${</span><span class="nv">CHOST</span><span class="si">}</span><span class="s2">/api/v1/Building/Structure:&lt; structure id &gt;:(doDestroy)&quot;</span>
 </pre></div>
 </div>
 <p>After those jobs have completed you can call the doCreate again to rebuild them.</p>
@@ -174,68 +174,68 @@ job to clean it up:</p>
 <p>Ok, let’s create a centos VM now, is’t all the same as the ubuntu VM except the
 blueprint we choose.</p>
 <p>Load the centos Blueprints:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">centos</span><span class="o">-</span><span class="n">base_</span><span class="o">*.</span><span class="n">respkg</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo respkg -i contractor-centos-base_*.respkg
 </pre></div>
 </div>
 <p>Foundation:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/$FMDL
-{ &quot;site&quot;: &quot;$SITE&quot;, &quot;locator&quot;: &quot;testvm02&quot;, &quot;blueprint&quot;: &quot;$FBP&quot; $FDATA }
-EOF
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cat <span class="s">&lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/$FMDL</span>
+<span class="s">{ &quot;site&quot;: &quot;$SITE&quot;, &quot;locator&quot;: &quot;testvm02&quot;, &quot;blueprint&quot;: &quot;$FBP&quot; $FDATA }</span>
+<span class="s">EOF</span>
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;VirtualBox&quot;</span><span class="p">,</span> <span class="s2">&quot;id_map&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;virtualbox_complex&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/VirtualBox/VirtualBoxComplex:demovbox:&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:virtualbox-vm-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;locator&quot;</span><span class="p">:</span> <span class="s2">&quot;tesvm01&quot;</span><span class="p">,</span> <span class="s2">&quot;located_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-20T04:58:52.855473+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-20T04:58:52.855507+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;class_list&quot;</span><span class="p">:</span> <span class="s2">&quot;[&#39;VM&#39;, &#39;VirtualBox&#39;]&quot;</span><span class="p">,</span> <span class="s2">&quot;virtualbox_uuid&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">}</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">{</span><span class="s2">&quot;state&quot;</span>: <span class="s2">&quot;planned&quot;</span>, <span class="s2">&quot;site&quot;</span>: <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span>, <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;VirtualBox&quot;</span>, <span class="s2">&quot;id_map&quot;</span>: <span class="s2">&quot;&quot;</span>, <span class="s2">&quot;virtualbox_complex&quot;</span>: <span class="s2">&quot;/api/v1/VirtualBox/VirtualBoxComplex:demovbox:&quot;</span>, <span class="s2">&quot;blueprint&quot;</span>: <span class="s2">&quot;/api/v1/BluePrint/FoundationBluePrint:virtualbox-vm-base:&quot;</span>, <span class="s2">&quot;built_at&quot;</span>: null, <span class="s2">&quot;locator&quot;</span>: <span class="s2">&quot;tesvm01&quot;</span>, <span class="s2">&quot;located_at&quot;</span>: null, <span class="s2">&quot;updated&quot;</span>: <span class="s2">&quot;2019-02-20T04:58:52.855473+00:00&quot;</span>, <span class="s2">&quot;created&quot;</span>: <span class="s2">&quot;2019-02-20T04:58:52.855507+00:00&quot;</span>, <span class="s2">&quot;class_list&quot;</span>: <span class="s2">&quot;[&#39;VM&#39;, &#39;VirtualBox&#39;]&quot;</span>, <span class="s2">&quot;virtualbox_uuid&quot;</span>: null<span class="o">}</span>
 </pre></div>
 </div>
 <p>create the interface:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface
-{ &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:testvm02:&quot;, &quot;name&quot;: &quot;eth0&quot;, &quot;physical_location&quot;: &quot;eth0&quot;, &quot;network&quot;: &quot;$NETWORK&quot;, &quot;is_provisioning&quot;: true }
-EOF
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cat <span class="s">&lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/RealNetworkInterface</span>
+<span class="s">{ &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:testvm02:&quot;, &quot;name&quot;: &quot;eth0&quot;, &quot;physical_location&quot;: &quot;eth0&quot;, &quot;network&quot;: &quot;$NETWORK&quot;, &quot;is_provisioning&quot;: true }</span>
+<span class="s">EOF</span>
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;pxe&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_provisioning&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="s2">&quot;physical_location&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Network:2:&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-25T14:28:36.245466+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:testvm02:&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-02-25T14:28:36.245500+00:00&quot;</span><span class="p">}</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">{</span><span class="s2">&quot;pxe&quot;</span>: null, <span class="s2">&quot;name&quot;</span>: <span class="s2">&quot;eth0&quot;</span>, <span class="s2">&quot;is_provisioning&quot;</span>: true, <span class="s2">&quot;physical_location&quot;</span>: <span class="s2">&quot;eth0&quot;</span>, <span class="s2">&quot;network&quot;</span>: <span class="s2">&quot;/api/v1/Utilities/Network:2:&quot;</span>, <span class="s2">&quot;updated&quot;</span>: <span class="s2">&quot;2019-02-25T14:28:36.245466+00:00&quot;</span>, <span class="s2">&quot;mac&quot;</span>: null, <span class="s2">&quot;foundation&quot;</span>: <span class="s2">&quot;/api/v1/Building/Foundation:testvm02:&quot;</span>, <span class="s2">&quot;created&quot;</span>: <span class="s2">&quot;2019-02-25T14:28:36.245500+00:00&quot;</span><span class="o">}</span>
 </pre></div>
 </div>
 <p>Now we will create a VM with the CentOS7 blueprint:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/Structure
-{ &quot;site&quot;: &quot;$SITE&quot;, &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:testvm02:&quot;, &quot;hostname&quot;: &quot;testvm02&quot;, &quot;blueprint&quot;: &quot;/api/v1/BluePrint/StructureBluePrint:centos-7-base:&quot; }
-EOF
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cat <span class="s">&lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Building/Structure</span>
+<span class="s">{ &quot;site&quot;: &quot;$SITE&quot;, &quot;foundation&quot;: &quot;/api/v1/Building/Foundation:testvm02:&quot;, &quot;hostname&quot;: &quot;testvm02&quot;, &quot;blueprint&quot;: &quot;/api/v1/BluePrint/StructureBluePrint:centos-7-base:&quot; }</span>
+<span class="s">EOF</span>
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">201</span> <span class="n">CREATED</span>
-<span class="n">Date</span><span class="p">:</span> <span class="n">Mon</span><span class="p">,</span> <span class="mi">11</span> <span class="n">Mar</span> <span class="mi">2019</span> <span class="mi">13</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">58</span> <span class="n">GMT</span>
-<span class="n">Server</span><span class="p">:</span> <span class="n">Apache</span><span class="o">/</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">18</span> <span class="p">(</span><span class="n">Ubuntu</span><span class="p">)</span>
-<span class="n">Cache</span><span class="o">-</span><span class="n">Control</span><span class="p">:</span> <span class="n">no</span><span class="o">-</span><span class="n">cache</span>
-<span class="n">Verb</span><span class="p">:</span> <span class="n">CREATE</span>
-<span class="n">Cinp</span><span class="o">-</span><span class="n">Version</span><span class="p">:</span> <span class="mf">0.9</span>
-<span class="n">Object</span><span class="o">-</span><span class="n">Id</span><span class="p">:</span> <span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">Building</span><span class="o">/</span><span class="n">Structure</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span>
-<span class="n">Access</span><span class="o">-</span><span class="n">Control</span><span class="o">-</span><span class="n">Expose</span><span class="o">-</span><span class="n">Headers</span><span class="p">:</span> <span class="n">Method</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Cinp</span><span class="o">-</span><span class="n">Version</span><span class="p">,</span> <span class="n">Count</span><span class="p">,</span> <span class="n">Position</span><span class="p">,</span> <span class="n">Total</span><span class="p">,</span> <span class="n">Multi</span><span class="o">-</span><span class="n">Object</span><span class="p">,</span> <span class="n">Object</span><span class="o">-</span><span class="n">Id</span><span class="p">,</span> <span class="n">Id</span><span class="o">-</span><span class="n">Only</span>
-<span class="n">Access</span><span class="o">-</span><span class="n">Control</span><span class="o">-</span><span class="n">Allow</span><span class="o">-</span><span class="n">Origin</span><span class="p">:</span> <span class="o">*</span>
-<span class="n">Content</span><span class="o">-</span><span class="n">Length</span><span class="p">:</span> <span class="mi">413</span>
-<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="p">:</span> <span class="n">application</span><span class="o">/</span><span class="n">json</span><span class="p">;</span><span class="n">charset</span><span class="o">=</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>HTTP/1.1 <span class="m">201</span> CREATED
+Date: Mon, <span class="m">11</span> Mar <span class="m">2019</span> <span class="m">13</span>:45:58 GMT
+Server: Apache/2.4.18 <span class="o">(</span>Ubuntu<span class="o">)</span>
+Cache-Control: no-cache
+Verb: CREATE
+Cinp-Version: <span class="m">0</span>.9
+Object-Id: /api/v1/Building/Structure:4:
+Access-Control-Expose-Headers: Method, Type, Cinp-Version, Count, Position, Total, Multi-Object, Object-Id, Id-Only
+Access-Control-Allow-Origin: *
+Content-Length: <span class="m">413</span>
+Content-Type: application/json<span class="p">;</span><span class="nv">charset</span><span class="o">=</span>utf-8
 
-<span class="p">{</span><span class="s2">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;testvm02&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-11T13:45:58.963923+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;config_values&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;config_uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;d8821d29-f884-4c2d-af63-7d0292b2ce41&quot;</span><span class="p">,</span> <span class="s2">&quot;updated&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-11T13:45:58.963901+00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;blueprint&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/BluePrint/StructureBluePrint:centos-7-base:&quot;</span><span class="p">,</span> <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span><span class="p">,</span> <span class="s2">&quot;foundation&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Building/Foundation:testvm02:&quot;</span><span class="p">,</span> <span class="s2">&quot;built_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;planned&quot;</span><span class="p">}</span>
+<span class="o">{</span><span class="s2">&quot;hostname&quot;</span>: <span class="s2">&quot;testvm02&quot;</span>, <span class="s2">&quot;created&quot;</span>: <span class="s2">&quot;2019-03-11T13:45:58.963923+00:00&quot;</span>, <span class="s2">&quot;config_values&quot;</span>: null, <span class="s2">&quot;config_uuid&quot;</span>: <span class="s2">&quot;d8821d29-f884-4c2d-af63-7d0292b2ce41&quot;</span>, <span class="s2">&quot;updated&quot;</span>: <span class="s2">&quot;2019-03-11T13:45:58.963901+00:00&quot;</span>, <span class="s2">&quot;blueprint&quot;</span>: <span class="s2">&quot;/api/v1/BluePrint/StructureBluePrint:centos-7-base:&quot;</span>, <span class="s2">&quot;site&quot;</span>: <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span>, <span class="s2">&quot;foundation&quot;</span>: <span class="s2">&quot;/api/v1/Building/Foundation:testvm02:&quot;</span>, <span class="s2">&quot;built_at&quot;</span>: null, <span class="s2">&quot;state&quot;</span>: <span class="s2">&quot;planned&quot;</span><span class="o">}</span>
 </pre></div>
 </div>
 <p>and assign the ip address, make sure to use the structure id from the testvm02 structure:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">&lt;&lt;</span> <span class="n">EOF</span> <span class="o">|</span> <span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">--</span><span class="n">data</span> <span class="o">@-</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">$</span><span class="si">{ADRBLK}</span><span class="s2">(nextAddress)&quot;</span>
-<span class="p">{</span> <span class="s2">&quot;networked&quot;</span><span class="p">:</span> <span class="s2">&quot;/api/v1/Utilities/Networked:&lt; structure id &gt;:&quot;</span><span class="p">,</span> <span class="s2">&quot;interface_name&quot;</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span><span class="p">,</span> <span class="s2">&quot;is_primary&quot;</span><span class="p">:</span> <span class="n">true</span> <span class="p">}</span>
-<span class="n">EOF</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>cat <span class="s">&lt;&lt; EOF | curl &quot;${COPS[@]}&quot; --data @- -X CALL &quot;${CHOST}${ADRBLK}(nextAddress)&quot;</span>
+<span class="s">{ &quot;networked&quot;: &quot;/api/v1/Utilities/Networked:&lt; structure id &gt;:&quot;, &quot;interface_name&quot;: &quot;eth0&quot;, &quot;is_primary&quot;: true }</span>
+<span class="s">EOF</span>
 </pre></div>
 </div>
 <p>result:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;/api/v1/Utilities/Address:30:&quot;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="s2">&quot;/api/v1/Utilities/Address:30:&quot;</span>
 </pre></div>
 </div>
 <p>Once again create the create jobs:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Foundation:testvm02:(doCreate)&quot;</span>
-<span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Structure:&lt; structure id &gt;:(doCreate)&quot;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COPS</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> -X CALL <span class="s2">&quot;</span><span class="si">${</span><span class="nv">CHOST</span><span class="si">}</span><span class="s2">/api/v1/Building/Foundation:testvm02:(doCreate)&quot;</span>
+curl <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COPS</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> -X CALL <span class="s2">&quot;</span><span class="si">${</span><span class="nv">CHOST</span><span class="si">}</span><span class="s2">/api/v1/Building/Structure:&lt; structure id &gt;:(doCreate)&quot;</span>
 </pre></div>
 </div>
 <p>Again the jobs should be running to create the CentOS VM.  When it is done, ssh in:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="n">root</span><span class="nd">@testvm02</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>ssh root@testvm02
 </pre></div>
 </div>
 <p>Once again the root password is “root”, go a head and play around with it for a bit.

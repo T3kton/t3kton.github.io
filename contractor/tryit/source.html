@@ -104,68 +104,68 @@
 <p>Building requires running on a Ubuntu Bionic(10.04 LTS) machine, make sure you have at least 10GB of free space.</p>
 <p>Install the required build tools, the PPA has a few required packages for building
 and installing:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">software</span><span class="o">-</span><span class="n">properties</span><span class="o">-</span><span class="n">common</span>
-<span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="o">-</span><span class="n">y</span> <span class="n">ppa</span><span class="p">:</span><span class="n">pnhowe</span><span class="o">/</span><span class="n">t3kton</span>
-<span class="n">sudo</span> <span class="n">apt</span> <span class="n">update</span>
-<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">git</span> <span class="n">ntp</span> <span class="n">apache2</span> <span class="n">bind9</span> <span class="n">bind9utils</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">libapache2</span><span class="o">-</span><span class="n">mod</span><span class="o">-</span><span class="n">wsgi</span><span class="o">-</span><span class="n">py3</span> <span class="n">libbz2</span><span class="o">-</span><span class="n">dev</span> <span class="n">liblzma</span><span class="o">-</span><span class="n">dev</span> <span class="n">libsqlite3</span><span class="o">-</span><span class="n">dev</span> <span class="n">nodejs</span> <span class="n">npm</span> <span class="n">python3</span><span class="o">-</span><span class="n">cinp</span> <span class="n">python3</span><span class="o">-</span><span class="n">dev</span> <span class="n">python3</span><span class="o">-</span><span class="n">dhcplib</span> <span class="n">python3</span><span class="o">-</span><span class="n">django</span> <span class="n">python3</span><span class="o">-</span><span class="n">jinja2</span> <span class="n">python3</span><span class="o">-</span><span class="n">parsimonious</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span> <span class="n">python3</span><span class="o">-</span><span class="n">psycopg2</span> <span class="n">python3</span><span class="o">-</span><span class="n">pymongo</span> <span class="n">python3</span><span class="o">-</span><span class="n">setuptools</span> <span class="n">python3</span><span class="o">-</span><span class="n">toml</span> <span class="n">python3</span><span class="o">-</span><span class="n">werkzeug</span> <span class="n">respkg</span> <span class="n">xorriso</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo apt install -y software-properties-common
+sudo add-apt-repository -y ppa:pnhowe/t3kton
+sudo apt update
+sudo apt install -y git ntp apache2 bind9 bind9utils build-essential libapache2-mod-wsgi-py3 libbz2-dev liblzma-dev libsqlite3-dev nodejs npm python3-cinp python3-dev python3-dhcplib python3-django python3-jinja2 python3-parsimonious python3-pip python3-psycopg2 python3-pymongo python3-setuptools python3-toml python3-werkzeug respkg xorriso
 </pre></div>
 </div>
 <p>First clone the contractor and related projects:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">contractor</span><span class="o">.</span><span class="n">git</span>
-<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">contractor_plugins</span><span class="o">.</span><span class="n">git</span>
-<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">subcontractor</span><span class="o">.</span><span class="n">git</span>
-<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">subcontractor_plugins</span><span class="o">.</span><span class="n">git</span>
-<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">resources</span><span class="o">.</span><span class="n">git</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/T3kton/contractor.git
+git clone https://github.com/T3kton/contractor_plugins.git
+git clone https://github.com/T3kton/subcontractor.git
+git clone https://github.com/T3kton/subcontractor_plugins.git
+git clone https://github.com/T3kton/resources.git
 </pre></div>
 </div>
 </div>
 <div class="section" id="build">
 <h2>Build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h2>
 <p>Now to build Contractor, first we need to get the node requirements for the UI, and fix a bug with react-toolbox:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">contractor</span>
-<span class="n">cd</span> <span class="n">ui</span> <span class="o">&amp;&amp;</span> <span class="n">npm</span> <span class="n">install</span>
-<span class="n">sed</span> <span class="n">s</span><span class="o">/</span><span class="s2">&quot;export Ripple from &#39;.\/ripple&#39;;&quot;</span><span class="o">/</span><span class="s2">&quot;export { default as Ripple } from &#39;.\/ripple&#39;;&quot;</span><span class="o">/</span> <span class="o">-</span><span class="n">i</span> <span class="n">node_modules</span><span class="o">/</span><span class="n">react</span><span class="o">-</span><span class="n">toolbox</span><span class="o">/</span><span class="n">components</span><span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">js</span>
-<span class="n">sed</span> <span class="n">s</span><span class="o">/</span><span class="s2">&quot;export Tooltip from &#39;.\/tooltip&#39;;&quot;</span><span class="o">/</span><span class="s2">&quot;export { default as Tooltip } from &#39;.\/tooltip&#39;;&quot;</span><span class="o">/</span> <span class="o">-</span><span class="n">i</span> <span class="n">node_modules</span><span class="o">/</span><span class="n">react</span><span class="o">-</span><span class="n">toolbox</span><span class="o">/</span><span class="n">components</span><span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">js</span>
-<span class="n">cd</span> <span class="o">../..</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> contractor
+<span class="nb">cd</span> ui <span class="o">&amp;&amp;</span> npm install
+sed s/<span class="s2">&quot;export Ripple from &#39;.\/ripple&#39;;&quot;</span>/<span class="s2">&quot;export { default as Ripple } from &#39;.\/ripple&#39;;&quot;</span>/ -i node_modules/react-toolbox/components/index.js
+sed s/<span class="s2">&quot;export Tooltip from &#39;.\/tooltip&#39;;&quot;</span>/<span class="s2">&quot;export { default as Tooltip } from &#39;.\/tooltip&#39;;&quot;</span>/ -i node_modules/react-toolbox/components/index.js
+<span class="nb">cd</span> ../..
 </pre></div>
 </div>
 <p>and build the resources.  The make in the resources and disks can take a while:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>for i in contractor_plugins resources; do cd $i &amp;&amp; make -j2 respkg &amp;&amp; mv *.respkg .. &amp;&amp; cd ..; done
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="k">for</span> i in contractor_plugins resources<span class="p">;</span> <span class="k">do</span> <span class="nb">cd</span> <span class="nv">$i</span> <span class="o">&amp;&amp;</span> make -j2 respkg <span class="o">&amp;&amp;</span> mv *.respkg .. <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ..<span class="p">;</span> <span class="k">done</span>
 </pre></div>
 </div>
 <p>If you are doing AMT or IPMI, you will need the PXE images, that is built with:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">disks</span><span class="o">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">disks</span> <span class="p">;</span> <span class="n">make</span> <span class="o">-</span><span class="n">j2</span><span class="p">;</span> <span class="n">make</span> <span class="n">respkg</span><span class="p">;</span> <span class="n">mv</span> <span class="o">*.</span><span class="n">respkg</span> <span class="o">..</span><span class="p">;</span> <span class="n">cd</span> <span class="o">..</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/T3kton/disks.git
+<span class="nb">cd</span> disks <span class="p">;</span> make -j2<span class="p">;</span> make respkg<span class="p">;</span> mv *.respkg ..<span class="p">;</span> <span class="nb">cd</span> ..
 </pre></div>
 </div>
 <p>Now to install the python code, NOTE the Makefile will call ‘./setup.py install’ for you:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">contractor</span>
-<span class="n">sudo</span> <span class="n">DESTDIR</span><span class="o">=/</span> <span class="n">make</span> <span class="n">install</span>
-<span class="n">sudo</span> <span class="n">cp</span> <span class="n">debian</span><span class="o">/</span><span class="n">cron</span><span class="o">.</span><span class="n">d</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cron</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">contractor</span>
-<span class="n">sudo</span> <span class="n">cp</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">contractor</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">sample</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">contractor</span><span class="o">.</span><span class="n">conf</span>
-<span class="n">sudo</span> <span class="n">ln</span> <span class="o">-</span><span class="n">sf</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">contractor</span><span class="o">.</span><span class="n">conf</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">/</span><span class="n">dist</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">settings</span><span class="o">.</span><span class="n">py</span>
-<span class="n">sudo</span> <span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">bind</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">zones</span>
-<span class="n">sudo</span> <span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span>
-<span class="n">sudo</span> <span class="n">a2ensite</span> <span class="n">contractor</span><span class="o">.</span><span class="n">conf</span>
-<span class="n">sudo</span> <span class="n">a2enmod</span> <span class="n">wsgi</span>
-<span class="n">cd</span> <span class="o">..</span>
-<span class="n">cd</span> <span class="n">contractor_plugins</span>
-<span class="n">sudo</span> <span class="n">DESTDIR</span><span class="o">=/</span> <span class="n">make</span> <span class="n">install</span>
-<span class="n">cd</span> <span class="o">..</span>
-<span class="n">cd</span> <span class="n">subcontractor</span>
-<span class="n">sudo</span> <span class="n">DESTDIR</span><span class="o">=/</span> <span class="n">make</span> <span class="n">install</span>
-<span class="n">sudo</span> <span class="n">cp</span> <span class="n">debian</span><span class="o">/</span><span class="n">dhcpd</span><span class="o">.</span><span class="n">service</span> <span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="n">system</span><span class="o">/</span>
-<span class="n">sudo</span> <span class="n">cp</span> <span class="n">debian</span><span class="o">/</span><span class="n">subcontractor</span><span class="o">.</span><span class="n">service</span> <span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="n">system</span><span class="o">/</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">enable</span> <span class="n">dhcpd</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">enable</span> <span class="n">subcontractor</span>
-<span class="n">cd</span> <span class="o">..</span>
-<span class="n">cd</span> <span class="n">subcontractor_plugins</span>
-<span class="n">sudo</span> <span class="n">DESTDIR</span><span class="o">=/</span> <span class="n">make</span> <span class="n">install</span>
-<span class="n">cd</span> <span class="o">..</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">daemon</span><span class="o">-</span><span class="n">reload</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">restart</span> <span class="n">cron</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">enable</span> <span class="n">subcontractor</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">enable</span> <span class="n">dhcpd</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> contractor
+sudo <span class="nv">DESTDIR</span><span class="o">=</span>/ make install
+sudo cp debian/cron.d /etc/cron.d/contractor
+sudo cp /etc/contractor.conf.sample /etc/contractor.conf
+sudo ln -sf /etc/contractor.conf /usr/lib/python3/dist-packages/contractor/settings.py
+sudo mkdir -p /etc/bind/contractor/zones
+sudo mkdir -p /var/lib/contractor
+sudo a2ensite contractor.conf
+sudo a2enmod wsgi
+<span class="nb">cd</span> ..
+<span class="nb">cd</span> contractor_plugins
+sudo <span class="nv">DESTDIR</span><span class="o">=</span>/ make install
+<span class="nb">cd</span> ..
+<span class="nb">cd</span> subcontractor
+sudo <span class="nv">DESTDIR</span><span class="o">=</span>/ make install
+sudo cp debian/dhcpd.service /lib/systemd/system/
+sudo cp debian/subcontractor.service /lib/systemd/system/
+sudo systemctl <span class="nb">enable</span> dhcpd
+sudo systemctl <span class="nb">enable</span> subcontractor
+<span class="nb">cd</span> ..
+<span class="nb">cd</span> subcontractor_plugins
+sudo <span class="nv">DESTDIR</span><span class="o">=</span>/ make install
+<span class="nb">cd</span> ..
+sudo systemctl daemon-reload
+sudo systemctl restart cron
+sudo systemctl <span class="nb">enable</span> subcontractor
+sudo systemctl <span class="nb">enable</span> dhcpd
 </pre></div>
 </div>
 <p>return to <a class="reference internal" href="installing.html#installing"><span class="std std-ref">Installing</span></a></p>

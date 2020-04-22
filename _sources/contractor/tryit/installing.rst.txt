@@ -1,3 +1,5 @@
+.. highlight:: bash
+
 Installing
 ----------
 
@@ -89,11 +91,11 @@ If you do NOT have an upstream proxy::
 
   sudo ./apache_setup.sh
 
-if you do have an upstream proxy::
+If you do have an upstream proxy::
 
-  UPSTREAM_PROXY=<upstream proxy, ie http://myproxy:3128/> sudo ./apache_setup.sh
+  UPSTREAM_PROXY=<upstream proxy, ie: http://myproxy:3128/> sudo ./apache_setup.sh
 
-Setup the database
+Setup the Database
 ~~~~~~~~~~~~~~~~~~
 
 Now to create the db::

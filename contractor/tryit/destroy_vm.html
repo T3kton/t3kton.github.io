@@ -95,26 +95,26 @@
   <div class="section" id="removing-the-vm-s">
 <h1>Removing the VM(s)<a class="headerlink" href="#removing-the-vm-s" title="Permalink to this headline">¶</a></h1>
 <p>We can either Delete the VMs with the <cite>boss</cite> command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">util</span><span class="o">/</span><span class="n">boss</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">structure</span> <span class="nb">id</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">destroy</span>
-<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">util</span><span class="o">/</span><span class="n">boss</span> <span class="o">-</span><span class="n">f</span> <span class="o">&lt;</span><span class="n">locator</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">destroy</span> <span class="o">--</span><span class="n">wait</span>
-<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">util</span><span class="o">/</span><span class="n">boss</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">structure</span> <span class="nb">id</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">delete</span>
-<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">util</span><span class="o">/</span><span class="n">boss</span> <span class="o">-</span><span class="n">f</span> <span class="o">&lt;</span><span class="n">locator</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">delete</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>/usr/lib/contractor/util/boss -s &lt;structure id&gt; --do-destroy
+/usr/lib/contractor/util/boss -f &lt;locator&gt; --do-destroy --wait
+/usr/lib/contractor/util/boss -s &lt;structure id&gt; --delete
+/usr/lib/contractor/util/boss -f &lt;locator&gt; --delete
 </pre></div>
 </div>
 <p>or via the API:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Structure:&lt; structure id &gt;:(doDestroy)&quot;</span>
-<span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Foundation:&lt; locator &gt;:(doDestroy)&quot;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COPS</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> -X CALL <span class="s2">&quot;</span><span class="si">${</span><span class="nv">CHOST</span><span class="si">}</span><span class="s2">/api/v1/Building/Structure:&lt; structure id &gt;:(doDestroy)&quot;</span>
+curl <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COPS</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> -X CALL <span class="s2">&quot;</span><span class="si">${</span><span class="nv">CHOST</span><span class="si">}</span><span class="s2">/api/v1/Building/Foundation:&lt; locator &gt;:(doDestroy)&quot;</span>
 </pre></div>
 </div>
 <p>wait for that job to complete, and finally:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">DELETE</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Structure:&lt; structure id &gt;:&quot;</span>
-<span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">DELETE</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Foundation:&lt; locator &gt;:&quot;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COPS</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> -X DELETE <span class="s2">&quot;</span><span class="si">${</span><span class="nv">CHOST</span><span class="si">}</span><span class="s2">/api/v1/Building/Structure:&lt; structure id &gt;:&quot;</span>
+curl <span class="s2">&quot;</span><span class="si">${</span><span class="nv">COPS</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span> -X DELETE <span class="s2">&quot;</span><span class="si">${</span><span class="nv">CHOST</span><span class="si">}</span><span class="s2">/api/v1/Building/Foundation:&lt; locator &gt;:&quot;</span>
 </pre></div>
 </div>
 <p>Now the VM is no longer in virtualbox/vcenter nor contractor.</p>
 <p>The <cite>boss</cite> command can also trigger jobs, and set the status of foundations and
 structures.  See:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">contractor</span><span class="o">/</span><span class="n">util</span><span class="o">/</span><span class="n">boss</span> <span class="o">--</span><span class="n">help</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>/usr/lib/contractor/util/boss --help
 </pre></div>
 </div>
 <p>for more info.</p>

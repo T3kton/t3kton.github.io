@@ -110,17 +110,17 @@ the <cite>listen_interface</cite> to the name of the newly created interface.</p
 <h2>VCenter GuestIDs<a class="headerlink" href="#vcenter-guestids" title="Permalink to this headline">¶</a></h2>
 <p>By default, the resources blueprint for CentOS Assume you are using VCenter 6.7
 or newer.  If you are using and older version of VCenter you will need to:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">resources</span>
-<span class="n">make</span> <span class="n">oldvcenter</span>
-<span class="n">make</span> <span class="n">respkg</span>
-<span class="n">mv</span> <span class="o">*.</span><span class="n">respkg</span> <span class="o">..</span>
-<span class="n">cd</span> <span class="o">..</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> resources
+make oldvcenter
+make respkg
+mv *.respkg ..
+<span class="nb">cd</span> ..
 </pre></div>
 </div>
 <p>Otherwise your VCenter/ESX will give you an <cite>invalidProperty = ‘configSpec.guestId’</cite>
 error when you build CentOS VMs.</p>
 <p>Now you will need to install python3-pyvmomi:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">python3</span><span class="o">-</span><span class="n">pyvmomi</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo apt install -y python3-pyvmomi
 </pre></div>
 </div>
 <p>return to <a class="reference internal" href="installing.html#setup"><span class="std std-ref">Setup</span></a></p>

@@ -67,7 +67,7 @@
 <li><a class="reference internal" href="#">From Prebuilt Packages</a><ul>
 <li><a class="reference internal" href="#installing-from-pre-built-packages">Installing from pre-built packages</a></li>
 <li><a class="reference internal" href="#building-packages">Building Packages</a></li>
-<li><a class="reference internal" href="#building-the-resources">Building the resources</a></li>
+<li><a class="reference internal" href="#building-the-resources">Building the Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -99,17 +99,17 @@
   <div class="section" id="from-prebuilt-packages">
 <h1>From Prebuilt Packages<a class="headerlink" href="#from-prebuilt-packages" title="Permalink to this headline">¶</a></h1>
 <p>First we will need the PPA with the cinp and respkg packages:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">software</span><span class="o">-</span><span class="n">properties</span><span class="o">-</span><span class="n">common</span>
-<span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="o">-</span><span class="n">y</span> <span class="n">ppa</span><span class="p">:</span><span class="n">pnhowe</span><span class="o">/</span><span class="n">t3kton</span>
-<span class="n">sudo</span> <span class="n">apt</span> <span class="n">update</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo apt install -y software-properties-common
+sudo add-apt-repository -y ppa:pnhowe/t3kton
+sudo apt update
 </pre></div>
 </div>
-<p>Now you can either Install from pre-built or Build the Packages your self and
-install from them.  After that make sure you build the resource files.</p>
+<p>Now you can either <a class="reference internal" href="#installing-from-pre-built-packages">Installing from pre-built packages</a> or <a class="reference internal" href="#building-packages">Building Packages</a>.
+After that make sure you <a class="reference internal" href="#building-the-resources">Building the Resources</a>.</p>
 <div class="section" id="installing-from-pre-built-packages">
 <h2>Installing from pre-built packages<a class="headerlink" href="#installing-from-pre-built-packages" title="Permalink to this headline">¶</a></h2>
 <p>Install:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">ntp</span> <span class="n">contractor</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span> <span class="n">subcontractor</span> <span class="n">subcontractor</span><span class="o">-</span><span class="n">plugins</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo apt install -y ntp contractor contractor-plugins subcontractor subcontractor-plugins
 </pre></div>
 </div>
 </div>
@@ -117,52 +117,52 @@ install from them.  After that make sure you build the resource files.</p>
 <h2>Building Packages<a class="headerlink" href="#building-packages" title="Permalink to this headline">¶</a></h2>
 <p>Install the required build tools, the PPA has a few required packages for building
 and installing:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">git</span> <span class="n">respkg</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">dpkg</span><span class="o">-</span><span class="n">dev</span> <span class="n">debhelper</span> <span class="n">python3</span><span class="o">-</span><span class="n">dev</span> <span class="n">python3</span><span class="o">-</span><span class="n">setuptools</span> <span class="n">nodejs</span> <span class="n">npm</span> <span class="n">liblzma</span><span class="o">-</span><span class="n">dev</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo apt install -y git respkg build-essential dpkg-dev debhelper python3-dev python3-setuptools nodejs npm liblzma-dev
 </pre></div>
 </div>
 <p>First clone the contractor and related projects:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">contractor</span><span class="o">.</span><span class="n">git</span>
-<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">contractor_plugins</span><span class="o">.</span><span class="n">git</span>
-<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">subcontractor</span><span class="o">.</span><span class="n">git</span>
-<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">subcontractor_plugins</span><span class="o">.</span><span class="n">git</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/T3kton/contractor.git
+git clone https://github.com/T3kton/contractor_plugins.git
+git clone https://github.com/T3kton/subcontractor.git
+git clone https://github.com/T3kton/subcontractor_plugins.git
 </pre></div>
 </div>
 <p>Now to build Contractor, first we need to get the node requirements for the UI, and fix a bug with react-toolbox:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">contractor</span>
-<span class="n">cd</span> <span class="n">ui</span> <span class="o">&amp;&amp;</span> <span class="n">npm</span> <span class="n">install</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="o">..</span>
-<span class="n">sed</span> <span class="n">s</span><span class="o">/</span><span class="s2">&quot;export Ripple from &#39;.\/ripple&#39;;&quot;</span><span class="o">/</span><span class="s2">&quot;export { default as Ripple } from &#39;.\/ripple&#39;;&quot;</span><span class="o">/</span> <span class="o">-</span><span class="n">i</span> <span class="n">ui</span><span class="o">/</span><span class="n">node_modules</span><span class="o">/</span><span class="n">react</span><span class="o">-</span><span class="n">toolbox</span><span class="o">/</span><span class="n">components</span><span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">js</span>
-<span class="n">sed</span> <span class="n">s</span><span class="o">/</span><span class="s2">&quot;export Tooltip from &#39;.\/tooltip&#39;;&quot;</span><span class="o">/</span><span class="s2">&quot;export { default as Tooltip } from &#39;.\/tooltip&#39;;&quot;</span><span class="o">/</span> <span class="o">-</span><span class="n">i</span> <span class="n">ui</span><span class="o">/</span><span class="n">node_modules</span><span class="o">/</span><span class="n">react</span><span class="o">-</span><span class="n">toolbox</span><span class="o">/</span><span class="n">components</span><span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">js</span>
-<span class="n">cd</span> <span class="o">..</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> contractor
+<span class="nb">cd</span> ui <span class="o">&amp;&amp;</span> npm install <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ..
+sed s/<span class="s2">&quot;export Ripple from &#39;.\/ripple&#39;;&quot;</span>/<span class="s2">&quot;export { default as Ripple } from &#39;.\/ripple&#39;;&quot;</span>/ -i ui/node_modules/react-toolbox/components/index.js
+sed s/<span class="s2">&quot;export Tooltip from &#39;.\/tooltip&#39;;&quot;</span>/<span class="s2">&quot;export { default as Tooltip } from &#39;.\/tooltip&#39;;&quot;</span>/ -i ui/node_modules/react-toolbox/components/index.js
+<span class="nb">cd</span> ..
 </pre></div>
 </div>
 <p>Now build the packages:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>for i in contractor subcontractor contractor_plugins subcontractor_plugins; do cd $i &amp;&amp; make dpkg &amp;&amp; cd ..; done
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="k">for</span> i in contractor subcontractor contractor_plugins subcontractor_plugins<span class="p">;</span> <span class="k">do</span> <span class="nb">cd</span> <span class="nv">$i</span> <span class="o">&amp;&amp;</span> make dpkg <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ..<span class="p">;</span> <span class="k">done</span>
 </pre></div>
 </div>
 <p>Install Packages:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">dpkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor_</span><span class="o">*.</span><span class="n">deb</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins_</span><span class="o">*.</span><span class="n">deb</span> <span class="n">subcontractor_</span><span class="o">*.</span><span class="n">deb</span> <span class="n">subcontractor</span><span class="o">-</span><span class="n">plugins_</span><span class="o">*.</span><span class="n">deb</span>
-<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">f</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">stop</span> <span class="n">dhcpd</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">stop</span> <span class="n">subcontractor</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo dpkg -i contractor_*.deb contractor-plugins_*.deb subcontractor_*.deb subcontractor-plugins_*.deb
+sudo apt install -f
+sudo systemctl stop dhcpd
+sudo systemctl stop subcontractor
 </pre></div>
 </div>
 <p>NOTE: the <cite>dpkg -i</cite> will fail to install all the packages due to missing the dependandices
 the <cite>apt install -f</cite> should fix all that.</p>
 </div>
 <div class="section" id="building-the-resources">
-<h2>Building the resources<a class="headerlink" href="#building-the-resources" title="Permalink to this headline">¶</a></h2>
+<h2>Building the Resources<a class="headerlink" href="#building-the-resources" title="Permalink to this headline">¶</a></h2>
 <p>The resource packages are not hosted publicly so you will need to build them,
 (you don’t need, to checkout contractor_plugins if you built the packages):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>sudo apt install git respkg build-essential liblzma-dev
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo apt install git respkg build-essential liblzma-dev
 git clone https://github.com/T3kton/resources.git
 git clone https://github.com/T3kton/contractor_plugins.git
-for i in contractor_plugins resources; do cd $i &amp;&amp; make -j2 respkg &amp;&amp; mv *.respkg .. &amp;&amp; cd ..; done
+<span class="k">for</span> i in contractor_plugins resources<span class="p">;</span> <span class="k">do</span> <span class="nb">cd</span> <span class="nv">$i</span> <span class="o">&amp;&amp;</span> make -j2 respkg <span class="o">&amp;&amp;</span> mv *.respkg .. <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ..<span class="p">;</span> <span class="k">done</span>
 </pre></div>
 </div>
 <p>If you are doing AMT or IPMI, you will need the PXE images, that is built with:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">bc</span> <span class="n">libgcrypt</span><span class="o">-</span><span class="n">dev</span> <span class="n">libgpg</span><span class="o">-</span><span class="n">error</span><span class="o">-</span><span class="n">dev</span> <span class="n">libksba</span><span class="o">-</span><span class="n">dev</span> <span class="n">libassuan</span><span class="o">-</span><span class="n">dev</span> <span class="n">libnpth0</span><span class="o">-</span><span class="n">dev</span> <span class="n">pkg</span><span class="o">-</span><span class="n">config</span> <span class="n">zlib1g</span><span class="o">-</span><span class="n">dev</span> <span class="n">libelf</span><span class="o">-</span><span class="n">dev</span> <span class="n">uuid</span><span class="o">-</span><span class="n">dev</span> <span class="n">libdevmapper</span><span class="o">-</span><span class="n">dev</span> <span class="n">libreadline</span><span class="o">-</span><span class="n">dev</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">gperf</span> <span class="n">gettext</span> <span class="n">libblkid</span><span class="o">-</span><span class="n">dev</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
-<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">disks</span><span class="o">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">disks</span> <span class="p">;</span> <span class="n">make</span> <span class="o">-</span><span class="n">j2</span><span class="p">;</span> <span class="n">make</span> <span class="n">respkg</span><span class="p">;</span> <span class="n">mv</span> <span class="o">*.</span><span class="n">respkg</span> <span class="o">..</span><span class="p">;</span> <span class="n">cd</span> <span class="o">..</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo apt install -y bc libgcrypt-dev libgpg-error-dev libksba-dev libassuan-dev libnpth0-dev pkg-config zlib1g-dev libelf-dev uuid-dev libdevmapper-dev libreadline-dev libssl-dev gperf gettext libblkid-dev python3-pip
+git clone https://github.com/T3kton/disks.git
+<span class="nb">cd</span> disks <span class="p">;</span> make -j2<span class="p">;</span> make respkg<span class="p">;</span> mv *.respkg ..<span class="p">;</span> <span class="nb">cd</span> ..
 </pre></div>
 </div>
 <p>NOTE: close to the end of the build, there are some sudo commands, so you will be

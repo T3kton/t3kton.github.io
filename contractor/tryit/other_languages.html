@@ -1,0 +1,393 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Other Languages &#8212; t3kton 1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="In Docker" href="../Docker.html" />
+    <link rel="prev" title="Working with Docker" href="docker.html" />
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159896960-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-159896960-1');
+</script>
+
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../Docker.html" title="In Docker"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="docker.html" title="Working with Docker"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">t3kton 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Contractor</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Give it a Try</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Other Languages</a><ul>
+<li><a class="reference internal" href="#python">Python</a></li>
+<li><a class="reference internal" href="#golang">Golang</a><ul>
+<li><a class="reference internal" href="#with-generic-maps">With Generic Maps</a></li>
+<li><a class="reference internal" href="#with-pre-built-service">With Pre-Built Service</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="docker.html"
+                        title="previous chapter">Working with Docker</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../Docker.html"
+                        title="next chapter">In Docker</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="other-languages">
+<h1>Other Languages<a class="headerlink" href="#other-languages" title="Permalink to this headline">¶</a></h1>
+<p>These examples show the initial login and network setup.</p>
+<div class="section" id="python">
+<h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<p>You will need to be sure the cinp client is installed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">cinp</span>
+</pre></div>
+</div>
+<p>main.py:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">cinp.client</span> <span class="k">import</span> <span class="n">CInP</span>
+
+<span class="n">CHOST</span> <span class="o">=</span> <span class="s1">&#39;http://127.0.0.1&#39;</span>
+<span class="n">PROXY</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="n">USERNAME</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span>
+<span class="n">PASSWORD</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span>
+
+<span class="n">SITE</span> <span class="o">=</span> <span class="s1">&#39;/api/v1/Site/Site:site1:&#39;</span>
+<span class="n">NETWORKNAME</span> <span class="o">=</span> <span class="s1">&#39;internal&#39;</span>  <span class="c1"># vcenter: internal, virtual box: vboxnet0, IPMI/AMT: internal</span>
+<span class="n">ADDRESSBLK</span> <span class="o">=</span> <span class="s1">&#39;/api/v1/Utilities/AddressBlock:1:&#39;</span>
+
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">CInP</span><span class="p">(</span> <span class="n">CHOST</span><span class="p">,</span> <span class="s1">&#39;/api/v1/&#39;</span><span class="p">,</span> <span class="n">PROXY</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span> <span class="s1">&#39;Login...&#39;</span> <span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">call</span><span class="p">(</span> <span class="s1">&#39;/api/v1/Auth/User(login)&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">USERNAME</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="n">PASSWORD</span> <span class="p">}</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span> <span class="s1">&#39;Auth Token &quot;</span><span class="si">{0}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">result</span> <span class="p">)</span> <span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">setAuth</span><span class="p">(</span> <span class="n">USERNAME</span><span class="p">,</span> <span class="n">result</span> <span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">call</span><span class="p">(</span> <span class="s1">&#39;/api/v1/Auth/User(whoami)&#39;</span><span class="p">,</span> <span class="p">{}</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span> <span class="s1">&#39;Logged in as &quot;</span><span class="si">{0}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">result</span> <span class="p">)</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span> <span class="s1">&#39;Create Network...&#39;</span> <span class="p">)</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;site&#39;</span><span class="p">:</span> <span class="n">SITE</span><span class="p">,</span>
+  <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">NETWORKNAME</span>
+<span class="p">}</span>
+<span class="n">obj_id</span><span class="p">,</span> <span class="n">result</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">create</span><span class="p">(</span> <span class="s1">&#39;/api/v1/Utilities/Network&#39;</span><span class="p">,</span> <span class="n">obj</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">result</span> <span class="p">)</span>
+<span class="n">network</span> <span class="o">=</span> <span class="n">obj_id</span>
+<span class="nb">print</span><span class="p">(</span> <span class="s1">&#39;Newly created network is &quot;</span><span class="si">{0}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span> <span class="n">network</span> <span class="p">)</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span> <span class="s1">&#39;Attach AddressBlock to Network...&#39;</span> <span class="p">)</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;network&#39;</span><span class="p">:</span> <span class="n">network</span><span class="p">,</span>
+  <span class="s1">&#39;address_block&#39;</span><span class="p">:</span> <span class="n">ADDRESSBLK</span>
+<span class="p">}</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">result</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">create</span><span class="p">(</span> <span class="s1">&#39;/api/v1/Utilities/NetworkAddressBlock&#39;</span><span class="p">,</span> <span class="n">obj</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">result</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span> <span class="s1">&#39;Reserve Ip Addresses...&#39;</span> <span class="p">)</span>
+<span class="k">for</span> <span class="n">offset</span> <span class="ow">in</span> <span class="p">(</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">20</span> <span class="p">):</span>
+  <span class="n">obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;offset&#39;</span><span class="p">:</span> <span class="n">offset</span><span class="p">,</span>
+    <span class="s1">&#39;address_block&#39;</span><span class="p">:</span> <span class="n">ADDRESSBLK</span><span class="p">,</span>
+    <span class="s1">&#39;reason&#39;</span><span class="p">:</span> <span class="s1">&#39;Network Reserved&#39;</span>
+  <span class="p">}</span>
+  <span class="n">_</span><span class="p">,</span> <span class="n">result</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">create</span><span class="p">(</span> <span class="s1">&#39;/api/v1/Utilities/ReservedAddress&#39;</span><span class="p">,</span> <span class="n">obj</span> <span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span> <span class="n">result</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span> <span class="s1">&#39;Done!&#39;</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">main</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="golang">
+<h2>Golang<a class="headerlink" href="#golang" title="Permalink to this headline">¶</a></h2>
+<p>You will need go version 1.12 or better, for the module support.</p>
+<div class="section" id="with-generic-maps">
+<h3>With Generic Maps<a class="headerlink" href="#with-generic-maps" title="Permalink to this headline">¶</a></h3>
+<p>main.go:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">package</span> <span class="n">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s2">&quot;fmt&quot;</span>
+      <span class="s2">&quot;strconv&quot;</span>
+      <span class="n">cinp</span> <span class="s2">&quot;github.com/cinp/go&quot;</span>
+<span class="p">)</span>
+
+<span class="n">const</span> <span class="n">CHOST</span> <span class="o">=</span> <span class="s2">&quot;http://127.0.0.1&quot;</span>
+<span class="n">const</span> <span class="n">PROXY</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">const</span> <span class="n">USERNAME</span> <span class="o">=</span> <span class="s2">&quot;root&quot;</span>
+<span class="n">const</span> <span class="n">PASSWORD</span> <span class="o">=</span> <span class="s2">&quot;root&quot;</span>
+
+<span class="n">const</span> <span class="n">SITE</span> <span class="o">=</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span>
+<span class="n">const</span> <span class="n">NETWORKNAME</span> <span class="o">=</span> <span class="s2">&quot;internal&quot;</span>  <span class="c1"># vcenter: internal, virtual box: vboxnet0, IPMI/AMT: internal</span>
+<span class="n">const</span> <span class="n">ADDRESSBLK</span> <span class="o">=</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span>
+
+<span class="n">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="n">c</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">cinp</span><span class="o">.</span><span class="n">NewCInP</span><span class="p">(</span><span class="n">CHOST</span><span class="p">,</span> <span class="s2">&quot;/api/v1/&quot;</span><span class="p">,</span> <span class="n">PROXY</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+              <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+              <span class="k">return</span>
+      <span class="p">}</span>
+
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s2">&quot;Login...&quot;</span><span class="p">)</span>
+      <span class="n">args</span> <span class="p">:</span><span class="o">=</span> <span class="nb">map</span><span class="p">[</span><span class="n">string</span><span class="p">]</span><span class="n">interface</span><span class="p">{}{</span>
+              <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">USERNAME</span><span class="p">,</span>
+              <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="n">PASSWORD</span><span class="p">,</span>
+      <span class="p">}</span>
+      <span class="n">result</span> <span class="p">:</span><span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+      <span class="k">if</span> <span class="n">err</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">Call</span><span class="p">(</span><span class="s2">&quot;/api/v1/Auth/User(login)&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">result</span><span class="p">);</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+              <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+              <span class="k">return</span>
+      <span class="p">}</span>
+
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s2">&quot;Auth Token &#39;</span><span class="si">%s</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+      <span class="n">c</span><span class="o">.</span><span class="n">SetAuth</span><span class="p">(</span><span class="n">USERNAME</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+
+      <span class="o">//</span> <span class="n">Print</span> <span class="n">curent</span> <span class="n">user</span><span class="p">,</span> <span class="n">should</span> <span class="n">be</span> <span class="n">the</span> <span class="n">same</span> <span class="k">as</span> <span class="n">USERNAME</span>
+      <span class="n">args</span> <span class="o">=</span> <span class="nb">map</span><span class="p">[</span><span class="n">string</span><span class="p">]</span><span class="n">interface</span><span class="p">{}{}</span>
+      <span class="k">if</span> <span class="n">err</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">Call</span><span class="p">(</span><span class="s2">&quot;/api/v1/Auth/User(whoami)&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">result</span><span class="p">);</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+              <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+              <span class="k">return</span>
+      <span class="p">}</span>
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s2">&quot;Logged in as &#39;</span><span class="si">%s</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s2">&quot;Create Network...&quot;</span><span class="p">)</span>
+      <span class="n">obj</span> <span class="p">:</span><span class="o">=</span> <span class="o">&amp;</span><span class="n">cinp</span><span class="o">.</span><span class="n">MappedObject</span><span class="p">{</span><span class="n">Data</span><span class="p">:</span><span class="nb">map</span><span class="p">[</span><span class="n">string</span><span class="p">]</span><span class="n">interface</span><span class="p">{}{</span>
+              <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="n">SITE</span><span class="p">,</span>
+              <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">NETWORKNAME</span><span class="p">,</span>
+      <span class="p">}}</span>
+      <span class="k">if</span> <span class="n">err</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="s2">&quot;/api/v1/Utilities/Network&quot;</span><span class="p">,</span> <span class="n">obj</span><span class="p">);</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+              <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+              <span class="k">return</span>
+      <span class="p">}</span>
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">Data</span><span class="p">)</span>
+      <span class="n">network</span> <span class="p">:</span><span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">GetID</span><span class="p">()</span>
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s2">&quot;Newly created network is &#39;</span><span class="si">%s</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">network</span><span class="p">)</span>
+
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s2">&quot;Attach AddressBlock to Network...&quot;</span><span class="p">)</span>
+      <span class="n">obj</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">cinp</span><span class="o">.</span><span class="n">MappedObject</span><span class="p">{</span><span class="n">Data</span><span class="p">:</span><span class="nb">map</span><span class="p">[</span><span class="n">string</span><span class="p">]</span><span class="n">interface</span><span class="p">{}{</span>
+              <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="n">network</span><span class="p">,</span>
+              <span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="n">ADDRESSBLK</span><span class="p">,</span>
+      <span class="p">}}</span>
+      <span class="k">if</span> <span class="n">err</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="s2">&quot;/api/v1/Utilities/NetworkAddressBlock&quot;</span><span class="p">,</span> <span class="n">obj</span><span class="p">);</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+              <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+              <span class="k">return</span>
+      <span class="p">}</span>
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">Data</span><span class="p">)</span>
+
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s2">&quot;Reserve Ip Addresses...&quot;</span><span class="p">)</span>
+      <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">offset</span> <span class="p">:</span><span class="o">=</span> <span class="nb">range</span> <span class="p">[]</span><span class="nb">int</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">}</span> <span class="p">{</span>
+              <span class="n">obj</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">cinp</span><span class="o">.</span><span class="n">MappedObject</span><span class="p">{</span><span class="n">Data</span><span class="p">:</span><span class="nb">map</span><span class="p">[</span><span class="n">string</span><span class="p">]</span><span class="n">interface</span><span class="p">{}{</span>
+                      <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="n">strconv</span><span class="o">.</span><span class="n">Itoa</span><span class="p">(</span><span class="n">offset</span><span class="p">),</span>
+                      <span class="s2">&quot;address_block&quot;</span><span class="p">:</span> <span class="n">ADDRESSBLK</span><span class="p">,</span>
+                      <span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="s2">&quot;Network Reserved&quot;</span><span class="p">,</span>
+              <span class="p">}}</span>
+                      <span class="k">if</span> <span class="n">err</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="s2">&quot;/api/v1/Utilities/ReservedAddress&quot;</span><span class="p">,</span> <span class="n">obj</span><span class="p">);</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+                      <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+                      <span class="k">return</span>
+              <span class="p">}</span>
+              <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">Data</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s2">&quot;Done!&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>build:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">go</span> <span class="n">get</span> <span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cinp</span><span class="o">/</span><span class="n">go</span>
+<span class="n">go</span> <span class="n">build</span>
+</pre></div>
+</div>
+<p>run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">main</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="with-pre-built-service">
+<h3>With Pre-Built Service<a class="headerlink" href="#with-pre-built-service" title="Permalink to this headline">¶</a></h3>
+<p>main.go:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">package</span> <span class="n">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s2">&quot;fmt&quot;</span>
+      <span class="n">contractor</span> <span class="s2">&quot;github.com/t3kton/contractor_client/go&quot;</span>
+<span class="p">)</span>
+
+<span class="n">const</span> <span class="n">CHOST</span> <span class="o">=</span> <span class="s2">&quot;http://127.0.0.1&quot;</span>
+<span class="n">const</span> <span class="n">PROXY</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">const</span> <span class="n">USERNAME</span> <span class="o">=</span> <span class="s2">&quot;root&quot;</span>
+<span class="n">const</span> <span class="n">PASSWORD</span> <span class="o">=</span> <span class="s2">&quot;root&quot;</span>
+
+<span class="n">const</span> <span class="n">SITE</span> <span class="o">=</span> <span class="s2">&quot;/api/v1/Site/Site:site1:&quot;</span>
+<span class="n">const</span> <span class="n">NETWORKNAME</span> <span class="o">=</span> <span class="s2">&quot;internal&quot;</span>  <span class="c1"># vcenter: internal, virtual box: vboxnet0, IPMI/AMT: internal</span>
+<span class="n">const</span> <span class="n">ADDRESSBLK</span> <span class="o">=</span> <span class="s2">&quot;/api/v1/Utilities/AddressBlock:1:&quot;</span>
+
+<span class="n">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s2">&quot;Login...&quot;</span><span class="p">)</span>
+      <span class="n">c</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">contractor</span><span class="o">.</span><span class="n">NewContractor</span><span class="p">(</span><span class="n">CHOST</span><span class="p">,</span> <span class="n">PROXY</span><span class="p">,</span> <span class="n">USERNAME</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+              <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+              <span class="k">return</span>
+      <span class="p">}</span>
+
+      <span class="o">//</span> <span class="n">Print</span> <span class="n">curent</span> <span class="n">user</span><span class="p">,</span> <span class="n">should</span> <span class="n">be</span> <span class="n">the</span> <span class="n">same</span> <span class="k">as</span> <span class="n">USERNAME</span>
+      <span class="n">result</span><span class="p">,</span> <span class="n">err</span> <span class="p">:</span><span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">AuthUserCallWhoami</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+              <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+              <span class="k">return</span>
+      <span class="p">}</span>
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s2">&quot;Logged in as &#39;</span><span class="si">%s</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s2">&quot;Create Network...&quot;</span><span class="p">)</span>
+      <span class="n">network</span> <span class="p">:</span><span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">UtilitiesNetworkNew</span><span class="p">()</span>
+      <span class="n">network</span><span class="o">.</span><span class="n">Site</span> <span class="o">=</span> <span class="n">SITE</span>
+      <span class="n">network</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">NETWORKNAME</span>
+      <span class="n">err</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">Create</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+              <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+              <span class="k">return</span>
+      <span class="p">}</span>
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">network</span><span class="p">)</span>
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s2">&quot;Newly created network is &#39;</span><span class="si">%s</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">GetID</span><span class="p">())</span>
+
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s2">&quot;Attach AddressBlock to Network...&quot;</span><span class="p">)</span>
+      <span class="n">nab</span> <span class="p">:</span><span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">UtilitiesNetworkAddressBlockNew</span><span class="p">()</span>
+      <span class="n">nab</span><span class="o">.</span><span class="n">Network</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">GetID</span><span class="p">()</span>
+      <span class="n">nab</span><span class="o">.</span><span class="n">AddressBlock</span> <span class="o">=</span> <span class="n">ADDRESSBLK</span>
+      <span class="n">err</span> <span class="o">=</span> <span class="n">nab</span><span class="o">.</span><span class="n">Create</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+              <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+              <span class="k">return</span>
+      <span class="p">}</span>
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">nab</span><span class="p">)</span>
+
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s2">&quot;Reserve Ip Addresses...&quot;</span><span class="p">)</span>
+      <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">offset</span> <span class="p">:</span><span class="o">=</span> <span class="nb">range</span> <span class="p">[]</span><span class="nb">int</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">}</span> <span class="p">{</span>
+              <span class="n">ra</span> <span class="p">:</span><span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">UtilitiesReservedAddressNew</span><span class="p">()</span>
+              <span class="n">ra</span><span class="o">.</span><span class="n">Offset</span> <span class="o">=</span> <span class="n">offset</span>
+              <span class="n">ra</span><span class="o">.</span><span class="n">AddressBlock</span> <span class="o">=</span> <span class="n">ADDRESSBLK</span>
+              <span class="n">ra</span><span class="o">.</span><span class="n">Reason</span> <span class="o">=</span> <span class="s2">&quot;Network Reserved&quot;</span>
+              <span class="n">err</span> <span class="o">=</span> <span class="n">ra</span><span class="o">.</span><span class="n">Create</span><span class="p">()</span>
+              <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
+                      <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+                      <span class="k">return</span>
+              <span class="p">}</span>
+              <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">ra</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s2">&quot;Done!&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>build:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">go</span> <span class="n">get</span> <span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">t3kton</span><span class="o">/</span><span class="n">contractor_client</span><span class="o">/</span><span class="n">go</span>
+<span class="n">go</span> <span class="n">build</span>
+</pre></div>
+</div>
+<p>run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">main</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../Docker.html" title="In Docker"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="docker.html" title="Working with Docker"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">t3kton 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Contractor</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Give it a Try</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Peter Howe.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>

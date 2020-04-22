@@ -20,6 +20,7 @@ Contents:
   config_info
   destroy_vm
   docker
+  other_languages
 
 
 
@@ -38,6 +39,9 @@ for hosted providers such as AWS and Azure.
 
 NOTE: setupWizard is going to re-write some bind config files, so don't edit them
 until after the install is complete.
+
+NOTE2: we will be communicating with the Contractor API with curl, for some examples
+python and golang code see :doc:`other_languages`.
 
 If you are not failure with how Contractor handles Networking, you will probably
 want to take a look at the overview on :doc:`../Networking`.

@@ -1,3 +1,5 @@
+.. highlight:: bash
+
 Removing the VM(s)
 ------------------
 
