@@ -6,11 +6,16 @@ These examples show the initial login and network setup.
 Python
 ~~~~~~
 
-You will need to be sure the cinp client is installed::
+
+You will need to be sure the cinp client is installed:
+
+.. code-block:: bash
 
   pip3 install cinp
 
-main.py::
+main.py:
+
+.. code-block:: python
 
   import sys
   from cinp.client import CInP
@@ -67,7 +72,9 @@ main.py::
 
   print( 'Done!' )
 
-run::
+run:
+
+.. code-block:: bash
 
   python3 main.py
 
@@ -80,7 +87,9 @@ You will need go version 1.12 or better, for the module support.
 With Generic Maps
 ^^^^^^^^^^^^^^^^^
 
-main.go::
+main.go:
+
+.. code-block:: go
 
   package main
 
@@ -96,7 +105,7 @@ main.go::
   const PASSWORD = "root"
 
   const SITE = "/api/v1/Site/Site:site1:"
-  const NETWORKNAME = "internal"  # vcenter: internal, virtual box: vboxnet0, IPMI/AMT: internal
+  const NETWORKNAME = "internal"  // vcenter: internal, virtual box: vboxnet0, IPMI/AMT: internal
   const ADDRESSBLK = "/api/v1/Utilities/AddressBlock:1:"
 
   func main() {
@@ -169,19 +178,25 @@ main.go::
   	fmt.Println("Done!")
   }
 
-build::
+build:
+
+.. code-block:: bash
 
   go get github.com/cinp/go
-  go build
+  go build -o main
 
-run::
+run:
+
+.. code-block:: bash
 
   ./main
 
 With Pre-Built Service
 ^^^^^^^^^^^^^^^^^^^^^^
 
-main.go::
+main.go:
+
+.. code-block:: go
 
   package main
 
@@ -196,7 +211,7 @@ main.go::
   const PASSWORD = "root"
 
   const SITE = "/api/v1/Site/Site:site1:"
-  const NETWORKNAME = "internal"  # vcenter: internal, virtual box: vboxnet0, IPMI/AMT: internal
+  const NETWORKNAME = "internal"  // vcenter: internal, virtual box: vboxnet0, IPMI/AMT: internal
   const ADDRESSBLK = "/api/v1/Utilities/AddressBlock:1:"
 
   func main() {
@@ -255,11 +270,15 @@ main.go::
   }
 
 
-build::
+build:
+
+.. code-block:: bash
 
   go get github.com/t3kton/contractor_client/go
-  go build
+  go build -o main
 
-run::
+run:
+
+.. code-block:: bash
 
   ./main
