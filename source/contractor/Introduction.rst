@@ -17,43 +17,80 @@ This enables you to focus on what you want to make, and not have to worry about
 the details and differences in deployment.
 
 To accomplish this, Contractor breaks deployment/provisioning into two parts.  A
-Structure, or what it is you want to deploy, and a Foundation, or what you want
-to deploy it on.  Examples of Foundations are VirtualBox VMs, Docker Containers,
-Servers with IPMI, Servers with out out-of-band control, Switches, PDUs, AWS, GCD,
-or just about anything else.  A Structure would be a DNS server, API Endpoint,
-Load Balanacer, Web Server, Docker Host, VirtualBox Host, CoreOS Server, etc.  To
-describe a Structure, a BluePrint is used.  This BluePrint describes configuration
-information needed to create the Structure.  There are also BluePrints for Foundations,
-which describe firmware, machine level configuration (i.e., IPMI configuration ), as
-well as contain information to fingerprint foundations, for example a Foundation
-BluePrint can require a certain number of CPUs and Memory, PCI devices, as well
-as storage details.  Each Structure and Foundation belong to a grouping called
-a Site.  Sites can belong to other Sites, and a Structure does not need to belong
-to the same Site as its foundation.  The Site can also contain configuration
-information that the Structures and Foundations that belong to it inherit.
-This way a configuration such as DNS Server can be maintained at the Site level
-and automatically propagate to everything inside that Site.
+**Structure**, or what it is you want to deploy, and a **Foundation**, or what you want
+to deploy it on.
 
-At its core Contractor has a scripting language called TScript.  Each BluePrint
-has a Create and Destroy script that is executed to create and destroy that Structure
-or in the case of Foundations, provision and de-provision.  Utility scripts can also
-be created, for example, if a new firmware for a storage controller is released.
-A utility script can be created to deploy this new firmware, and a Job can be created
-to execute the script.  Jobs are run by the Foreman subsystem.  When a new Foundation
-has been detected, or a Structure's Foundation has been provisioned, Foreman will
-provide instructions to a SubContractor daemon to do individual tasks required
+Structure examples are DNS servers, API endpoints, load balancers, web servers,
+docker hots, virtualbox hosts, CoreOS servers, etc...
+
+Foundation examples are Docker Containers, Virtualbox VMs, servers with IPMI,
+servers with out-of-band controls, switches, PDUs, AWS, GCP, Azure, etc...
+
+A **BluePrint** is used to describe a Structure or Foundation. The BluePrint describes
+configuration information needed to create the Structure; as well as the firmware,
+machine level configuration (i.e. IPMI),
+
+Each Structure and Foundation belong to a grouping called a **Site**. Sites can belong
+to other Sites, and a Structure does not need to belong to the same Site as it's
+Foundation. The Site can also contain configuration information for it's Structures
+and Foundations to inherit. This way, a configuration such as a DNS server can be
+maintained at the Site level and automatically propagate to everything else within
+that Site.
+
+By separating the configuration of the "Hosted" (Structure) and
+the "Host" (Foundation) we can effectively divide up the job of configuring the system.  As a
+Developer/Engineer configures their code, they embody that in a Structure.  They
+can package that configuration information along with their code/designs and that configuration can also
+be tested and verified via CICD and similar work flows.  This way the very
+same configuration information is for all stages of deployment.  It is true
+that some Foundations require different considerations, however a well designed
+Structure Configuration can work for Containers (and the like) as well as
+OS installers (Baremetal/VM/Blade/AWS/Container, etc.)  Now when the Operations
+people need to turn it up to 11 (or 12) they just pick the location to deploy
+and no matter if it is hosted on premise in VMs, or deployed to AWS for some
+peak load handling, Operations can scale as needed, to whatever.
+
+You are also free from vendor lock in.  If a new Cloud provider comes along, they
+don't need to have an AWS like API to use them, just a plugin  that talks to that
+Cloud provider's API and you are set.  Same if a new class of hardware comes along
+(ARM servers anyone?) or a new way of approaching hosting (the next thing after
+containers).  And you don't have to try to fit all your use cases into one silver
+bullet.
+
+Your Operations teams are also free to try changing out hosting solutions without
+retooling everything to try it -- in some cases without involving Engineering
+to do so.  By allowing every thing, no matter the platform, to be tracked in the same
+place, you now have a single source of truth for your monitoring system to rely on.
+You don't have to worry about parts of your Micro Services failing to auto-register.
+And, you know exactly what is deployed where; useful when hardware needs to be
+swapped out.
+
+Each BluePrint has a **Create** and **Destroy** script that is executed to create and
+destroy that Structure, or to provision or deprovision in the case of Foundations.
+The scripting language is Turing Complete, and is extended by the loaded plugins,
+and target Foundation.
+
+Utiity scripts can also be created. For example, if a new firmware for a storage
+controller is released, a utility script can be created to deploy the new firmware
+and a job can be created to execute the script.
+
+Jobs are run by the **Foreman** subsystem. When a new Foundation has been
+detected, or a Structure's Foundation has been provisioned, Foreman will provide
+instructions to a **SubContractor** daemon to do individual tasks required
 for that Foundation to be Provisioned or Structure to be created.
 
-SubContractor is a daemon that is run in appropriate parts of the network for
-handling tasks as requested by the Script being executed in the Job.  All tasks
-are asked for by SubContracor, over HTTP (fully proxyable) thus Contractor itself
-does not have to have access to sensitive parts of the network, it only
-needs to be visible to SubContractor.  Each SubContractor can be configured to
-only do certain types of work.  For example, a SubContractor can be configured to
-do only IPMI tasks enabling the IPMI network to be isolated from other networks.
-Other SubContractors can then handle PXE booting the servers and perform other checks
-such as checking to see if port 22 is open (a common and easy way to make sure
-a Structure with SSH installed has sucessfully booted).
+SubContractor is a daemon that runs in appropriate parts of the network for handling
+tasks as requested by the script being executed within the Job. All tasks are
+requested by SubContractor over HTTP (fully proxyable), thus Contractor itself
+does not need to access sensitive parts of the network - it only needs to be
+visible to SubContractor.
+
+In turn, Each SubContractor can be configured to only do certain types of work.
+For example, a SubContractor can be configured to do only IPMI taks, enable the
+IPMI network to be isolated from other networks. Other SubContractors can then
+handle PXE booting the servers, and performing other checks such as checking that
+port 22 is open (a common and easy way to make sure a Structure with SSH installed
+has sucessfully booted).
 
 High Level Look
 ===============
@@ -275,47 +312,6 @@ For Example::
 Complexes also cause Contractor to build the Web Server Structure/Foundations
 after the ESX Structure/Foundations are done.  Also the example would look pretty
 much the same for a Docker/OpenStack/etc Complex.
-
-Side Track to the Manifesto
----------------------------
-
-At this point you are probably wondering how having all these Foundation types
-is simplifying deployments.  By separating the configuration of the "Hosted" and
-the "Host" we can effectively divide up the job of configuring the system.  (Do
-I get to drop the DevOps Buzzword now?)  As a Developer/Engineer configures their
-code, they embody that in a Structure.  They can package that configuration
-information along with their code/designs and that configuration can also
-be tested and verified via CICD and similar work flows.  This way the very
-same configuration information is for all stages of deployment.  It is true
-that some Foundations require different considerations, however a well designed
-Structure Configuration can work for Containers (and the like) as well as
-OS installers (Baremetal/VM/Blade/AWS/Container, etc.)  Now when the Operations
-people need to turn it up to 11 (or 12) they just pick the location to deploy
-and no matter if it is hosted on premise in VMs, or deployed to AWS for some
-peak load handling, Operations can scale as needed, to whatever.
-
-Also by allowing every thing, no matter the platform, to be tracked in the same
-place, you now have a single source of truth for your monitoring system to rely on.
-You don't have to worry about parts of your Micro Services failing to auto-register.
-And, you know exactly what is deployed where; useful when hardware needs to be
-swapped out.
-
-Your Operations teams are also free to try changing out hosting solutions without
-retooling everything to try it -- in some cases without involving Engineering
-to do so.
-
-Not only can you unify your provisioning tools, but also the auto-scaling tools.
-
-You are also free from vendor lock in.  If a new Cloud provider comes along, they
-don't need to have an AWS like API to use them, just a Foundation subclass
-provider that talks to that Cloud provider's API and you are set.  Same if
-a new class of hardware comes along (ARM servers anyone?) or a new way of
-approaching hosting (the next thing after containers).  And you don't have to try to
-fit all your use cases into one silver bullet.  You can have a nice auto-scaling
-Container Cloud/Swarm with your micro services right next to standard VMs running
-the databases and object storage.  All with one "pane of glass"
-
-Ok, back to business, buzzword dropping disabled...
 
 Dependencies
 ------------
