@@ -101,7 +101,7 @@ instance of subcontractor, nor is it fully configured for supplying
 static files for some types of deployments.  This is really intended
 for developing/testing against the API and/or previewing contractor.
 The best way to deploy contractor for regular workloads is via the debian
-packaging, there is a PPA at: <a class="reference external" href="https://launchpad.net/~pnhowe/+archive/ubuntu/t3kton">https://launchpad.net/~pnhowe/+archive/ubuntu/t3kton</a></p>
+packaging. There is a PPA at: <a class="reference external" href="https://launchpad.net/~pnhowe/+archive/ubuntu/t3kton">https://launchpad.net/~pnhowe/+archive/ubuntu/t3kton</a></p>
 <div class="section" id="running-the-docker-container">
 <h2>Running the Docker Container<a class="headerlink" href="#running-the-docker-container" title="Permalink to this headline">¶</a></h2>
 <p>First pull down the container:</p>
@@ -112,10 +112,10 @@ packaging, there is a PPA at: <a class="reference external" href="https://launch
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">start</span> <span class="o">-</span><span class="n">p80</span><span class="p">:</span><span class="mi">80</span> <span class="o">--</span><span class="n">name</span> <span class="n">contractor</span> <span class="n">t3kton</span><span class="o">/</span><span class="n">contractor</span>
 </pre></div>
 </div>
-<p>The pre-built container only has the <cite>iputils</cite> and <cite>manual</cite> plugins loaded,
-if you would like to enable other plugins, the packages for the <cite>amt</cite>, <cite>ipmi</cite>,
-<cite>azure</cite>, <cite>docker</cite>, <cite>ipmi</cite>, <cite>vcenter</cite>, and <cite>virtualbox</cite> in the container.  If you
-would like to enable one or more of these plugins, this example is for ipmi, replace
+<p>The pre-built container only has the <cite>iputils</cite> and <cite>manual</cite> plugins loaded.
+If you would like to enable other plugins, the packages for the <cite>amt</cite>, <cite>ipmi</cite>,
+<cite>azure</cite>, <cite>docker</cite>, <cite>ipmi</cite>, <cite>vcenter</cite>, and <cite>virtualbox</cite> are in the container.  If you
+would like to enable one or more of these plugins (this example is for ipmi) replace
 the “ipmi” with the plugin you want to enable:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">exec</span> <span class="o">-</span><span class="n">it</span> <span class="n">contractor</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">bash</span>
 <span class="n">respkg</span> <span class="o">-</span><span class="n">i</span> <span class="n">contractor</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">ipmi_</span><span class="o">*.</span><span class="n">respkg</span>

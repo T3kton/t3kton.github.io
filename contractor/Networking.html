@@ -112,12 +112,12 @@ search zones) which can be Site specific.  See the Config Values page.</p>
 <h2>Networked<a class="headerlink" href="#networked" title="Permalink to this headline">¶</a></h2>
 <p><cite>Networked</cite> is an attribute applied to things with IP Addresses.  It also has a
 hostname attribute.  Structures are Networked, as well as some foundations
-such as the <cite>IPMIFoundation</cite> or <cite>AMTFoundation</cite> which has an Ip Address on it’s IPMI interface.</p>
+such as the <cite>IPMIFoundation</cite> or <cite>AMTFoundation</cite> which has an Ip Address on its IPMI interface.</p>
 </div>
 <div class="section" id="ip-addresses">
 <h2>Ip Addresses<a class="headerlink" href="#ip-addresses" title="Permalink to this headline">¶</a></h2>
 <p>Ip Addresses are grouped together in named networks called <cite>AddressBlocks</cite>.  Ip Addresses
-inside the AddressBlock is identified by the offset inside that network.  The AddressBlock
+inside the AddressBlock are identified by the offset inside that network.  The AddressBlock
 stores the subnet and prefix of the network.  There is an optional offset for the gateway
 of the network.  The Subnet and Prefix operate like standard CIDR ( <a class="reference external" href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing</a> )
 mechanics.  If the subnet and/or prefix of the AddressBlock is changed, all Ip Addresses
@@ -131,12 +131,12 @@ is small enough to include .0 and .10 in the same subnet) will result in the
 same value of 10.0.0.0.</p>
 <p>You can calculate the subnet of an Ip Address by subtracting the subnet from the Ip Address
 For example 23.33.10.30 in the subnet 23.33.10.0/24 is 30.</p>
-<p>In some cases (such as with containers), a Structure doesn’t have it’s own IpAddress, but relies on its host IpAddress.  In
+<p>In some cases (such as with containers), a Structure doesn’t have its own IpAddress, but relies on its host IpAddress.  In
 these cases, Address can be configured to point to another Address.  NOTE: the site is not checked through the pointer
 field, this way the host and the hosted can belong to different sites, make sure
 your site and network configuration works for this.  Address also
 has a boolean value is_primary, which defines which of all the potential Addresses
-this Networked device is to be used as it’s primary DNS name, as well as the Address
+this Networked device is to be used as its primary DNS name, as well as the Address
 to use when referring to it.</p>
 <div class="section" id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
