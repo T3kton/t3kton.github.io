@@ -119,7 +119,7 @@ Global attribute values
 -----------------------
 
 These values start with `__` and are not overlayable/modifyable by config_values.  These
-values are things that are global to this install of Contractor,  such as the base url
+values are things that are global to this install of Contractor, such as the base url
 to use to contact it.  `__last_modified` is also added, which is the timestamp of
 the most recent modification date to any of the sources of configuration information.
 
@@ -168,7 +168,7 @@ provide more attribute values than what is shown)::
   |                                           |
   +-------------------------------------------+
 
-Now if we get the config values for the structure, it's resulting config values
+Now if we get the config values for the structure, its resulting config values
 would be.
 
   dns_servers: [ '10.0.0.20', '10.0.0.21' ]
@@ -221,7 +221,7 @@ And the Foundation's Config Values are::
   _foundation_locator: 'd2r050u20'
 
 Everything was fine until our web site got busy, time to expand.  First let's
-move our server to a sub-site and create another sub-site with it's own
+move our server to a sub-site and create another sub-site with its own
 web server::
 
   +----------------------------------------------------------------------------------------------+

@@ -1,26 +1,26 @@
 tscript
 =======
 
-tscript for t3kton script.  Is a Turing complete scripting language that is designed
-to be executed in such a way it's state can be fully serialized and stored in the
+tscript for t3kton script is a Turing complete scripting language that is designed
+to be executed in such a way its state can be fully serialized and stored in the
 database while when not being actively executed.  The script is initially
-parsed and loaded by the Forman module.  When a subcontractor instance for the
-site the script belongs to, the script is executed to the point where it requires
-external input/execution, at which point the data required for the external
-action is sent to subcontracor, and the script's state is stored in the database.
-It will remain there until the results of that execution are returned.  This way
-jobs for sites that do not have a subcontractor executing are not taking processing
-resources, as well as not requiring any type of message bus.  When the script
-completes, the attached Structure/Foundation/Dependancy is changed state, if the
+parsed and loaded by the Foreman module.  When a subcontractor instance for the
+site the script belongs to polls contractor for more tasks, the script is executed
+to the point where it requires external input/execution, at which point the data
+required for the external action is sent to subcontracor, and the script's state
+is stored in the database.  It will remain there until the results of that execution
+are returned.  This way jobs for sites that do not have a subcontractor executing are
+not taking processing resources, as well as not requiring any type of message bus.  When
+the script completes, the attached Structure/Foundation/Dependancy is changed state, if the
 script was a create or destroy script.  If a non-terminal error occurs, the operator
-is given the ability to reset to retry.  There is also an rollback option for
+is given the ability to reset to retry.  There is also a rollback option for
 when the external function supports rolling back (ie: cleaning up a half deployed
 vm).  Some errors are terminal, at which point the execution job is put in the
 aborted state.  The script can also be paused so it will not execute further.
 NOTE: this does not affect any external operations that may be on going, the script
 will not continue after the results are returned.
 
-The functions avaible to thescript depend on the plugins installed and the type
+The functions available to the script depend on the plugins installed and the type
 of Foundation in use.
 
 
@@ -57,7 +57,7 @@ examples
 gramer
 ------
 
-tscript uses the parsimonious parser, here is it's grammar::
+tscript uses the parsimonious parser, here is its grammar::
 
   script              = lines
   lines               = line*

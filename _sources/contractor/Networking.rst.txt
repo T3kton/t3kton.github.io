@@ -9,13 +9,13 @@ Networked
 
 `Networked` is an attribute applied to things with IP Addresses.  It also has a
 hostname attribute.  Structures are Networked, as well as some foundations
-such as the `IPMIFoundation` or `AMTFoundation` which has an Ip Address on it's IPMI interface.
+such as the `IPMIFoundation` or `AMTFoundation` which has an Ip Address on its IPMI interface.
 
 Ip Addresses
 ------------
 
 Ip Addresses are grouped together in named networks called `AddressBlocks`.  Ip Addresses
-inside the AddressBlock is identified by the offset inside that network.  The AddressBlock
+inside the AddressBlock are identified by the offset inside that network.  The AddressBlock
 stores the subnet and prefix of the network.  There is an optional offset for the gateway
 of the network.  The Subnet and Prefix operate like standard CIDR ( https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing )
 mechanics.  If the subnet and/or prefix of the AddressBlock is changed, all Ip Addresses
@@ -32,12 +32,12 @@ same value of 10.0.0.0.
 You can calculate the subnet of an Ip Address by subtracting the subnet from the Ip Address
 For example 23.33.10.30 in the subnet 23.33.10.0/24 is 30.
 
-In some cases (such as with containers), a Structure doesn't have it's own IpAddress, but relies on its host IpAddress.  In
+In some cases (such as with containers), a Structure doesn't have its own IpAddress, but relies on its host IpAddress.  In
 these cases, Address can be configured to point to another Address.  NOTE: the site is not checked through the pointer
 field, this way the host and the hosted can belong to different sites, make sure
 your site and network configuration works for this.  Address also
 has a boolean value is_primary, which defines which of all the potential Addresses
-this Networked device is to be used as it's primary DNS name, as well as the Address
+this Networked device is to be used as its primary DNS name, as well as the Address
 to use when referring to it.
 
 Examples

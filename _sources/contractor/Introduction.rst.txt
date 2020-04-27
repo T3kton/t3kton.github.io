@@ -31,8 +31,8 @@ configuration information needed to create the Structure; as well as the firmwar
 machine level configuration (i.e. IPMI),
 
 Each Structure and Foundation belong to a grouping called a **Site**. Sites can belong
-to other Sites, and a Structure does not need to belong to the same Site as it's
-Foundation. The Site can also contain configuration information for it's Structures
+to other Sites, and a Structure does not need to belong to the same Site as its
+Foundation. The Site can also contain configuration information for its Structures
 and Foundations to inherit. This way, a configuration such as a DNS server can be
 maintained at the Site level and automatically propagate to everything else within
 that Site.
@@ -51,13 +51,13 @@ and no matter if it is hosted on premise in VMs, or deployed to AWS for some
 peak load handling, Operations can scale as needed, to whatever.
 
 You are also free from vendor lock in.  If a new Cloud provider comes along, they
-don't need to have an AWS like API to use them, just a plugin  that talks to that
+don't need to have an AWS like API to use them, just a plugin that talks to that
 Cloud provider's API and you are set.  Same if a new class of hardware comes along
 (ARM servers anyone?) or a new way of approaching hosting (the next thing after
 containers).  And you don't have to try to fit all your use cases into one silver
 bullet.
 
-Your Operations teams are also free to try changing out hosting solutions without
+Your Operations teams are also free to try changing hosting solutions without
 retooling everything to try it -- in some cases without involving Engineering
 to do so.  By allowing every thing, no matter the platform, to be tracked in the same
 place, you now have a single source of truth for your monitoring system to rely on.
@@ -151,7 +151,7 @@ our Web Server in a Site called "Cluster 1"
   +-------------------------------------+
 
 Each Item we have used so far contains configuration values.  These are Key
-Value pairs that can be overlay-ed.  In this case Contractor will take the
+Value pairs that can be overlaid.  In this case Contractor will take the
 configuration values of "Cluster 1" then overlay them with "Foundation" and
 the "Structure".
 
@@ -338,7 +338,7 @@ Structure/Foundation.
 A **BluePrint** can have multiple parents, this is useful for centralizing
 configuration information.
 
-A Blueprint must have (or one through it's parents) two **Scripts**.  A
+A Blueprint must have (or one through its parents) two **Scripts**.  A
 "create" and a "destroy" script.  I can also have other named scripts
 for other tasks.  These scripts are written in **tscript** (see :doc:`tscript`).
 
@@ -371,8 +371,8 @@ Future
 ------
 Contractor being able to build everything can also be used as a single source of
 truth, thus providing a place where you can ask questions such as "How many Load
-Balancers do we have", "What Services will taking this host down affect", or
-"How many VM resources are being used to support this service".  Contractor has a
+Balancers do we have?", "What Services will taking this host down affect?", or
+"How many VM resources are being used to support this service?".  Contractor has a
 Bind zone file generating ability that can be used to maintain DNS records, which
 will automatically update when things are added/removed.  With Contractor you do
 not have to wait for a new VM to register with a service.  That Service can query

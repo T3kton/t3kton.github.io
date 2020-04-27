@@ -21,7 +21,7 @@ Foreman
 
 Contains BaseJob a generic base class for FoundationJob, StructureJob and DependancyJob,
 which are jobs that are inflight for Foundations, Structures, and Dependancies
-respectivly.
+respectively.
 
 Site
 ----
@@ -37,7 +37,7 @@ Interface for Subcontractor, probably going to get moved to Foreman
 Auth
 ----
 
-Handles Authenication
+Handles Authentication
 
 PostOffice
 ----------
