@@ -3,7 +3,7 @@
 Installing
 ----------
 
-Create an Ubuntu Xenial(16.04LTS) VM, name it `contractor`, set the fqdn to `contractor.site1.test`
+Create an Ubuntu Bionic(18.04LTS) VM, name it `contractor`, set the fqdn to `contractor.site1.test`
 Ideally it should be in a /24 network.  Offset 1 is assumed to be the gateway.
 All these values can be adjusted either in the setupWizard file before it is run,
 or after it is setup, you can use the API to edit these values.
