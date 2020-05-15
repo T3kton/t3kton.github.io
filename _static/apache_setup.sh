@@ -18,8 +18,8 @@ Listen 3128
 
   DocumentRoot /var/www/static
 
-  ErrorLog ${APACHE_LOG_DIR}/proxy_error.log
-  CustomLog ${APACHE_LOG_DIR}/proxy_access.log combined
+  ErrorLog \${APACHE_LOG_DIR}/proxy_error.log
+  CustomLog \${APACHE_LOG_DIR}/proxy_access.log combined
 
   ProxyRequests On
   ProxyVia Full
@@ -42,8 +42,8 @@ cat > /etc/apache2/sites-available/static.conf << STATIC_EOF
   DocumentRoot /var/www/static
 
   LogFormat "%a %t %D \"%r\" %>s %I %O \"%{Referer}i\" \"%{User-Agent}i\" %X" static_log
-  ErrorLog ${APACHE_LOG_DIR}/static_error.log
-  CustomLog ${APACHE_LOG_DIR}/static_access.log static_log
+  ErrorLog \${APACHE_LOG_DIR}/static_error.log
+  CustomLog \${APACHE_LOG_DIR}/static_access.log static_log
 </VirtualHost>
 STATIC_EOF
 
