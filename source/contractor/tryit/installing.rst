@@ -39,6 +39,8 @@ some other Infrastructure related tasks that need to be done.
 
 :doc:`setup_virtualbox`
 
+:doc:`setup_proxmox`
+
 :doc:`setup_ipmi`
 
 :doc:`setup_amt`
@@ -84,7 +86,7 @@ would like, just update the `proxy-server` parameter to the `setupWizard` call.
 
 There is a script that will the apache setup.  Download and make it executable::
 
-  curl https://t3kton.github.io/_static/apache_setup.sh
+  curl -o apache_setup.sh https://t3kton.github.io/_static/apache_setup.sh
   chmod +x apache_setup.sh
 
 If you do NOT have an upstream proxy::

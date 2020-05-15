@@ -17,7 +17,7 @@ Installing from pre-built packages
 
 Install::
 
-  sudo apt install -y ntp contractor contractor-plugins subcontractor subcontractor-plugins
+  sudo apt install -y ntp contractor contractor-plugins subcontractor subcontractor-plugins python3-pysnmp4
 
 Building Packages
 ~~~~~~~~~~~~~~~~~
@@ -52,6 +52,7 @@ Install Packages::
   sudo apt install -f
   sudo systemctl stop dhcpd
   sudo systemctl stop subcontractor
+  sudo apt install python3-pysnmp4
 
 NOTE: the `dpkg -i` will fail to install all the packages due to missing the dependandices
 the `apt install -f` should fix all that.

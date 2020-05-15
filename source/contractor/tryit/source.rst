@@ -12,6 +12,13 @@ From Source
 Install Dependencies
 ~~~~~~~~~~~~~~~~~~~~
 
+NOTE:  For Ubuntu 18.04LTS there is a little funny business going on with npm, the first apt install will install npm and
+ssl libs that it likes to work with.  Make sure you don't run any install command that will
+inadvertently remove npm until after you have run the install.  One thing that will
+remove npm is the apt install requirements to make the disks at the end.  If you need
+to come back and re-build the contractor ui, make sure you re-install npm if it get's
+removed.
+
 Building requires running on a Ubuntu Bionic(10.04 LTS) machine, make sure you have at least 10GB of free space.
 
 Install the required build tools, the PPA has a few required packages for building
@@ -20,7 +27,7 @@ and installing::
   sudo apt install -y software-properties-common
   sudo add-apt-repository -y ppa:pnhowe/t3kton
   sudo apt update
-  sudo apt install -y git ntp apache2 bind9 bind9utils build-essential libapache2-mod-wsgi-py3 libbz2-dev liblzma-dev libsqlite3-dev nodejs npm python3-cinp python3-dev python3-dhcplib python3-django python3-jinja2 python3-parsimonious python3-pip python3-psycopg2 python3-pymongo python3-setuptools python3-toml python3-werkzeug respkg xorriso
+  sudo apt install -y git ntp apache2 bind9 bind9utils build-essential libapache2-mod-wsgi-py3 libbz2-dev liblzma-dev libsqlite3-dev nodejs npm python3-cinp python3-dev python3-dhcplib python3-django python3-jinja2 python3-parsimonious python3-pip python3-psycopg2 python3-pymongo python3-setuptools python3-toml python3-werkzeug respkg xorriso python3-pysnmp4
 
 First clone the contractor and related projects::
 
@@ -44,11 +51,6 @@ Now to build Contractor, first we need to get the node requirements for the UI, 
 and build the resources.  The make in the resources and disks can take a while::
 
   for i in contractor_plugins resources; do cd $i && make -j2 respkg && mv *.respkg .. && cd ..; done
-
-If you are doing AMT or IPMI, you will need the PXE images, that is built with::
-
-  git clone https://github.com/T3kton/disks.git
-  cd disks ; make -j2; make respkg; mv *.respkg ..; cd ..
 
 Now to install the python code, NOTE the Makefile will call './setup.py install' for you::
 
@@ -79,5 +81,11 @@ Now to install the python code, NOTE the Makefile will call './setup.py install'
   sudo systemctl restart cron
   sudo systemctl enable subcontractor
   sudo systemctl enable dhcpd
+
+If you are doing AMT or IPMI, you will need the PXE images, that is built with::
+
+  apt install build-essential libelf-dev bc zlib1g-dev libssl-dev gperf libreadline-dev libsqlite3-dev libbz2-dev liblzma-dev uuid-dev libdevmapper-dev libgcrypt-dev libgpg-error-dev libassuan-dev libksba-dev libnpth0-dev python3-dev python3-setuptools pkg-config libblkid-dev gettext
+  git clone https://github.com/T3kton/disks.git
+  cd disks ; make -j2; make respkg; mv *.respkg ..; cd ..
 
 return to :ref:`contractor/tryit/installing:installing`
