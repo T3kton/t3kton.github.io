@@ -10,17 +10,25 @@ Note2: Omitting some older, not seemingly under active maintenance like Cloudify
 http://www.devopsbookmarks.com/orchestration
 https://phoenixnap.com/blog/container-orchestration-tools
 https://ll-labs.readthedocs.io/en/latest/calm/orchestration.html
-https://www.burwood.com/blog-archive/automation-vs-orchestration-whats-the-difference
+https://www.burwood.com/blog-archive/automation-vs-orchestration-whats-the-differences
+https://github.com/alexellis/awesome-baremetal
 
 Contractor
 
 Terraform
 Kubernetes
+Pulumi
 Foreman
 Cobbler
 Chef
 OpenStack Ironic
-Rancher
+Rancher - k8 only
+MAAS
+AWS CDK
+Container API
+kopt( and other k8 friends)
+xCAT
+fog
 
 Rundeck
 Awx/Tower

@@ -101,7 +101,7 @@ Foundations and Structures
 First two terms are **Foundation** and **Structure**.  A Foundation is something
 to build on, a Structure is the thing you want to build.  Say we want to
 build a Web Server.  Our Structure is a set of configuration values and scripts
-required to build that web server, i.e., Install Ubuntu LTS 18.04 and install and
+required to build that web server, i.e., Install Ubuntu LTS 24.04 and install and
 Configure Apache (more on those details in .....).  The Foundation is what we
 want to install that on, i.e., a VM, Container, Blade Server, Bare-metal Server,
 Raspberry PI, ECS, GCD, etc...  Not all Foundations are going to be compatible

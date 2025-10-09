@@ -19,7 +19,7 @@ remove npm is the apt install requirements to make the disks at the end.  If you
 to come back and re-build the contractor ui, make sure you re-install npm if it get's
 removed.
 
-Building requires running on a Ubuntu Bionic(10.04 LTS) machine, make sure you have at least 10GB of free space.
+Building requires running on a Ubuntu Noble(24.04 LTS) machine, make sure you have at least 10GB of free space.
 
 Install the required build tools, the PPA has a few required packages for building
 and installing::

@@ -3,7 +3,7 @@
 Installing
 ----------
 
-Create an Ubuntu Bionic(18.04LTS) VM, name it `contractor`, set the fqdn to `contractor.site1.test`
+Create an Ubuntu Noble(24.04LTS) VM, name it `contractor`, set the fqdn to `contractor.site1.test`
 Ideally it should be in a /24 network.  Offset 1 is assumed to be the gateway.
 All these values can be adjusted either in the setupWizard file before it is run,
 or after it is setup, you can use the API to edit these values.
@@ -63,7 +63,7 @@ Create Database
 
 Install Postgres::
 
-  sudo apt install -y postgresql-client postgresql-10 mongodb-server
+  sudo apt install -y postgresql-client postgresql mongodb-server
 
 Create the postgres db::
 
@@ -131,6 +131,10 @@ if you are using Virtualbox::
 
   sudo respkg -i contractor-plugins-virtualbox_*.respkg
 
+if you are using Proxmox::
+
+  sudo respkg -i contractor-plugins-proxmox_*.respkg
+
 if you are using IPMI::
 
   sudo respkg -i contractor-plugins-ipmi_*.respkg
@@ -187,7 +191,7 @@ COPS is defining some curl options. SITE defines the uri of the site we are goin
 to use, and CHOST is the URL to the Contractor server.
 
 now we need to login, replace the `< password >` with the password you passed to
-`setupWizard` (the `--root-password` paramater)::
+`setupWizard` (the `--admin-password` paramater)::
 
   echo '{ "username": "root", "password": "< password >" }' | curl "${COPS[@]}" --data @- -X CALL $CHOST/api/v1/Auth/User\(login\)
 
@@ -444,7 +448,9 @@ make sure they are running::
 
 optional, edit `/etc/default/tftpd-hpa` and add '-v ' to TFTP_OPTIONS.  This will
 cause tfptd to log transfers to syslog.  This can be helpful in troubleshooting
-boot problems. Make sure to run `systemctl restart tftpd-hpa` to reload.
+boot problems. Make sure to run `systemctl restart tftpd-hpa` to reload.  If you
+using a network that has a smaller MTU, add `-B 1200` that will make sure your tftp
+packets make it through.  (If your MTU is less than about 1220, you will want to go smaller)
 
 Next Steps
 ~~~~~~~~~~

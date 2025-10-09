@@ -19,4 +19,8 @@ Now you will need to install python3-proxmoxer::
 
   sudo apt install -y python3-proxmoxer python3-requests
 
+Proxmox does throw occasional errors that the dpkged verion of proxmoxer can't handle.
+If you find your self with errors like "KeyError (596)" you will want to 'pip3 install proxmoxer'
+to get at least version 1.1.1 where that is fixed.
+
 return to :ref:`contractor/tryit/installing:setup`
