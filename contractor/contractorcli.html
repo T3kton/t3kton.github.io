@@ -2,34 +2,27 @@
 
 <!doctype html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="../">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>contractorcli &#8212; t3kton 1.0 documentation</title>
-    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/bizstyle.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=532c1bf3" />
+    
+    <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Configuration Values" href="ConfigurationValues.html" />
     <link rel="prev" title="In Docker" href="Docker.html" />
 
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <script src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159896960-1"></script>
@@ -41,8 +34,7 @@
   gtag('config', 'UA-159896960-1');
 </script>
 
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -56,72 +48,36 @@
           <a href="Docker.html" title="In Docker"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">t3kton 1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Contractor</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Contractor</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">contractorcli</a></li> 
       </ul>
-    </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">contractorcli</a><ul>
-<li><a class="reference internal" href="#configuration">Configuration</a></li>
-<li><a class="reference internal" href="#usage">Usage</a><ul>
-<li><a class="reference internal" href="#version">Version</a></li>
-<li><a class="reference internal" href="#sites">Sites</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#structure">Structure</a></li>
-<li><a class="reference internal" href="#foundation">Foundation</a></li>
-<li><a class="reference internal" href="#complex">Complex</a></li>
-<li><a class="reference internal" href="#blueprint">Blueprint</a></li>
-</ul>
-</li>
-</ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="Docker.html"
-                        title="previous chapter">In Docker</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="ConfigurationValues.html"
-                        title="next chapter">Configuration Values</a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="contractorcli">
-<h1>contractorcli<a class="headerlink" href="#contractorcli" title="Permalink to this headline">¶</a></h1>
+  <section id="contractorcli">
+<h1>contractorcli<a class="headerlink" href="#contractorcli" title="Link to this heading">¶</a></h1>
 <p>contractorcli is a client for working with Contractor, you can get a pre-built binary
 from <a class="reference external" href="https://github.com/T3kton/contractorcli/releases">https://github.com/T3kton/contractorcli/releases</a>.</p>
-<div class="section" id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h2>
 <p>contractorcli’s config file is stored at ~/.contractorcli.ini.  Here is an example
 file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">contractor</span><span class="p">]</span>
-<span class="n">host</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">192.168</span><span class="o">.</span><span class="mf">200.10</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">contractor</span><span class="p">]</span>
+<span class="n">host</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">192.168.200.10</span>
 <span class="n">username</span><span class="p">:</span> <span class="n">root</span>
 <span class="n">password</span><span class="p">:</span> <span class="n">root</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
 <p>For most options you can use the flag <cite>-j</cite> or <cite>–json</cite> to output the results as
 JSON:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site config site1
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli site config site1
 ntp_servers:  [contractor]
 dns_search:   [site1.test test]
 dns_servers:  [10.0.0.10]
@@ -146,7 +102,7 @@ $ ./contractorcli -j site config site1
 </pre></div>
 </div>
 <p>Most commands can also be used in the interactive mode, for example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli structure list
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli structure list
 Id    Site    Hostname        Foundation      Blueprint       Created Updated
 1     site1   contractor      contractor      manual-structure-base   2020-01-07 00:42:58.932884 +0000 +0000  2020-01-07 00:42:59.111802 +0000 +0000
 2     site1   esx01   esx01   vmware-esx-base 2020-01-07 00:46:55.566979 +0000 +0000  2020-02-26 16:22:26.463778 +0000 +0000
@@ -159,26 +115,26 @@ Id    Site    Hostname        Foundation      Blueprint       Created Updated
 contractor&gt;
 </pre></div>
 </div>
-<div class="section" id="version">
-<h3>Version<a class="headerlink" href="#version" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli version
+<section id="version">
+<h3>Version<a class="headerlink" href="#version" title="Link to this heading">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli version
 contractorcli
   Version:    0.2
   Commit:     df562afc8f68dba32689c4981ad4973b7a57783c
 </pre></div>
 </div>
-</div>
-<div class="section" id="sites">
-<h3>Sites<a class="headerlink" href="#sites" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="sites">
+<h3>Sites<a class="headerlink" href="#sites" title="Link to this heading">¶</a></h3>
 <p>For Sites, the name is also the id</p>
 <p>List available sites:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site list
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli site list
 Id    Name    Description     Created Updated
 site1 site1   Initial Site &quot;site1&quot;    2020-01-07 00:42:58.664308 +0000 +0000  2020-02-25 05:53:39.14986 +0000 +0000
 </pre></div>
 </div>
 <p>Get a Site:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site get site1
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli site get site1
 Site:          site1
 Description:   Initial Site &quot;site1&quot;
 Parent:
@@ -189,19 +145,19 @@ Updated:       2020-02-25 05:53:39.14986 +0000 +0000
 </pre></div>
 </div>
 <p>Create a new Site:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site create -d &quot;New Site&quot; -n nsite
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli site create -d &quot;New Site&quot; -n nsite
 </pre></div>
 </div>
 <p>Update an Existing site:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site update nsite -d &quot;New Description&quot;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli site update nsite -d &quot;New Description&quot;
 </pre></div>
 </div>
 <p>Delete a site:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site delete nsite
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli site delete nsite
 </pre></div>
 </div>
 <p>Get Effective/Full/Compiled configuration for a site:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site config site1 -f
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli site config site1 -f
 __pxe_location:       http://static/pxe/
 dns_search:   [site1.test test]
 dns_servers:  [10.0.0.10]
@@ -212,11 +168,11 @@ __timestamp:  2020-03-07T04:46:04.873917+00:00
 __pxe_template_location:      http://contractor/config/pxe_template/
 mirror_proxy: http://10.0.0.10:3128/
 __last_modified:      2020-02-25T05:53:39.149860+00:00
-__contractor_host:    http://contractor/
+__contractor_host:    http://contractor
 </pre></div>
 </div>
 <p>Get the Configuration values for a site:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site config site1
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli site config site1
 dns_servers:  [10.0.0.10]
 domain_name:  site1.test
 mirror_proxy: http://10.0.0.10:3128/
@@ -226,7 +182,7 @@ dns_search:   [site1.test test]
 </pre></div>
 </div>
 <p>Set/Add a new configuration value:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site config site1 -n new -v value
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli site config site1 -n new -v value
 dns_search:   [site1.test test]
 dns_servers:  [10.0.0.10]
 domain_name:  site1.test
@@ -236,7 +192,7 @@ new:  value
 </pre></div>
 </div>
 <p>Delete/Remove configuration value:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli site config site1 -d new
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli site config site1 -d new
 dns_search:   [site1.test test]
 dns_servers:  [10.0.0.10]
 domain_name:  site1.test
@@ -244,14 +200,14 @@ mirror_proxy: http://10.0.0.10:3128/
 ntp_servers:  [contractor]
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="structure">
-<h2>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="structure">
+<h2>Structure<a class="headerlink" href="#structure" title="Link to this heading">¶</a></h2>
 <p>For Structures the id is a number</p>
 <p>NOTE: List, Get, Update, Create, Configuration sections are similar to Site</p>
 <p>View Existing Job information (this is for structure 2):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli structure job 2 -i
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli structure job 2 -i
 Site           /api/v1/Site/Site:site1:
 Structure      /api/v1/Building/Structure:2:
 State:         waiting
@@ -265,13 +221,13 @@ Created:       2020-03-01 06:29:21.829439 +0000 +0000
 </pre></div>
 </div>
 <p>Create a new Create(-c)/Destroy(-d) Job (this is for structure 1):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">contractorcli</span> <span class="n">structure</span> <span class="n">job</span> <span class="mi">1</span> <span class="o">-</span><span class="n">d</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">contractorcli</span> <span class="n">structure</span> <span class="n">job</span> <span class="mi">1</span> <span class="o">-</span><span class="n">d</span>
 <span class="n">job</span><span class="p">:</span>  <span class="mi">12</span>
 </pre></div>
 </div>
 <p>Show Job Status (this is for structure 1):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli structure job 1 -s
-Variables: map[config.__contractor_host:http://contractor/ config.__last_modified:2020-03-07 04:47:44.194113+00:00 config.__pxe_location:http://static/pxe/ config.__pxe_template_location:http://contractor/config/pxe_template/c/1005b8d0-cefa-4c3f-b221-02d5b5332212 config.__timestamp:2020-03-07 04:52:48.310913+00:00 config._blueprint:manual-structure-base config._domain_name:site1.test config._foundation_class_list:[&#39;Metal&#39;, &#39;VM&#39;, &#39;Container&#39;, &#39;Switch&#39;, &#39;Manual&#39;] config._foundation_id:contractor config._foundation_id_map:None config._foundation_interface_list:[{&#39;name&#39;: &#39;enp0s8&#39;, &#39;network&#39;: &#39;main&#39;, &#39;address_list&#39;: [{&#39;address&#39;: &#39;10.0.0.10&#39;, &#39;netmask&#39;: &#39;255.255.255.0&#39;, &#39;prefix&#39;: 24, &#39;subnet&#39;: &#39;10.0.0.0&#39;, &#39;gateway&#39;: None, &#39;auto&#39;: True, &#39;mtu&#39;: 1500, &#39;sub_interface&#39;: None, &#39;primary&#39;: True, &#39;vlan&#39;: 0, &#39;tagged&#39;: False}], &#39;mac&#39;: None, &#39;physical_location&#39;: &#39;enp0s8&#39;}] config._foundation_locator:contractor config._foundation_state:built config._foundation_type:Manual config._fqdn:contractor.site1.test config._hostname:contractor config._interface_map:{&#39;enp0s8&#39;: {&#39;name&#39;: &#39;enp0s8&#39;, &#39;network&#39;: &#39;main&#39;, &#39;address_list&#39;: [{&#39;address&#39;: &#39;10.0.0.10&#39;, &#39;netmask&#39;: &#39;255.255.255.0&#39;, &#39;prefix&#39;: 24, &#39;subnet&#39;: &#39;10.0.0.0&#39;, &#39;gateway&#39;: None, &#39;auto&#39;: True, &#39;mtu&#39;: 1500, &#39;sub_interface&#39;: None, &#39;primary&#39;: True, &#39;vlan&#39;: 0, &#39;tagged&#39;: False}], &#39;mac&#39;: None, &#39;physical_location&#39;: &#39;enp0s8&#39;}} config._primary_address:{&#39;address&#39;: &#39;10.0.0.10&#39;, &#39;netmask&#39;: &#39;255.255.255.0&#39;, &#39;prefix&#39;: 24, &#39;subnet&#39;: &#39;10.0.0.0&#39;, &#39;gateway&#39;: None, &#39;auto&#39;: True, &#39;mtu&#39;: 1500, &#39;sub_interface&#39;: None, &#39;primary&#39;: True} config._primary_interface:enp0s8 config._primary_interface_mac:None config._provisioning_address:{&#39;address&#39;: &#39;10.0.0.10&#39;, &#39;netmask&#39;: &#39;255.255.255.0&#39;, &#39;prefix&#39;: 24, &#39;subnet&#39;: &#39;10.0.0.0&#39;, &#39;gateway&#39;: None, &#39;auto&#39;: True, &#39;mtu&#39;: 1500, &#39;sub_interface&#39;: None, &#39;primary&#39;: True} config._provisioning_interface:enp0s8 config._provisioning_interface_mac:None config._site:site1 config._structure_config_uuid:1005b8d0-cefa-4c3f-b221-02d5b5332212 config._structure_id:1 config._structure_state:built config.dns_search:[&#39;site1.test&#39;, &#39;test&#39;] config.dns_servers:[&#39;10.0.0.10&#39;] config.domain_name:site1.test config.mirror_proxy:http://10.0.0.10:3128/ config.ntp_servers:[&#39;contractor&#39;] foundation.blueprint:manual-foundation-base foundation.class:&lt;class &#39;contractor.plugins.Manual.models.ManualFoundation&#39;&gt; foundation.foundation:ManualFoundation contractor foundation.id:contractor foundation.interface_list:[&lt;RealNetworkInterface: RealNetworkInterface &quot;enp0s8&quot; mac &quot;None&quot;&gt;] foundation.locator:contractor foundation.provisioning_interface:RealNetworkInterface &quot;enp0s8&quot; mac &quot;None&quot; foundation.site:site1 foundation.type:Manual structure.hostname:contractor structure.id:1 structure.primary_interface:RealNetworkInterface &quot;enp0s8&quot; mac &quot;None&quot; structure.primary_ip:10.0.0.10 structure.provisioning_interface:RealNetworkInterface &quot;enp0s8&quot; mac &quot;None&quot; structure.provisioning_ip:10.0.0.10]
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli structure job 1 -s
+Variables: map[config.__contractor_host:http://contractor config.__last_modified:2020-03-07 04:47:44.194113+00:00 config.__pxe_location:http://static/pxe/ config.__pxe_template_location:http://contractor/config/pxe_template/c/1005b8d0-cefa-4c3f-b221-02d5b5332212 config.__timestamp:2020-03-07 04:52:48.310913+00:00 config._blueprint:manual-structure-base config._domain_name:site1.test config._foundation_class_list:[&#39;Metal&#39;, &#39;VM&#39;, &#39;Container&#39;, &#39;Switch&#39;, &#39;Manual&#39;] config._foundation_id:contractor config._foundation_id_map:None config._foundation_interface_list:[{&#39;name&#39;: &#39;enp0s8&#39;, &#39;network&#39;: &#39;main&#39;, &#39;address_list&#39;: [{&#39;address&#39;: &#39;10.0.0.10&#39;, &#39;netmask&#39;: &#39;255.255.255.0&#39;, &#39;prefix&#39;: 24, &#39;subnet&#39;: &#39;10.0.0.0&#39;, &#39;gateway&#39;: None, &#39;auto&#39;: True, &#39;mtu&#39;: 1500, &#39;sub_interface&#39;: None, &#39;primary&#39;: True, &#39;vlan&#39;: 0, &#39;tagged&#39;: False}], &#39;mac&#39;: None, &#39;physical_location&#39;: &#39;enp0s8&#39;}] config._foundation_locator:contractor config._foundation_state:built config._foundation_type:Manual config._fqdn:contractor.site1.test config._hostname:contractor config._interface_map:{&#39;enp0s8&#39;: {&#39;name&#39;: &#39;enp0s8&#39;, &#39;network&#39;: &#39;main&#39;, &#39;address_list&#39;: [{&#39;address&#39;: &#39;10.0.0.10&#39;, &#39;netmask&#39;: &#39;255.255.255.0&#39;, &#39;prefix&#39;: 24, &#39;subnet&#39;: &#39;10.0.0.0&#39;, &#39;gateway&#39;: None, &#39;auto&#39;: True, &#39;mtu&#39;: 1500, &#39;sub_interface&#39;: None, &#39;primary&#39;: True, &#39;vlan&#39;: 0, &#39;tagged&#39;: False}], &#39;mac&#39;: None, &#39;physical_location&#39;: &#39;enp0s8&#39;}} config._primary_address:{&#39;address&#39;: &#39;10.0.0.10&#39;, &#39;netmask&#39;: &#39;255.255.255.0&#39;, &#39;prefix&#39;: 24, &#39;subnet&#39;: &#39;10.0.0.0&#39;, &#39;gateway&#39;: None, &#39;auto&#39;: True, &#39;mtu&#39;: 1500, &#39;sub_interface&#39;: None, &#39;primary&#39;: True} config._primary_interface:enp0s8 config._primary_interface_mac:None config._provisioning_address:{&#39;address&#39;: &#39;10.0.0.10&#39;, &#39;netmask&#39;: &#39;255.255.255.0&#39;, &#39;prefix&#39;: 24, &#39;subnet&#39;: &#39;10.0.0.0&#39;, &#39;gateway&#39;: None, &#39;auto&#39;: True, &#39;mtu&#39;: 1500, &#39;sub_interface&#39;: None, &#39;primary&#39;: True} config._provisioning_interface:enp0s8 config._provisioning_interface_mac:None config._site:site1 config._structure_config_uuid:1005b8d0-cefa-4c3f-b221-02d5b5332212 config._structure_id:1 config._structure_state:built config.dns_search:[&#39;site1.test&#39;, &#39;test&#39;] config.dns_servers:[&#39;10.0.0.10&#39;] config.domain_name:site1.test config.mirror_proxy:http://10.0.0.10:3128/ config.ntp_servers:[&#39;contractor&#39;] foundation.blueprint:manual-foundation-base foundation.class:&lt;class &#39;contractor.plugins.Manual.models.ManualFoundation&#39;&gt; foundation.foundation:ManualFoundation contractor foundation.id:contractor foundation.interface_list:[&lt;RealNetworkInterface: RealNetworkInterface &quot;enp0s8&quot; mac &quot;None&quot;&gt;] foundation.locator:contractor foundation.provisioning_interface:RealNetworkInterface &quot;enp0s8&quot; mac &quot;None&quot; foundation.site:site1 foundation.type:Manual structure.hostname:contractor structure.id:1 structure.primary_interface:RealNetworkInterface &quot;enp0s8&quot; mac &quot;None&quot; structure.primary_ip:10.0.0.10 structure.provisioning_interface:RealNetworkInterface &quot;enp0s8&quot; mac &quot;None&quot; structure.provisioning_ip:10.0.0.10]
 Script State: []
 Script Line No: 0
 -- Script --
@@ -279,20 +235,20 @@ Script Line No: 0
 pause( msg=&#39;Resume When OS is Uninstalled&#39; )
 </pre></div>
 </div>
-</div>
-<div class="section" id="foundation">
-<h2>Foundation<a class="headerlink" href="#foundation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="foundation">
+<h2>Foundation<a class="headerlink" href="#foundation" title="Link to this heading">¶</a></h2>
 <p>For Foundations the Locator is also the id</p>
 <p>NOTE: List, Get sections are similar to Site
 NOTE2: Job section is similar to Structure</p>
 <p>List the foundation types that are supported by contractorcli and the contractor
 instance it is configured to talk to:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli foundation types
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli foundation types
 type: [docker manual virtualbox]
 </pre></div>
 </div>
 <p>Get any type of foundation:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli foundation get esx01
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli foundation get esx01
 Locator:       esx01
 Type:          AMT
 Site:          site1
@@ -308,7 +264,7 @@ Updated:       2020-01-07 04:10:14.12944 +0000 +0000
 </pre></div>
 </div>
 <p>Get specific type of foundation (Note the addition of AMT specific values):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli foundation amt get esx01
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli foundation amt get esx01
 Locator:        esx01
 AMT Username:   admin
 AMT Password:   asdQWE1@3
@@ -328,24 +284,68 @@ Updated:        2020-01-07 04:10:14.12944 +0000 +0000
 </div>
 <p>Update and Create are similar to Site except that you must specify the type of
 foundation:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./contractorcli foundation amt update rtest -b amt-base
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli foundation amt update rtest -b amt-base
 </pre></div>
 </div>
-</div>
-<div class="section" id="complex">
-<h2>Complex<a class="headerlink" href="#complex" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="complex">
+<h2>Complex<a class="headerlink" href="#complex" title="Link to this heading">¶</a></h2>
 <p>For Complexes the Name is also the id</p>
 <p>NOTE: works much like the foundations except there is no Job control</p>
-</div>
-<div class="section" id="blueprint">
-<h2>Blueprint<a class="headerlink" href="#blueprint" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="blueprint">
+<h2>Blueprint<a class="headerlink" href="#blueprint" title="Link to this heading">¶</a></h2>
 <p>For Blueprints the name is also the id</p>
 <p>NOTE: List, Get, Update, Create, Configuration sections are similar to Site</p>
-</div>
-</div>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">contractorcli</a><ul>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#version">Version</a></li>
+<li><a class="reference internal" href="#sites">Sites</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#structure">Structure</a></li>
+<li><a class="reference internal" href="#foundation">Foundation</a></li>
+<li><a class="reference internal" href="#complex">Complex</a></li>
+<li><a class="reference internal" href="#blueprint">Blueprint</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="Docker.html"
+                          title="previous chapter">In Docker</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="ConfigurationValues.html"
+                          title="next chapter">Configuration Values</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -363,12 +363,13 @@ foundation:</p>
           <a href="Docker.html" title="In Docker"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">t3kton 1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Contractor</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >Contractor</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">contractorcli</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, Peter Howe.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    &#169; Copyright 2019, Peter Howe.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     </div>
   </body>
 </html>

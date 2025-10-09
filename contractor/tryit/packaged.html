@@ -2,34 +2,27 @@
 
 <!doctype html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="../../">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>From Prebuilt Packages &#8212; t3kton 1.0 documentation</title>
-    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=532c1bf3" />
+    
+    <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="From Source" href="source.html" />
     <link rel="prev" title="Installing" href="installing.html" />
 
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <script src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159896960-1"></script>
@@ -41,8 +34,7 @@
   gtag('config', 'UA-159896960-1');
 </script>
 
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -57,13 +49,102 @@
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">t3kton 1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Contractor</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Give it a Try</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Give it a Try</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">From Prebuilt Packages</a></li> 
       </ul>
-    </div>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="from-prebuilt-packages">
+<h1>From Prebuilt Packages<a class="headerlink" href="#from-prebuilt-packages" title="Link to this heading">¶</a></h1>
+<p>First we will need the PPA with the cinp and respkg packages:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>software-properties-common
+sudo<span class="w"> </span>add-apt-repository<span class="w"> </span>-y<span class="w"> </span>ppa:pnhowe/t3kton
+sudo<span class="w"> </span>apt<span class="w"> </span>update
+</pre></div>
+</div>
+<p>Now you can either <a class="reference internal" href="#installing-from-pre-built-packages">Installing from pre-built packages</a> or <a class="reference internal" href="#building-packages">Building Packages</a>.
+After that make sure you <a class="reference internal" href="#building-the-resources">Building the Resources</a>.</p>
+<section id="installing-from-pre-built-packages">
+<h2>Installing from pre-built packages<a class="headerlink" href="#installing-from-pre-built-packages" title="Link to this heading">¶</a></h2>
+<p>Install:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ntp<span class="w"> </span>contractor<span class="w"> </span>contractor-plugins<span class="w"> </span>subcontractor<span class="w"> </span>subcontractor-plugins<span class="w"> </span>python3-pysnmp4
+</pre></div>
+</div>
+</section>
+<section id="building-packages">
+<h2>Building Packages<a class="headerlink" href="#building-packages" title="Link to this heading">¶</a></h2>
+<p>Install the required build tools, the PPA has a few required packages for building
+and installing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>git<span class="w"> </span>respkg<span class="w"> </span>build-essential<span class="w"> </span>dpkg-dev<span class="w"> </span>debhelper<span class="w"> </span>python3-dev<span class="w"> </span>python3-setuptools<span class="w"> </span>nodejs<span class="w"> </span>npm<span class="w"> </span>liblzma-dev
+</pre></div>
+</div>
+<p>First clone the contractor and related projects:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/T3kton/contractor.git
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/T3kton/contractor_plugins.git
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/T3kton/subcontractor.git
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/T3kton/subcontractor_plugins.git
+</pre></div>
+</div>
+<p>Now to build Contractor, first we need to get the node requirements for the UI, and fix a bug with react-toolbox:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>contractor
+<span class="nb">cd</span><span class="w"> </span>ui<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>npm<span class="w"> </span>install<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..
+sed<span class="w"> </span>s/<span class="s2">&quot;export Ripple from &#39;.\/ripple&#39;;&quot;</span>/<span class="s2">&quot;export { default as Ripple } from &#39;.\/ripple&#39;;&quot;</span>/<span class="w"> </span>-i<span class="w"> </span>ui/node_modules/react-toolbox/components/index.js
+sed<span class="w"> </span>s/<span class="s2">&quot;export Tooltip from &#39;.\/tooltip&#39;;&quot;</span>/<span class="s2">&quot;export { default as Tooltip } from &#39;.\/tooltip&#39;;&quot;</span>/<span class="w"> </span>-i<span class="w"> </span>ui/node_modules/react-toolbox/components/index.js
+<span class="nb">cd</span><span class="w"> </span>..
+</pre></div>
+</div>
+<p>Now build the packages:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>contractor<span class="w"> </span>subcontractor<span class="w"> </span>contractor_plugins<span class="w"> </span>subcontractor_plugins<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>dpkg<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..<span class="p">;</span><span class="w"> </span><span class="k">done</span>
+</pre></div>
+</div>
+<p>Install Packages:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>contractor_*.deb<span class="w"> </span>contractor-plugins_*.deb<span class="w"> </span>subcontractor_*.deb<span class="w"> </span>subcontractor-plugins_*.deb
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-f
+sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>dhcpd
+sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>subcontractor
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-pysnmp4
+</pre></div>
+</div>
+<p>NOTE: the <cite>dpkg -i</cite> will fail to install all the packages due to missing the dependandices
+the <cite>apt install -f</cite> should fix all that.</p>
+</section>
+<section id="building-the-resources">
+<h2>Building the Resources<a class="headerlink" href="#building-the-resources" title="Link to this heading">¶</a></h2>
+<p>The resource packages are not hosted publicly so you will need to build them,
+(you don’t need, to checkout contractor_plugins if you built the packages):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>git<span class="w"> </span>respkg<span class="w"> </span>build-essential<span class="w"> </span>liblzma-dev
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/T3kton/resources.git
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/T3kton/contractor_plugins.git
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span>contractor_plugins<span class="w"> </span>resources<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>-j2<span class="w"> </span>respkg<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>mv<span class="w"> </span>*.respkg<span class="w"> </span>..<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..<span class="p">;</span><span class="w"> </span><span class="k">done</span>
+</pre></div>
+</div>
+<p>If you are doing AMT or IPMI, you will need the PXE images, that is built with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>bc<span class="w"> </span>libgcrypt-dev<span class="w"> </span>libgpg-error-dev<span class="w"> </span>libksba-dev<span class="w"> </span>libassuan-dev<span class="w"> </span>libnpth0-dev<span class="w"> </span>pkg-config<span class="w"> </span>zlib1g-dev<span class="w"> </span>libelf-dev<span class="w"> </span>uuid-dev<span class="w"> </span>libdevmapper-dev<span class="w"> </span>libreadline-dev<span class="w"> </span>libssl-dev<span class="w"> </span>gperf<span class="w"> </span>gettext<span class="w"> </span>libblkid-dev<span class="w"> </span>python3-pip
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/T3kton/disks.git
+<span class="nb">cd</span><span class="w"> </span>disks<span class="w"> </span><span class="p">;</span><span class="w"> </span>make<span class="w"> </span>-j2<span class="p">;</span><span class="w"> </span>make<span class="w"> </span>respkg<span class="p">;</span><span class="w"> </span>mv<span class="w"> </span>*.respkg<span class="w"> </span>..<span class="p">;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..
+</pre></div>
+</div>
+<p>NOTE: close to the end of the build, there are some sudo commands, so you will be
+prompted for sudo password if you are not already root.</p>
+<p>return to <a class="reference internal" href="installing.html#installing"><span class="std std-ref">Installing</span></a></p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table Of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">From Prebuilt Packages</a><ul>
 <li><a class="reference internal" href="#installing-from-pre-built-packages">Installing from pre-built packages</a></li>
 <li><a class="reference internal" href="#building-packages">Building Packages</a></li>
@@ -72,107 +153,27 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="installing.html"
-                        title="previous chapter">Installing</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="source.html"
-                        title="next chapter">From Source</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="installing.html"
+                          title="previous chapter">Installing</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="source.html"
+                          title="next chapter">From Source</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
-  <div class="section" id="from-prebuilt-packages">
-<h1>From Prebuilt Packages<a class="headerlink" href="#from-prebuilt-packages" title="Permalink to this headline">¶</a></h1>
-<p>First we will need the PPA with the cinp and respkg packages:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo apt install -y software-properties-common
-sudo add-apt-repository -y ppa:pnhowe/t3kton
-sudo apt update
-</pre></div>
-</div>
-<p>Now you can either <a class="reference internal" href="#installing-from-pre-built-packages">Installing from pre-built packages</a> or <a class="reference internal" href="#building-packages">Building Packages</a>.
-After that make sure you <a class="reference internal" href="#building-the-resources">Building the Resources</a>.</p>
-<div class="section" id="installing-from-pre-built-packages">
-<h2>Installing from pre-built packages<a class="headerlink" href="#installing-from-pre-built-packages" title="Permalink to this headline">¶</a></h2>
-<p>Install:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo apt install -y ntp contractor contractor-plugins subcontractor subcontractor-plugins
-</pre></div>
-</div>
-</div>
-<div class="section" id="building-packages">
-<h2>Building Packages<a class="headerlink" href="#building-packages" title="Permalink to this headline">¶</a></h2>
-<p>Install the required build tools, the PPA has a few required packages for building
-and installing:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo apt install -y git respkg build-essential dpkg-dev debhelper python3-dev python3-setuptools nodejs npm liblzma-dev
-</pre></div>
-</div>
-<p>First clone the contractor and related projects:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/T3kton/contractor.git
-git clone https://github.com/T3kton/contractor_plugins.git
-git clone https://github.com/T3kton/subcontractor.git
-git clone https://github.com/T3kton/subcontractor_plugins.git
-</pre></div>
-</div>
-<p>Now to build Contractor, first we need to get the node requirements for the UI, and fix a bug with react-toolbox:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> contractor
-<span class="nb">cd</span> ui <span class="o">&amp;&amp;</span> npm install <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ..
-sed s/<span class="s2">&quot;export Ripple from &#39;.\/ripple&#39;;&quot;</span>/<span class="s2">&quot;export { default as Ripple } from &#39;.\/ripple&#39;;&quot;</span>/ -i ui/node_modules/react-toolbox/components/index.js
-sed s/<span class="s2">&quot;export Tooltip from &#39;.\/tooltip&#39;;&quot;</span>/<span class="s2">&quot;export { default as Tooltip } from &#39;.\/tooltip&#39;;&quot;</span>/ -i ui/node_modules/react-toolbox/components/index.js
-<span class="nb">cd</span> ..
-</pre></div>
-</div>
-<p>Now build the packages:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="k">for</span> i in contractor subcontractor contractor_plugins subcontractor_plugins<span class="p">;</span> <span class="k">do</span> <span class="nb">cd</span> <span class="nv">$i</span> <span class="o">&amp;&amp;</span> make dpkg <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ..<span class="p">;</span> <span class="k">done</span>
-</pre></div>
-</div>
-<p>Install Packages:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo dpkg -i contractor_*.deb contractor-plugins_*.deb subcontractor_*.deb subcontractor-plugins_*.deb
-sudo apt install -f
-sudo systemctl stop dhcpd
-sudo systemctl stop subcontractor
-</pre></div>
-</div>
-<p>NOTE: the <cite>dpkg -i</cite> will fail to install all the packages due to missing the dependandices
-the <cite>apt install -f</cite> should fix all that.</p>
-</div>
-<div class="section" id="building-the-resources">
-<h2>Building the Resources<a class="headerlink" href="#building-the-resources" title="Permalink to this headline">¶</a></h2>
-<p>The resource packages are not hosted publicly so you will need to build them,
-(you don’t need, to checkout contractor_plugins if you built the packages):</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo apt install git respkg build-essential liblzma-dev
-git clone https://github.com/T3kton/resources.git
-git clone https://github.com/T3kton/contractor_plugins.git
-<span class="k">for</span> i in contractor_plugins resources<span class="p">;</span> <span class="k">do</span> <span class="nb">cd</span> <span class="nv">$i</span> <span class="o">&amp;&amp;</span> make -j2 respkg <span class="o">&amp;&amp;</span> mv *.respkg .. <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ..<span class="p">;</span> <span class="k">done</span>
-</pre></div>
-</div>
-<p>If you are doing AMT or IPMI, you will need the PXE images, that is built with:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>sudo apt install -y bc libgcrypt-dev libgpg-error-dev libksba-dev libassuan-dev libnpth0-dev pkg-config zlib1g-dev libelf-dev uuid-dev libdevmapper-dev libreadline-dev libssl-dev gperf gettext libblkid-dev python3-pip
-git clone https://github.com/T3kton/disks.git
-<span class="nb">cd</span> disks <span class="p">;</span> make -j2<span class="p">;</span> make respkg<span class="p">;</span> mv *.respkg ..<span class="p">;</span> <span class="nb">cd</span> ..
-</pre></div>
-</div>
-<p>NOTE: close to the end of the build, there are some sudo commands, so you will be
-prompted for sudo password if you are not already root.</p>
-<p>return to <a class="reference internal" href="installing.html#installing"><span class="std std-ref">Installing</span></a></p>
-</div>
-</div>
-
-
-          </div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -191,12 +192,13 @@ prompted for sudo password if you are not already root.</p>
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">t3kton 1.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Contractor</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" >Give it a Try</a> &#187;</li> 
+          <li class="nav-item nav-item-2"><a href="index.html" >Give it a Try</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">From Prebuilt Packages</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, Peter Howe.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    &#169; Copyright 2019, Peter Howe.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     </div>
   </body>
 </html>

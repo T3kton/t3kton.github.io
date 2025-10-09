@@ -2,34 +2,27 @@
 
 <!doctype html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="../">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Introduction to Contractor &#8212; t3kton 1.0 documentation</title>
-    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/bizstyle.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=532c1bf3" />
+    
+    <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Give it a Try" href="tryit/index.html" />
     <link rel="prev" title="Contractor" href="index.html" />
 
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <script src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159896960-1"></script>
@@ -41,8 +34,7 @@
   gtag('config', 'UA-159896960-1');
 </script>
 
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -56,62 +48,25 @@
           <a href="index.html" title="Contractor"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">t3kton 1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Contractor</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Contractor</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Introduction to Contractor</a></li> 
       </ul>
-    </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Introduction to Contractor</a><ul>
-<li><a class="reference internal" href="#overview">Overview</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#high-level-look">High Level Look</a><ul>
-<li><a class="reference internal" href="#foundations-and-structures">Foundations and Structures</a></li>
-<li><a class="reference internal" href="#sites">Sites</a></li>
-<li><a class="reference internal" href="#complexes">Complexes</a></li>
-<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
-<li><a class="reference internal" href="#blueprints">BluePrints</a></li>
-<li><a class="reference internal" href="#other">Other</a></li>
-<li><a class="reference internal" href="#future">Future</a></li>
-</ul>
-</li>
-</ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">Contractor</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="tryit/index.html"
-                        title="next chapter">Give it a Try</a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="introduction-to-contractor">
-<h1>Introduction to Contractor<a class="headerlink" href="#introduction-to-contractor" title="Permalink to this headline">¶</a></h1>
+  <section id="introduction-to-contractor">
+<h1>Introduction to Contractor<a class="headerlink" href="#introduction-to-contractor" title="Link to this heading">¶</a></h1>
 <p>Contractor is an Extendable Resource Management API.  The goal of Contractor
 is to provide an API to Automate the Provisioning, Deployment, Configuration and
 Management of Resources.</p>
 <p>Contractor uses building terms (for the most part) to try to avoid name
 collisions with various platforms and systems.</p>
-<div class="section" id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
 <p>Contractor is a builder of anything, and is targeted to be used as a generic API
 to create/destroy/manipulate your resources no matter where or what they are.
 This enables you to focus on what you want to make, and not have to worry about
@@ -179,23 +134,23 @@ IPMI network to be isolated from other networks. Other SubContractors can then
 handle PXE booting the servers, and performing other checks such as checking that
 port 22 is open (a common and easy way to make sure a Structure with SSH installed
 has sucessfully booted).</p>
-</div>
-</div>
-<div class="section" id="high-level-look">
-<h1>High Level Look<a class="headerlink" href="#high-level-look" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="foundations-and-structures">
-<h2>Foundations and Structures<a class="headerlink" href="#foundations-and-structures" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="high-level-look">
+<h1>High Level Look<a class="headerlink" href="#high-level-look" title="Link to this heading">¶</a></h1>
+<section id="foundations-and-structures">
+<h2>Foundations and Structures<a class="headerlink" href="#foundations-and-structures" title="Link to this heading">¶</a></h2>
 <p>First two terms are <strong>Foundation</strong> and <strong>Structure</strong>.  A Foundation is something
 to build on, a Structure is the thing you want to build.  Say we want to
 build a Web Server.  Our Structure is a set of configuration values and scripts
-required to build that web server, i.e., Install Ubuntu LTS 18.04 and install and
+required to build that web server, i.e., Install Ubuntu LTS 24.04 and install and
 Configure Apache (more on those details in …..).  The Foundation is what we
 want to install that on, i.e., a VM, Container, Blade Server, Bare-metal Server,
 Raspberry PI, ECS, GCD, etc…  Not all Foundations are going to be compatible
 with all Structures, however a well defined Structure can be installed on most
 of them.</p>
 <p>So far we have this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-----------------------------+</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-----------------------------+</span>
 <span class="o">|</span>                             <span class="o">|</span>
 <span class="o">|</span>  <span class="n">Structure</span> <span class="p">(</span><span class="n">Web</span> <span class="n">Server</span><span class="p">)</span>     <span class="o">|</span>
 <span class="o">|</span>                             <span class="o">|</span>
@@ -209,12 +164,12 @@ of them.</p>
 <span class="o">+-----------------------------+</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="sites">
-<h2>Sites<a class="headerlink" href="#sites" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="sites">
+<h2>Sites<a class="headerlink" href="#sites" title="Link to this heading">¶</a></h2>
 <p>The next term is <strong>Site</strong>.  A site is a Logical grouping of things.  Let’s put
 our Web Server in a Site called “Cluster 1”</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-------------------------------------+</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-------------------------------------+</span>
 <span class="o">|</span>  <span class="n">Cluster</span> <span class="mi">1</span>                          <span class="o">|</span>
 <span class="o">|</span>                                     <span class="o">|</span>
 <span class="o">|</span>    <span class="o">+-----------------------------+</span>  <span class="o">|</span>
@@ -239,7 +194,7 @@ configuration values of “Cluster 1” then overlay them with “Foundation” 
 the “Structure”.</p>
 <p>Sites can be be put into other Sites.  For example we have Clusters 1, 2, and 3
 in “Datacenter West”.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---------------------------------------------------------------------------------------------+</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+---------------------------------------------------------------------------------------------+</span>
 <span class="o">|</span> <span class="n">Datacenter</span> <span class="n">West</span>                                                                             <span class="o">|</span>
 <span class="o">|</span>                                                                                             <span class="o">|</span>
 <span class="o">|</span>  <span class="o">+-------------------------------------+</span> <span class="o">+----------------------+</span> <span class="o">+----------------------+</span>  <span class="o">|</span>
@@ -281,11 +236,11 @@ class is meant as a root class for specific target handlers to work against.</p>
 <p>We are going to use the <strong>IPMIFoundation</strong> to handle the bare-metal machines on which
 we are installing ESX on, and <strong>VCenterFoundation</strong> to handle the vms on the
 ESX/VCenter.</p>
-</div>
-<div class="section" id="complexes">
-<h2>Complexes<a class="headerlink" href="#complexes" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="complexes">
+<h2>Complexes<a class="headerlink" href="#complexes" title="Link to this heading">¶</a></h2>
 <p>Note: we are going to omit Cluster 2 and 3 for now, they are clones of Cluster 1:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-----------------------------------------------------------------------------+</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-----------------------------------------------------------------------------+</span>
 <span class="o">|</span> <span class="n">Datacenter</span> <span class="n">West</span>                                                             <span class="o">|</span>
 <span class="o">|</span>                                                                             <span class="o">|</span>
 <span class="o">|</span>  <span class="o">+-----------------------------------------------------------------------+</span>  <span class="o">|</span>
@@ -335,7 +290,7 @@ NOTE: the configuration info of the Structure and Foundations that make up a
 cluster do <strong>NOT</strong> flow through to the Foundations and Structures built on that
 complex.  The Members of the Complex can even belong to another site.</p>
 <p>For Example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-----------------------------------------------------------------------------+</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-----------------------------------------------------------------------------+</span>
 <span class="o">|</span> <span class="n">Datacenter</span> <span class="n">West</span>                                                             <span class="o">|</span>
 <span class="o">|</span>                                                                             <span class="o">|</span>
 <span class="o">|</span>  <span class="o">+-----------------------------------------------------------------------+</span>  <span class="o">|</span>
@@ -386,17 +341,17 @@ complex.  The Members of the Complex can even belong to another site.</p>
 <p>Complexes also cause Contractor to build the Web Server Structure/Foundations
 after the ESX Structure/Foundations are done.  Also the example would look pretty
 much the same for a Docker/OpenStack/etc Complex.</p>
-</div>
-<div class="section" id="dependencies">
-<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading">¶</a></h2>
 <p>One final piece of the deployment puzzle, the <strong>Dependency</strong>.  This is to make sure
 your deployments happen in order.  For example, you can’t install any OSes until
 the Switch is provisioned.  Also you may have to allocate space on an NFS mount
 before installing a VM.  This is where Dependencies come in, allowing a Foundation
 to Depend on a Structure being built, and/or a job being run on a Structure.</p>
-</div>
-<div class="section" id="blueprints">
-<h2>BluePrints<a class="headerlink" href="#blueprints" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="blueprints">
+<h2>BluePrints<a class="headerlink" href="#blueprints" title="Link to this heading">¶</a></h2>
 <p>Now that we have talked about the parts, we need to talk about how those things
 are confugred and that is handled by <strong>BluePrint</strong>, specifically the
 <strong>FoundationBluePrint</strong> and the <strong>StructureBluePrint</strong>.  A Blueprint also holds
@@ -412,7 +367,7 @@ configuration information.</p>
 for other tasks.  These scripts are written in <strong>tscript</strong> (see <a class="reference internal" href="tscript.html"><span class="doc">tscript</span></a>).</p>
 <p>Taking our example from above, the blueprint for the webserver would look something
 like (see :doc:ConfigurationValues for info on the configuration values):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="n">structure</span><span class="o">.</span><span class="n">webserver</span> <span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="n">structure</span><span class="o">.</span><span class="n">webserver</span> <span class="p">]</span>
   <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;My Serbserver&#39;</span>
   <span class="n">parents</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;ubuntu-bionic-base&#39;</span> <span class="p">]</span>
 <span class="p">[</span> <span class="n">structure</span><span class="o">.</span><span class="n">webserver</span><span class="o">.</span><span class="n">config_values</span> <span class="p">]</span>
@@ -422,17 +377,17 @@ like (see :doc:ConfigurationValues for info on the configuration values):</p>
 <p>It would inherit the create/destroy scripts from <cite>linux-installer</cite>, which is an
 ancestor to <cite>ubuntu-bionic-base</cite> which is defined in <a class="reference external" href="https://github.com/T3kton/resources/blob/master/os-bases/ubuntu/usr/lib/contractor/resources/ubuntu.toml">https://github.com/T3kton/resources/blob/master/os-bases/ubuntu/usr/lib/contractor/resources/ubuntu.toml</a>.
 <cite>linux-installer</cite> is defined here <a class="reference external" href="https://github.com/T3kton/resources/blob/master/os-bases/os_base/usr/lib/contractor/resources/base_os.toml">https://github.com/T3kton/resources/blob/master/os-bases/os_base/usr/lib/contractor/resources/base_os.toml</a>.</p>
-</div>
-<div class="section" id="other">
-<h2>Other<a class="headerlink" href="#other" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="other">
+<h2>Other<a class="headerlink" href="#other" title="Link to this heading">¶</a></h2>
 <p>There are other Classes/Components in Contractor, but they are mostly for dealing
 with Configure/Destroy/Misc Jobs (the Foreman/SubContractor module), or managing
 DNS Zones (Directory module), keeping track of Ip Addresses and other
 “Utilities” in the Utilities module, the physical location of things (Survey Module),
 and Audit log (Records Module).  Those are documented else where.</p>
-</div>
-<div class="section" id="future">
-<h2>Future<a class="headerlink" href="#future" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="future">
+<h2>Future<a class="headerlink" href="#future" title="Link to this heading">¶</a></h2>
 <p>Contractor being able to build everything can also be used as a single source of
 truth, thus providing a place where you can ask questions such as “How many Load
 Balancers do we have?”, “What Services will taking this host down affect?”, or
@@ -445,11 +400,56 @@ resource is not connected.  Contractor will also have webhooks so that services 
 be notified on Creation/Destruction events or even hardware events, thus allowing
 a service able to ask for a harddrive replacment to wait until it is able
 to take that harddrive out of service nicely.</p>
-</div>
-</div>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Introduction to Contractor</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#high-level-look">High Level Look</a><ul>
+<li><a class="reference internal" href="#foundations-and-structures">Foundations and Structures</a></li>
+<li><a class="reference internal" href="#sites">Sites</a></li>
+<li><a class="reference internal" href="#complexes">Complexes</a></li>
+<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li><a class="reference internal" href="#blueprints">BluePrints</a></li>
+<li><a class="reference internal" href="#other">Other</a></li>
+<li><a class="reference internal" href="#future">Future</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">Contractor</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="tryit/index.html"
+                          title="next chapter">Give it a Try</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -467,12 +467,13 @@ to take that harddrive out of service nicely.</p>
           <a href="index.html" title="Contractor"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">t3kton 1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Contractor</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >Contractor</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Introduction to Contractor</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, Peter Howe.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    &#169; Copyright 2019, Peter Howe.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     </div>
   </body>
 </html>

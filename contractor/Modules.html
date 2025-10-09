@@ -2,34 +2,27 @@
 
 <!doctype html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="../">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Modules &#8212; t3kton 1.0 documentation</title>
-    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/bizstyle.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=532c1bf3" />
+    
+    <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="tscript" href="tscript.html" />
     <link rel="prev" title="Networking" href="Networking.html" />
 
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <script src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159896960-1"></script>
@@ -41,8 +34,7 @@
   gtag('config', 'UA-159896960-1');
 </script>
 
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -56,13 +48,90 @@
           <a href="Networking.html" title="Networking"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">t3kton 1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Contractor</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Contractor</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Modules</a></li> 
       </ul>
-    </div>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="modules">
+<h1>Modules<a class="headerlink" href="#modules" title="Link to this heading">¶</a></h1>
+<section id="blueprint">
+<h2>BluePrint<a class="headerlink" href="#blueprint" title="Link to this heading">¶</a></h2>
+<p>Contains BluePrint, a generic base class for StructureBluePrint and FoundationBluePrint.
+Also contains the Scripts and linkages between the BluePrints and Scripts.  It also contains
+PXE, things to which PXE bootable devices can be set to boot to.</p>
+</section>
+<section id="building">
+<h2>Building<a class="headerlink" href="#building" title="Link to this heading">¶</a></h2>
+<p>Contains Foundation, a generic base class for all Foundations provided by plugins.
+Structure, the class for Structures that go on Foundations.  Complex, a
+grouping of Foundations (ie: a cluster).  Dependency, allows Foundations to
+depend on Structures and/or jobs to be complete on a structure.</p>
+</section>
+<section id="foreman">
+<h2>Foreman<a class="headerlink" href="#foreman" title="Link to this heading">¶</a></h2>
+<p>Contains BaseJob a generic base class for FoundationJob, StructureJob and DependancyJob,
+which are jobs that are inflight for Foundations, Structures, and Dependancies
+respectively.</p>
+</section>
+<section id="site">
+<h2>Site<a class="headerlink" href="#site" title="Link to this heading">¶</a></h2>
+<p>Contains Site, for grouping Foundations and Structures into logical groups for
+easier management.</p>
+</section>
+<section id="subcontractor">
+<h2>SubContractor<a class="headerlink" href="#subcontractor" title="Link to this heading">¶</a></h2>
+<p>Interface for Subcontractor, probably going to get moved to Foreman</p>
+</section>
+<section id="auth">
+<h2>Auth<a class="headerlink" href="#auth" title="Link to this heading">¶</a></h2>
+<p>Handles Authentication</p>
+</section>
+<section id="postoffice">
+<h2>PostOffice<a class="headerlink" href="#postoffice" title="Link to this heading">¶</a></h2>
+<p>Handles the webhooks</p>
+</section>
+<section id="records">
+<h2>Records<a class="headerlink" href="#records" title="Link to this heading">¶</a></h2>
+<p>Deals with the audit log of the jobs</p>
+</section>
+<section id="utilities">
+<h2>Utilities<a class="headerlink" href="#utilities" title="Link to this heading">¶</a></h2>
+<p>Handles Network Interfaces, Ip Addresses, and (eventually)Power interfaces</p>
+</section>
+<section id="directory">
+<h2>Directory<a class="headerlink" href="#directory" title="Link to this heading">¶</a></h2>
+<p>Handles the DNS information</p>
+</section>
+<section id="survey">
+<h2>Survey<a class="headerlink" href="#survey" title="Link to this heading">¶</a></h2>
+<p>Deals with the physical location of things</p>
+</section>
+<section id="lib">
+<h2>lib<a class="headerlink" href="#lib" title="Link to this heading">¶</a></h2>
+<p>Common utilties for all of Contractor</p>
+</section>
+<section id="tscript">
+<h2>tscript<a class="headerlink" href="#tscript" title="Link to this heading">¶</a></h2>
+<p>T3kton Script parser and runner</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
 <li><a class="reference internal" href="#">Modules</a><ul>
 <li><a class="reference internal" href="#blueprint">BluePrint</a></li>
 <li><a class="reference internal" href="#building">Building</a></li>
@@ -81,96 +150,27 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="Networking.html"
-                        title="previous chapter">Networking</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="tscript.html"
-                        title="next chapter">tscript</a></p>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="Networking.html"
+                          title="previous chapter">Networking</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="tscript.html"
+                          title="next chapter">tscript</a></p>
+  </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
-  <div class="section" id="modules">
-<h1>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="blueprint">
-<h2>BluePrint<a class="headerlink" href="#blueprint" title="Permalink to this headline">¶</a></h2>
-<p>Contains BluePrint, a generic base class for StructureBluePrint and FoundationBluePrint.
-Also contains the Scripts and linkages between the BluePrints and Scripts.  It also contains
-PXE, things to which PXE bootable devices can be set to boot to.</p>
-</div>
-<div class="section" id="building">
-<h2>Building<a class="headerlink" href="#building" title="Permalink to this headline">¶</a></h2>
-<p>Contains Foundation, a generic base class for all Foundations provided by plugins.
-Structure, the class for Structures that go on Foundations.  Complex, a
-grouping of Foundations (ie: a cluster).  Dependency, allows Foundations to
-depend on Structures and/or jobs to be complete on a structure.</p>
-</div>
-<div class="section" id="foreman">
-<h2>Foreman<a class="headerlink" href="#foreman" title="Permalink to this headline">¶</a></h2>
-<p>Contains BaseJob a generic base class for FoundationJob, StructureJob and DependancyJob,
-which are jobs that are inflight for Foundations, Structures, and Dependancies
-respectively.</p>
-</div>
-<div class="section" id="site">
-<h2>Site<a class="headerlink" href="#site" title="Permalink to this headline">¶</a></h2>
-<p>Contains Site, for grouping Foundations and Structures into logical groups for
-easier management.</p>
-</div>
-<div class="section" id="subcontractor">
-<h2>SubContractor<a class="headerlink" href="#subcontractor" title="Permalink to this headline">¶</a></h2>
-<p>Interface for Subcontractor, probably going to get moved to Foreman</p>
-</div>
-<div class="section" id="auth">
-<h2>Auth<a class="headerlink" href="#auth" title="Permalink to this headline">¶</a></h2>
-<p>Handles Authentication</p>
-</div>
-<div class="section" id="postoffice">
-<h2>PostOffice<a class="headerlink" href="#postoffice" title="Permalink to this headline">¶</a></h2>
-<p>Handles the webhooks</p>
-</div>
-<div class="section" id="records">
-<h2>Records<a class="headerlink" href="#records" title="Permalink to this headline">¶</a></h2>
-<p>Deals with the audit log of the jobs</p>
-</div>
-<div class="section" id="utilities">
-<h2>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
-<p>Handles Network Interfaces, Ip Addresses, and (eventually)Power interfaces</p>
-</div>
-<div class="section" id="directory">
-<h2>Directory<a class="headerlink" href="#directory" title="Permalink to this headline">¶</a></h2>
-<p>Handles the DNS information</p>
-</div>
-<div class="section" id="survey">
-<h2>Survey<a class="headerlink" href="#survey" title="Permalink to this headline">¶</a></h2>
-<p>Deals with the physical location of things</p>
-</div>
-<div class="section" id="lib">
-<h2>lib<a class="headerlink" href="#lib" title="Permalink to this headline">¶</a></h2>
-<p>Common utilties for all of Contractor</p>
-</div>
-<div class="section" id="tscript">
-<h2>tscript<a class="headerlink" href="#tscript" title="Permalink to this headline">¶</a></h2>
-<p>T3kton Script parser and runner</p>
-</div>
-</div>
-
-
-          </div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -188,12 +188,13 @@ easier management.</p>
           <a href="Networking.html" title="Networking"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">t3kton 1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Contractor</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >Contractor</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Modules</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2019, Peter Howe.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    &#169; Copyright 2019, Peter Howe.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     </div>
   </body>
 </html>

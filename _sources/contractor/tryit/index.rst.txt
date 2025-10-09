@@ -23,6 +23,7 @@ Contents:
   other_languages
 
 
+.. Would be nice to do like learn.hasicorp.com does and select from curl, python, go, contractorcli for the commands
 
 *Note*: Contractor is made to solve complex problems, for the most part it presents
 a much less complex interface to you.  That being said, there is a bit of a hurdle

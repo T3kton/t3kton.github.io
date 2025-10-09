@@ -7,19 +7,23 @@ mkdir -p /var/www/static
 
 if [ "x$UPSTREAM_PROXY" != "x" ]
 then
-  proxy="ProxyRemote * $UPSTREAM_PROXY"
+  proxy="  NoProxy static static.site1.test
+  NoProxy contractor contractor.site1.test
+
+  ProxyRemote * $UPSTREAM_PROXY"
 fi
 
 cat > /etc/apache2/sites-available/proxy.conf << PROXY_EOF
 Listen 3128
 <VirtualHost *:3128>
   ServerName proxy
-  ServerAlias proxy.site1.test
+  ServerAlias proxy.*
 
   DocumentRoot /var/www/static
 
+  LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" \"%{cache-status}e\"" proxy_log
   ErrorLog \${APACHE_LOG_DIR}/proxy_error.log
-  CustomLog \${APACHE_LOG_DIR}/proxy_access.log combined
+  CustomLog \${APACHE_LOG_DIR}/proxy_access.log proxy_log
 
   ProxyRequests On
   ProxyVia Full
@@ -27,17 +31,19 @@ Listen 3128
   CacheEnable disk http://
   CacheEnable disk https://
 
-  NoProxy static static.site1.test
-  NoProxy contractor contractor.site1.test
+  CacheDisable http://static
+  CacheDisable http://static.site1.test
+  CacheDisable http://contractor
+  CacheDisable http://contractor.site1.test
 
-  $proxy
+$proxy
 </VirtualHost>
 PROXY_EOF
 
 cat > /etc/apache2/sites-available/static.conf << STATIC_EOF
 <VirtualHost *:80>
   ServerName static
-  ServerAlias static.site1.test
+  ServerAlias static.*
 
   DocumentRoot /var/www/static
 
@@ -46,8 +52,6 @@ cat > /etc/apache2/sites-available/static.conf << STATIC_EOF
   CustomLog \${APACHE_LOG_DIR}/static_access.log static_log
 </VirtualHost>
 STATIC_EOF
-
-sed 's/#  ServerAlias contractor.<domain>/  ServerAlias contractor.site1.test/' -i /etc/apache2/sites-available/contractor.conf
 
 a2ensite proxy
 a2ensite static
