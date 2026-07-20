@@ -451,6 +451,8 @@ cause tfptd to log transfers to syslog.  This can be helpful in troubleshooting
 boot problems. Make sure to run `systemctl restart tftpd-hpa` to reload.  If you
 using a network that has a smaller MTU, add `-B 1200` that will make sure your tftp
 packets make it through.  (If your MTU is less than about 1220, you will want to go smaller)
+If you get the error "tftpd: read: Connection refused" from tftpd, make sure you do not
+have address conflicts.
 
 Next Steps
 ~~~~~~~~~~
