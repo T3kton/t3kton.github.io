@@ -46,6 +46,14 @@ $proxy
 </VirtualHost>
 PROXY_EOF
 
+cat >> /etc/apache2/mods-enabled/cache_disk.conf << CACHE_DISK_EOF
+
+CacheMaxFileSize 5000000000
+CacheDefaultExpire 1000000
+
+CACHE_DISK_EOF
+
+
 cat > /etc/apache2/sites-available/static.conf << STATIC_EOF
 <VirtualHost *:80>
   ServerName static
