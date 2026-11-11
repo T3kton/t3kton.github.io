@@ -13,6 +13,7 @@ Contents:
   setup_ipmi
   setup_vcenter
   setup_virtualbox
+  setup_proxmox
   setup_docker
   complex
   install_baremetal
@@ -21,6 +22,7 @@ Contents:
   destroy_vm
   docker
   other_languages
+  Compare
 
 
 .. Would be nice to do like learn.hasicorp.com does and select from curl, python, go, contractorcli for the commands

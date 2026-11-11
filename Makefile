@@ -3,7 +3,7 @@ all: help
 
 
 autodoc:
-	cinp-autodoc -d "Contractor API" -f source/contractor/API.rst http://localhost:8888/api/v1/
+	cinp-codegen -l rst -s "Contractor API" -d source/contractor/ http://localhost:8888/api/v1/
 
 .PHONY: all autodoc
 

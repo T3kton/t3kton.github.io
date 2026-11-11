@@ -35,8 +35,12 @@ built in functions
  * pause( msg ) - pause the script with the message `msg`
  * error( msg ) - cause a non fatal error with the message `msg`
  * fatal_error( msg ) - cause a fatal error with the message `msg`
+ * message( msg ) - set the job's message to `msg` and return control; messages set by `message`/signalAlert are not overwritten by the script afterwards
  * delay( seconds=0, minutes=0, hours=0 ) - delay execution of the script for the specified `seconds`, `minutes`, and/or `hours`
 
+
+Loops can use `break` and `continue`, to exit or skip to the next iteration of the nearest
+enclosing `while`.  Using them outside of a `while` is a script error.  `pass` does nothing.
 
 examples
 --------

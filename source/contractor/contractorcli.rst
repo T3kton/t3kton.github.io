@@ -239,6 +239,21 @@ foundation::
 
   $ ./contractorcli foundation amt update rtest -b amt-base
 
+For a LibVirt Foundation the console can go to either a `spice` or a `serial` console
+(the default is `serial`)::
+
+  $ ./contractorcli foundation libvirt update vm01 --libvirt-console spice
+
+Make an existing Interface the provisioning interface of its Foundation (the old
+provisioning interface is cleared)::
+
+  $ ./contractorcli foundation interface set-provisioning < interface id >
+
+Change which Address is the primary for a Structure (the old primary is cleared, the
+result is the updated Address list)::
+
+  $ ./contractorcli structure address set-primary < address id >
+
 Complex
 -------
 

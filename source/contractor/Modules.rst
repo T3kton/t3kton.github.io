@@ -6,12 +6,16 @@ BluePrint
 
 Contains BluePrint, a generic base class for StructureBluePrint and FoundationBluePrint.
 Also contains the Scripts and linkages between the BluePrints and Scripts.  It also contains
-PXE, things to which PXE bootable devices can be set to boot to.
+PXE, things to which PXE bootable devices can be set to boot to.  FoundationBluePrints
+can also hold a validation template used to verify the hardware reported by a
+bootstrapping machine, see :doc:`HardwareTemplates`.
 
 Building
 --------
 
 Contains Foundation, a generic base class for all Foundations provided by plugins.
+Foundations with a serial/console option (IPMI, RedFish, LibVirt, ...) share the
+same set of console port choices: `console`, `ttyS0`, `ttyS1`, `ttyS2`, `ttyS3`.
 Structure, the class for Structures that go on Foundations.  Complex, a
 grouping of Foundations (ie: a cluster).  Dependency, allows Foundations to
 depend on Structures and/or jobs to be complete on a structure.

@@ -92,6 +92,11 @@ and configured will the other interfaces and Ip Addresses be used.  NetworkInter
 has three flavors, **RealNetworkInterface**, **AbstractNetworkInterface**, and
 **AggregatedNetworkInterface**.
 
+Only one interface of a Foundation can be the provisioning interface, and only
+one Address of a Structure can be the primary.  To move either flag with contractorcli
+use `foundation interface set-provisioning` and `structure address set-primary`, which
+clear the flag on the old one for you.
+
 Interface Types
 ~~~~~~~~~~~~~~~
 

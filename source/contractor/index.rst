@@ -12,8 +12,9 @@ Contents:
   contractorcli
   ConfigurationValues
   Networking
+  HardwareTemplates
   Modules
   tscript
   Plugins
   Resources
-  API
+  api
