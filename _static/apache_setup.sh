@@ -28,8 +28,14 @@ Listen 3128
   ProxyRequests On
   ProxyVia Full
 
+  SetEnvIf Remote_Addr "(.*)" client_ip=$1
+  RequestHeader add X-Forwarded-For "%{client_ip}e"
+
   CacheEnable disk http://
   CacheEnable disk https://
+
+  CacheMaxFileSize 1000000000
+  CachReadSize 102400
 
   CacheDisable http://static
   CacheDisable http://static.site1.test
@@ -39,6 +45,14 @@ Listen 3128
 $proxy
 </VirtualHost>
 PROXY_EOF
+
+cat >> /etc/apache2/mods-enabled/cache_disk.conf << CACHE_DISK_EOF
+
+CacheMaxFileSize 5000000000
+CacheDefaultExpire 1000000
+
+CACHE_DISK_EOF
+
 
 cat > /etc/apache2/sites-available/static.conf << STATIC_EOF
 <VirtualHost *:80>
@@ -56,6 +70,8 @@ STATIC_EOF
 a2ensite proxy
 a2ensite static
 a2dissite 000-default
-a2enmod proxy proxy_connect proxy_ftp proxy_http cache_disk cache
+a2enmod proxy proxy_connect proxy_ftp proxy_http cache_disk cache headers
 systemctl restart apache2
 systemctl start apache-htcacheclean
+
+sed s/HTCACHECLEAN_SIZE=300M/HTCACHECLEAN_SIZE=5G/ -i /etc/default/apache-htcacheclean

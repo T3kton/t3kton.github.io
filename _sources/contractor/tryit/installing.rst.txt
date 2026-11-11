@@ -24,9 +24,12 @@ From Packages
 Setup
 -----
 
-we will be using curl, make sure it is installed::
+we will be using curl to download a few files, make sure it is installed::
 
   sudo apt install -y curl
+
+and :ref:`contractor/contractorcli:installing contractorcli`, the command line client we will use to talk to Contractor.
+You can install it on the contractor VM, or on any machine that can reach it.
 
 Set up Infrastructure
 ~~~~~~~~~~~~~~~~~~~~~
@@ -174,84 +177,40 @@ Environment Setup
         <iframe src="https://www.youtube.com/embed/TIEt0UWRrpk" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
     </div>
 
-We will be using the HTTP API to inject new stuff into contractor.
+.. note:: The video shows the earlier version of these steps using curl. The steps below do the same thing with contractorcli.
+
+We will be using contractorcli to inject new stuff into contractor.  If you have
+not installed it yet, see :ref:`contractor/contractorcli:installing contractorcli`.
 You can run these commands from either the contractor VM, or any place that can make
 http requests to contractor.
 
-First we will define some Environment values so we don't have to keep tying redundant info
-the Contractor server.  This is assuming you will be running these commands from
-the contractor VM, if you are running these steps from someplace else, update the
-ip address to the ip address of the contractor vm::
+contractorcli reads its connection information from `~/.contractorcli.ini`.  Create
+it with the address of the contractor VM, and the password you passed to
+`setupWizard` (the `--admin-password` parameter).  If you are running these commands
+from someplace other than the contractor VM, use the ip address of the contractor
+vm for the host::
 
-  export COPS=( --noproxy \* --header "CInP-Version: 0.9" --header "Content-Type: application/json" )
-  export SITE="/api/v1/Site/Site:site1:"
-  export CHOST="http://127.0.0.1"
+  cat << EOF > ~/.contractorcli.ini
+  [contractor]
+  host: http://127.0.0.1
+  username: root
+  password: < password >
+  EOF
 
-COPS is defining some curl options. SITE defines the uri of the site we are going
-to use, and CHOST is the URL to the Contractor server.
+Let's make sure the login is working::
 
-now we need to login, replace the `< password >` with the password you passed to
-`setupWizard` (the `--admin-password` paramater)::
+  contractorcli contractor_version
+  contractorcli site list
 
-  echo '{ "username": "root", "password": "< password >" }' | curl "${COPS[@]}" --data @- -X CALL $CHOST/api/v1/Auth/User\(login\)
+the second command should list the site `site1`, which the setupWizard created.
 
-which will output something like::
+.. note:: Contractor's API is a REST like HTTP-JSON API called CInP, which can be found at https://github.com/cinp/.  contractorcli is a small client for it.  If you would like to see the raw requests, or use another language, see :doc:`other_languages`.
 
-  "k4of9zewijvze0gf72ylb6p6zxv4srol"
-
-which will return a auth token, save that to our headers, replace `< username >`
-with the API username, and `< auth token >` with the result of the last command::
-
-  COPS+=( --header "Auth-Id: root")
-  COPS+=( --header "Auth-Token: < auth token >" )
-
-This is adding more headers to our curl options, from here on our curl operations
-are authenticated.  Let's make sure our login is working::
-
-  echo '{}' | curl "${COPS[@]}" --data @- -X CALL $CHOST/api/v1/Auth/User\(whoami\)
-
-that should output your username, for example::
-
-  "root"
-
-HTTP Requests Note
-~~~~~~~~~~~~~~~~~~
-
-As you may of noticed from the Authentication requests, each request has some JSON
-encoded request data, as well as a JSON encoded response.  Contractor uses a REST like
-HTTP-JSON library called CInP, which can be found at https://github.com/cinp/.
-CInP is the reason for the `CInP-Version: 0.9` HTTP Header.  Going forward most
-requests are going to use the heredoc method for passing the request body to
-curl.  If you are not familure with this method, keep in mind that for requests
-the require modification (ie: the have <something> in them), don't copy paste
-everything at once, generally it works to copy paste everything but the last `EOF`
-then back arrow, fix what ever values you need to fix, go to the end, hit <enter>
-then type in the closing `EOF`.  The requests that don't need modification, you can
-copy paste all at once.
-
-Some requests create objects, when `-X CREATE` is used with curl, the id of the
-created object is found in the header `Object-Id`, for example::
-
-  HTTP/1.1 201 CREATED
-  Date: Thu, 23 May 2019 23:42:17 GMT
-  Server: Apache/2.4.18 (Ubuntu)
-  Verb: CREATE
-  Access-Control-Allow-Origin: *
-  Cinp-Version: 0.9
-  Access-Control-Expose-Headers: Method, Type, Cinp-Version, Count, Position, Total, Multi-Object, Object-Id, Id-Only
-  Cache-Control: no-cache
-  Object-Id: /api/v1/Utilities/AddressBlock:2:
-  Content-Length: 318
-  Content-Type: application/json;charset=utf-8
-
-  {"name": "internal", "size": "254", "_max_address": "10.0.0.255", "gateway_offset": null, "updated": "2019-05-23T23:42:17.180084+00:00", "site": "/api/v1/Site/Site:site1:", "netmask": "255.255.255.0", "subnet": "10.0.0.0", "created": "2019-05-23T23:42:17.180121+00:00", "gateway": null, "isIpV4": "True", "prefix": 24}
-
-The url of that newly created AddressBlock is `/api/v1/Utilities/AddressBlock:2:`,
-generally we are only concerned with the id which is between the `:` in this case
-the id is `2`.  We will point out when you need to take note of id of a created object.
-
-For the most part when we display the output of a request, we are not going to show
-the headers, just the response body.
+Most contractorcli commands take the id of the thing to work with as an argument, and
+flags for the values.  Use `--help` on any command to see the flags, for example
+`contractorcli foundation interface create --help`.  When a command creates something it
+prints it out, take note of the `Id` where we point it out below.  Add `--json` to
+get the output as JSON.
 
 Network Configuration
 ~~~~~~~~~~~~~~~~~~~~~
@@ -262,72 +221,37 @@ Network Configuration
         <iframe src="https://www.youtube.com/embed/hdY97j2u4rc" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
     </div>
 
+.. note:: The video shows the earlier version of these steps using curl. The steps below do the same thing with contractorcli.
+
 The setupWizard has pre-loaded the database with a stand in host to represent
 the contractor VM and has flagged it as pre-built.  It has also created
 a site called `site1` and some base DNS configuration. It also took the network
 of the primary interface and loaded it into the database as the Network `main`,
 and AddressBlock name `main`.
 
-First we need to set an Environment variable for the existing AddressBlock::
+Take a look at the existing AddressBlock, the Id of `main` will be used below, it is
+normally `1`::
 
-  export ADRBLK="/api/v1/Utilities/AddressBlock:1:"
+  contractorcli addressblock list
 
 Now to create network for the internal network.  Contractor will use the name of the Network
 to know what virtual network to select when deploying VMs.  Replace `< network name >` with
 the name of the network created in vcenter (ie: internal) or virtual box (ie: vboxnet0), for
 IPMI and AMT, use 'internal'::
 
-  cat << EOF | curl -i "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/Network
-  { "site": "$SITE", "name": "< network name >" }
-  EOF
+  contractorcli network create -s site1 -n "< network name >"
 
-result::
+Take note of the Id of that created Network.  Now to attach the AddressBlock to the Network,
+replace `< network id >` with the Id of the Network, and `< addressblock id >` with the Id
+of the AddressBlock from above::
 
-  {"name": "vboxnet0", "address_block_list": [], "site": "/api/v1/Site/Site:site1:", "created": "2019-10-24T17:55:09.024672+00:00", "updated": "2019-10-24T17:55:09.024647+00:00"}
-
-Take note of the id of that created AddressBlock.  Set another environment variable
-to the Id value, replace the `< id >` to the id of the above id::
-
-  export NETWORK="/api/v1/Utilities/Network:< id >:"
-
-Now to attach the AddressBlock to the Network::
-
-  cat << EOF | curl -i "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/NetworkAddressBlock
-  { "network": "$NETWORK", "address_block": "$ADRBLK" }
-  EOF
-
-result::
-
-  {"network": "/api/v1/Utilities/Network:2:", "vlan": 0, "vlan_tagged": false, "address_block": "/api/v1/Utilities/AddressBlock:2:", "updated": "2019-10-24T17:58:54.146006+00:00", "created": "2019-10-24T17:58:54.146044+00:00"}
+  contractorcli network link create < network id > -a < addressblock id >
 
 now to reserve some ip addresses so they do not get auto assigned::
 
   for OFFSET in 2 3 4 5 6 7 8 9 11 12 13 14 15 16 17 18 19 20; do
-  cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/ReservedAddress
-  { "address_block": "$ADRBLK", "offset": "$OFFSET", "reason": "Network Reserved" }
-  EOF
+    contractorcli addressblock reserve < addressblock id > -o $OFFSET -r "Network Reserved"
   done
-
-result::
-
-{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 2, "updated": "2019-11-05T02:58:26.350596+00:00", "created": "2019-11-05T02:58:26.350625+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.2", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 3, "updated": "2019-11-05T02:58:26.384282+00:00", "created": "2019-11-05T02:58:26.384306+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.3", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 4, "updated": "2019-11-05T02:58:26.420326+00:00", "created": "2019-11-05T02:58:26.420348+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.4", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 5, "updated": "2019-11-05T02:58:26.445826+00:00", "created": "2019-11-05T02:58:26.445852+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.5", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 6, "updated": "2019-11-05T02:58:26.471761+00:00", "created": "2019-11-05T02:58:26.471781+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.6", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 7, "updated": "2019-11-05T02:58:26.496654+00:00", "created": "2019-11-05T02:58:26.496676+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.7", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 8, "updated": "2019-11-05T02:58:26.524865+00:00", "created": "2019-11-05T02:58:26.524899+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.8", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 9, "updated": "2019-11-05T02:58:26.552813+00:00", "created": "2019-11-05T02:58:26.552836+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.9", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 11, "updated": "2019-11-05T02:58:26.579828+00:00", "created": "2019-11-05T02:58:26.579867+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.11", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 12, "updated": "2019-11-05T02:58:26.607718+00:00", "created": "2019-11-05T02:58:26.607740+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.12", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 13, "updated": "2019-11-05T02:58:26.636675+00:00", "created": "2019-11-05T02:58:26.636697+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.13", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 14, "updated": "2019-11-05T02:58:26.662100+00:00", "created": "2019-11-05T02:58:26.662127+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.14", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 15, "updated": "2019-11-05T02:58:26.688283+00:00", "created": "2019-11-05T02:58:26.688311+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.15", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 16, "updated": "2019-11-05T02:58:26.715900+00:00", "created": "2019-11-05T02:58:26.715922+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.16", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 17, "updated": "2019-11-05T02:58:26.745761+00:00", "created": "2019-11-05T02:58:26.745797+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.17", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 18, "updated": "2019-11-05T02:58:26.772841+00:00", "created": "2019-11-05T02:58:26.772863+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.18", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 19, "updated": "2019-11-05T02:58:26.800554+00:00", "created": "2019-11-05T02:58:26.800588+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.19", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-{"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 20, "updated": "2019-11-05T02:58:26.827612+00:00", "created": "2019-11-05T02:58:26.827637+00:00", "reason": "Network Reserved", "type": "ReservedAddress", "ip_address": "10.0.0.20", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
 
 If you are installing to AMT/IPMI you will need some dynamic Ips for devices we
 do not yet have MAC addresses for, we are going to set these to PXE boot to the
@@ -335,18 +259,8 @@ bootstrap image, if you are not going to to AMT/IPMI, skip this step, you probab
 do not have the bootstrap PXE image loaded::
 
   for OFFSET in 21 22 23 24 25; do
-  cat << EOF | curl "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/DynamicAddress
-  { "address_block": "$ADRBLK", "offset": "$OFFSET", "pxe": "/api/v1/BluePrint/PXE:bootstrap:" }
-  EOF
+    contractorcli addressblock dynamic < addressblock id > -o $OFFSET -p bootstrap
   done
-
-result::
-
-  {"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 21, "updated": "2019-11-05T02:58:45.380257+00:00", "created": "2019-11-05T02:58:45.380307+00:00", "pxe": "/api/v1/BluePrint/PXE:bootstrap:", "type": "DynamicAddress", "ip_address": "10.0.0.21", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-  {"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 22, "updated": "2019-11-05T02:58:45.415840+00:00", "created": "2019-11-05T02:58:45.415876+00:00", "pxe": "/api/v1/BluePrint/PXE:bootstrap:", "type": "DynamicAddress", "ip_address": "10.0.0.22", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-  {"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 23, "updated": "2019-11-05T02:58:45.448887+00:00", "created": "2019-11-05T02:58:45.448930+00:00", "pxe": "/api/v1/BluePrint/PXE:bootstrap:", "type": "DynamicAddress", "ip_address": "10.0.0.23", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-  {"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 24, "updated": "2019-11-05T02:58:45.475547+00:00", "created": "2019-11-05T02:58:45.475569+00:00", "pxe": "/api/v1/BluePrint/PXE:bootstrap:", "type": "DynamicAddress", "ip_address": "10.0.0.24", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
-  {"address_block": "/api/v1/Utilities/AddressBlock:1:", "offset": 25, "updated": "2019-11-05T02:58:45.501742+00:00", "created": "2019-11-05T02:58:45.501762+00:00", "pxe": "/api/v1/BluePrint/PXE:bootstrap:", "type": "DynamicAddress", "ip_address": "10.0.0.25", "subnet": "10.0.0.0", "netmask": "255.255.255.0", "prefix": "24", "gateway": null}
 
 Starting DNS
 ~~~~~~~~~~~~
@@ -451,6 +365,8 @@ cause tfptd to log transfers to syslog.  This can be helpful in troubleshooting
 boot problems. Make sure to run `systemctl restart tftpd-hpa` to reload.  If you
 using a network that has a smaller MTU, add `-B 1200` that will make sure your tftp
 packets make it through.  (If your MTU is less than about 1220, you will want to go smaller)
+If you get the error "tftpd: read: Connection refused" from tftpd, make sure you do not
+have address conflicts.
 
 Next Steps
 ~~~~~~~~~~

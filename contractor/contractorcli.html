@@ -60,8 +60,57 @@
             
   <section id="contractorcli">
 <h1>contractorcli<a class="headerlink" href="#contractorcli" title="Link to this heading">¶</a></h1>
-<p>contractorcli is a client for working with Contractor, you can get a pre-built binary
-from <a class="reference external" href="https://github.com/T3kton/contractorcli/releases">https://github.com/T3kton/contractorcli/releases</a>.</p>
+<p>contractorcli is a client for working with Contractor.  It is a single command line
+program (similar to docker/kubectl) that you can run on the Contractor VM, or on your
+own machine, to talk to a Contractor instance.</p>
+<section id="installing-contractorcli">
+<h2>Installing contractorcli<a class="headerlink" href="#installing-contractorcli" title="Link to this heading">¶</a></h2>
+<section id="pre-built-binary">
+<h3>Pre-built binary<a class="headerlink" href="#pre-built-binary" title="Link to this heading">¶</a></h3>
+<p>Each release on GitHub has a pre-built binary named <cite>contractorcli</cite>, built on Linux.
+The latest release is at <a class="reference external" href="https://github.com/T3kton/contractorcli/releases/latest">https://github.com/T3kton/contractorcli/releases/latest</a>.  Download the
+<cite>contractorcli</cite> file from the Assets section of the release, either with your browser or with curl.  Replace <cite>&lt; version &gt;</cite> with the
+release you want (ie: <cite>0.20.0</cite>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">L</span> <span class="o">-</span><span class="n">o</span> <span class="n">contractorcli</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">contractorcli</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">download</span><span class="o">/&lt;</span> <span class="n">version</span> <span class="o">&gt;/</span><span class="n">contractorcli</span>
+</pre></div>
+</div>
+<p>or the latest:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">L</span> <span class="o">-</span><span class="n">o</span> <span class="n">contractorcli</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">contractorcli</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">latest</span><span class="o">/</span><span class="n">download</span><span class="o">/</span><span class="n">contractorcli</span>
+</pre></div>
+</div>
+<p>Make it executable and put it somewhere on your path:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">contractorcli</span>
+<span class="n">sudo</span> <span class="n">install</span> <span class="o">-</span><span class="n">m</span> <span class="mi">755</span> <span class="n">contractorcli</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">contractorcli</span>
+</pre></div>
+</div>
+<p>and check it runs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">contractorcli</span> <span class="n">version</span>
+</pre></div>
+</div>
+<p>The release has the one binary, if you are on another platform build it from source.</p>
+</section>
+<section id="from-source">
+<h3>From Source<a class="headerlink" href="#from-source" title="Link to this heading">¶</a></h3>
+<p>You will need <cite>make</cite> and <cite>go</cite> (see the README for the minimum version).  Clone the
+repo, and build:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">T3kton</span><span class="o">/</span><span class="n">contractorcli</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">contractorcli</span>
+<span class="n">make</span>
+<span class="n">sudo</span> <span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+<p>The repo also has a <cite>debian</cite> directory so it can be built into a deb with <cite>make dpkg</cite>.</p>
+</section>
+<section id="bash-completion">
+<h3>Bash Completion<a class="headerlink" href="#bash-completion" title="Link to this heading">¶</a></h3>
+<p>To load completions for the current shell:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span> <span class="o">&lt;</span><span class="p">(</span><span class="n">contractorcli</span> <span class="n">bash_completion</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To load it for every session, add that line to your <cite>~/.bashrc</cite>, or to make it global
+put it in <cite>/etc/bash_completion.d/contractorcli</cite>.</p>
+</section>
+</section>
 <section id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h2>
 <p>contractorcli’s config file is stored at ~/.contractorcli.ini.  Here is an example
@@ -72,6 +121,10 @@ file:</p>
 <span class="n">password</span><span class="p">:</span> <span class="n">root</span>
 </pre></div>
 </div>
+<p>You can use another config file with <cite>–config &lt;file&gt;</cite>.  Other global flags: <cite>–json</cite> and
+<cite>–toml</cite> change the output format, <cite>–show-secrets</cite> shows passwords in the table output
+(they are always included in the JSON/TOML output), and <cite>–debug</cite> shows the
+requests (this will interfere with JSON output).</p>
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
@@ -287,6 +340,21 @@ foundation:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli foundation amt update rtest -b amt-base
 </pre></div>
 </div>
+<p>For a LibVirt Foundation the console can go to either a <cite>spice</cite> or a <cite>serial</cite> console
+(the default is <cite>serial</cite>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli foundation libvirt update vm01 --libvirt-console spice
+</pre></div>
+</div>
+<p>Make an existing Interface the provisioning interface of its Foundation (the old
+provisioning interface is cleared):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli foundation interface set-provisioning &lt; interface id &gt;
+</pre></div>
+</div>
+<p>Change which Address is the primary for a Structure (the old primary is cleared, the
+result is the updated Address list):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli structure address set-primary &lt; address id &gt;
+</pre></div>
+</div>
 </section>
 <section id="complex">
 <h2>Complex<a class="headerlink" href="#complex" title="Link to this heading">¶</a></h2>
@@ -297,6 +365,114 @@ foundation:</p>
 <h2>Blueprint<a class="headerlink" href="#blueprint" title="Link to this heading">¶</a></h2>
 <p>For Blueprints the name is also the id</p>
 <p>NOTE: List, Get, Update, Create, Configuration sections are similar to Site</p>
+<section id="networks-and-address-blocks">
+<h3>Networks and Address Blocks<a class="headerlink" href="#networks-and-address-blocks" title="Link to this heading">¶</a></h3>
+<p>For Networks and AddressBlocks the id is a number.  Create a Network and link
+an AddressBlock to it (the vlan is optional):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli network create -s site1 -n internal
+$ ./contractorcli network link create &lt; network id &gt; -a &lt; addressblock id &gt;
+</pre></div>
+</div>
+<p>Create an AddressBlock:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli addressblock create -s site1 -n internal -u 10.0.0.0 -p 24 -g 1
+</pre></div>
+</div>
+<p>Show how an AddressBlock is being used:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli addressblock usage &lt; addressblock id &gt;
+$ ./contractorcli addressblock allocation &lt; addressblock id &gt;
+</pre></div>
+</div>
+<p>Reserve an offset so it is not handed out, or make an offset a dynamic address that
+PXE boots to a PXE (ie: <cite>bootstrap</cite>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli addressblock reserve &lt; addressblock id &gt; -o 2 -r &quot;Network Reserved&quot;
+$ ./contractorcli addressblock dynamic &lt; addressblock id &gt; -o 21 -p bootstrap
+</pre></div>
+</div>
+<p>The <cite>dereserve</cite> and <cite>dedynamic</cite> commands undo those.</p>
+</section>
+<section id="structure-addresses-and-interfaces">
+<h3>Structure Addresses and Interfaces<a class="headerlink" href="#structure-addresses-and-interfaces" title="Link to this heading">¶</a></h3>
+<p>Have Contractor pick the next free address in an AddressBlock for a Structure, on the
+interface <cite>eth0</cite>, as the primary address:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli structure address next &lt; structure id &gt; -a &lt; addressblock id &gt; -n eth0 -p
+</pre></div>
+</div>
+<p>or pick the offset:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli structure address add &lt; structure id &gt; -a &lt; addressblock id &gt; -n eth0 -o 30 -p
+</pre></div>
+</div>
+<p>Move the primary flag to another address, the old primary is cleared:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli structure address set-primary &lt; address id &gt;
+</pre></div>
+</div>
+</section>
+<section id="foundation-interfaces">
+<h3>Foundation Interfaces<a class="headerlink" href="#foundation-interfaces" title="Link to this heading">¶</a></h3>
+<p>Create an Interface on a Foundation (this is the provisioning interface), by locator:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli foundation interface create testvm01 -n eth0 -y eth0 -t &lt; network id &gt; -p
+</pre></div>
+</div>
+<p>Use <cite>-m</cite> for the MAC address, and <cite>-l</cite> for the link name (ie: the LLDP name, see <a class="reference internal" href="tryit/install_baremetal.html"><span class="doc">Setup Bare-metal</span></a>).
+Change which Interface is the provisioning interface (the old one is cleared), or set the PXE for it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli foundation interface set-provisioning &lt; interface id &gt;
+$ ./contractorcli foundation interface pxe &lt; interface id &gt; -n normal-boot
+</pre></div>
+</div>
+</section>
+<section id="jobs">
+<h3>Jobs<a class="headerlink" href="#jobs" title="Link to this heading">¶</a></h3>
+<p>Start create/destroy jobs and follow them:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli foundation job do-create testvm01
+$ ./contractorcli structure job do-create &lt; structure id &gt;
+$ ./contractorcli foundation joblog testvm01
+</pre></div>
+</div>
+<p>Work with the running jobs (<cite>foundation</cite> or <cite>structure</cite>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli job structure list
+$ ./contractorcli job structure state &lt; job id &gt;
+$ ./contractorcli job structure pause &lt; job id &gt;
+$ ./contractorcli job structure resume &lt; job id &gt;
+$ ./contractorcli job structure reset &lt; job id &gt;
+$ ./contractorcli job structure rollback &lt; job id &gt;
+</pre></div>
+</div>
+</section>
+<section id="plots-and-cartographers">
+<h3>Plots and Cartographers<a class="headerlink" href="#plots-and-cartographers" title="Link to this heading">¶</a></h3>
+<p>Plots are the physical locations, and are used by the IPMI and AMT Foundations:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli plot create -n test
+$ ./contractorcli plot list
+</pre></div>
+</div>
+<p>Cartographers are machines that have checked in from the bootstrap image.  Assign
+one to a Foundation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli cartographer list
+$ ./contractorcli cartographer assign &lt; cartographer id &gt; -f &lt; locator &gt;
+</pre></div>
+</div>
+</section>
+<section id="directory">
+<h3>Directory<a class="headerlink" href="#directory" title="Link to this heading">¶</a></h3>
+<p>Work with the DNS Zones and Entries:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli directory list
+$ ./contractorcli directory entry --help
+</pre></div>
+</div>
+</section>
+<section id="complexes">
+<h3>Complexes<a class="headerlink" href="#complexes" title="Link to this heading">¶</a></h3>
+<p>Each type of Complex has its own commands, for example for VirtualBox and VCenter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./contractorcli complex virtualbox create -s site1 -l demovbox -d &quot;Demo&quot; -u &lt; username &gt; -p &lt; password &gt; -m &lt; structure id &gt;
+$ ./contractorcli complex vcenter create -s site1 -l demovcenter -d &quot;Demo&quot; -a &lt; datacenter &gt; -c &lt; cluster &gt; -o &lt; host structure id &gt; -m &lt; structure id &gt; -u &lt; username &gt; -p &lt; password &gt;
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="tryit/complex.html"><span class="doc">Setting up VM Host</span></a> for more.  <cite>./contractorcli complex types</cite> lists the types available.</p>
+</section>
+<section id="interactive-shell">
+<h3>Interactive Shell<a class="headerlink" href="#interactive-shell" title="Link to this heading">¶</a></h3>
+<p><cite>./contractorcli shell</cite> starts the shell shown above, you don’t need to type <cite>contractorcli</cite> in front of each command.</p>
+<p>For all of the commands, add <cite>–help</cite> to see the sub commands and flags.</p>
+</section>
 </section>
 </section>
 
@@ -311,6 +487,12 @@ foundation:</p>
     <h3><a href="../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">contractorcli</a><ul>
+<li><a class="reference internal" href="#installing-contractorcli">Installing contractorcli</a><ul>
+<li><a class="reference internal" href="#pre-built-binary">Pre-built binary</a></li>
+<li><a class="reference internal" href="#from-source">From Source</a></li>
+<li><a class="reference internal" href="#bash-completion">Bash Completion</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#configuration">Configuration</a></li>
 <li><a class="reference internal" href="#usage">Usage</a><ul>
 <li><a class="reference internal" href="#version">Version</a></li>
@@ -320,7 +502,17 @@ foundation:</p>
 <li><a class="reference internal" href="#structure">Structure</a></li>
 <li><a class="reference internal" href="#foundation">Foundation</a></li>
 <li><a class="reference internal" href="#complex">Complex</a></li>
-<li><a class="reference internal" href="#blueprint">Blueprint</a></li>
+<li><a class="reference internal" href="#blueprint">Blueprint</a><ul>
+<li><a class="reference internal" href="#networks-and-address-blocks">Networks and Address Blocks</a></li>
+<li><a class="reference internal" href="#structure-addresses-and-interfaces">Structure Addresses and Interfaces</a></li>
+<li><a class="reference internal" href="#foundation-interfaces">Foundation Interfaces</a></li>
+<li><a class="reference internal" href="#jobs">Jobs</a></li>
+<li><a class="reference internal" href="#plots-and-cartographers">Plots and Cartographers</a></li>
+<li><a class="reference internal" href="#directory">Directory</a></li>
+<li><a class="reference internal" href="#complexes">Complexes</a></li>
+<li><a class="reference internal" href="#interactive-shell">Interactive Shell</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -368,7 +560,7 @@ foundation:</p>
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2019, Peter Howe.
+    &#169; Copyright 2019-2026, Peter Howe.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     </div>
   </body>

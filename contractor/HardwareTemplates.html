@@ -1,0 +1,204 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Hardware Validation Templates &#8212; t3kton 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=532c1bf3" />
+    
+    <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Modules" href="Modules.html" />
+    <link rel="prev" title="Networking" href="Networking.html" />
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159896960-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-159896960-1');
+</script>
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Modules.html" title="Modules"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Networking.html" title="Networking"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">t3kton 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Contractor</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Hardware Validation Templates</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="hardware-validation-templates">
+<h1>Hardware Validation Templates<a class="headerlink" href="#hardware-validation-templates" title="Link to this heading">¶</a></h1>
+<p>A FoundationBluePrint can carry a <cite>validation_template</cite>.  When a physical machine
+bootstraps, it reports its hardware (the <cite>id_map</cite>: DMI information, PCI devices,
+total RAM/CPU, network interfaces and disks).  Contractor checks that <cite>id_map</cite> against the
+validation template of the Foundation’s BluePrint, and reports <em>every</em> mismatch
+found, so you can fix everything wrong in one pass instead of one problem per reboot.
+If the BluePrint does not have a template, the BluePrints in its <cite>parent_list</cite>
+are searched, the first one found is used.  A BluePrint with no template anywhere
+in its parents accepts any hardware.</p>
+<p>The template is a JSON dictionary shaped like the <cite>id_map</cite> it is checked against.
+The template is checked when the BluePrint is saved, a malformed template is rejected.</p>
+<section id="matching-rules">
+<h2>Matching rules<a class="headerlink" href="#matching-rules" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Dict node</dt><dd><p>A plain dictionary.  Each key must be present in the <cite>id_map</cite> and its value is
+checked against the sub template.  Matching is exact by default, any key in the
+<cite>id_map</cite> not named in the template is an error.  The key <cite>*</cite> is a wildcard,
+its sub template is applied to every key not otherwise named.  Naming every
+expected key (ie: every disk bay) also implies an exact count.</p>
+</dd>
+<dt>List node</dt><dd><p><cite>[ sub_template ]</cite>, or <cite>{ “$each”: sub_template, “$count”: … }</cite>.  Every
+element of the list is checked against the sub template.  Order is not significant.</p>
+</dd>
+<dt>Leaf node</dt><dd><p>A dictionary of the reserved <cite>$</cite> keys below which constrain a value directly.</p>
+</dd>
+</dl>
+</section>
+<section id="leaf-keys">
+<h2>Leaf keys<a class="headerlink" href="#leaf-keys" title="Link to this heading">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>$match</cite> - a regular expression, the whole value must match.  Avoid nested quantifiers, the value comes from the machine being bootstrapped and is not trusted.</p></li>
+<li><p><cite>$min</cite> / <cite>$max</cite> - inclusive bounds.  Compared as a number, then as a dotted version (<cite>1.12.3</cite>), then as a string.  Use both for a range.</p></li>
+<li><p><cite>$eq</cite> - exactly this value, same comparison as <cite>$min</cite>/<cite>$max</cite></p></li>
+<li><p><cite>$in</cite> - one of a list of values</p></li>
+<li><p><cite>$type</cite> - one of <cite>str</cite>, <cite>int</cite>, <cite>float</cite>, <cite>number</cite>, <cite>bool</cite>, <cite>list</cite>, <cite>dict</cite>, <cite>null</cite></p></li>
+<li><p><cite>$count</cite> - the number of items (list elements or dict keys), either an exact number or <cite>{ “$min”: n, “$max”: m }</cite></p></li>
+<li><p><cite>$any</cite> - <cite>true</cite>, accept any value</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="any-node">
+<h2>Any node<a class="headerlink" href="#any-node" title="Link to this heading">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>$optional</cite> - <cite>true</cite>, do not fail if the item is missing</p></li>
+<li><p><cite>$exists</cite> - <cite>false</cite>, fail if the item is present</p></li>
+<li><p><cite>$loose</cite> - <cite>true</cite>, this node and every dict under it accept keys that are not named, without needing a <cite>*</cite>.  Set <cite>“$loose”: false</cite> on a branch to make it exact again.</p></li>
+<li><p><cite>$contains</cite> - at least one element/value must match the sub template.  Useful for things like <cite>pci</cite>, which is keyed by bus address.  May also be a list of <cite>{ “$template”: …, “$count”: … }</cite> clauses to require several things at once (ie: exactly 2 network cards and 4 GPUs)</p></li>
+<li><p><cite>$contains_count</cite> - how many matches a single <cite>$contains</cite> requires (default at least 1)</p></li>
+<li><p><cite>$or</cite> - a list of sub templates, at least one must match.  Useful when a field is spelled differently by different vendors.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading">¶</a></h2>
+<p>Require a specific server model with 2 sockets, at least 128GiB of RAM, and
+don’t care about anything else:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;$loose&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+  <span class="s2">&quot;hardware&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;dmi&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;System Info&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="p">{</span> <span class="s2">&quot;Manufacturer&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;$eq&quot;</span><span class="p">:</span> <span class="s2">&quot;Dell Inc.&quot;</span> <span class="p">},</span> <span class="s2">&quot;Product Name&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;$match&quot;</span><span class="p">:</span> <span class="s2">&quot;PowerEdge R6[34]0&quot;</span> <span class="p">}</span> <span class="p">}</span> <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;total_cpu_sockets&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;$eq&quot;</span><span class="p">:</span> <span class="mi">2</span> <span class="p">},</span>
+    <span class="s2">&quot;total_ram&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;$min&quot;</span><span class="p">:</span> <span class="mi">137438953472</span> <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;disks&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;SAS 0:0&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;isSSD&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;$eq&quot;</span><span class="p">:</span> <span class="n">true</span> <span class="p">}</span> <span class="p">}</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>NOTE: <cite>disks</cite> is keyed by the drive’s physical location (ie: <cite>SAS 0:0</cite>, <cite>NVME 1:0</cite>),
+so specific bays can be pinned.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Hardware Validation Templates</a><ul>
+<li><a class="reference internal" href="#matching-rules">Matching rules</a></li>
+<li><a class="reference internal" href="#leaf-keys">Leaf keys</a></li>
+<li><a class="reference internal" href="#any-node">Any node</a></li>
+<li><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="Networking.html"
+                          title="previous chapter">Networking</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="Modules.html"
+                          title="next chapter">Modules</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Modules.html" title="Modules"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Networking.html" title="Networking"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">t3kton 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Contractor</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Hardware Validation Templates</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2019-2026, Peter Howe.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

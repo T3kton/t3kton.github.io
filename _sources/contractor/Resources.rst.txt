@@ -32,6 +32,15 @@ ubuntu-xenial-base
 ubuntu-bionic-base
 ..................
 
+ubuntu-focal-base
+.................
+
+ubuntu-jammy-base
+.................
+
+ubuntu-noble-base
+.................
+
 PXE
 ^^^
 
@@ -46,7 +55,7 @@ ubuntu
   :dns_servers: list of dns server ip address
   :mirror_server: ubuntu mirror server, ie: `us.archive.ubuntu.com`
   :mirror_proxy: proxy server to access the mirror_server (optional), ie: 'http://proxy:3128/'
-  :distro_version: ubuntu version, ie: `xenial`
+  :distro_version: ubuntu version, ie: `noble`
   :root_pass: hashed root password
   :ntp_servers: list of ntp servers
   :packages: list of packages to install, ie: `[ 'open-vm-tools' ]`

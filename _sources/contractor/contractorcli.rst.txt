@@ -1,8 +1,60 @@
 contractorcli
 =============
 
-contractorcli is a client for working with Contractor, you can get a pre-built binary
-from https://github.com/T3kton/contractorcli/releases.
+contractorcli is a client for working with Contractor.  It is a single command line
+program (similar to docker/kubectl) that you can run on the Contractor VM, or on your
+own machine, to talk to a Contractor instance.
+
+Installing contractorcli
+------------------------
+
+Pre-built binary
+~~~~~~~~~~~~~~~~
+
+Each release on GitHub has a pre-built binary named `contractorcli`, built on Linux.
+The latest release is at https://github.com/T3kton/contractorcli/releases/latest.  Download the
+`contractorcli` file from the Assets section of the release, either with your browser or with curl.  Replace `< version >` with the
+release you want (ie: `0.20.0`)::
+
+  curl -L -o contractorcli https://github.com/T3kton/contractorcli/releases/download/< version >/contractorcli
+
+or the latest::
+
+  curl -L -o contractorcli https://github.com/T3kton/contractorcli/releases/latest/download/contractorcli
+
+Make it executable and put it somewhere on your path::
+
+  chmod +x contractorcli
+  sudo install -m 755 contractorcli /usr/local/bin/contractorcli
+
+and check it runs::
+
+  contractorcli version
+
+The release has the one binary, if you are on another platform build it from source.
+
+From Source
+~~~~~~~~~~~
+
+You will need `make` and `go` (see the README for the minimum version).  Clone the
+repo, and build::
+
+  git clone https://github.com/T3kton/contractorcli.git
+  cd contractorcli
+  make
+  sudo make install
+
+The repo also has a `debian` directory so it can be built into a deb with `make dpkg`.
+
+Bash Completion
+~~~~~~~~~~~~~~~
+
+To load completions for the current shell::
+
+  . <(contractorcli bash_completion)
+
+To load it for every session, add that line to your `~/.bashrc`, or to make it global
+put it in `/etc/bash_completion.d/contractorcli`.
 
 Configuration
 -------------
@@ -14,6 +66,11 @@ file::
   host: http://192.168.200.10
   username: root
   password: root
+
+You can use another config file with `--config <file>`.  Other global flags: `--json` and
+`--toml` change the output format, `--show-secrets` shows passwords in the table output
+(they are always included in the JSON/TOML output), and `--debug` shows the
+requests (this will interfere with JSON output).
 
 
 Usage
@@ -239,6 +296,21 @@ foundation::
 
   $ ./contractorcli foundation amt update rtest -b amt-base
 
+For a LibVirt Foundation the console can go to either a `spice` or a `serial` console
+(the default is `serial`)::
+
+  $ ./contractorcli foundation libvirt update vm01 --libvirt-console spice
+
+Make an existing Interface the provisioning interface of its Foundation (the old
+provisioning interface is cleared)::
+
+  $ ./contractorcli foundation interface set-provisioning < interface id >
+
+Change which Address is the primary for a Structure (the old primary is cleared, the
+result is the updated Address list)::
+
+  $ ./contractorcli structure address set-primary < address id >
+
 Complex
 -------
 
@@ -252,3 +324,115 @@ Blueprint
 For Blueprints the name is also the id
 
 NOTE: List, Get, Update, Create, Configuration sections are similar to Site
+
+Networks and Address Blocks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For Networks and AddressBlocks the id is a number.  Create a Network and link
+an AddressBlock to it (the vlan is optional)::
+
+  $ ./contractorcli network create -s site1 -n internal
+  $ ./contractorcli network link create < network id > -a < addressblock id >
+
+Create an AddressBlock::
+
+  $ ./contractorcli addressblock create -s site1 -n internal -u 10.0.0.0 -p 24 -g 1
+
+Show how an AddressBlock is being used::
+
+  $ ./contractorcli addressblock usage < addressblock id >
+  $ ./contractorcli addressblock allocation < addressblock id >
+
+Reserve an offset so it is not handed out, or make an offset a dynamic address that
+PXE boots to a PXE (ie: `bootstrap`)::
+
+  $ ./contractorcli addressblock reserve < addressblock id > -o 2 -r "Network Reserved"
+  $ ./contractorcli addressblock dynamic < addressblock id > -o 21 -p bootstrap
+
+The `dereserve` and `dedynamic` commands undo those.
+
+Structure Addresses and Interfaces
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Have Contractor pick the next free address in an AddressBlock for a Structure, on the
+interface `eth0`, as the primary address::
+
+  $ ./contractorcli structure address next < structure id > -a < addressblock id > -n eth0 -p
+
+or pick the offset::
+
+  $ ./contractorcli structure address add < structure id > -a < addressblock id > -n eth0 -o 30 -p
+
+Move the primary flag to another address, the old primary is cleared::
+
+  $ ./contractorcli structure address set-primary < address id >
+
+Foundation Interfaces
+~~~~~~~~~~~~~~~~~~~~~
+
+Create an Interface on a Foundation (this is the provisioning interface), by locator::
+
+  $ ./contractorcli foundation interface create testvm01 -n eth0 -y eth0 -t < network id > -p
+
+Use `-m` for the MAC address, and `-l` for the link name (ie: the LLDP name, see :doc:`tryit/install_baremetal`).
+Change which Interface is the provisioning interface (the old one is cleared), or set the PXE for it::
+
+  $ ./contractorcli foundation interface set-provisioning < interface id >
+  $ ./contractorcli foundation interface pxe < interface id > -n normal-boot
+
+Jobs
+~~~~
+
+Start create/destroy jobs and follow them::
+
+  $ ./contractorcli foundation job do-create testvm01
+  $ ./contractorcli structure job do-create < structure id >
+  $ ./contractorcli foundation joblog testvm01
+
+Work with the running jobs (`foundation` or `structure`)::
+
+  $ ./contractorcli job structure list
+  $ ./contractorcli job structure state < job id >
+  $ ./contractorcli job structure pause < job id >
+  $ ./contractorcli job structure resume < job id >
+  $ ./contractorcli job structure reset < job id >
+  $ ./contractorcli job structure rollback < job id >
+
+Plots and Cartographers
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Plots are the physical locations, and are used by the IPMI and AMT Foundations::
+
+  $ ./contractorcli plot create -n test
+  $ ./contractorcli plot list
+
+Cartographers are machines that have checked in from the bootstrap image.  Assign
+one to a Foundation::
+
+  $ ./contractorcli cartographer list
+  $ ./contractorcli cartographer assign < cartographer id > -f < locator >
+
+Directory
+~~~~~~~~~
+
+Work with the DNS Zones and Entries::
+
+  $ ./contractorcli directory list
+  $ ./contractorcli directory entry --help
+
+Complexes
+~~~~~~~~~
+
+Each type of Complex has its own commands, for example for VirtualBox and VCenter::
+
+  $ ./contractorcli complex virtualbox create -s site1 -l demovbox -d "Demo" -u < username > -p < password > -m < structure id >
+  $ ./contractorcli complex vcenter create -s site1 -l demovcenter -d "Demo" -a < datacenter > -c < cluster > -o < host structure id > -m < structure id > -u < username > -p < password >
+
+See :doc:`tryit/complex` for more.  `./contractorcli complex types` lists the types available.
+
+Interactive Shell
+~~~~~~~~~~~~~~~~~
+
+`./contractorcli shell` starts the shell shown above, you don't need to type `contractorcli` in front of each command.
+
+For all of the commands, add `--help` to see the sub commands and flags.

@@ -348,12 +348,12 @@ like (see :doc:ConfigurationValues for info on the configuration values)::
 
   [ structure.webserver ]
     description = 'My Serbserver'
-    parents = [ 'ubuntu-bionic-base' ]
+    parents = [ 'ubuntu-noble-base' ]
   [ structure.webserver.config_values ]
     '>package_list' = [ 'apache', 'myapp' ]
 
 It would inherit the create/destroy scripts from `linux-installer`, which is an
-ancestor to `ubuntu-bionic-base` which is defined in https://github.com/T3kton/resources/blob/master/os-bases/ubuntu/usr/lib/contractor/resources/ubuntu.toml.
+ancestor to `ubuntu-noble-base` which is defined in https://github.com/T3kton/resources/blob/master/os-bases/ubuntu/usr/lib/contractor/resources/ubuntu.toml.
 `linux-installer` is defined here https://github.com/T3kton/resources/blob/master/os-bases/os_base/usr/lib/contractor/resources/base_os.toml.
 
 

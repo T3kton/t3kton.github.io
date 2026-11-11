@@ -17,7 +17,7 @@
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="In Docker" href="../Docker.html" />
+    <link rel="next" title="Comparison Chart" href="Compare.html" />
     <link rel="prev" title="Working with Docker" href="docker.html" />
 
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
@@ -42,7 +42,7 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../Docker.html" title="In Docker"
+          <a href="Compare.html" title="Comparison Chart"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="docker.html" title="Working with Docker"
@@ -61,7 +61,35 @@
             
   <section id="other-languages">
 <h1>Other Languages<a class="headerlink" href="#other-languages" title="Link to this heading">¶</a></h1>
-<p>These examples show the initial login and network setup.</p>
+<p>For most things <a class="reference internal" href="../contractorcli.html"><span class="doc">contractorcli</span></a> is the easiest way to talk to Contractor.  These
+examples show how to talk to the API directly, the initial login and network setup.</p>
+<section id="curl">
+<h2>curl<a class="headerlink" href="#curl" title="Link to this heading">¶</a></h2>
+<p>Contractor’s API is HTTP and JSON (called CInP), so it can be called with curl.  Set up
+some options, and log in, replace <cite>&lt; password &gt;</cite> with the password of the <cite>root</cite> user:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export COPS=( --noproxy \* --header &quot;CInP-Version: 0.9&quot; --header &quot;Content-Type: application/json&quot; )
+export CHOST=&quot;http://127.0.0.1&quot;
+echo &#39;{ &quot;username&quot;: &quot;root&quot;, &quot;password&quot;: &quot;&lt; password &gt;&quot; }&#39; | curl &quot;${COPS[@]}&quot; --data @- -X CALL $CHOST/api/v1/Auth/User\(login\)
+</pre></div>
+</div>
+<p>The result is an auth token, add it, and the user name, to the headers, and check the login:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>COPS+=( --header &quot;Auth-Id: root&quot; --header &quot;Auth-Token: &lt; auth token &gt;&quot; )
+echo &#39;{}&#39; | curl &quot;${COPS[@]}&quot; --data @- -X CALL $CHOST/api/v1/Auth/User\(whoami\)
+</pre></div>
+</div>
+<p>Objects are created with the <cite>CREATE</cite> verb, and functions called with <cite>CALL</cite>.  The id of a created object
+is in the <cite>Object-Id</cite> header (use <cite>curl -i</cite> to see headers).  For example to create a Network:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cat &lt;&lt; EOF | curl -i &quot;${COPS[@]}&quot; --data @- -X CREATE $CHOST/api/v1/Utilities/Network
+{ &quot;site&quot;: &quot;/api/v1/Site/Site:site1:&quot;, &quot;name&quot;: &quot;internal&quot; }
+EOF
+</pre></div>
+</div>
+<p>and to start a create job for a Foundation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="s2">&quot;$</span><span class="si">{COPS[@]}</span><span class="s2">&quot;</span> <span class="o">-</span><span class="n">X</span> <span class="n">CALL</span> <span class="s2">&quot;$</span><span class="si">{CHOST}</span><span class="s2">/api/v1/Building/Foundation:testvm01:(doCreate)&quot;</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../api.html"><span class="doc">CInP API Documentation for Contractor API</span></a> for all of the objects and functions.</p>
+</section>
 <section id="python">
 <h2>Python<a class="headerlink" href="#python" title="Link to this heading">¶</a></h2>
 <p>You will need to be sure the cinp client is installed:</p>
@@ -333,6 +361,7 @@ go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span
     <h3><a href="../../index.html">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Other Languages</a><ul>
+<li><a class="reference internal" href="#curl">curl</a></li>
 <li><a class="reference internal" href="#python">Python</a></li>
 <li><a class="reference internal" href="#golang">Golang</a><ul>
 <li><a class="reference internal" href="#with-generic-maps">With Generic Maps</a></li>
@@ -351,8 +380,8 @@ go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="../Docker.html"
-                          title="next chapter">In Docker</a></p>
+    <p class="topless"><a href="Compare.html"
+                          title="next chapter">Comparison Chart</a></p>
   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
@@ -375,7 +404,7 @@ go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../Docker.html" title="In Docker"
+          <a href="Compare.html" title="Comparison Chart"
              >next</a> |</li>
         <li class="right" >
           <a href="docker.html" title="Working with Docker"
@@ -387,7 +416,7 @@ go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2019, Peter Howe.
+    &#169; Copyright 2019-2026, Peter Howe.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     </div>
   </body>

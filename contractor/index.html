@@ -85,6 +85,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tryit/setup_ipmi.html">IPMI Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tryit/setup_vcenter.html">VCenter/ESX Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tryit/setup_virtualbox.html">VirtualBox Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tryit/setup_proxmox.html">Proxmox Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tryit/setup_docker.html">Docker Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tryit/complex.html">Setting up VM Host</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tryit/install_baremetal.html">Setup Bare-metal</a></li>
@@ -96,6 +97,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tryit/destroy_vm.html#next-steps">Next Steps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tryit/docker.html">Working with Docker</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tryit/other_languages.html">Other Languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tryit/Compare.html">Comparison Chart</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Docker.html">In Docker</a><ul>
@@ -104,6 +106,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contractorcli.html">contractorcli</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contractorcli.html#installing-contractorcli">Installing contractorcli</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contractorcli.html#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contractorcli.html#usage">Usage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contractorcli.html#structure">Structure</a></li>
@@ -129,6 +132,13 @@
 <li class="toctree-l2"><a class="reference internal" href="Networking.html#networkinterfaces">NetworkInterfaces</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="HardwareTemplates.html">Hardware Validation Templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="HardwareTemplates.html#matching-rules">Matching rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HardwareTemplates.html#leaf-keys">Leaf keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HardwareTemplates.html#any-node">Any node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HardwareTemplates.html#example">Example</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Modules.html">Modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Modules.html#blueprint">BluePrint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Modules.html#building">Building</a></li>
@@ -152,14 +162,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Plugins.html">Plugins</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="Plugins.html#amt">AMT</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Plugins.html#aws">AWS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Plugins.html#azure">Azure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Plugins.html#vcenter">VCenter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Plugins.html#virtualbox">VirtualBox</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Plugins.html#manual">Manual</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Plugins.html#iputils">IPUtils</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Plugins.html#ssh">SSH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins.html#foundations">Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Plugins.html#script-functions">Script Functions</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Plugins.html#todo">TODO</a></li>
@@ -169,26 +173,31 @@
 <li class="toctree-l2"><a class="reference internal" href="Resources.html#vmware">VMWare</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="API.html">CInP API Documentation for Contractor API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root">Namespace - root</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root-amt">Namespace - root.AMT</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root-auth">Namespace - root.Auth</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root-azure">Namespace - root.Azure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root-blueprint">Namespace - root.BluePrint</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root-building">Namespace - root.Building</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root-directory">Namespace - root.Directory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root-docker">Namespace - root.Docker</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root-foreman">Namespace - root.Foreman</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root-ipmi">Namespace - root.IPMI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root-manual">Namespace - root.Manual</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root-postoffice">Namespace - root.PostOffice</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root-records">Namespace - root.Records</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root-site">Namespace - root.Site</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root-subcontractor">Namespace - root.SubContractor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root-survey">Namespace - root.Survey</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root-utilities">Namespace - root.Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root-vcenter">Namespace - root.VCenter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="API.html#namespace-root-virtualbox">Namespace - root.VirtualBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">CInP API Documentation for Contractor API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-root">Namespace - (root)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-auth">Namespace - Auth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-blueprint">Namespace - BluePrint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-site">Namespace - Site</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-survey">Namespace - Survey</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-directory">Namespace - Directory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-utilities">Namespace - Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-building">Namespace - Building</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-foreman">Namespace - Foreman</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-subcontractor">Namespace - SubContractor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-postoffice">Namespace - PostOffice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-records">Namespace - Records</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-virtualbox">Namespace - VirtualBox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-libvirt">Namespace - LibVirt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-vcenter">Namespace - VCenter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-docker">Namespace - Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-ipmi">Namespace - IPMI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-manual">Namespace - Manual</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-proxmox">Namespace - Proxmox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-azure">Namespace - Azure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-amt">Namespace - AMT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-test">Namespace - Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-aws">Namespace - AWS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#namespace-redfish">Namespace - RedFish</a></li>
 </ul>
 </li>
 </ul>
@@ -243,7 +252,7 @@
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-    &#169; Copyright 2019, Peter Howe.
+    &#169; Copyright 2019-2026, Peter Howe.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     </div>
   </body>

@@ -12,7 +12,7 @@ From Source
 Install Dependencies
 ~~~~~~~~~~~~~~~~~~~~
 
-NOTE:  For Ubuntu 18.04LTS there is a little funny business going on with npm, the first apt install will install npm and
+NOTE:  On some Ubuntu releases there is a little funny business going on with npm, the first apt install will install npm and
 ssl libs that it likes to work with.  Make sure you don't run any install command that will
 inadvertently remove npm until after you have run the install.  One thing that will
 remove npm is the apt install requirements to make the disks at the end.  If you need

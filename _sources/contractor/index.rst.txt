@@ -10,10 +10,12 @@ Contents:
   tryit/index
   Docker
   contractorcli
+  UI
   ConfigurationValues
   Networking
+  HardwareTemplates
   Modules
   tscript
   Plugins
   Resources
-  API
+  api

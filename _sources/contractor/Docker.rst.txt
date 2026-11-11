@@ -17,11 +17,11 @@ First pull down the container::
 
 And start it up::
 
-  docker start -p80:80 --name contractor t3kton/contractor
+  docker run -d -p80:80 --name contractor t3kton/contractor
 
 The pre-built container only has the `iputils` and `manual` plugins loaded.
 If you would like to enable other plugins, the packages for the `amt`, `ipmi`,
-`azure`, `docker`, `ipmi`, `vcenter`, and `virtualbox` are in the container.  If you
+`azure`, `docker`, `vcenter`, and `virtualbox` are in the container.  If you
 would like to enable one or more of these plugins (this example is for ipmi) replace
 the "ipmi" with the plugin you want to enable::
 
