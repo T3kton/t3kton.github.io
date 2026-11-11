@@ -186,7 +186,7 @@ One last thing we forgot, the blueprints::
   | dns_zone: 'myservice.com'                 |    +----------------------------------------------------------------------+
   |                                           |    |                                                                      |
   | +----------------------+                  |    | Web Server Structure BluePrint:                                      |
-  | |                      +-----------------------+   distro: 'xenial'                                                   |
+  | |                      +-----------------------+   distro: 'noble'                                                   |
   | | Structure:           |                  |    |   extra_packages: [ 'apache2', 'python-django', 'postgres-server' ]  |
   | |   Hostname: 'web1'   |                  |    |                                                                      |
   | |                      |                  |    +----------------------------------------------------------------------+
@@ -206,7 +206,7 @@ There we go, now the Structures Config Values are::
   dns_servers: [ '10.0.0.20', '10.0.0.21' ]
   dns_search: [ 'myservice.com' ]
   dns_zone: 'myservice.com'
-  distro: 'xenial'
+  distro: 'noble'
   extra_packages: [ 'apache2', 'python-django', 'postgres-server' ]
   _foundation_locator: 'd2r050u20'
   _structure_hostname: 'web1'
@@ -236,7 +236,7 @@ web server::
   | | dns_zone: 'site1.myservice.com            |  | dns_zone: 'site2.myservice.com            | |   +----------------------------------------------------------------------+
   | |                                           |  |                                           | |   |                                                                      |
   | | +----------------------+                  |  | +----------------------+                  | |   | Web Server Structure BluePrint:                                      |
-  | | |                      +-----------------------+                      +------------------------+   distro: 'xenial'                                                   |
+  | | |                      +-----------------------+                      +------------------------+   distro: 'noble'                                                   |
   | | | Structure:           |                  |  | | Structure:           |                  | |   |   extra_packages: [ 'apache2', 'python-django', 'postgres-server' ]  |
   | | |   Hostname: 'web1'   |                  |  | |   Hostname: 'web1'   |                  | |   |                                                                      |
   | | |                      |                  |  | |                      |                  | |   +----------------------------------------------------------------------+
@@ -258,7 +258,7 @@ Nice, now we can handle the load.  Site 1's Structure is now::
   dns_servers: [ '10.0.0.20', '10.0.0.21' ]
   dns_search: [ 'site1.myservice.com', 'myservice.com' ]
   dns_zone: 'site1.myservice.com'
-  distro: 'xenial'
+  distro: 'noble'
   extra_packages: [ 'apache2', 'python-django', 'postgres-server' ]
   _foundation_locator: 'd2r050u20'
   _structure_hostname: 'web1'
@@ -268,7 +268,7 @@ And Site 2's Structure is::
   dns_servers: [ '10.0.0.20', '10.0.0.21' ]
   dns_search: [ 'site2.myservice.com', 'myservice.com' ]
   dns_zone: 'site2.myservice.com'
-  distro: 'xenial'
+  distro: 'noble'
   extra_packages: [ 'apache2', 'python-django', 'postgres-server' ]
   _foundation_locator: 'd2r020u20'
   _structure_hostname: 'web1'

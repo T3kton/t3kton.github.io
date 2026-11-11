@@ -1,7 +1,36 @@
 Other Languages
 ---------------
 
-These examples show the initial login and network setup.
+For most things :doc:`../contractorcli` is the easiest way to talk to Contractor.  These
+examples show how to talk to the API directly, the initial login and network setup.
+
+curl
+~~~~
+
+Contractor's API is HTTP and JSON (called CInP), so it can be called with curl.  Set up
+some options, and log in, replace `< password >` with the password of the `root` user::
+
+  export COPS=( --noproxy \* --header "CInP-Version: 0.9" --header "Content-Type: application/json" )
+  export CHOST="http://127.0.0.1"
+  echo '{ "username": "root", "password": "< password >" }' | curl "${COPS[@]}" --data @- -X CALL $CHOST/api/v1/Auth/User\(login\)
+
+The result is an auth token, add it, and the user name, to the headers, and check the login::
+
+  COPS+=( --header "Auth-Id: root" --header "Auth-Token: < auth token >" )
+  echo '{}' | curl "${COPS[@]}" --data @- -X CALL $CHOST/api/v1/Auth/User\(whoami\)
+
+Objects are created with the `CREATE` verb, and functions called with `CALL`.  The id of a created object
+is in the `Object-Id` header (use `curl -i` to see headers).  For example to create a Network::
+
+  cat << EOF | curl -i "${COPS[@]}" --data @- -X CREATE $CHOST/api/v1/Utilities/Network
+  { "site": "/api/v1/Site/Site:site1:", "name": "internal" }
+  EOF
+
+and to start a create job for a Foundation::
+
+  curl "${COPS[@]}" -X CALL "${CHOST}/api/v1/Building/Foundation:testvm01:(doCreate)"
+
+See :doc:`../api` for all of the objects and functions.
 
 Python
 ~~~~~~

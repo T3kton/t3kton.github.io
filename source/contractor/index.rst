@@ -10,6 +10,7 @@ Contents:
   tryit/index
   Docker
   contractorcli
+  UI
   ConfigurationValues
   Networking
   HardwareTemplates

@@ -53,7 +53,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 't3kton'
-copyright = '2019, Peter Howe'
+copyright = '2019-2026, Peter Howe'
 author = 'Peter Howe'
 
 # The version info for the project you're documenting, acts as replacement for

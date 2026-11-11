@@ -67,7 +67,8 @@ Handles the DNS information
 Survey
 ------
 
-Deals with the physical location of things
+Deals with the physical location of things.  Also has the Cartographers, the records of
+machines that have checked in from the bootstrap image, which can then be assigned to a Foundation.
 
 lib
 ---
