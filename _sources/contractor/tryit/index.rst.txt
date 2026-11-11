@@ -22,7 +22,6 @@ Contents:
   destroy_vm
   docker
   other_languages
-  Compare
 
 
 .. Would be nice to do like learn.hasicorp.com does and select from curl, python, go, contractorcli for the commands
