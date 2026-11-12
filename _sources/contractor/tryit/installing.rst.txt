@@ -87,18 +87,18 @@ to bridge from the isolated network.  This proxy server will also cache. We are
 using Apache to Proxy with for this example, however you can use any proxy you
 would like, just update the `proxy-server` parameter to the `setupWizard` call.
 
-There is a script that will the apache setup.  Download and make it executable::
+There is a script, installed with contractor, that does the apache setup.  If you do NOT
+have an upstream proxy::
 
-  curl -o apache_setup.sh https://t3kton.github.io/_static/apache_setup.sh
-  chmod +x apache_setup.sh
-
-If you do NOT have an upstream proxy::
-
-  sudo ./apache_setup.sh
+  sudo /usr/lib/contractor/setup/apache_setup
 
 If you do have an upstream proxy::
 
-  UPSTREAM_PROXY=<upstream proxy, ie: http://myproxy:3128/> sudo ./apache_setup.sh
+  sudo /usr/lib/contractor/setup/apache_setup --upstream-proxy <upstream proxy, ie: http://myproxy:3128/>
+
+If you are using a domain other than `site1.test`, add `--site-domain <domain>`.
+To only set up the static site and skip the caching proxy, add `--no-proxy`,
+see `--help` for the rest of the options.
 
 Setup the Database
 ~~~~~~~~~~~~~~~~~~

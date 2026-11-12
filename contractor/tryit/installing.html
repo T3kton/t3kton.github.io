@@ -126,19 +126,18 @@ sudo<span class="w"> </span>su<span class="w"> </span>postgres<span class="w"> <
 to bridge from the isolated network.  This proxy server will also cache. We are
 using Apache to Proxy with for this example, however you can use any proxy you
 would like, just update the <cite>proxy-server</cite> parameter to the <cite>setupWizard</cite> call.</p>
-<p>There is a script that will the apache setup.  Download and make it executable:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-o<span class="w"> </span>apache_setup.sh<span class="w"> </span>https://t3kton.github.io/_static/apache_setup.sh
-chmod<span class="w"> </span>+x<span class="w"> </span>apache_setup.sh
-</pre></div>
-</div>
-<p>If you do NOT have an upstream proxy:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>./apache_setup.sh
+<p>There is a script, installed with contractor, that does the apache setup.  If you do NOT
+have an upstream proxy:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>/usr/lib/contractor/setup/apache_setup
 </pre></div>
 </div>
 <p>If you do have an upstream proxy:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">UPSTREAM_PROXY</span><span class="o">=</span>&lt;upstream<span class="w"> </span>proxy,<span class="w"> </span>ie:<span class="w"> </span>http://myproxy:3128/&gt;<span class="w"> </span>sudo<span class="w"> </span>./apache_setup.sh
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>/usr/lib/contractor/setup/apache_setup<span class="w"> </span>--upstream-proxy<span class="w"> </span>&lt;upstream<span class="w"> </span>proxy,<span class="w"> </span>ie:<span class="w"> </span>http://myproxy:3128/&gt;
 </pre></div>
 </div>
+<p>If you are using a domain other than <cite>site1.test</cite>, add <cite>–site-domain &lt;domain&gt;</cite>.
+To only set up the static site and skip the caching proxy, add <cite>–no-proxy</cite>,
+see <cite>–help</cite> for the rest of the options.</p>
 </section>
 <section id="setup-the-database">
 <h2>Setup the Database<a class="headerlink" href="#setup-the-database" title="Link to this heading">¶</a></h2>
